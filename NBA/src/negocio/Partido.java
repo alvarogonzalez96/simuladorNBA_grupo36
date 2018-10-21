@@ -59,10 +59,12 @@ public class Partido {
 			tirar(atacando, defendiendo);
 			
 		} else if(random <= (pTiro + pTiroLibre) && random > pTiro) {
-			//Falta
+			//Tiros libres
+			tirosLibres(atacando, defendiendo);
 			
 		} else {
 			//Pérdida
+			//Termina la jugada
 			
 		}
 	}
@@ -96,8 +98,45 @@ public class Partido {
 			}
 			
 		}
+	}
+	
+	public void tirosLibres(Jugador[] atacando, Jugador[] defendiendo) {
+		double meterTiroLibre = 0.772;
+		double random = Math.random();
 		
+		//Primer tiro libre
+		if(random <= meterTiroLibre) {
+			//Mete el primer tiro libre
+			
+		} else {
+			//Falla el primer tiro libre
+			
+		}
 		
+		//Segundo tiro libre
+		random = Math.random();
+		if(random <= meterTiroLibre) {
+			//Mete el segundo tiro libre
+			//Acaba la jugada
+			
+		} else {
+			//Falla el segundo tiro libre
+			//Llamar a rebote
+			
+		}
+	}
+	
+	public void rebote(Jugador[] atacando, Jugador[] defendiendo) {
+		double reboteDef = 0.731;
+		double random = Math.random();
+		
+		if(random <= reboteDef) {
+			//Rebote defensivo
+			//Acaba la jugada
+			
+		} else {
+			
+		}
 	}
 	
 	public void actualizarTiempoJugadores(Jugador[] locales, Jugador[] visitantes, int rand) {
