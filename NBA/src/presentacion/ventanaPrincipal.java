@@ -65,8 +65,10 @@ public class ventanaPrincipal extends JFrame {
 		
 		//Paneles Principales, ordenados--------------------
 		JPanel panelSuperior = new JPanel(new BorderLayout());
-		JPanel panelInferior = new JPanel ();
+		JPanel panelInferior = new JPanel (new BorderLayout() );
 		
+		JPanel panelInferiorInferior = new JPanel ();
+		JPanel panelInferiorSuperior = new JPanel ();
 		
 		JPanel panelSuperiorIzquierda = new JPanel( new FlowLayout());
 		JPanel panelSuperiorDerecha = new JPanel(new GridLayout(2,1) );
@@ -179,8 +181,8 @@ public class ventanaPrincipal extends JFrame {
 		JScrollPane scrollCalendario= new JScrollPane();
 		scrollCalendario.setPreferredSize(new Dimension(600, 100));
 		scrollCalendario.setBorder((new TitledBorder("Calendario")));
-		panelInferior.add(scrollCalendario);
-		
+		panelInferiorInferior.add(scrollCalendario);
+		panelInferior.add(panelInferiorInferior, BorderLayout.SOUTH);
 		
 		home.add(panelSuperior);
 		home.add(panelInferior);
