@@ -173,13 +173,13 @@ public class ventanaPrincipal extends JFrame {
 		scrollClasificacion.setBorder((new TitledBorder("Clasificacion")));
 		panelSuperiorIzquierda.add(scrollClasificacion);
 		panelSuperior.add(panelSuperiorIzquierda, BorderLayout.WEST);
-		
+		/*
 		JScrollPane scrollBalance= new JScrollPane();
 		scrollBalance.setPreferredSize(new Dimension(200, 400));
 		scrollBalance.setBorder((new TitledBorder("Blance")));
 		panelSuperiorDerechaSuperior.add(scrollClasificacion, BorderLayout.WEST);
 		panelSuperiorDerecha.add(panelSuperiorDerechaSuperior);
-		
+		*/
 		home.add(panelSuperior);
 //------------------------------------------------
 	
