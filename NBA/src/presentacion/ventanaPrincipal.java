@@ -60,7 +60,24 @@ public class ventanaPrincipal extends JFrame {
 		
 		
 		
+		
+		//Paneles Principales, ordenados--------------------
+		JPanel panelSuperior = new JPanel();
+		JPanel panelMedio = new JPanel();
+		JPanel panelInferior = new JPanel ();
+		//---------------------------------------------------
+		
+		
+		
+		//Paneles Secundarios HOME---------------------------------
+		
+		
 		JPanel panelBalance = new JPanel();
+		JPanel panelTitulares = new JPanel();
+		//--------------------------------------------------------------
+		
+		
+		
 		
 		
 		
