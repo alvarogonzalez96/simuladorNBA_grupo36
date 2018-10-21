@@ -98,7 +98,7 @@ public class ventanaPrincipal extends JFrame {
 		
 		
 		
-		//Creamos las pestañas-----------------------------------
+		//Creamos las pestaï¿½as-----------------------------------
 		
 		JPanel home = new JPanel();
 		tabbedPane.addTab("Home", null, home, null);

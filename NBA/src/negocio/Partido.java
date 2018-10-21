@@ -100,8 +100,7 @@ public class Partido {
 				
 				//Lamar a rebote
 				rebote(atacando, defendiendo);
-			}
-			
+			}	
 		}
 	}
 	
