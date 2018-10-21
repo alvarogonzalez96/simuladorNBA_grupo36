@@ -102,7 +102,7 @@ public class ventanaPrincipal extends JFrame {
 		
 		JPanel home = new JPanel();
 		tabbedPane.addTab("Home", null, home, null);
-		home.setLayout(new GridLayout(3,1));
+		
 		
 		
 		JPanel calendario = new JPanel();
@@ -174,14 +174,16 @@ public class ventanaPrincipal extends JFrame {
 		scrollClasificacion.setBorder((new TitledBorder("Clasificacion")));
 		panelSuperiorIzquierda.add(scrollClasificacion);
 		panelSuperior.add(panelSuperiorIzquierda, BorderLayout.WEST);
-		/*
-		JScrollPane scrollBalance= new JScrollPane();
-		scrollBalance.setPreferredSize(new Dimension(200, 400));
-		scrollBalance.setBorder((new TitledBorder("Blance")));
-		panelSuperiorDerechaSuperior.add(scrollClasificacion, BorderLayout.WEST);
-		panelSuperiorDerecha.add(panelSuperiorDerechaSuperior);
-		*/
+		
+		
+		JScrollPane scrollCalendario= new JScrollPane();
+		scrollCalendario.setPreferredSize(new Dimension(600, 100));
+		scrollCalendario.setBorder((new TitledBorder("Calendario")));
+		panelInferior.add(scrollCalendario);
+		
+		
 		home.add(panelSuperior);
+		home.add(panelInferior, BorderLayout.SOUTH);
 //------------------------------------------------
 	
 		
