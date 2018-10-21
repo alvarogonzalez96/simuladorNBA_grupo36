@@ -74,6 +74,8 @@ public class ventanaPrincipal extends JFrame {
 		
 		JPanel panelBalance = new JPanel();
 		JPanel panelTitulares = new JPanel();
+		JPanel panel2 = new JPanel();
+		
 		//--------------------------------------------------------------
 		
 		
