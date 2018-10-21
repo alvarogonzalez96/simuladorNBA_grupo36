@@ -77,7 +77,7 @@ public class ventanaPrincipal extends JFrame {
 		
 		JPanel panelSuperiorDerechaSuperior= new JPanel( new BorderLayout());
 		JPanel panelSuperiorDerechaInferior= new JPanel();
-		
+		JPanel panelSuperiorDerechaSuperior2= new JPanel( new GridLayout(3,1));
 		//---------------------------------------------------
 		
 		
@@ -158,12 +158,7 @@ public class ventanaPrincipal extends JFrame {
 		
 //Rellenamos los paneles para ver si funciona
 	
-		JScrollPane scroll = new JScrollPane();
-		scroll.setPreferredSize(new Dimension(200, 400));
-		scroll.setBorder((new TitledBorder("Quinteto")));
-		panelSuperiorDerechaInferior.add(scroll);
-		panelSuperiorDerecha.add(panelSuperiorDerechaInferior);
-		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
+		
 		
 		
 		
@@ -171,8 +166,17 @@ public class ventanaPrincipal extends JFrame {
 		scrollBalance.setPreferredSize(new Dimension(200, 400));
 		scrollBalance.setBorder((new TitledBorder("Balance")));
 		panelSuperiorDerechaSuperior.add(scrollBalance, BorderLayout.WEST);
+		panelSuperiorDerechaSuperior.add(panelSuperiorDerechaSuperior2, BorderLayout.EAST);
 		panelSuperiorDerecha.add(panelSuperiorDerechaSuperior);
 		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
+		
+		JScrollPane scrollQuinteto = new JScrollPane();
+		scrollQuinteto.setPreferredSize(new Dimension(200, 400));
+		scrollQuinteto.setBorder((new TitledBorder("Quinteto")));
+		panelSuperiorDerechaInferior.add(scrollQuinteto);
+		panelSuperiorDerecha.add(panelSuperiorDerechaInferior);
+		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
+		
 		
 		JScrollPane scrollClasificacion = new JScrollPane();
 
@@ -187,6 +191,13 @@ public class ventanaPrincipal extends JFrame {
 		scrollCalendario.setBorder((new TitledBorder("Calendario")));
 		panelInferiorInferior.add(scrollCalendario);
 		panelInferior.add(panelInferiorInferior, BorderLayout.SOUTH);
+		
+		
+		
+		panelSuperiorDerechaSuperior2.add(simPartido);
+		panelSuperiorDerechaSuperior2.add(simSemana);
+		panelSuperiorDerechaSuperior2.add(simMes);
+		panelSuperiorDerechaSuperior.add(panelSuperiorDerechaSuperior2, BorderLayout.EAST);
 		
 		home.add(panelSuperior);
 		home.add(panelInferior);
