@@ -163,7 +163,7 @@ public class ventanaPrincipal extends JFrame {
 		
 		
 		JScrollPane scrollBalance = new JScrollPane();
-		scrollBalance.setPreferredSize(new Dimension(200, 400));
+		scrollBalance.setPreferredSize(new Dimension(300, 100));
 		scrollBalance.setBorder((new TitledBorder("Balance")));
 		panelSuperiorDerechaSuperior.add(scrollBalance, BorderLayout.WEST);
 		panelSuperiorDerechaSuperior.add(panelSuperiorDerechaSuperior2, BorderLayout.EAST);
@@ -171,7 +171,7 @@ public class ventanaPrincipal extends JFrame {
 		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
 		
 		JScrollPane scrollQuinteto = new JScrollPane();
-		scrollQuinteto.setPreferredSize(new Dimension(200, 400));
+		scrollQuinteto.setPreferredSize(new Dimension(300, 400));
 		scrollQuinteto.setBorder((new TitledBorder("Quinteto")));
 		panelSuperiorDerechaInferior.add(scrollQuinteto);
 		panelSuperiorDerecha.add(panelSuperiorDerechaInferior);
