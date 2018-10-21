@@ -36,9 +36,9 @@ public class Partido {
 			sc.nextLine();
 			
 			if(n % 2 != 0) {
-				simularJugada(localJugando);
+				simularJugada(localJugando, visitanteJugando);
 			} else {
-				simularJugada(visitanteJugando);
+				simularJugada(visitanteJugando, localJugando);
 			}
 			n++;
 			
@@ -48,7 +48,55 @@ public class Partido {
 		}
 	}
 	
-	public void simularJugada(Jugador[] jugadores) {
+	public void simularJugada(Jugador[] atacando, Jugador[] defendiendo) {
+		//Número que decide la jugada
+		double random = Math.random();
+		double pTiro = 0.773;
+		double pTiroLibre = 0.098;
+		 
+		if(random <= pTiro) {
+			//Tira
+			tirar(atacando, defendiendo);
+			
+		} else if(random <= (pTiro + pTiroLibre) && random > pTiro) {
+			//Falta
+			
+		} else {
+			//Pérdida
+			
+		}
+	}
+	
+	public void tirar(Jugador[] atacando, Jugador[] defendiendo) {
+		double tiroDeDos = 0.6572;
+		double random = Math.random();
+		double meterDos = 0.55;
+		double meterTres = 0.36;
+		
+		if(random <= tiroDeDos) {
+			//Tira de 2
+			random = Math.random();
+			if(random <= meterDos) {
+				//Mete el tiro de 2
+				//Acaba la jugada
+			} else {
+				//Falla el tiro de 2
+				//LLamar a rebote
+				
+			}
+		} else {
+			//Tira de 3
+			random = Math.random();
+			if(random <= meterTres) {
+				//Mete el tiro de 3
+				//Acaba la jugada
+			} else {
+				//Falla el tiro de tres
+				//Lamar a rebote
+			}
+			
+		}
+		
 		
 	}
 	
