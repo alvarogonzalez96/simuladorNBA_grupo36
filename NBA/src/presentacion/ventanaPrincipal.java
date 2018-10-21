@@ -68,7 +68,7 @@ public class ventanaPrincipal extends JFrame {
 		JPanel panelInferior = new JPanel ();
 		
 		
-		JPanel panelSuperiorIzquierda = new JPanel();
+		JPanel panelSuperiorIzquierda = new JPanel( new FlowLayout());
 		JPanel panelSuperiorDerecha = new JPanel(new GridLayout(2,1) );
 		
 		
@@ -166,10 +166,14 @@ public class ventanaPrincipal extends JFrame {
 		panelSuperiorDerechaInferior.add(scroll);
 		panelSuperiorDerecha.add(panelSuperiorDerechaInferior);
 		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
-		home.add(panelSuperior);
+		
 
+		JScrollPane scrollClasificacion = new JScrollPane();
+		scroll.setBorder((new TitledBorder("Clasificacion")));
+		panelSuperiorIzquierda.add(scrollClasificacion);
+		panelSuperior.add(panelSuperiorIzquierda, BorderLayout.WEST);
 		
-		
+		home.add(panelSuperior);
 //------------------------------------------------
 	
 		
