@@ -76,7 +76,7 @@ public class ventanaPrincipal extends JFrame {
 		
 		
 		JPanel panelSuperiorDerechaSuperior= new JPanel( new BorderLayout());
-		JPanel panelSuperiorDerechaInferior= new JPanel();
+		JPanel panelSuperiorDerechaInferior= new JPanel(new BorderLayout());
 		JPanel panelSuperiorDerechaSuperior2= new JPanel( new GridLayout(3,1));
 		//---------------------------------------------------
 		
@@ -163,20 +163,27 @@ public class ventanaPrincipal extends JFrame {
 		
 		
 		JScrollPane scrollBalance = new JScrollPane();
-		scrollBalance.setPreferredSize(new Dimension(300, 100));
+		scrollBalance.setPreferredSize(new Dimension(500, 100));
 		scrollBalance.setBorder((new TitledBorder("Balance")));
 		panelSuperiorDerechaSuperior.add(scrollBalance, BorderLayout.WEST);
 		panelSuperiorDerechaSuperior.add(panelSuperiorDerechaSuperior2, BorderLayout.EAST);
 		panelSuperiorDerecha.add(panelSuperiorDerechaSuperior);
 		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
 		
+		
 		JScrollPane scrollQuinteto = new JScrollPane();
-		scrollQuinteto.setPreferredSize(new Dimension(300, 400));
+		scrollQuinteto.setPreferredSize(new Dimension(400, 500));
 		scrollQuinteto.setBorder((new TitledBorder("Quinteto")));
-		panelSuperiorDerechaInferior.add(scrollQuinteto);
+		panelSuperiorDerechaInferior.add(scrollQuinteto, BorderLayout.WEST);
 		panelSuperiorDerecha.add(panelSuperiorDerechaInferior);
 		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
 		
+		JScrollPane scrollResultados= new JScrollPane();
+		scrollResultados.setPreferredSize(new Dimension(200, 800));
+		scrollResultados.setBorder((new TitledBorder("Resultados")));
+		panelSuperiorDerechaInferior.add(scrollResultados, BorderLayout.EAST);
+		panelSuperiorDerecha.add(panelSuperiorDerechaInferior);
+		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
 		
 		JScrollPane scrollClasificacion = new JScrollPane();
 
