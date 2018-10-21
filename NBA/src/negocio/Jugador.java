@@ -1,4 +1,4 @@
-package NBA;
+package negocio;
 
 public class Jugador {
 

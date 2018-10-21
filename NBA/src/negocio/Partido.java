@@ -1,4 +1,4 @@
-package NBA;
+package negocio;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package NBA;
+package negocio;
 
 import javax.swing.SwingUtilities;
 
