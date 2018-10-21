@@ -144,7 +144,7 @@ public class Partido {
 		} else {
 			//Rebote ofensivo
 			
-			//Se inicia otra vez el ataque, recursividad
+			//Se inicia otra vez el ataque, recursividad.
 			simularJugada(atacando, defendiendo);
 		}
 	}
