@@ -80,21 +80,26 @@ public class Partido {
 			random = Math.random();
 			if(random <= meterDos) {
 				//Mete el tiro de 2
+				
 				//Acaba la jugada
 			} else {
 				//Falla el tiro de 2
-				//LLamar a rebote
 				
+				//LLamar a rebote
+				rebote(atacando, defendiendo);
 			}
 		} else {
 			//Tira de 3
 			random = Math.random();
 			if(random <= meterTres) {
 				//Mete el tiro de 3
+				
 				//Acaba la jugada
 			} else {
 				//Falla el tiro de tres
+				
 				//Lamar a rebote
+				rebote(atacando, defendiendo);
 			}
 			
 		}
@@ -117,12 +122,14 @@ public class Partido {
 		random = Math.random();
 		if(random <= meterTiroLibre) {
 			//Mete el segundo tiro libre
+			
 			//Acaba la jugada
 			
 		} else {
 			//Falla el segundo tiro libre
-			//Llamar a rebote
 			
+			//Llamar a rebote
+			rebote(atacando, defendiendo);
 		}
 	}
 	
@@ -132,10 +139,14 @@ public class Partido {
 		
 		if(random <= reboteDef) {
 			//Rebote defensivo
+			
 			//Acaba la jugada
 			
 		} else {
+			//Rebote ofensivo
 			
+			//Se inicia otra vez el ataque
+			simularJugada(atacando, defendiendo);
 		}
 	}
 	
