@@ -21,6 +21,8 @@ public class ventanaPrincipal extends JFrame {
 	private JButton simPartido, simSemana, simMes;
 	protected JMenuBar barra;
 	protected JTabbedPane tabbedPane;
+	protected JScrollPane scroll;
+	
 	
 	public ventanaPrincipal() {
 		
@@ -47,7 +49,7 @@ public class ventanaPrincipal extends JFrame {
 		
 		
 		Container cp = this.getContentPane();
-		cp.setLayout(new BorderLayout());
+		cp.setLayout(new GridLayout());
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
@@ -62,9 +64,18 @@ public class ventanaPrincipal extends JFrame {
 		
 		
 		//Paneles Principales, ordenados--------------------
-		JPanel panelSuperior = new JPanel();
-		JPanel panelMedio = new JPanel();
+		JPanel panelSuperior = new JPanel(new BorderLayout());
 		JPanel panelInferior = new JPanel ();
+		
+		
+		JPanel panelSuperiorIzquierda = new JPanel();
+		JPanel panelSuperiorDerecha = new JPanel(new GridLayout(2,1) );
+		
+		
+		
+		JPanel panelSuperiorDerechaSuperior= new JPanel( new GridLayout(1, 2));
+		JPanel panelSuperiorDerechaInferior= new JPanel();
+		
 		//---------------------------------------------------
 		
 		
@@ -74,7 +85,11 @@ public class ventanaPrincipal extends JFrame {
 		
 		JPanel panelBalance = new JPanel();
 		JPanel panelTitulares = new JPanel();
-		JPanel panel2 = new JPanel();
+		JPanel panelUltimosResultados = new JPanel();
+		JPanel panelCalendario = new JPanel();
+		
+				
+		
 		
 		//--------------------------------------------------------------
 		
@@ -127,16 +142,42 @@ public class ventanaPrincipal extends JFrame {
 		tabbedPane.addTab("Play Offs", null, playoffs, null);
 		playoffs.setLayout(new GridLayout(3,1));
 		
+		
+		
+		
 // Aqui creamos los botones para las simulaciones-----------------------------------------------------------------
 		simPartido = new JButton ("Simular Partido");
 		simSemana = new JButton ("Simular Semana");
 		simMes = new JButton ("Simular Mes");
 		
+//----------------------------------------------------------------------------
 		
 		
+		
+//Rellenamos los paneles para ver si funciona
 	
+		JScrollPane scroll = new JScrollPane();
+		scroll.setPreferredSize(new Dimension(200, 400));
+		scroll.setBorder((new TitledBorder("Quinteto")));
+		
+		
+		
+
+		panelSuperiorDerechaInferior.add(scroll);
+		panelSuperiorDerecha.add(panelSuperiorDerechaInferior);
+		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
+		home.add(panelSuperior);
+
+		
+		
+//------------------------------------------------
 	
-	
+		
+		
+		
+		
+		
+		
 
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	this.setTitle("NBA");
