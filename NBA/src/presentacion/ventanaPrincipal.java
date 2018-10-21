@@ -9,7 +9,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
-import musica.VentanaMediateca;
+
 
 import javax.swing.UIManager.*;//Importar para poder usar nimbus look&Feel
 
