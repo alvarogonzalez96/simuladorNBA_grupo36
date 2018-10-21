@@ -102,7 +102,7 @@ public class ventanaPrincipal extends JFrame {
 		
 		JPanel home = new JPanel();
 		tabbedPane.addTab("Home", null, home, null);
-		
+		home.setLayout(new GridLayout(2,1));
 		
 		
 		JPanel calendario = new JPanel();
@@ -183,7 +183,7 @@ public class ventanaPrincipal extends JFrame {
 		
 		
 		home.add(panelSuperior);
-		home.add(panelInferior, BorderLayout.SOUTH);
+		home.add(panelInferior);
 //------------------------------------------------
 	
 		
