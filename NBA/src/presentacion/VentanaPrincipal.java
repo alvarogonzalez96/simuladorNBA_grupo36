@@ -13,7 +13,7 @@ import javax.swing.border.TitledBorder;
 
 import javax.swing.UIManager.*;//Importar para poder usar nimbus look&Feel
 
-public class ventanaPrincipal extends JFrame {
+public class VentanaPrincipal extends JFrame {
 
 
 
@@ -24,7 +24,7 @@ public class ventanaPrincipal extends JFrame {
 	protected JScrollPane scroll;
 
 
-	public ventanaPrincipal() {
+	public VentanaPrincipal() {
 
 
 		//Nimbus Look&Feel
@@ -227,7 +227,7 @@ public class ventanaPrincipal extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new ventanaPrincipal();
+				new VentanaPrincipal();
 			}
 		});
 	}
