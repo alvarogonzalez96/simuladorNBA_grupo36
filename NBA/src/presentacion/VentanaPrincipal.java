@@ -15,18 +15,13 @@ import javax.swing.UIManager.*;//Importar para poder usar nimbus look&Feel
 
 public class VentanaPrincipal extends JFrame {
 
-
-
 	private JTextField texto;
 	private JButton simPartido, simSemana, simMes;
 	protected JMenuBar barra;
 	protected JTabbedPane tabbedPane;
 	protected JScrollPane scroll;
 
-
 	public VentanaPrincipal() {
-
-
 		//Nimbus Look&Feel
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -45,23 +40,16 @@ public class VentanaPrincipal extends JFrame {
 			// handle exception
 		}
 
-
-
-
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridLayout());
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-
 		JMenuBar barra = new JMenuBar();
 		JMenu menuDatos = new JMenu("Jugador");
 		barra.add(menuDatos);
 		this.setJMenuBar(barra);
-
-
-
 
 		//Paneles Principales, ordenados--------------------
 		JPanel panelSuperior = new JPanel(new BorderLayout());
@@ -73,39 +61,22 @@ public class VentanaPrincipal extends JFrame {
 		JPanel panelSuperiorIzquierda = new JPanel( new FlowLayout());
 		JPanel panelSuperiorDerecha = new JPanel(new GridLayout(2,1) );
 
-
-
 		JPanel panelSuperiorDerechaSuperior= new JPanel( new BorderLayout());
 		JPanel panelSuperiorDerechaInferior= new JPanel(new BorderLayout());
 		JPanel panelSuperiorDerechaSuperior2= new JPanel( new GridLayout(3,1));
+		
 		//---------------------------------------------------
-
-
-
 		//Paneles Secundarios HOME---------------------------------
-
-
 		JPanel panelBalance = new JPanel();
 		JPanel panelTitulares = new JPanel();
 		JPanel panelUltimosResultados = new JPanel();
 		JPanel panelCalendario = new JPanel();
-
-
-
-
+		
 		//--------------------------------------------------------------
-
-
-
-
-
-
 		//Creamos las pesta�as-----------------------------------
-
 		JPanel home = new JPanel();
 		tabbedPane.addTab("Home", null, home, null);
 		home.setLayout(new GridLayout(2,1));
-
 
 		JPanel calendario = new JPanel();
 		tabbedPane.addTab("Calendario", null, calendario, null);
@@ -127,7 +98,6 @@ public class VentanaPrincipal extends JFrame {
 		tabbedPane.addTab("Historial Liga", null, historialLiga, null);
 		historialLiga.setLayout(new GridLayout(3,1));
 
-
 		JPanel clasificacion = new JPanel();
 		tabbedPane.addTab("Clasificacion", null, clasificacion, null);
 		clasificacion.setLayout(new GridLayout(3,1));
@@ -144,23 +114,13 @@ public class VentanaPrincipal extends JFrame {
 		tabbedPane.addTab("Play Offs", null, playoffs, null);
 		playoffs.setLayout(new GridLayout(3,1));
 
-
-
-
 		// Aqui creamos los botones para las simulaciones-----------------------------------------------------------------
 		simPartido = new JButton ("Simular Partido");
 		simSemana = new JButton ("Simular Semana");
 		simMes = new JButton ("Simular Mes");
-
+		
 		//----------------------------------------------------------------------------
-
-
-
 		//Rellenamos los paneles para ver si funciona
-
-
-
-
 
 		JScrollPane scrollBalance = new JScrollPane();
 		scrollBalance.setPreferredSize(new Dimension(500, 100));
@@ -169,7 +129,6 @@ public class VentanaPrincipal extends JFrame {
 		panelSuperiorDerechaSuperior.add(panelSuperiorDerechaSuperior2, BorderLayout.EAST);
 		panelSuperiorDerecha.add(panelSuperiorDerechaSuperior);
 		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
-
 
 		JScrollPane scrollQuinteto = new JScrollPane();
 		scrollQuinteto.setPreferredSize(new Dimension(400, 500));
@@ -192,14 +151,11 @@ public class VentanaPrincipal extends JFrame {
 		panelSuperiorIzquierda.add(scrollClasificacion);
 		panelSuperior.add(panelSuperiorIzquierda, BorderLayout.WEST);
 
-
 		JScrollPane scrollCalendario= new JScrollPane();
 		scrollCalendario.setPreferredSize(new Dimension(600, 100));
 		scrollCalendario.setBorder((new TitledBorder("Calendario")));
 		panelInferiorInferior.add(scrollCalendario);
 		panelInferior.add(panelInferiorInferior, BorderLayout.SOUTH);
-
-
 
 		panelSuperiorDerechaSuperior2.add(simPartido);
 		panelSuperiorDerechaSuperior2.add(simSemana);
@@ -208,14 +164,8 @@ public class VentanaPrincipal extends JFrame {
 
 		home.add(panelSuperior);
 		home.add(panelInferior);
+		
 		//------------------------------------------------
-
-
-
-
-
-
-
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("NBA");
