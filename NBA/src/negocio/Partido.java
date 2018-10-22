@@ -58,7 +58,7 @@ public class Partido {
 			//Tira
 			tirar(atacando, defendiendo);
 			
-		} else if(random <= (pTiro + pTiroLibre) && random > pTiro) {
+		} else if(random <= pTiro + pTiroLibre) {
 			//Tiros libres
 			tirosLibres(atacando, defendiendo);
 			
