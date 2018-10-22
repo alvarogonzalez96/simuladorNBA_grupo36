@@ -20,7 +20,10 @@ public class VentanaPrincipal extends JFrame {
 	protected JMenuBar barra;
 	protected JTabbedPane tabbedPane;
 	protected JScrollPane scroll;
-
+	protected JComboBox historial;
+	protected JTextArea noticiarioTexto;
+	
+	
 	public VentanaPrincipal() {
 		//Nimbus Look&Feel
 		try {
@@ -51,7 +54,7 @@ public class VentanaPrincipal extends JFrame {
 		barra.add(menuDatos);
 		this.setJMenuBar(barra);
 
-		//Paneles Principales, ordenados--------------------
+		//Paneles HOME Principales, ordenados--------------------
 		JPanel panelSuperior = new JPanel(new BorderLayout());
 		JPanel panelInferior = new JPanel (new BorderLayout() );
 
@@ -66,14 +69,28 @@ public class VentanaPrincipal extends JFrame {
 		JPanel panelSuperiorDerechaSuperior2= new JPanel( new GridLayout(3,1));
 		
 		//---------------------------------------------------
-		//Paneles Secundarios HOME---------------------------------
-		JPanel panelBalance = new JPanel();
-		JPanel panelTitulares = new JPanel();
-		JPanel panelUltimosResultados = new JPanel();
-		JPanel panelCalendario = new JPanel();
+
+		
+		
+		
+		//Paneles HISTORIAL Principales, ordenados--------------------
+		
+		JPanel panelIzquierdoHistorial = new JPanel( new BorderLayout());
+		JPanel panelIzquierdoSuperiorHistorial = new JPanel();
+		JPanel panelIzquierdoInferiorHistorial = new JPanel( );
+		
+		JPanel panelDerechoHistorial = new JPanel ( new BorderLayout());
+		
 		
 		//--------------------------------------------------------------
-		//Creamos las pesta�as-----------------------------------
+		
+		//Paneles Noticiario Principales, ordenados--------------------
+		
+		JPanel panelNoticiario = new JPanel();
+		
+		//--------------------
+		
+		//Creamos las pestanias-----------------------------------
 		JPanel home = new JPanel();
 		tabbedPane.addTab("Home", null, home, null);
 		home.setLayout(new GridLayout(2,1));
@@ -96,7 +113,7 @@ public class VentanaPrincipal extends JFrame {
 
 		JPanel historialLiga = new JPanel();
 		tabbedPane.addTab("Historial Liga", null, historialLiga, null);
-		historialLiga.setLayout(new GridLayout(3,1));
+		historialLiga.setLayout(new  GridLayout(1,2));
 
 		JPanel clasificacion = new JPanel();
 		tabbedPane.addTab("Clasificacion", null, clasificacion, null);
@@ -118,9 +135,22 @@ public class VentanaPrincipal extends JFrame {
 		simPartido = new JButton ("Simular Partido");
 		simSemana = new JButton ("Simular Semana");
 		simMes = new JButton ("Simular Mes");
-		
+	
 		//----------------------------------------------------------------------------
-		//Rellenamos los paneles para ver si funciona
+	
+		//ComboBox---------------------------------
+		
+		
+		historial = new JComboBox();
+		historial.addItem("Liga");
+		historial.addItem("MVP");
+		historial.addItem("Roy");
+		historial.setSize(new Dimension(800,600));
+		
+		
+		//----------------------------------------------
+		
+		//Rellenamos los paneles HOME-----------------------------------
 
 		JScrollPane scrollBalance = new JScrollPane();
 		scrollBalance.setPreferredSize(new Dimension(500, 100));
@@ -167,6 +197,38 @@ public class VentanaPrincipal extends JFrame {
 		
 		//------------------------------------------------
 
+		//Rellenamos los paneles HISTORIAL-----------------------------------
+		
+		JScrollPane scrollHistorial = new JScrollPane();
+
+		scrollHistorial.setPreferredSize(new Dimension(200, 400));
+		scrollHistorial.setBorder((new TitledBorder("Historial")));
+		scrollHistorial.setBackground(Color.WHITE );
+		panelDerechoHistorial.add(scrollHistorial);
+		panelIzquierdoSuperiorHistorial.add(historial);
+		panelIzquierdoHistorial.add(panelIzquierdoSuperiorHistorial, BorderLayout.NORTH);
+		panelIzquierdoHistorial.add(panelIzquierdoInferiorHistorial, BorderLayout.SOUTH);
+		historialLiga.add(panelIzquierdoHistorial, BorderLayout.WEST);
+		historialLiga.add(panelDerechoHistorial, BorderLayout.EAST);
+
+		
+		
+		
+		
+		//---------------------------------------------------------------------
+		//Rellenamos el panel NOTICIARIO-----------------------------------
+		
+		noticiarioTexto = new JTextArea();
+		noticiarioTexto.setEditable(true);
+		noticiarioTexto.setPreferredSize(new Dimension(600,800));
+		noticiarioTexto.setBorder((new TitledBorder("Noticias")));
+		
+		panelNoticiario.add(noticiarioTexto);
+		noticiario.add(panelNoticiario);
+		
+		
+		
+		//--------------------------------------------------------
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("NBA");
 		this.pack();
