@@ -82,7 +82,6 @@ public class Liga {
 			@Override
 			public void run() {
 				new Liga();
-				
 			}
 		});
 	}

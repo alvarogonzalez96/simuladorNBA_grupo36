@@ -7,45 +7,60 @@ public class Partido {
 	protected Equipo local;
 	protected Equipo visitante;
 	
+	protected int puntosLocal, puntosVisitante;
+	protected boolean atacaLocal;
+	
 	public Partido(Equipo local, Equipo visitante) {
 		
 		asignarMinutos(local);
-		System.out.println();
+		//System.out.println();
 		asignarMinutos(visitante);
+		
+		puntosLocal = puntosVisitante = 0;
+		atacaLocal = true;
 		
 		int tiempo = 0; 
 		
 		Jugador[] localJugando = new Jugador[5];
 		Jugador[] visitanteJugando = new Jugador[5];
 		
-		int n = 1;
 		//48 min * 60 = 2880 segundos
 		while(tiempo < 2880) {
-			
 			localJugando = seleccionarCinco(local.jugadores,tiempo);
-			System.out.println();
+			//System.out.println();
 			for (int i = 0; i < localJugando.length; i++) {
-				System.out.println(localJugando[i]);
+				//System.out.println(localJugando[i]);
 			}
 			visitanteJugando = seleccionarCinco(visitante.jugadores, tiempo);
-			System.out.println();
+			//System.out.println();
 			for (int i = 0; i < visitanteJugando.length; i++) {
-				System.out.println(visitanteJugando[i]);
+				//System.out.println(visitanteJugando[i]);
 			}
-			Scanner sc = new Scanner(System.in);
-			sc.nextLine();
+			//Scanner sc = new Scanner(System.in);
+			//sc.nextLine();
 			
-			if(n % 2 != 0) {
+			if(atacaLocal) {
 				simularJugada(localJugando, visitanteJugando);
 			} else {
 				simularJugada(visitanteJugando, localJugando);
 			}
-			n++;
+			
+			atacaLocal = !atacaLocal;
 			
 			int rand = (int)(Math.random()*19+5);
 			tiempo = tiempo + rand;
 			actualizarTiempoJugadores(localJugando, visitanteJugando, rand);
 		}
+		while(puntosLocal == puntosVisitante) {
+			System.out.println("empate");
+			if(atacaLocal) {
+				simularJugada(localJugando, visitanteJugando);
+			} else {				
+				simularJugada(visitanteJugando, localJugando);
+			}
+			atacaLocal = !atacaLocal;
+		}
+		System.out.println("Marcador final: "+puntosVisitante+"-"+puntosLocal);
 	}
 	
 	public void simularJugada(Jugador[] atacando, Jugador[] defendiendo) {
@@ -57,11 +72,9 @@ public class Partido {
 		if(random <= pTiro) {
 			//Tira
 			tirar(atacando, defendiendo);
-			
 		} else if(random <= pTiro + pTiroLibre) {
 			//Tiros libres
 			tirosLibres(atacando, defendiendo);
-			
 		} else {
 			//Pérdida
 			//Termina la jugada
@@ -80,7 +93,11 @@ public class Partido {
 			random = Math.random();
 			if(random <= meterDos) {
 				//Mete el tiro de 2
-				
+				if(atacaLocal) {
+					puntosLocal += 2;
+				} else {
+					puntosVisitante += 2;
+				}
 				//Acaba la jugada
 			} else {
 				//Falla el tiro de 2
@@ -93,7 +110,11 @@ public class Partido {
 			random = Math.random();
 			if(random <= meterTres) {
 				//Mete el tiro de 3
-				
+				if(atacaLocal) {
+					puntosLocal += 3;
+				} else {
+					puntosVisitante += 3;
+				}
 				//Acaba la jugada
 			} else {
 				//Falla el tiro de tres
@@ -111,7 +132,11 @@ public class Partido {
 		//Primer tiro libre
 		if(random <= meterTiroLibre) {
 			//Mete el primer tiro libre
-			
+			if(atacaLocal) {
+				puntosLocal += 1;
+			} else {
+				puntosVisitante += 1;
+			}
 		} else {
 			//Falla el primer tiro libre
 			
@@ -121,7 +146,11 @@ public class Partido {
 		random = Math.random();
 		if(random <= meterTiroLibre) {
 			//Mete el segundo tiro libre
-			
+			if(atacaLocal) {
+				puntosLocal += 1;
+			} else {
+				puntosVisitante += 1;
+			}
 			//Acaba la jugada
 			
 		} else {
@@ -249,7 +278,7 @@ public class Partido {
 				minPivot = min - equipo.jugadores[i].getMinutos();
 			}
 			
-			System.out.println(equipo.jugadores[i]);
+			//System.out.println(equipo.jugadores[i]);
 		}
 	}
 	public void repartoEstrellaTitular(Jugador jugador) {
