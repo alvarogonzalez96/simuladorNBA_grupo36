@@ -8,9 +8,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
-
-
-
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 import javax.swing.UIManager.*;//Importar para poder usar nimbus look&Feel
 
 public class VentanaPrincipal extends JFrame {
@@ -21,6 +21,8 @@ public class VentanaPrincipal extends JFrame {
 	protected JTabbedPane tabbedPane;
 	protected JScrollPane scroll, noticiarioTexto;
 	protected JComboBox historial;
+	private JTree tree;
+	
 	
 	public VentanaPrincipal() {
 		//Nimbus Look&Feel
@@ -52,7 +54,7 @@ public class VentanaPrincipal extends JFrame {
 		barra.add(menuDatos);
 		this.setJMenuBar(barra);
 
-		//Paneles HOME Principales, ordenados--------------------
+//Paneles HOME Principales, ordenados--------------------
 		JPanel panelSuperior = new JPanel(new BorderLayout());
 		JPanel panelInferior = new JPanel (new BorderLayout() );
 
@@ -66,9 +68,9 @@ public class VentanaPrincipal extends JFrame {
 		JPanel panelSuperiorDerechaInferior= new JPanel(new BorderLayout());
 		JPanel panelSuperiorDerechaSuperior2= new JPanel( new GridLayout(3,1));
 		
-		//---------------------------------------------------
+	
 		
-		//Paneles HISTORIAL Principales, ordenados--------------------
+//Paneles HISTORIAL Principales, ordenados--------------------
 		
 		JPanel panelIzquierdoHistorial = new JPanel( new BorderLayout());
 		JPanel panelIzquierdoSuperiorHistorial = new JPanel();
@@ -76,15 +78,27 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel panelDerechoHistorial = new JPanel ( new BorderLayout());
 			
-		//--------------------------------------------------------------
+	
 		
-		//Paneles Noticiario Principales, ordenados--------------------
+		
+		
+//Panel TRASPASOS-------------------------------------------------------------------
+		
+		JPanel panelIzquierdoTraspasos = new JPanel(new GridLayout(2,1));
+		JPanel panelIzquierdoInferiorTraspasos = new JPanel(new BorderLayout());
+		JPanel panelIzquierdoSuperiorTraspasos = new JPanel(new BorderLayout());
+		JPanel panelDerechoTraspasos = new JPanel(new BorderLayout());
+		JPanel panelDerechoTraspasos1 = new JPanel();
+		JPanel panelDerechoTraspasos2 = new JPanel();
+		
+		JPanel panelDerechoTraspasos3 = new JPanel();
+//Paneles Noticiario Principales, ordenados--------------------
 		
 		JPanel panelNoticiario = new JPanel();
 		
-		//--------------------
+	
 		
-		//Creamos las pestanias-----------------------------------
+//Creamos las pestanias-----------------------------------
 		JPanel home = new JPanel();
 		tabbedPane.addTab("Home", null, home, null);
 		home.setLayout(new GridLayout(2,1));
@@ -101,6 +115,10 @@ public class VentanaPrincipal extends JFrame {
 		tabbedPane.addTab("Finanzas", null, finanzas, null);
 		finanzas.setLayout(new GridLayout(3,1));
 
+		JPanel traspasos = new JPanel();
+		tabbedPane.addTab("Traspasos", null, traspasos, null);
+		traspasos.setLayout(new GridLayout(1,2));
+		
 		JPanel agencialibre = new JPanel();
 		tabbedPane.addTab("Agencia libre", null, agencialibre, null);
 		agencialibre.setLayout(new GridLayout(3,1));
@@ -125,14 +143,88 @@ public class VentanaPrincipal extends JFrame {
 		tabbedPane.addTab("Play Offs", null, playoffs, null);
 		playoffs.setLayout(new GridLayout(3,1));
 
-		// Aqui creamos los botones para las simulaciones-----------------------------------------------------------------
+		
+//Tree------------------------------
+		
+	/*	
+	
+		getContentPane().setLayout(new BorderLayout());
+		tree = new JTree();
+		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		tree.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+				 if (node != null) {
+					 if (node.isLeaf()) {
+						 switch(node.getUserObject().toString().toUpperCase()){
+						 	case "HOME":
+						 		tabbedPane.setSelectedIndex(0);
+						 		break;
+						 	case "CALENDARIO":
+						 		tabbedPane.setSelectedIndex(1);
+						 		break;
+						 	case "Plantilla":
+						 		tabbedPane.setSelectedIndex(2);
+						 		break;
+						 	case "Finanzas":
+						 		tabbedPane.setSelectedIndex(3);
+						 		break;
+						 	case "Traspasos":
+						 		tabbedPane.setSelectedIndex(4);
+						 		break;	
+						 	case "Agencia libre":
+						 		tabbedPane.setSelectedIndex(5);
+						 		break;	
+						 	case "Historial Liga":
+						 		tabbedPane.setSelectedIndex(6);
+						 		break;	
+						 	case "Clasificacion":
+						 		tabbedPane.setSelectedIndex(7);
+						 		break;	
+						 	case "Lideres de la liga":
+						 		tabbedPane.setSelectedIndex(8);
+						 		break;	
+						 	case "Noiticiario":
+						 		tabbedPane.setSelectedIndex(9);
+						 		break;	
+						 	case "Play Offs":
+						 		tabbedPane.setSelectedIndex(10);
+						 		break;	
+						 }
+						 						 
+					 }
+				 }
+			}
+		});
+		DefaultMutableTreeNode node_0 = new DefaultMutableTreeNode("Gestión Equipo");
+		DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode("Informacion");
+		node_1.add(new DefaultMutableTreeNode("Plantilla"));
+		node_1.add(new DefaultMutableTreeNode("Traspasos"));
+		node_1.add(new DefaultMutableTreeNode("Agencia libre"));
+		node_1.add(new DefaultMutableTreeNode("Finanzas"));
+		node_0.add(node_1);
+		DefaultMutableTreeNode node_2 = new DefaultMutableTreeNode("Gesti\u00F3n");
+		node_2.add(new DefaultMutableTreeNode("Consultas"));
+		node_0.add(node_2);
+		DefaultTreeModel dtmRaiz = new DefaultTreeModel(node_0);
+		tree.setModel(dtmRaiz);
+		//tree.setBounds(0, 0, 300, 745);
+		getContentPane().add(tree, BorderLayout.WEST);
+		
+		
+		*/
+	
+		
+		//----------------------------------
+// Aqui creamos los botones para las simulaciones-----------------------------------------------------------------
 		simPartido = new JButton ("Simular Partido");
 		simSemana = new JButton ("Simular Semana");
 		simMes = new JButton ("Simular Mes");
 	
 		//----------------------------------------------------------------------------
 	
-		//ComboBox---------------------------------
+//ComboBox---------------------------------
 		historial = new JComboBox();
 		historial.addItem("Liga");
 		historial.addItem("MVP");
@@ -141,7 +233,7 @@ public class VentanaPrincipal extends JFrame {
 			
 		//----------------------------------------------
 		
-		//Rellenamos los paneles HOME-----------------------------------
+//Rellenamos los paneles HOME-----------------------------------
 
 		JScrollPane scrollBalance = new JScrollPane();
 		scrollBalance.setPreferredSize(new Dimension(500, 100));
@@ -188,7 +280,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		//------------------------------------------------
 
-		//Rellenamos los paneles HISTORIAL-----------------------------------
+//Rellenamos los paneles HISTORIAL-----------------------------------
 		
 		JScrollPane scrollHistorial = new JScrollPane();
 
@@ -203,8 +295,8 @@ public class VentanaPrincipal extends JFrame {
 		historialLiga.add(panelDerechoHistorial, BorderLayout.EAST);
 		
 		//---------------------------------------------------------------------
-		//Rellenamos el panel NOTICIARIO-----------------------------------
-		
+//Rellenamos el panel NOTICIARIO-----------------------------------
+	
 		noticiarioTexto = new JScrollPane();
 		noticiarioTexto.setPreferredSize(new Dimension(600,800));
 		noticiarioTexto.setBorder((new TitledBorder("Noticias")));
@@ -213,6 +305,113 @@ public class VentanaPrincipal extends JFrame {
 		noticiario.add(panelNoticiario);
 		
 		//--------------------------------------------------------
+		
+//Rellennamos los paneles TRASPASOS-------------------------------------
+		
+		
+		
+		JButton aceptar = new JButton("Aceptar");
+		aceptar.setPreferredSize(new Dimension(300, 100));
+		
+		
+			aceptar.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int i =	JOptionPane.showConfirmDialog(rootPane, "Esta seguro que quiere descargar este archivo?", "Confirma", JOptionPane.YES_NO_OPTION);
+					if (i == JOptionPane.YES_OPTION)
+					{
+					
+					}
+				}
+			});
+		
+		
+		
+		
+		
+		JComboBox comboJugadores = new JComboBox();
+		comboJugadores.addItem("Alvaro");
+		comboJugadores.addItem("Pablo");
+		comboJugadores.addItem("Goiri");
+		
+		
+		JComboBox comboEquipos = new JComboBox();
+		comboEquipos.addItem("Lakers");
+		comboEquipos.addItem("Warriors");
+		
+		
+		JComboBox comboNombres = new JComboBox();
+		comboNombres.addItem("Asier");
+		comboNombres.addItem("Pablo");
+		
+		
+		JScrollPane scrollTraspasos1 = new JScrollPane();
+		scrollTraspasos1.setBorder((new TitledBorder("TRASPASOS1")));
+		scrollTraspasos1.setPreferredSize(new Dimension(300, 300));
+		
+		JScrollPane scrollTraspasos2 = new JScrollPane();
+		scrollTraspasos2.setBorder((new TitledBorder("TRASPASOS2")));
+		scrollTraspasos2.setPreferredSize(new Dimension(300, 300));
+		
+		
+		
+		panelIzquierdoSuperiorTraspasos.add(comboJugadores, BorderLayout.NORTH);
+		panelIzquierdoInferiorTraspasos.add(comboEquipos, BorderLayout.NORTH);
+		panelIzquierdoInferiorTraspasos.add(comboNombres, BorderLayout.SOUTH);
+		panelIzquierdoTraspasos.add(panelIzquierdoSuperiorTraspasos);
+		panelIzquierdoTraspasos.add(panelIzquierdoInferiorTraspasos);
+		
+		
+		
+		
+		
+		panelDerechoTraspasos1.add(scrollTraspasos1);
+		panelDerechoTraspasos2.add(aceptar);
+		panelDerechoTraspasos3.add(scrollTraspasos2);
+		
+		
+		panelDerechoTraspasos.add(panelDerechoTraspasos1, BorderLayout.NORTH);
+		panelDerechoTraspasos.add(panelDerechoTraspasos2, BorderLayout.CENTER);
+		panelDerechoTraspasos.add(panelDerechoTraspasos3,BorderLayout.SOUTH);
+		
+		
+		traspasos.add(panelIzquierdoTraspasos);
+		traspasos.add(panelDerechoTraspasos);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("NBA");
 		this.pack();

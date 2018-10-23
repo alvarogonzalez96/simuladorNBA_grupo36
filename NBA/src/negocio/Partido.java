@@ -9,11 +9,11 @@ public class Partido {
 	
 	protected int puntosLocal, puntosVisitante;
 	protected boolean atacaLocal;
-	
+		
 	public Partido(Equipo local, Equipo visitante) {
 		
 		asignarMinutos(local);
-		//System.out.println();
+		System.out.println();
 		asignarMinutos(visitante);
 		
 		puntosLocal = puntosVisitante = 0;
@@ -66,7 +66,9 @@ public class Partido {
 	public void simularJugada(Jugador[] atacando, Jugador[] defendiendo) {
 		//Número que decide la jugada
 		double random = Math.random();
+		//Probabilidad de que la jugada acabe en un tiro de 2
 		double pTiro = 0.773;
+		//Probabilidad de que la jugada acabe con un tiro libre
 		double pTiroLibre = 0.098;
 		 
 		if(random <= pTiro) {
@@ -130,6 +132,15 @@ public class Partido {
 		double random = Math.random();
 		
 		//Primer tiro libre
+		
+		/*
+		 * Podríamos hacer algo así if(random <= (meterTiroLibre + habilidadTiroLibre))
+		 * La habilidad de tiro libre puede ser positiva o negativa en funicón de qué jugador esté tirando; es decir,
+		 * si Curry en la vida real mete un 90% de tiro libre, al 0.722 sumarle un rango de valores que hagan que se aproxime
+		 * cada jugador a su porcentaje real, lo mismo podríamos hacer con los tiros de dos y de tres.
+		 * Para tomar la decisión de qué jugador tira, podríamos ordenarlos de mayor a menor éxito según sean tiros de 3 o de 2 y si son
+		 * jugadores estrella o no
+		 */
 		if(random <= meterTiroLibre) {
 			//Mete el primer tiro libre
 			if(atacaLocal) {

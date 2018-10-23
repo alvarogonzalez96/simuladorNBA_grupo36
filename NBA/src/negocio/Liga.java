@@ -15,6 +15,7 @@ public class Liga {
 		//System.out.println(equipos[0]);
 		//System.out.println(equipos[1]);
 		
+		
 		partido = new Partido(equipos[0], equipos[1]);
 		
 	}
@@ -33,14 +34,16 @@ public class Liga {
 			jugadoresVisitante[i] = jugadores[i+10];
 		}
 		
-		/*for (int i = 0; i < jugadoresVisitante.length; i++) {
+		for (int i = 0; i < jugadoresVisitante.length; i++) {
 			System.out.println(jugadoresLocal[i]);
 		}
+		
+		System.out.println();
 		
 		for (int i = 0; i < jugadoresVisitante.length; i++) {
 			System.out.println(jugadoresVisitante[i]);
 		}
-		*/
+		
 		e[0] = new Equipo("Golden State Warriors", jugadoresLocal);
 		e[1] = new Equipo("Los Angeles Lakers", jugadoresVisitante);
 		
