@@ -2,6 +2,8 @@ package negocio;
 
 import java.util.HashMap;
 
+import org.json.*;
+
 public class Jugador {
 
 	protected String nombre;
@@ -19,8 +21,6 @@ public class Jugador {
 	protected int overall;
 	protected int minutos;
 	protected int tiempoJugado;
-	
-	protected HashMap<Integer, HashMap<String, Integer>> numeros;
 	
 	public Jugador(String nombre,Posicion posicion, Rol rol, int tiroCerca, int tiroLejos, int asistencia, int rebote, int salto, int altura,
 			int condicionFisica) {
@@ -40,8 +40,6 @@ public class Jugador {
 		this.overall = (ataque+defensa) / 2;
 		this.minutos = 0;
 		this.tiempoJugado = 0;
-		
-		cargarNumeros();
 	}
 	
 	public Jugador() {
@@ -61,13 +59,33 @@ public class Jugador {
 		this.overall = 0;
 		this.minutos = 0;
 		this.tiempoJugado = 0;
-		
-		cargarNumeros();
 	}
 	
-	private void cargarNumeros() {
-		numeros = new HashMap<>();
-		// Cargar de la BD los numeros de ese jugador de todas las temporadas en las que ha jugado
+	protected void cargarJugador(JSONObject json) { 
+		//se le pasa todo el objeto JSON correspondiente
+		//al jugador actual
+		nombre = json.getString("name");
+	}
+	
+	private void seleccionarPosicion(String atJson) {
+		switch (atJson) {
+		case "FC":
+			break;
+		case "PG":
+			break;
+		case "SF":
+			break;
+		case "C":
+			break;
+		case "PF":
+			break;
+		case "G":
+			break;
+		case "SG":
+			break;
+		case "GF":
+			break;
+		}
 	}
 
 	public String getNombre() {
@@ -184,10 +202,6 @@ public class Jugador {
 
 	public void setTiempoJugado(int tiempoJugado) {
 		this.tiempoJugado = tiempoJugado;
-	}
-	
-	public HashMap<Integer, HashMap<String, Integer>> getNumeros(){
-		return this.numeros;
 	}
 
 	@Override
