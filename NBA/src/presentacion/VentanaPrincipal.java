@@ -19,10 +19,8 @@ public class VentanaPrincipal extends JFrame {
 	private JButton simPartido, simSemana, simMes;
 	protected JMenuBar barra;
 	protected JTabbedPane tabbedPane;
-	protected JScrollPane scroll;
+	protected JScrollPane scroll, noticiarioTexto;
 	protected JComboBox historial;
-	protected JTextArea noticiarioTexto;
-	
 	
 	public VentanaPrincipal() {
 		//Nimbus Look&Feel
@@ -69,9 +67,6 @@ public class VentanaPrincipal extends JFrame {
 		JPanel panelSuperiorDerechaSuperior2= new JPanel( new GridLayout(3,1));
 		
 		//---------------------------------------------------
-
-		
-		
 		
 		//Paneles HISTORIAL Principales, ordenados--------------------
 		
@@ -80,8 +75,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel panelIzquierdoInferiorHistorial = new JPanel( );
 		
 		JPanel panelDerechoHistorial = new JPanel ( new BorderLayout());
-		
-		
+			
 		//--------------------------------------------------------------
 		
 		//Paneles Noticiario Principales, ordenados--------------------
@@ -139,15 +133,12 @@ public class VentanaPrincipal extends JFrame {
 		//----------------------------------------------------------------------------
 	
 		//ComboBox---------------------------------
-		
-		
 		historial = new JComboBox();
 		historial.addItem("Liga");
 		historial.addItem("MVP");
-		historial.addItem("Roy");
+		historial.addItem("ROY");
 		historial.setSize(new Dimension(800,600));
-		
-		
+			
 		//----------------------------------------------
 		
 		//Rellenamos los paneles HOME-----------------------------------
@@ -210,23 +201,16 @@ public class VentanaPrincipal extends JFrame {
 		panelIzquierdoHistorial.add(panelIzquierdoInferiorHistorial, BorderLayout.SOUTH);
 		historialLiga.add(panelIzquierdoHistorial, BorderLayout.WEST);
 		historialLiga.add(panelDerechoHistorial, BorderLayout.EAST);
-
-		
-		
-		
 		
 		//---------------------------------------------------------------------
 		//Rellenamos el panel NOTICIARIO-----------------------------------
 		
-		noticiarioTexto = new JTextArea();
-		noticiarioTexto.setEditable(true);
+		noticiarioTexto = new JScrollPane();
 		noticiarioTexto.setPreferredSize(new Dimension(600,800));
 		noticiarioTexto.setBorder((new TitledBorder("Noticias")));
 		
 		panelNoticiario.add(noticiarioTexto);
 		noticiario.add(panelNoticiario);
-		
-		
 		
 		//--------------------------------------------------------
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
