@@ -8,9 +8,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
-
-
-
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 import javax.swing.UIManager.*;//Importar para poder usar nimbus look&Feel
 
 public class VentanaPrincipal extends JFrame {
@@ -21,6 +21,8 @@ public class VentanaPrincipal extends JFrame {
 	protected JTabbedPane tabbedPane;
 	protected JScrollPane scroll, noticiarioTexto;
 	protected JComboBox historial;
+	private JTree tree;
+	
 	
 	public VentanaPrincipal() {
 		//Nimbus Look&Feel
@@ -101,6 +103,10 @@ public class VentanaPrincipal extends JFrame {
 		tabbedPane.addTab("Finanzas", null, finanzas, null);
 		finanzas.setLayout(new GridLayout(3,1));
 
+		JPanel traspasos = new JPanel();
+		tabbedPane.addTab("Traspasos", null, traspasos, null);
+		traspasos.setLayout(new GridLayout(3,1));
+		
 		JPanel agencialibre = new JPanel();
 		tabbedPane.addTab("Agencia libre", null, agencialibre, null);
 		agencialibre.setLayout(new GridLayout(3,1));
@@ -125,6 +131,111 @@ public class VentanaPrincipal extends JFrame {
 		tabbedPane.addTab("Play Offs", null, playoffs, null);
 		playoffs.setLayout(new GridLayout(3,1));
 
+		
+		//Tree------------------------------
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+		/*getContentPane().setLayout(new BorderLayout());
+		tree = new JTree();
+		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		tree.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+				 if (node != null) {
+					 if (node.isLeaf()) {
+						 switch(node.getUserObject().toString().toUpperCase()){
+						 	case "HOME":
+						 		tabbedPane.setSelectedIndex(0);
+						 		break;
+						 	case "CALENDARIO":
+						 		tabbedPane.setSelectedIndex(1);
+						 		break;
+						 	case "Plantilla":
+						 		tabbedPane.setSelectedIndex(2);
+						 		break;
+						 	case "Finanzas":
+						 		tabbedPane.setSelectedIndex(3);
+						 		break;
+						 	case "Traspasos":
+						 		tabbedPane.setSelectedIndex(4);
+						 		break;	
+						 	case "Agencia libre":
+						 		tabbedPane.setSelectedIndex(5);
+						 		break;	
+						 	case "Historial Liga":
+						 		tabbedPane.setSelectedIndex(6);
+						 		break;	
+						 	case "Clasificacion":
+						 		tabbedPane.setSelectedIndex(7);
+						 		break;	
+						 	case "Lideres de la liga":
+						 		tabbedPane.setSelectedIndex(8);
+						 		break;	
+						 	case "Noiticiario":
+						 		tabbedPane.setSelectedIndex(9);
+						 		break;	
+						 	case "Play Offs":
+						 		tabbedPane.setSelectedIndex(10);
+						 		break;	
+						 }
+						 						 
+					 }
+				 }
+			}
+		});
+		DefaultMutableTreeNode node_0 = new DefaultMutableTreeNode("Gestión Equipo");
+		DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode("Informacion");
+		node_1.add(new DefaultMutableTreeNode("Plantilla"));
+		node_1.add(new DefaultMutableTreeNode("Traspasos"));
+		node_1.add(new DefaultMutableTreeNode("Agencia libre"));
+		node_1.add(new DefaultMutableTreeNode("Finanzas"));
+		node_0.add(node_1);
+		DefaultMutableTreeNode node_2 = new DefaultMutableTreeNode("Gesti\u00F3n");
+		node_2.add(new DefaultMutableTreeNode("Consultas"));
+		node_0.add(node_2);
+		DefaultTreeModel dtmRaiz = new DefaultTreeModel(node_0);
+		tree.setModel(dtmRaiz);
+		//tree.setBounds(0, 0, 300, 745);
+		getContentPane().add(tree, BorderLayout.WEST);
+		
+		*/
+		
+		//create the root node
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+        //create the child nodes
+        DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Vegetables");
+        DefaultMutableTreeNode fruitNode = new DefaultMutableTreeNode("Fruits");
+        //add the child nodes to the root node
+        root.add(vegetableNode);
+        root.add(fruitNode);
+         
+        //create the tree by passing in the root node
+        tree = new JTree(root);
+        add(tree);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//----------------------------------
 		// Aqui creamos los botones para las simulaciones-----------------------------------------------------------------
 		simPartido = new JButton ("Simular Partido");
 		simSemana = new JButton ("Simular Semana");
