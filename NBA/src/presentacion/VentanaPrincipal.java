@@ -84,13 +84,14 @@ public class VentanaPrincipal extends JFrame {
 		
 //Panel TRASPASOS-------------------------------------------------------------------
 		
-		JPanel panelIzquierdoTraspasos = new JPanel(new BorderLayout());
+		JPanel panelIzquierdoTraspasos = new JPanel(new GridLayout(2,1));
 		JPanel panelIzquierdoInferiorTraspasos = new JPanel(new BorderLayout());
 		JPanel panelIzquierdoSuperiorTraspasos = new JPanel(new BorderLayout());
-		JPanel panelDerechoTraspasos = new JPanel(new GridLayout(3,1));
+		JPanel panelDerechoTraspasos = new JPanel(new BorderLayout());
+		JPanel panelDerechoTraspasos1 = new JPanel();
+		JPanel panelDerechoTraspasos2 = new JPanel();
 		
-		
-		
+		JPanel panelDerechoTraspasos3 = new JPanel();
 //Paneles Noticiario Principales, ordenados--------------------
 		
 		JPanel panelNoticiario = new JPanel();
@@ -116,7 +117,7 @@ public class VentanaPrincipal extends JFrame {
 
 		JPanel traspasos = new JPanel();
 		tabbedPane.addTab("Traspasos", null, traspasos, null);
-		traspasos.setLayout(new GridLayout(3,1));
+		traspasos.setLayout(new GridLayout(1,2));
 		
 		JPanel agencialibre = new JPanel();
 		tabbedPane.addTab("Agencia libre", null, agencialibre, null);
@@ -145,9 +146,9 @@ public class VentanaPrincipal extends JFrame {
 		
 //Tree------------------------------
 		
-		
+	/*	
 	
-		/*getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(new BorderLayout());
 		tree = new JTree();
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.addMouseListener(new MouseAdapter() {
@@ -196,7 +197,7 @@ public class VentanaPrincipal extends JFrame {
 				 }
 			}
 		});
-		DefaultMutableTreeNode node_0 = new DefaultMutableTreeNode("Gestión Equipo");
+		DefaultMutableTreeNode node_0 = new DefaultMutableTreeNode("GestiÃ³n Equipo");
 		DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode("Informacion");
 		node_1.add(new DefaultMutableTreeNode("Plantilla"));
 		node_1.add(new DefaultMutableTreeNode("Traspasos"));
@@ -211,8 +212,8 @@ public class VentanaPrincipal extends JFrame {
 		//tree.setBounds(0, 0, 300, 745);
 		getContentPane().add(tree, BorderLayout.WEST);
 		
-		*/
 		
+		*/
 	
 		
 		//----------------------------------
@@ -310,13 +311,72 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 		JButton aceptar = new JButton("Aceptar");
-		JComboBox comboTraspasos = new JComboBox();
+		aceptar.setPreferredSize(new Dimension(300, 100));
+		
+		
+			aceptar.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int i =	JOptionPane.showConfirmDialog(rootPane, "Esta seguro que quiere descargar este archivo?", "Confirma", JOptionPane.YES_NO_OPTION);
+					if (i == JOptionPane.YES_OPTION)
+					{
+					
+					}
+				}
+			});
+		
+		
+		
+		
+		
+		JComboBox comboJugadores = new JComboBox();
+		comboJugadores.addItem("Alvaro");
+		comboJugadores.addItem("Pablo");
+		comboJugadores.addItem("Goiri");
+		
+		
+		JComboBox comboEquipos = new JComboBox();
+		comboEquipos.addItem("Lakers");
+		comboEquipos.addItem("Warriors");
+		
+		
+		JComboBox comboNombres = new JComboBox();
+		comboNombres.addItem("Asier");
+		comboNombres.addItem("Pablo");
+		
 		
 		JScrollPane scrollTraspasos1 = new JScrollPane();
+		scrollTraspasos1.setBorder((new TitledBorder("TRASPASOS1")));
+		scrollTraspasos1.setPreferredSize(new Dimension(300, 300));
+		
 		JScrollPane scrollTraspasos2 = new JScrollPane();
+		scrollTraspasos2.setBorder((new TitledBorder("TRASPASOS2")));
+		scrollTraspasos2.setPreferredSize(new Dimension(300, 300));
 		
 		
-		panelDerechoTraspasos.add(scrollTraspasos1);
+		
+		panelIzquierdoSuperiorTraspasos.add(comboJugadores, BorderLayout.NORTH);
+		panelIzquierdoInferiorTraspasos.add(comboEquipos, BorderLayout.NORTH);
+		panelIzquierdoInferiorTraspasos.add(comboNombres, BorderLayout.SOUTH);
+		panelIzquierdoTraspasos.add(panelIzquierdoSuperiorTraspasos);
+		panelIzquierdoTraspasos.add(panelIzquierdoInferiorTraspasos);
+		
+		
+		
+		
+		
+		panelDerechoTraspasos1.add(scrollTraspasos1);
+		panelDerechoTraspasos2.add(aceptar);
+		panelDerechoTraspasos3.add(scrollTraspasos2);
+		
+		
+		panelDerechoTraspasos.add(panelDerechoTraspasos1, BorderLayout.NORTH);
+		panelDerechoTraspasos.add(panelDerechoTraspasos2, BorderLayout.CENTER);
+		panelDerechoTraspasos.add(panelDerechoTraspasos3,BorderLayout.SOUTH);
+		
+		
+		traspasos.add(panelIzquierdoTraspasos);
+		traspasos.add(panelDerechoTraspasos);
 		
 		
 		

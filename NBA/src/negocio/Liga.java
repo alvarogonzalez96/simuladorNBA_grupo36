@@ -15,6 +15,7 @@ public class Liga {
 		//System.out.println(equipos[0]);
 		//System.out.println(equipos[1]);
 		
+		
 		partido = new Partido(equipos[0], equipos[1]);
 		
 	}
