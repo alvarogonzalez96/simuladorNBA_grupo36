@@ -31,9 +31,9 @@ public class Inicio {
 		do {
 			respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, ¿ya tienes una cuenta?");
 			/*
-			 * respuesta = 2 -> cancelar
-			 * respuesta = 1 -> no
-			 * respuesta = 0 -> sí
+			 * respuesta = 2 --> cancelar
+			 * respuesta = 1 --> no
+			 * respuesta = 0 --> sí
 			 */
 			if(respuesta == 0) {
 				//Introduce su nombre de usuario
