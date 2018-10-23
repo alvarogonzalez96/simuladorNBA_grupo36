@@ -54,7 +54,7 @@ public class VentanaPrincipal extends JFrame {
 		barra.add(menuDatos);
 		this.setJMenuBar(barra);
 
-		//Paneles HOME Principales, ordenados--------------------
+//Paneles HOME Principales, ordenados--------------------
 		JPanel panelSuperior = new JPanel(new BorderLayout());
 		JPanel panelInferior = new JPanel (new BorderLayout() );
 
@@ -68,9 +68,9 @@ public class VentanaPrincipal extends JFrame {
 		JPanel panelSuperiorDerechaInferior= new JPanel(new BorderLayout());
 		JPanel panelSuperiorDerechaSuperior2= new JPanel( new GridLayout(3,1));
 		
-		//---------------------------------------------------
+	
 		
-		//Paneles HISTORIAL Principales, ordenados--------------------
+//Paneles HISTORIAL Principales, ordenados--------------------
 		
 		JPanel panelIzquierdoHistorial = new JPanel( new BorderLayout());
 		JPanel panelIzquierdoSuperiorHistorial = new JPanel();
@@ -78,15 +78,26 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel panelDerechoHistorial = new JPanel ( new BorderLayout());
 			
-		//--------------------------------------------------------------
+	
 		
-		//Paneles Noticiario Principales, ordenados--------------------
+		
+		
+//Panel TRASPASOS-------------------------------------------------------------------
+		
+		JPanel panelIzquierdoTraspasos = new JPanel(new BorderLayout());
+		JPanel panelIzquierdoInferiorTraspasos = new JPanel(new BorderLayout());
+		JPanel panelIzquierdoSuperiorTraspasos = new JPanel(new BorderLayout());
+		JPanel panelDerechoTraspasos = new JPanel(new GridLayout(3,1));
+		
+		
+		
+//Paneles Noticiario Principales, ordenados--------------------
 		
 		JPanel panelNoticiario = new JPanel();
 		
-		//--------------------
+	
 		
-		//Creamos las pestanias-----------------------------------
+//Creamos las pestanias-----------------------------------
 		JPanel home = new JPanel();
 		tabbedPane.addTab("Home", null, home, null);
 		home.setLayout(new GridLayout(2,1));
@@ -132,7 +143,7 @@ public class VentanaPrincipal extends JFrame {
 		playoffs.setLayout(new GridLayout(3,1));
 
 		
-		//Tree------------------------------
+//Tree------------------------------
 		
 		
 	
@@ -205,14 +216,14 @@ public class VentanaPrincipal extends JFrame {
 	
 		
 		//----------------------------------
-		// Aqui creamos los botones para las simulaciones-----------------------------------------------------------------
+// Aqui creamos los botones para las simulaciones-----------------------------------------------------------------
 		simPartido = new JButton ("Simular Partido");
 		simSemana = new JButton ("Simular Semana");
 		simMes = new JButton ("Simular Mes");
 	
 		//----------------------------------------------------------------------------
 	
-		//ComboBox---------------------------------
+//ComboBox---------------------------------
 		historial = new JComboBox();
 		historial.addItem("Liga");
 		historial.addItem("MVP");
@@ -221,7 +232,7 @@ public class VentanaPrincipal extends JFrame {
 			
 		//----------------------------------------------
 		
-		//Rellenamos los paneles HOME-----------------------------------
+//Rellenamos los paneles HOME-----------------------------------
 
 		JScrollPane scrollBalance = new JScrollPane();
 		scrollBalance.setPreferredSize(new Dimension(500, 100));
@@ -268,7 +279,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		//------------------------------------------------
 
-		//Rellenamos los paneles HISTORIAL-----------------------------------
+//Rellenamos los paneles HISTORIAL-----------------------------------
 		
 		JScrollPane scrollHistorial = new JScrollPane();
 
@@ -283,8 +294,8 @@ public class VentanaPrincipal extends JFrame {
 		historialLiga.add(panelDerechoHistorial, BorderLayout.EAST);
 		
 		//---------------------------------------------------------------------
-		//Rellenamos el panel NOTICIARIO-----------------------------------
-		
+//Rellenamos el panel NOTICIARIO-----------------------------------
+	
 		noticiarioTexto = new JScrollPane();
 		noticiarioTexto.setPreferredSize(new Dimension(600,800));
 		noticiarioTexto.setBorder((new TitledBorder("Noticias")));
@@ -293,6 +304,54 @@ public class VentanaPrincipal extends JFrame {
 		noticiario.add(panelNoticiario);
 		
 		//--------------------------------------------------------
+		
+//Rellennamos los paneles TRASPASOS-------------------------------------
+		
+		
+		
+		JButton aceptar = new JButton("Aceptar");
+		JComboBox comboTraspasos = new JComboBox();
+		
+		JScrollPane scrollTraspasos1 = new JScrollPane();
+		JScrollPane scrollTraspasos2 = new JScrollPane();
+		
+		
+		panelDerechoTraspasos.add(scrollTraspasos1);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("NBA");
 		this.pack();
