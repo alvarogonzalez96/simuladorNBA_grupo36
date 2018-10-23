@@ -139,7 +139,7 @@ public class Partido {
 		 * si Curry en la vida real mete un 90% de tiro libre, al 0.722 sumarle un rango de valores que hagan que se aproxime
 		 * cada jugador a su porcentaje real, lo mismo podríamos hacer con los tiros de dos y de tres.
 		 * Para tomar la decisión de qué jugador tira, podríamos ordenarlos de mayor a menor éxito según sean tiros de 3 o de 2 y si son
-		 * jugadores estrella o no.
+		 * jugadores estrella o no
 		 */
 		if(random <= meterTiroLibre) {
 			//Mete el primer tiro libre
