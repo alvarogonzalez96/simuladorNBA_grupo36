@@ -14,60 +14,77 @@ public class Inicio {
 					break;
 				}
 			}
-		} catch (UnsupportedLookAndFeelException e) {
-			// handle exception
-		} catch (ClassNotFoundException e) {
-			// handle exception
-		} catch (InstantiationException e) {
-			// handle exception
-		} catch (IllegalAccessException e) {
-			// handle exception
-		}
+		} catch (Exception e) {}
 		
+		ventanaInicio();
+	}
+	
+	protected void ventanaInicio() {
 		int respuesta = 2;
 		String nombreUsuario = "*";
 		String contrasenya = null;
-		
-		do {
-			respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, Â¿ya tienes una cuenta?");
-			/*
-			 * respuesta = 2 --> cancelar
-			 * respuesta = 1 --> no
-			 * respuesta = 0 --> sÃ­
-			 */
-			if(respuesta == 0) {
-				//Introduce su nombre de usuario
-				do {
-					nombreUsuario = (String)JOptionPane.showInputDialog(null, "Introduce tu nombre de usuario", null);
-					System.out.println(nombreUsuario);
-				} while(nombreUsuario == null || nombreUsuario == "");
-				
+
+		respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, ¿ya tienes una cuenta?");
+		/*
+		 * respuesta = 0 --> si
+		 * respuesta = 1 --> no
+		 * respuesta = 2 --> cancelar
+		 */
+		if(respuesta == 0) {
+			//Introduce su nombre de usuario
+			nombreUsuario = popup("Introduce tu nombre de usuario");
+			if(nombreUsuario == null) {
+				// volver a la ventana inicial
+				ventanaInicio();
+			} else {
 				//Selecciona la contrasenya
-				do {
-					contrasenya = (String)JOptionPane.showInputDialog(null, "Introduce tu contraseÃ±a", null);
-				} while(contrasenya == null || contrasenya == "");
-				
-				//Hacer un if para comprobar con la BD
-				new VentanaPrincipal();
-				
-			} else if(respuesta == 1) {
-				//Selecciona su nombre de usuario
-				do {
-					nombreUsuario = (String)JOptionPane.showInputDialog(null, "Elige tu nombre de usuario", null);
-					System.out.println(nombreUsuario);
-				} while(nombreUsuario == null);
-			
-				//Selecciona la contrasenya
-				do {
-					contrasenya = (String)JOptionPane.showInputDialog(null, "Elige tu contraseÃ±a", null);
-				} while(contrasenya == null);
-				//String de ejemplo
-				String equipos[] = {"Los Angeles Lakers", "Golden State Warrios", "Boston Celtics", "New York Knicks"};
-				//Selecciona el equipo con el que va a jugar
-				String res = (String)JOptionPane.showInputDialog(null, "Selecciona tu equipo", "Simulador NBA", JOptionPane.DEFAULT_OPTION, null, equipos, equipos[0]);
-				new VentanaPrincipal();
+				contrasenya = popup("Introduce tu contraseña");
+				if(contrasenya == null) {
+					//volver a la ventana inicial
+					ventanaInicio();
+				} else {
+					//Hacer un if para comprobar con la BD
+					new VentanaPrincipal();					
+				}
 			}
-		} while(respuesta == 2);
+
+		} else if(respuesta == 1) {
+			//Selecciona su nombre de usuario
+			nombreUsuario = popup("Elige tu nombre de usuario");
+			if(nombreUsuario == null) {
+				ventanaInicio();
+			} else {
+				//Selecciona la contrasenya
+				contrasenya = popup("Elige tu contraseña");
+				if(contrasenya == null) {
+					ventanaInicio();
+				} else {
+					//String de ejemplo
+					String equipos[] = {"Los Angeles Lakers", "Golden State Warrios", "Boston Celtics", "New York Knicks"};
+					//Selecciona el equipo con el que va a jugar
+					String res = (String) JOptionPane.showInputDialog(null, "Selecciona tu equipo", "Simulador NBA", JOptionPane.DEFAULT_OPTION, null, equipos, equipos[0]);
+					if(res == null) {
+						ventanaInicio();
+					} else {
+						new VentanaPrincipal();						
+					}
+				}
+			}
+		} else {
+			salir();
+		}
+	}
+	
+	private String popup(String mensaje) {
+		String campo = "";
+		do {
+			campo = (String) JOptionPane.showInputDialog(null, mensaje, null);
+		} while(campo != null && campo.isEmpty());
+		return campo;
+	}
+	
+	private void salir() {
+		System.exit(0);
 	}
 	
 	
