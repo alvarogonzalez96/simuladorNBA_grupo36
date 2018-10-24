@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import datos.ParseadorJSON;
-import org.json.*;
+
+
 
 public class Liga {
 
@@ -57,7 +61,7 @@ public class Liga {
 				for(Equipo e: l.equipos) {
 					System.out.println("-----"+e.tid);
 					for(Jugador j: e.jugadores) {
-						System.out.println(j.nombre);
+						System.out.println(j.nombre + ", juega de " + j.posicion + ", nació en el anyo " + j.anyoNac + " y tiene una habilidad tirando triples de " + j.tiroLejos);
 					}
 					System.out.println();
 				}

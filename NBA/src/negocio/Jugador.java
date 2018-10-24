@@ -8,59 +8,54 @@ public class Jugador {
 
 	protected String nombre;
 	protected Posicion posicion;
+	protected int rebote;//reb
 	protected Rol rol;
-	protected int tiroCerca;
-	protected int tiroLejos;
-	protected int asistencia;
-	protected int rebote;
-	protected int salto;
-	protected int altura; //0-100
+	protected int tiroLibre;//ft
+	protected int tiroCerca;//fg
+	protected int tiroLejos;//tp
+	protected int defensa; //diq
+	protected int asistencia;//pss
 	protected int condicionFisica;
-	protected int ataque;
-	protected int defensa;
-	protected int overall;
 	protected int minutos;
 	protected int tiempoJugado;
-	protected int anyoNac;
+	protected int anyoNac;//born->year
 	int tid;
-	
-	public Jugador(String nombre,Posicion posicion, Rol rol, int tiroCerca, int tiroLejos, int asistencia, int rebote, int salto, int altura,
-			int condicionFisica) {
+		
+	public Jugador(String nombre, Posicion posicion, int rebote, Rol rol, int tiroLibre, int tiroCerca, int tiroLejos, int defensa,
+			int asistencia, int anyoNac, int tid) {
 		super();
 		this.nombre = nombre;
 		this.posicion = posicion;
+		this.rebote = rebote;
 		this.rol = rol;
+		this.tiroLibre = tiroLibre;
 		this.tiroCerca = tiroCerca;
 		this.tiroLejos = tiroLejos;
+		this.defensa = defensa;
 		this.asistencia = asistencia;
-		this.rebote = rebote;
-		this.salto = salto;
-		this.altura = altura;
-		this.condicionFisica = condicionFisica;
-		this.ataque = (tiroCerca + tiroLejos + asistencia) / 3;
-		this.defensa = (rebote + salto + altura) / 3;
-		this.overall = (ataque+defensa) / 2;
+		this.condicionFisica = 100;
 		this.minutos = 0;
 		this.tiempoJugado = 0;
+		this.anyoNac = anyoNac;
+		this.tid = tid;
 	}
 	
 	public Jugador() {
 		super();
-		this.nombre = "Sin especificar";
+		this.nombre = "Desconocido";
 		this.posicion = Posicion.BASE;
-		this.rol = Rol.SUPLENTE;
+		this.rebote = 0;
+		this.rol = null;
+		this.tiroLibre = 0;
 		this.tiroCerca = 0;
 		this.tiroLejos = 0;
-		this.asistencia = 0;
-		this.rebote = 0;
-		this.salto = 0;
-		this.altura = 0;
-		this.condicionFisica = 0;
-		this.ataque = 0;
 		this.defensa = 0;
-		this.overall = 0;
+		this.asistencia = 0;
+		this.condicionFisica = 0;
 		this.minutos = 0;
 		this.tiempoJugado = 0;
+		this.anyoNac = 0;
+		this.tid = -1;	
 	}
 	
 	public void cargarJugador(JSONObject json) { 
@@ -68,11 +63,17 @@ public class Jugador {
 		//al jugador actual
 		nombre = json.getString("name");
 		tid = json.getInt("tid");
-		seleccionarPosicion(json.getString("pos"));
+		posicion = seleccionarPosicion(json.getString("pos"));
+		rebote = json.getJSONArray("ratings").getJSONObject(0).getInt("reb");
+		tiroLibre = json.getJSONArray("ratings").getJSONObject(0).getInt("ft");
+		tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
+		tiroLejos = json.getJSONArray("ratings").getJSONObject(0).getInt("tp");
+		defensa = json.getJSONArray("ratings").getJSONObject(0).getInt("diq");
+		asistencia = json.getJSONArray("ratings").getJSONObject(0).getInt("pss");
 		anyoNac = json.getJSONObject("born").getInt("year");
 	}
 	
-	private void seleccionarPosicion(String atJson) {
+	private Posicion seleccionarPosicion(String atJson) {
 		switch (atJson) {
 		case "FC": case "PF":
 			this.posicion = Posicion.ALAPIVOT;
@@ -90,6 +91,7 @@ public class Jugador {
 			posicion = Posicion.ESCOLTA;
 			break;
 		}
+		return posicion;
 	}
 
 	public String getNombre() {
@@ -114,6 +116,34 @@ public class Jugador {
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	public int getTiroLibre() {
+		return tiroLibre;
+	}
+
+	public void setTiroLibre(int tiroLibre) {
+		this.tiroLibre = tiroLibre;
+	}
+
+	public int getAnyoNac() {
+		return anyoNac;
+	}
+
+	public void setAnyoNac(int anyoNac) {
+		this.anyoNac = anyoNac;
+	}
+
+	public int getTid() {
+		return tid;
+	}
+
+	public void setTid(int tid) {
+		this.tid = tid;
+	}
+
+	public void setDefensa(int defensa) {
+		this.defensa = defensa;
 	}
 
 	public int getTiroCerca() {
@@ -148,22 +178,6 @@ public class Jugador {
 		this.rebote = rebote;
 	}
 
-	public int getSalto() {
-		return salto;
-	}
-
-	public void setSalto(int salto) {
-		this.salto = salto;
-	}
-
-	public int getAltura() {
-		return altura;
-	}
-
-	public void setAltura(int altura) {
-		this.altura = altura;
-	}
-
 	public int getCondicionFisica() {
 		return condicionFisica;
 	}
@@ -172,24 +186,8 @@ public class Jugador {
 		this.condicionFisica = condicionFisica;
 	}
 
-	public int getAtaque() {
-		return ataque;
-	}
-
-	/*public void setAtaque(int ataque) {
-		this.ataque = ataque;
-	}*/
-
 	public int getDefensa() {
 		return defensa;
-	}
-
-	/*public void setDefensa(int defensa) {
-		this.defensa = defensa;
-	}*/
-
-	public int getOverall() {
-		return overall;
 	}
 
 	public int getMinutos() {
@@ -213,9 +211,9 @@ public class Jugador {
 		double min = (double) minutos/60 ;
 		
 		return "Jugador [nombre=" + nombre + ", posicion=" + posicion + ", rol=" + rol + ", tiroCerca=" + tiroCerca
-				+ ", tiroLejos=" + tiroLejos + ", asistencia=" + asistencia + ", rebote=" + rebote + ", salto=" + salto
-				+ ", altura=" + altura + ", condicionFisica=" + condicionFisica + ", ataque=" + ataque + ", defensa="
-				+ defensa + ", overall=" + overall + ", segundos=" + minutos + ", minutos= "+ min + ", m="+ tiempoJugado + "]";
+				+ ", tiroLejos=" + tiroLejos + ", asistencia=" + asistencia + ", rebote=" + rebote
+				+ ", condicionFisica=" + condicionFisica  + ", defensa="
+				+ defensa +  ", segundos=" + minutos + ", minutos= "+ min + ", m="+ tiempoJugado + "]";
 	}
 
 	/*public void setOverall(int overall) {
