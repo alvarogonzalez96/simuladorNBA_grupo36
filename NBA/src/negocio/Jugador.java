@@ -21,6 +21,8 @@ public class Jugador {
 	protected int overall;
 	protected int minutos;
 	protected int tiempoJugado;
+	protected int anyoNac;
+	int tid;
 	
 	public Jugador(String nombre,Posicion posicion, Rol rol, int tiroCerca, int tiroLejos, int asistencia, int rebote, int salto, int altura,
 			int condicionFisica) {
@@ -61,29 +63,31 @@ public class Jugador {
 		this.tiempoJugado = 0;
 	}
 	
-	protected void cargarJugador(JSONObject json) { 
+	public void cargarJugador(JSONObject json) { 
 		//se le pasa todo el objeto JSON correspondiente
 		//al jugador actual
 		nombre = json.getString("name");
+		tid = json.getInt("tid");
+		seleccionarPosicion(json.getString("pos"));
+		anyoNac = json.getJSONObject("born").getInt("year");
 	}
 	
 	private void seleccionarPosicion(String atJson) {
 		switch (atJson) {
-		case "FC":
+		case "FC": case "PF":
+			this.posicion = Posicion.ALAPIVOT;
 			break;
-		case "PG":
+		case "PG": case "G":
+			this.posicion = Posicion.BASE;
 			break;
-		case "SF":
+		case "SF": case "GF":
+			posicion = Posicion.ALERO;
 			break;
 		case "C":
-			break;
-		case "PF":
-			break;
-		case "G":
+			posicion = Posicion.PIVOT;
 			break;
 		case "SG":
-			break;
-		case "GF":
+			posicion = Posicion.ESCOLTA;
 			break;
 		}
 	}
