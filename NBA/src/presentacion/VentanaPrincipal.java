@@ -330,7 +330,7 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		
-		
+		//
 		JComboBox comboJugadores = new JComboBox();
 		comboJugadores.setPreferredSize(new Dimension(300, 50));
 		comboJugadores.addItem("Alvaro");
