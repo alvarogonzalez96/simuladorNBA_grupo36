@@ -84,14 +84,14 @@ public class VentanaPrincipal extends JFrame {
 		
 //Panel TRASPASOS-------------------------------------------------------------------
 		
-		JPanel panelIzquierdoTraspasos = new JPanel(new GridLayout(2,1));
+		/*JPanel panelIzquierdoTraspasos = new JPanel(new GridLayout(2,1));
 		JPanel panelIzquierdoInferiorTraspasos = new JPanel(new BorderLayout());
 		JPanel panelIzquierdoSuperiorTraspasos = new JPanel(new BorderLayout());
 		JPanel panelDerechoTraspasos = new JPanel(new BorderLayout());
 		JPanel panelDerechoTraspasos1 = new JPanel();
 		JPanel panelDerechoTraspasos2 = new JPanel();
 		
-		JPanel panelDerechoTraspasos3 = new JPanel();
+		JPanel panelDerechoTraspasos3 = new JPanel();*/
 //Paneles Noticiario Principales, ordenados--------------------
 		
 		JPanel panelNoticiario = new JPanel();
@@ -308,39 +308,44 @@ public class VentanaPrincipal extends JFrame {
 		
 //Rellennamos los paneles TRASPASOS-------------------------------------
 		
-		
+		JPanel trasPanel = new JPanel();
+		trasPanel.setLayout(new GridLayout(3, 3));
+		JPanel trasArribaIzq = new JPanel(new FlowLayout());
+		JPanel trasArribaDcha = new JPanel(new FlowLayout());
+		JPanel trasCentroIzq = new JPanel(new BorderLayout());
+		JPanel trasCentroDcha = new JPanel(new FlowLayout());
+		JPanel trasAbajoIzq = new JPanel(new GridLayout(3, 1));
+		JPanel trasAbajoDcha = new JPanel(new FlowLayout());
 		
 		JButton aceptar = new JButton("Aceptar");
-		aceptar.setPreferredSize(new Dimension(300, 100));
-		
-		
-			aceptar.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					int i =	JOptionPane.showConfirmDialog(rootPane, "Esta seguro que quiere descargar este archivo?", "Confirma", JOptionPane.YES_NO_OPTION);
-					if (i == JOptionPane.YES_OPTION)
-					{
-					
-					}
+		aceptar.setPreferredSize(new Dimension(300, 50));
+		aceptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int i =	JOptionPane.showConfirmDialog(rootPane, "Esta seguro que quiere descargar este archivo?", "Confirma", JOptionPane.YES_NO_OPTION);
+				if (i == JOptionPane.YES_OPTION)
+				{			
+				
 				}
-			});
-		
-		
-		
+			}
+		});
 		
 		
 		JComboBox comboJugadores = new JComboBox();
+		comboJugadores.setPreferredSize(new Dimension(300, 50));
 		comboJugadores.addItem("Alvaro");
 		comboJugadores.addItem("Pablo");
 		comboJugadores.addItem("Goiri");
 		
 		
 		JComboBox comboEquipos = new JComboBox();
+		comboEquipos.setPreferredSize(new Dimension(300, 50));
 		comboEquipos.addItem("Lakers");
 		comboEquipos.addItem("Warriors");
 		
 		
 		JComboBox comboNombres = new JComboBox();
+		comboNombres.setPreferredSize(new Dimension(300, 50));
 		comboNombres.addItem("Asier");
 		comboNombres.addItem("Pablo");
 		
@@ -353,9 +358,27 @@ public class VentanaPrincipal extends JFrame {
 		scrollTraspasos2.setBorder((new TitledBorder("TRASPASOS2")));
 		scrollTraspasos2.setPreferredSize(new Dimension(300, 300));
 		
+		trasArribaIzq.add(comboJugadores);
+		trasArribaDcha.add(scrollTraspasos1);
+		JPanel apoyoAbajoIzq = new JPanel(new FlowLayout());
+		JPanel apoyoAbajoIz = new JPanel(new FlowLayout());
+		apoyoAbajoIzq.add(comboEquipos);
+		apoyoAbajoIz.add(comboNombres);
+		trasAbajoIzq.add(apoyoAbajoIzq, BorderLayout.NORTH);
+		trasAbajoIzq.add(apoyoAbajoIz, BorderLayout.CENTER);
+		trasCentroDcha.add(aceptar);
+		trasAbajoDcha.add(scrollTraspasos2);
 		
+		trasPanel.add(trasArribaIzq);
+		trasPanel.add(trasArribaDcha);
+		trasPanel.add(trasCentroIzq);
+		trasPanel.add(trasCentroDcha);
+		trasPanel.add(trasAbajoIzq);
+		trasPanel.add(trasAbajoDcha);
 		
-		panelIzquierdoSuperiorTraspasos.add(comboJugadores, BorderLayout.NORTH);
+		traspasos.add(trasPanel);
+		
+	/*	panelIzquierdoSuperiorTraspasos.add(comboJugadores, BorderLayout.NORTH);
 		panelIzquierdoInferiorTraspasos.add(comboEquipos, BorderLayout.NORTH);
 		panelIzquierdoInferiorTraspasos.add(comboNombres, BorderLayout.SOUTH);
 		panelIzquierdoTraspasos.add(panelIzquierdoSuperiorTraspasos);
@@ -376,7 +399,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 		traspasos.add(panelIzquierdoTraspasos);
-		traspasos.add(panelDerechoTraspasos);
+		traspasos.add(panelDerechoTraspasos);*/
 		
 		
 		
