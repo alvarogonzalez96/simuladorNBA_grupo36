@@ -91,7 +91,6 @@ public class Jugador {
 	
 	private int cargarOverallJugador() {
 		int ov = (int) ((((rebote + tiroLibre + tiroCerca + tiroLejos + defensa + asistencia + hgt + stre + spd + jmp + endu + ins + dnk + oiq + drb)/15) * 99)/74);
-		
 		return ov;
 	}
 	
