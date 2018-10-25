@@ -23,7 +23,6 @@ public class VentanaPrincipal extends JFrame {
 	protected JComboBox historial;
 	private JTree tree;
 	
-	
 	public VentanaPrincipal() {
 		//Nimbus Look&Feel
 		try {

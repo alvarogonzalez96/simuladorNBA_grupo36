@@ -56,6 +56,7 @@ public class Equipo {
 		
 		ordenarJugadores();
 		
+		
 		this.ataque = (at/10);
 		this.defensa = (def/10);
 		this.overall = (ov/10);
