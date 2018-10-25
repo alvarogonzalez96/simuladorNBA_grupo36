@@ -12,6 +12,9 @@ public class Partido {
 		
 	public Partido(Equipo local, Equipo visitante) {
 		
+		this.local = local;
+		this.visitante = visitante;
+		
 		asignarMinutos(local);
 		asignarMinutos(visitante);
 		
@@ -19,24 +22,28 @@ public class Partido {
 		puntosLocal = puntosVisitante = 0;
 		atacaLocal = true;
 		
+		// jugar();
+	}
+	
+	public void jugar() {
 		int tiempo = 0; 
-		
+
 		quintetoLocal = new Quinteto(local);
 		quintetoVisitante = new Quinteto(visitante);
-		
+
 		//48 min * 60 = 2880 segundos
 		while(tiempo < 2880) {
 			quintetoLocal.actualizar(tiempo);
 			quintetoVisitante.actualizar(tiempo);
-			
+
 			if(atacaLocal) {
 				simularJugada(quintetoLocal, quintetoVisitante);
 			} else {
 				simularJugada(quintetoVisitante, quintetoLocal);
 			}
-			
+
 			atacaLocal = !atacaLocal;
-			
+
 			int rand = (int)(Math.random()*19+5);
 			tiempo = tiempo + rand;
 			quintetoLocal.actualizarTiempo(rand);
@@ -232,7 +239,7 @@ public class Partido {
 				}
 				minPivot = min - j.getMinutos();
 			}
-			System.out.println(j.nombre+" juega "+j.getMinutos());
+			//System.out.println(j.nombre+" juega "+j.getMinutos());
 		}
 	}
 	
@@ -258,4 +265,10 @@ public class Partido {
 		jugador.setMinutos(1800 + rand);
 		jugador.setTiempoJugado(jugador.getMinutos());
 	}
+
+	@Override
+	public String toString() {
+		return visitante.nombre+" - "+local.nombre;
+	}
+	
 }

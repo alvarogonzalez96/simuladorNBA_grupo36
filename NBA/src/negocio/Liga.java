@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.SwingUtilities;
 
@@ -9,10 +10,9 @@ import org.json.JSONObject;
 
 import datos.ParseadorJSON;
 
-
-
 public class Liga {
 
+	protected Calendario calendario;
 	protected Equipo[] equipos;
 	protected ArrayList<Jugador> jugadores;
 	protected ArrayList<Jugador> agentesLibres;
@@ -25,7 +25,7 @@ public class Liga {
 		cargarAgentesLibres();
 		cargarEquipos();
 		asignarJugadoresAEquipos();
-		
+		calendario = new Calendario(equipos);
 		//Partido partido = new Partido(equipos[0], equipos[1]);
 	}
 	
@@ -39,13 +39,13 @@ public class Liga {
 	}
 	
 	private void cargarJugadores() {
-		JSONObject all = ParseadorJSON.getObjetoPrimario("jugadores.json");
+		JSONObject all = ParseadorJSON.getObjetoPrimario("data/jugadores.json");
 		JSONArray jugadoresJSON = all.getJSONArray("players");
 		jugadores = ParseadorJSON.aArrayListJugador(jugadoresJSON);
 	}
 	
 	private void cargarEquipos() {
-		JSONObject all = ParseadorJSON.getObjetoPrimario("equipos.json");
+		JSONObject all = ParseadorJSON.getObjetoPrimario("data/equipos.json");
 		JSONArray equiposJSON = all.getJSONArray("teams");
 		equipos = ParseadorJSON.aArrayEquipos(equiposJSON);
 	}
@@ -57,6 +57,7 @@ public class Liga {
 					e.jugadores.add(j);
 				}
 			}
+			e.ordenarJugadores();
 		}
 	}
 	
@@ -75,9 +76,9 @@ public class Liga {
 			public void run() {
 				Liga l = new Liga();
 				for(Equipo e: l.equipos) {
-					System.out.println("---"+e.nombre);
+					System.out.println("--"+e.nombre);
 					for(Jugador j: e.jugadores) {
-						System.out.println(j.nombre);
+						System.out.println(j.nombre+" "+j.overall);
 					}
 					System.out.println();
 				}

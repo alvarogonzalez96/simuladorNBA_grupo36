@@ -2,10 +2,16 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.json.JSONObject;
 
 public class Equipo {
+	
+	private static OrdenadorJugadores ordenador;
+	{
+		ordenador = new OrdenadorJugadores();
+	}
 
 	protected String nombre;
 	protected String abrev;
@@ -48,6 +54,8 @@ public class Equipo {
 			}
 		}
 		
+		ordenarJugadores();
+		
 		this.ataque = (at/10);
 		this.defensa = (def/10);
 		this.overall = (ov/10);
@@ -78,6 +86,10 @@ public class Equipo {
 
 	public int getOverall() {
 		return overall;
+	}
+	
+	public void ordenarJugadores() {
+		jugadores.sort(ordenador);
 	}
 
 	@Override
