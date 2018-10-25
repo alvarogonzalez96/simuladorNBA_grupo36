@@ -244,12 +244,20 @@ class OrdenadorJugadores implements Comparator<Jugador>{
 
 	@Override
 	public int compare(Jugador a, Jugador b) {
-		if(a.overall > b.overall) {
-			return -1;
-		} else if(b.overall > a.overall) {
-			return 1;
-		} 
-		return 0;
+		if(a.posicion == b.posicion) {
+			if(a.overall > b.overall) {
+				return -1;
+			} else if(b.overall > a.overall) {
+				return 1;
+			} 
+			return 0;
+		} else {
+			if(a.posicion.ordinal() < b.posicion.ordinal()) {
+				return -1;
+			} else {
+				return 1;
+			}
+		}
 	}
 	
 }
