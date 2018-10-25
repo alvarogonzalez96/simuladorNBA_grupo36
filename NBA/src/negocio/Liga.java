@@ -78,7 +78,7 @@ public class Liga {
 				for(Equipo e: l.equipos) {
 					System.out.println("--"+e.nombre);
 					for(Jugador j: e.jugadores) {
-						System.out.println(j.nombre+" "+j.overall);
+						System.out.println(j.nombre+" "+j.overall + ", posicion: " + j.posicion);
 					}
 					System.out.println();
 				}

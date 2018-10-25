@@ -102,13 +102,13 @@ public class Jugador {
 		case "PG": case "G":
 			this.posicion = Posicion.BASE;
 			break;
-		case "SF": case "GF":
+		case "SF": case "F":
 			posicion = Posicion.ALERO;
 			break;
 		case "C":
 			posicion = Posicion.PIVOT;
 			break;
-		case "SG":
+		case "SG": case "GF":
 			posicion = Posicion.ESCOLTA;
 			break;
 		}
