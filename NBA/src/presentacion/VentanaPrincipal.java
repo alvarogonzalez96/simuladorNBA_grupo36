@@ -83,20 +83,19 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 //Panel TRASPASOS-------------------------------------------------------------------
-		
-		/*JPanel panelIzquierdoTraspasos = new JPanel(new GridLayout(2,1));
-		JPanel panelIzquierdoInferiorTraspasos = new JPanel(new BorderLayout());
-		JPanel panelIzquierdoSuperiorTraspasos = new JPanel(new BorderLayout());
-		JPanel panelDerechoTraspasos = new JPanel(new BorderLayout());
-		JPanel panelDerechoTraspasos1 = new JPanel();
-		JPanel panelDerechoTraspasos2 = new JPanel();
-		
-		JPanel panelDerechoTraspasos3 = new JPanel();*/
+
+		JPanel trasPanel = new JPanel();
+		trasPanel.setLayout(new GridLayout(3, 3));
+		JPanel trasArribaIzq = new JPanel(new FlowLayout());
+		JPanel trasArribaDcha = new JPanel(new FlowLayout());
+		JPanel trasCentroIzq = new JPanel(new BorderLayout());
+		JPanel trasCentroDcha = new JPanel(new FlowLayout());
+		JPanel trasAbajoIzq = new JPanel(new GridLayout(3, 1));
+		JPanel trasAbajoDcha = new JPanel(new FlowLayout());
+
 //Paneles Noticiario Principales, ordenados--------------------
 		
-		JPanel panelNoticiario = new JPanel();
-		
-	
+		JPanel panelNoticiario = new JPanel(new FlowLayout());
 		
 //Creamos las pestanias-----------------------------------
 		JPanel home = new JPanel();
@@ -136,8 +135,8 @@ public class VentanaPrincipal extends JFrame {
 		lideres.setLayout(new GridLayout(3,1));
 
 		JPanel noticiario = new JPanel();
-		tabbedPane.addTab("Noiticiario", null, noticiario, null);
-		noticiario.setLayout(new GridLayout(3,1));
+		tabbedPane.addTab("Noticiario", null, noticiario, null);
+		noticiario.setLayout(new FlowLayout());
 
 		JPanel playoffs = new JPanel();
 		tabbedPane.addTab("Play Offs", null, playoffs, null);
@@ -296,26 +295,20 @@ public class VentanaPrincipal extends JFrame {
 		
 		//---------------------------------------------------------------------
 //Rellenamos el panel NOTICIARIO-----------------------------------
-	
+		
 		noticiarioTexto = new JScrollPane();
-		noticiarioTexto.setPreferredSize(new Dimension(600,800));
+		//JLabel a = new JLabel("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		
+		noticiarioTexto.setPreferredSize(new Dimension(700,700));
 		noticiarioTexto.setBorder((new TitledBorder("Noticias")));
 		
 		panelNoticiario.add(noticiarioTexto);
+		//noticiarioTexto.setViewportView(a);
 		noticiario.add(panelNoticiario);
 		
 		//--------------------------------------------------------
 		
 //Rellennamos los paneles TRASPASOS-------------------------------------
-		
-		JPanel trasPanel = new JPanel();
-		trasPanel.setLayout(new GridLayout(3, 3));
-		JPanel trasArribaIzq = new JPanel(new FlowLayout());
-		JPanel trasArribaDcha = new JPanel(new FlowLayout());
-		JPanel trasCentroIzq = new JPanel(new BorderLayout());
-		JPanel trasCentroDcha = new JPanel(new FlowLayout());
-		JPanel trasAbajoIzq = new JPanel(new GridLayout(3, 1));
-		JPanel trasAbajoDcha = new JPanel(new FlowLayout());
 		
 		JButton aceptar = new JButton("Aceptar");
 		aceptar.setPreferredSize(new Dimension(300, 50));
@@ -376,64 +369,8 @@ public class VentanaPrincipal extends JFrame {
 		trasPanel.add(trasAbajoIzq);
 		trasPanel.add(trasAbajoDcha);
 		
-		traspasos.add(trasPanel);
-		
-	/*	panelIzquierdoSuperiorTraspasos.add(comboJugadores, BorderLayout.NORTH);
-		panelIzquierdoInferiorTraspasos.add(comboEquipos, BorderLayout.NORTH);
-		panelIzquierdoInferiorTraspasos.add(comboNombres, BorderLayout.SOUTH);
-		panelIzquierdoTraspasos.add(panelIzquierdoSuperiorTraspasos);
-		panelIzquierdoTraspasos.add(panelIzquierdoInferiorTraspasos);
-		
-		
-		
-		
-		
-		panelDerechoTraspasos1.add(scrollTraspasos1);
-		panelDerechoTraspasos2.add(aceptar);
-		panelDerechoTraspasos3.add(scrollTraspasos2);
-		
-		
-		panelDerechoTraspasos.add(panelDerechoTraspasos1, BorderLayout.NORTH);
-		panelDerechoTraspasos.add(panelDerechoTraspasos2, BorderLayout.CENTER);
-		panelDerechoTraspasos.add(panelDerechoTraspasos3,BorderLayout.SOUTH);
-		
-		
-		traspasos.add(panelIzquierdoTraspasos);
-		traspasos.add(panelDerechoTraspasos);*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		traspasos.add(trasPanel);	
+		//------------------------------------
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("NBA");
