@@ -20,6 +20,14 @@ public class ParseadorJSON {
 		return o;
 	}
 	
+	public static JSONArray getArrayPrimario(String dir) {
+		JSONArray a = null;
+		try {
+			a = new JSONArray(archivoAString(dir));
+		} catch (Exception e) {}
+		return a;
+	}
+	
 	public static String archivoAString(String dir) throws IOException {
 		return new String(Files.readAllBytes(Paths.get(dir)));
 	}

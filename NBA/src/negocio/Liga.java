@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.SwingUtilities;
 
@@ -11,6 +12,7 @@ import datos.ParseadorJSON;
 
 public class Liga {
 
+	protected Calendario calendario;
 	protected Equipo[] equipos;
 	protected ArrayList<Jugador> jugadores;
 	protected ArrayList<Jugador> agentesLibres;
@@ -23,7 +25,7 @@ public class Liga {
 		cargarAgentesLibres();
 		cargarEquipos();
 		asignarJugadoresAEquipos();
-		
+		calendario = new Calendario(equipos);
 		//Partido partido = new Partido(equipos[0], equipos[1]);
 	}
 	
@@ -72,10 +74,11 @@ public class Liga {
 			@Override
 			public void run() {
 				Liga l = new Liga();
-				for(Equipo e: l.equipos) {
-					System.out.println("---"+e.nombre);
-					for(Jugador j: e.jugadores) {
-						System.out.println(j.nombre);
+				for(Date date: l.calendario.calendario.keySet()) {
+					System.out.println("Partido jugados en "+date+":");
+					System.out.println(l.calendario.calendario.get(date).size());
+					for(Partido p: l.calendario.calendario.get(date)) {
+						System.out.println("-"+p);
 					}
 					System.out.println();
 				}

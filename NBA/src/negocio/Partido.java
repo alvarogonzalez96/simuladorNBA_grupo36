@@ -12,6 +12,9 @@ public class Partido {
 		
 	public Partido(Equipo local, Equipo visitante) {
 		
+		this.local = local;
+		this.visitante = visitante;
+		
 		asignarMinutos(local);
 		asignarMinutos(visitante);
 		
@@ -236,7 +239,7 @@ public class Partido {
 				}
 				minPivot = min - j.getMinutos();
 			}
-			System.out.println(j.nombre+" juega "+j.getMinutos());
+			//System.out.println(j.nombre+" juega "+j.getMinutos());
 		}
 	}
 	
@@ -262,4 +265,10 @@ public class Partido {
 		jugador.setMinutos(1800 + rand);
 		jugador.setTiempoJugado(jugador.getMinutos());
 	}
+
+	@Override
+	public String toString() {
+		return visitante.nombre+" - "+local.nombre;
+	}
+	
 }
