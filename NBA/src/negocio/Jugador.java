@@ -72,7 +72,13 @@ public class Jugador {
 		defensa = json.getJSONArray("ratings").getJSONObject(0).getInt("diq");
 		asistencia = json.getJSONArray("ratings").getJSONObject(0).getInt("pss");
 		anyoNac = json.getJSONObject("born").getInt("year");
-		overall = (int) (Math.random()*100);
+		overall = cargarOverallJugador();
+	}
+	
+	private int cargarOverallJugador() {
+		int ov = (int) ((rebote + tiroLibre + (tiroCerca + tiroLejos) + defensa + asistencia)/5);
+		
+		return ov;
 	}
 	
 	private Posicion seleccionarPosicion(String atJson) {
