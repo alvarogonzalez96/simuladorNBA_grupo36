@@ -21,7 +21,9 @@ public class Jugador {
 	protected int anyoNac;//born->year
 	protected int overall;
 	int tid;
-		
+	//Atributos para calcular la media
+	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
+	
 	public Jugador(String nombre, Posicion posicion, int rebote, Rol rol, int tiroLibre, int tiroCerca, int tiroLejos, int defensa,
 			int asistencia, int anyoNac, int tid) {
 		super();
@@ -71,12 +73,24 @@ public class Jugador {
 		tiroLejos = json.getJSONArray("ratings").getJSONObject(0).getInt("tp");
 		defensa = json.getJSONArray("ratings").getJSONObject(0).getInt("diq");
 		asistencia = json.getJSONArray("ratings").getJSONObject(0).getInt("pss");
+		//Atributos para calcular la media
+		//protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
+		hgt = json.getJSONArray("ratings").getJSONObject(0).getInt("hgt");
+		stre = json.getJSONArray("ratings").getJSONObject(0).getInt("stre");
+		spd = json.getJSONArray("ratings").getJSONObject(0).getInt("spd");
+		jmp = json.getJSONArray("ratings").getJSONObject(0).getInt("jmp");
+		endu = json.getJSONArray("ratings").getJSONObject(0).getInt("endu");
+		ins = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
+		dnk = json.getJSONArray("ratings").getJSONObject(0).getInt("dnk");
+		oiq = json.getJSONArray("ratings").getJSONObject(0).getInt("oiq");
+		drb = json.getJSONArray("ratings").getJSONObject(0).getInt("drb");
+		
 		anyoNac = json.getJSONObject("born").getInt("year");
 		overall = cargarOverallJugador();
 	}
 	
 	private int cargarOverallJugador() {
-		int ov = (int) ((rebote + tiroLibre + (tiroCerca + tiroLejos) + defensa + asistencia)/5);
+		int ov = (int) ((((rebote + tiroLibre + tiroCerca + tiroLejos + defensa + asistencia + hgt + stre + spd + jmp + endu + ins + dnk + oiq + drb)/15) * 99)/74);
 		
 		return ov;
 	}
