@@ -55,7 +55,7 @@ public class Equipo {
 		}
 		
 		ordenarJugadores();
-		
+		asignarRoles();
 		
 		this.ataque = (at/10);
 		this.defensa = (def/10);
@@ -87,6 +87,74 @@ public class Equipo {
 
 	public int getOverall() {
 		return overall;
+	}
+	
+	protected void asignarRoles() {
+		ordenarJugadores();
+		boolean titBase, titEsc, titAlero, titAlap, titPivot;
+		titBase = titEsc = titAlero = titAlap = titPivot = false;
+		Jugador estrella1 = asignarEstrellaAlMejor();
+		switch(estrella1.posicion) {
+		case BASE: titBase = true; break;
+		case ESCOLTA: titEsc = true; break;
+		case ALERO: titAlero = true; break;
+		case ALAPIVOT: titAlap = true; break;
+		default:
+			titPivot = true;
+		}
+		Jugador estrella2 = asignarEstrellaAlSegundoMejor(estrella1);
+		switch(estrella2.posicion) {
+		case BASE: titBase = true; break;
+		case ESCOLTA: titEsc = true; break;
+		case ALERO: titAlero = true; break;
+		case ALAPIVOT: titAlap = true; break;
+		default:
+			titPivot = true;
+		}
+		for(Jugador j: jugadores) {
+			if(j.rol != Rol.ESTRELLA) {
+				if(!titBase && j.posicion == Posicion.BASE) {
+					j.rol = Rol.TITULAR;
+					titBase = true;
+				}  else if(!titEsc && j.posicion == Posicion.ESCOLTA) {
+					j.rol = Rol.TITULAR;
+					titEsc = true;
+				} else if(!titAlero && j.posicion == Posicion.ALERO) {
+					j.rol = Rol.TITULAR;
+					titAlero = true;
+				} else if(!titAlap && j.posicion == Posicion.ALAPIVOT) {
+					j.rol = Rol.TITULAR;
+					titAlap = true;
+				} else if(!titPivot && j.posicion == Posicion.PIVOT) {
+					j.rol = Rol.TITULAR;
+					titPivot = true;
+				} else {
+					j.rol = Rol.SUPLENTE;
+				}
+			}
+		}
+	}
+	
+	private Jugador asignarEstrellaAlMejor() {
+		Jugador mejor = new Jugador();
+		for(Jugador j: jugadores) {
+			if(j.rol != Rol.ESTRELLA && j.overall > mejor.overall) {
+				mejor = j;
+			}
+		}
+		mejor.rol = Rol.ESTRELLA;
+		return mejor;
+	}
+	
+	private Jugador asignarEstrellaAlSegundoMejor(Jugador mejor) {
+		Jugador segmejor = new Jugador();
+		for(Jugador j: jugadores) {
+			if(j.rol != Rol.ESTRELLA && j.posicion != mejor.posicion && j.overall > segmejor.overall) {
+				segmejor = j;
+			}
+		}
+		segmejor.rol = Rol.ESTRELLA;
+		return segmejor;
 	}
 	
 	public void ordenarJugadores() {
