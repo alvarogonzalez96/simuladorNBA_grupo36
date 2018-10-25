@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.Comparator;
+
 import org.json.*;
 
 public class Jugador {
@@ -17,6 +19,7 @@ public class Jugador {
 	protected int minutos;
 	protected int tiempoJugado;
 	protected int anyoNac;//born->year
+	protected int overall;
 	int tid;
 		
 	public Jugador(String nombre, Posicion posicion, int rebote, Rol rol, int tiroLibre, int tiroCerca, int tiroLejos, int defensa,
@@ -69,6 +72,7 @@ public class Jugador {
 		defensa = json.getJSONArray("ratings").getJSONObject(0).getInt("diq");
 		asistencia = json.getJSONArray("ratings").getJSONObject(0).getInt("pss");
 		anyoNac = json.getJSONObject("born").getInt("year");
+		overall = (int) (Math.random()*100);
 	}
 	
 	private Posicion seleccionarPosicion(String atJson) {
@@ -213,11 +217,20 @@ public class Jugador {
 				+ ", condicionFisica=" + condicionFisica  + ", defensa="
 				+ defensa +  ", segundos=" + minutos + ", minutos= "+ min + ", m="+ tiempoJugado + "]";
 	}
+}
 
-	/*public void setOverall(int overall) {
-		this.overall = overall;
-	}*/
-	
-	
+
+
+class OrdenadorJugadores implements Comparator<Jugador>{
+
+	@Override
+	public int compare(Jugador a, Jugador b) {
+		if(a.overall > b.overall) {
+			return -1;
+		} else if(b.overall > a.overall) {
+			return 1;
+		} 
+		return 0;
+	}
 	
 }

@@ -57,6 +57,7 @@ public class Liga {
 					e.jugadores.add(j);
 				}
 			}
+			e.ordenarJugadores();
 		}
 	}
 	
@@ -74,11 +75,10 @@ public class Liga {
 			@Override
 			public void run() {
 				Liga l = new Liga();
-				for(Date date: l.calendario.calendario.keySet()) {
-					System.out.println("Partido jugados en "+date+":");
-					System.out.println(l.calendario.calendario.get(date).size());
-					for(Partido p: l.calendario.calendario.get(date)) {
-						System.out.println("-"+p);
+				for(Equipo e: l.equipos) {
+					System.out.println("--"+e.nombre);
+					for(Jugador j: e.jugadores) {
+						System.out.println(j.nombre+" "+j.overall);
 					}
 					System.out.println();
 				}
