@@ -3,9 +3,12 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.json.JSONObject;
+
 public class Equipo {
 
 	protected String nombre;
+	protected String abrev;
 	protected ArrayList<Jugador> jugadores;
 	protected int ataque;
 	protected int defensa;
@@ -49,7 +52,14 @@ public class Equipo {
 		this.defensa = (def/10);
 		this.overall = (ov/10);
 	}
-
+	
+	public Equipo(JSONObject json) {
+		this.tid = json.getInt("tid");
+		this.nombre = json.getString("region")+" "+json.getString("name");
+		this.abrev = json.getString("abbrev");
+		this.jugadores = new ArrayList<>();
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -57,14 +67,6 @@ public class Equipo {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	/*public Jugador[] getJugadores() {
-		return jugadores;
-	}
-
-	public void setJugadores(Jugador[] jugadores) {
-		this.jugadores = jugadores;
-	}*/
 
 	public int getAtaque() {
 		return ataque;
@@ -83,6 +85,4 @@ public class Equipo {
 		return "Equipo [nombre=" + nombre + ", jugadores="  /*Arrays.toString(jugadores)*/ + ", ataque=" + ataque
 				+ ", defensa=" + defensa + ", overall=" + overall + "]";
 	}
-	
-	
 }

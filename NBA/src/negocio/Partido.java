@@ -1,7 +1,5 @@
 package negocio;
 
-import java.util.Scanner;
-
 public class Partido {
 
 	protected Equipo local;
@@ -14,8 +12,9 @@ public class Partido {
 		
 	public Partido(Equipo local, Equipo visitante) {
 		
-		//asignarMinutos(local);
-		//asignarMinutos(visitante);
+		asignarMinutos(local);
+		asignarMinutos(visitante);
+		
 		
 		puntosLocal = puntosVisitante = 0;
 		atacaLocal = true;
@@ -188,7 +187,7 @@ public class Partido {
 		}
 	}
 	
-	/*public void asignarMinutos(Equipo equipo) {
+	public void asignarMinutos(Equipo equipo) {
 		int min = 2880;
 		int minBase = 0;
 		int minEscolta = 0;
@@ -196,48 +195,46 @@ public class Partido {
 		int minAlaPivot = 0;
 		int minPivot = 0;
 		
-		for (int i = 0; i < 10; i++) {
-			if(equipo.jugadores[i].posicion == Posicion.BASE) {
-				repartoEstrellaTitular(equipo.jugadores[i]);
-				if(equipo.jugadores[i].rol == Rol.SUPLENTE) {
-					equipo.jugadores[i].setMinutos(minBase);
-					equipo.jugadores[i].setTiempoJugado(minBase);
+		for(Jugador j: equipo.jugadores) {
+			if(j.posicion == Posicion.BASE) {
+				repartoEstrellaTitular(j);
+				if(j.rol == Rol.SUPLENTE) {
+					j.setMinutos(minBase);
+					j.setTiempoJugado(minBase);
 				}
-				minBase = min - equipo.jugadores[i].getMinutos();
-				
-			} else if(equipo.jugadores[i].posicion == Posicion.ESCOLTA) {
-				repartoEstrellaTitular(equipo.jugadores[i]);
-				if(equipo.jugadores[i].rol == Rol.SUPLENTE) {
-					equipo.jugadores[i].setMinutos(minEscolta);
-					equipo.jugadores[i].setTiempoJugado(minEscolta);
+				minBase = min - j.getMinutos();
+			} else if(j.posicion == Posicion.ESCOLTA) {
+				repartoEstrellaTitular(j);
+				if(j.rol == Rol.SUPLENTE) {
+					j.setMinutos(minEscolta);
+					j.setTiempoJugado(minEscolta);
 				}
-				minEscolta = min - equipo.jugadores[i].getMinutos();
-			} else if(equipo.jugadores[i].posicion == Posicion.ALERO) {
-				repartoEstrellaTitular(equipo.jugadores[i]);
-				if(equipo.jugadores[i].rol == Rol.SUPLENTE) {
-					equipo.jugadores[i].setMinutos(minAlero);
-					equipo.jugadores[i].setTiempoJugado(minAlero);
+				minEscolta = min - j.getMinutos();
+			} else if(j.posicion == Posicion.ALERO) {
+				repartoEstrellaTitular(j);
+				if(j.rol == Rol.SUPLENTE) {
+					j.setMinutos(minAlero);
+					j.setTiempoJugado(minAlero);
 				}
-				minAlero = min - equipo.jugadores[i].getMinutos();
-			} else if(equipo.jugadores[i].posicion == Posicion.ALAPIVOT) {
-				repartoEstrellaTitular(equipo.jugadores[i]);
-				if(equipo.jugadores[i].rol == Rol.SUPLENTE) {
-					equipo.jugadores[i].setMinutos(minAlaPivot);
-					equipo.jugadores[i].setTiempoJugado(minAlaPivot);
+				minAlero = min - j.getMinutos();
+			} else if(j.posicion == Posicion.ALAPIVOT) {
+				repartoEstrellaTitular(j);
+				if(j.rol == Rol.SUPLENTE) {
+					j.setMinutos(minAlaPivot);
+					j.setTiempoJugado(minAlaPivot);
 				}
-				minAlaPivot = min - equipo.jugadores[i].getMinutos();
-			} else if(equipo.jugadores[i].posicion == Posicion.PIVOT) {
-				repartoEstrellaTitular(equipo.jugadores[i]);
-				if(equipo.jugadores[i].rol == Rol.SUPLENTE) {
-					equipo.jugadores[i].setMinutos(minPivot);
-					equipo.jugadores[i].setTiempoJugado(minPivot);
+				minAlaPivot = min - j.getMinutos();
+			} else {
+				repartoEstrellaTitular(j);
+				if(j.rol == Rol.SUPLENTE) {
+					j.setMinutos(minPivot);
+					j.setTiempoJugado(minPivot);
 				}
-				minPivot = min - equipo.jugadores[i].getMinutos();
+				minPivot = min - j.getMinutos();
 			}
-			
-			//System.out.println(equipo.jugadores[i]);
+			System.out.println(j.nombre+" juega "+j.getMinutos());
 		}
-	}*/
+	}
 	
 	public void repartoEstrellaTitular(Jugador jugador) {
 		if(jugador.rol == Rol.ESTRELLA) {

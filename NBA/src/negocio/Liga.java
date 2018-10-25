@@ -22,10 +22,11 @@ public class Liga {
 		jugadores = new ArrayList<>();
 		agentesLibres = new ArrayList<>();
 		cargarJugadores();
-		equipos = crearEquipos(jugadores);
 		cargarAgentesLibres();
+		cargarEquipos();
+		asignarJugadoresAEquipos();
 		
-		//partido = new Partido(equipos[0], equipos[1]);
+		//Partido partido = new Partido(equipos[0], equipos[1]);
 	}
 	
 	private void cargarAgentesLibres() {
@@ -43,6 +44,22 @@ public class Liga {
 		jugadores = ParseadorJSON.aArrayListJugador(jugadoresJSON);
 	}
 	
+	private void cargarEquipos() {
+		JSONObject all = ParseadorJSON.getObjetoPrimario("equipos.json");
+		JSONArray equiposJSON = all.getJSONArray("teams");
+		equipos = ParseadorJSON.aArrayEquipos(equiposJSON);
+	}
+	
+	private void asignarJugadoresAEquipos() {
+		for(Equipo e: equipos) {
+			for(Jugador j: jugadores) {
+				if(j.tid == e.tid) {
+					e.jugadores.add(j);
+				}
+			}
+		}
+	}
+	
 	public Equipo[] crearEquipos(ArrayList<Jugador> jugadores) {
 		equipos = new Equipo[30];
 		for(int i = 0; i < 30; i++) {
@@ -57,11 +74,10 @@ public class Liga {
 			@Override
 			public void run() {
 				Liga l = new Liga();
-				l.cargarJugadores();
 				for(Equipo e: l.equipos) {
-					System.out.println("-----"+e.tid);
+					System.out.println("---"+e.nombre);
 					for(Jugador j: e.jugadores) {
-						System.out.println(j.nombre + ", juega de " + j.posicion + ", nació en el anyo " + j.anyoNac + " y tiene una habilidad tirando triples de " + j.tiroLejos);
+						System.out.println(j.nombre);
 					}
 					System.out.println();
 				}

@@ -1,11 +1,9 @@
 package negocio;
 
-import java.util.HashMap;
-
 import org.json.*;
 
 public class Jugador {
-
+	
 	protected String nombre;
 	protected Posicion posicion;
 	protected int rebote;//reb
