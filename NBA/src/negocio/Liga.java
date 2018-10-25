@@ -9,8 +9,6 @@ import org.json.JSONObject;
 
 import datos.ParseadorJSON;
 
-
-
 public class Liga {
 
 	protected Equipo[] equipos;
@@ -39,13 +37,13 @@ public class Liga {
 	}
 	
 	private void cargarJugadores() {
-		JSONObject all = ParseadorJSON.getObjetoPrimario("jugadores.json");
+		JSONObject all = ParseadorJSON.getObjetoPrimario("data/jugadores.json");
 		JSONArray jugadoresJSON = all.getJSONArray("players");
 		jugadores = ParseadorJSON.aArrayListJugador(jugadoresJSON);
 	}
 	
 	private void cargarEquipos() {
-		JSONObject all = ParseadorJSON.getObjetoPrimario("equipos.json");
+		JSONObject all = ParseadorJSON.getObjetoPrimario("data/equipos.json");
 		JSONArray equiposJSON = all.getJSONArray("teams");
 		equipos = ParseadorJSON.aArrayEquipos(equiposJSON);
 	}

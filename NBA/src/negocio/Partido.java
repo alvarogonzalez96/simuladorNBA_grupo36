@@ -19,24 +19,28 @@ public class Partido {
 		puntosLocal = puntosVisitante = 0;
 		atacaLocal = true;
 		
+		// jugar();
+	}
+	
+	public void jugar() {
 		int tiempo = 0; 
-		
+
 		quintetoLocal = new Quinteto(local);
 		quintetoVisitante = new Quinteto(visitante);
-		
+
 		//48 min * 60 = 2880 segundos
 		while(tiempo < 2880) {
 			quintetoLocal.actualizar(tiempo);
 			quintetoVisitante.actualizar(tiempo);
-			
+
 			if(atacaLocal) {
 				simularJugada(quintetoLocal, quintetoVisitante);
 			} else {
 				simularJugada(quintetoVisitante, quintetoLocal);
 			}
-			
+
 			atacaLocal = !atacaLocal;
-			
+
 			int rand = (int)(Math.random()*19+5);
 			tiempo = tiempo + rand;
 			quintetoLocal.actualizarTiempo(rand);
