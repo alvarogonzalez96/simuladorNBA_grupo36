@@ -6032,7 +6032,7 @@
 
 {"tid":29,
 "name":"John Wall",
-"ratings":[{"hgt":44,"stre":26,"spd":92,"jmp":75,"endu":80,"ins":44,"dnk":76,"ft":45,"fg":73,"tp":55,"diq":49,"oiq":70,"drb":88,"pss":74,"reb":36,"skills":["B","Dp","Ps"]}],
+"ratings":[{"hgt":44,"stre":40,"spd":92,"jmp":80,"endu":80,"ins":44,"dnk":76,"ft":60,"fg":73,"tp":55,"diq":49,"oiq":70,"drb":88,"pss":74,"reb":36,"skills":["B","Dp","Ps"]}],
 "pos":"PG","hgt":76,"weight":210,
 "born":{"year":1990,"loc":"Raleigh, NC"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4237.png",
