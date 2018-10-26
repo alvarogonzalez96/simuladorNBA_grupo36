@@ -28,15 +28,15 @@ public class Liga {
 		asignarJugadoresAEquipos();
 		calendario = new Calendario(equipos);
 		
-		/*
+		
 		for(ArrayList<Partido> dia: calendario.calendario.values()) {
 			for(Partido p: dia) {
-				System.out.println(p.local.tid+" "+p.visitante.tid);
-				//p.jugar();
-				//new Scanner(System.in).nextLine();
+				System.out.println(p.local.nombre+" "+p.visitante.nombre);
+				p.jugar();
+				new Scanner(System.in).nextLine();
 			}
 		}
-		System.out.println("Temporada regular finalizada");*/
+		System.out.println("Temporada regular finalizada");
 		
 	}
 	
