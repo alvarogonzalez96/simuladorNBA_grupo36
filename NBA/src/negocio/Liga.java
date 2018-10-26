@@ -17,7 +17,8 @@ public class Liga {
 	protected Equipo[] equipos;
 	protected ArrayList<Jugador> jugadores;
 	protected ArrayList<Jugador> agentesLibres;
-	protected Partido partido;
+	
+	protected Clasificacion clasifGeneral;
 	
 	public Liga() {
 		jugadores = new ArrayList<>();
@@ -27,17 +28,21 @@ public class Liga {
 		cargarEquipos();
 		asignarJugadoresAEquipos();
 		calendario = new Calendario(equipos);
-		
+		clasifGeneral = new Clasificacion(equipos);
 		
 		for(ArrayList<Partido> dia: calendario.calendario.values()) {
 			for(Partido p: dia) {
 				System.out.println(p.local.nombre+" "+p.visitante.nombre);
 				p.jugar();
-				new Scanner(System.in).nextLine();
+				//new Scanner(System.in).nextLine();
 			}
 		}
 		System.out.println("Temporada regular finalizada");
-		
+		clasifGeneral.ordenar();
+		System.out.println("Clasificacion general:");
+		for(Equipo e: clasifGeneral.getEquipos()) {
+			System.out.println(e.victorias+"-"+e.derrotas+" "+e.nombre);
+		}
 	}
 	
 	private void cargarAgentesLibres() {
@@ -87,6 +92,7 @@ public class Liga {
 			@Override
 			public void run() {
 				Liga l = new Liga();
+				/*
 				for(Equipo e: l.equipos) {
 					System.out.println(e.nombre+" "+e.tid);
 					for(Jugador j: e.jugadores) {
@@ -94,6 +100,7 @@ public class Liga {
 					}
 					System.out.println();
 				}
+				*/
 			}
 		});
 	}

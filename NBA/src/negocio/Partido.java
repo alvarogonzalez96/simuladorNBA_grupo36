@@ -54,6 +54,13 @@ public class Partido {
 			}
 			atacaLocal = !atacaLocal;
 		}
+		if(puntosLocal > puntosVisitante) {
+			local.nuevaVictoria();
+			visitante.nuevaDerrota();
+		} else {
+			local.nuevaDerrota();
+			visitante.nuevaVictoria();
+		}
 		System.out.println("Marcador final: "+puntosVisitante+"-"+puntosLocal);
 	}
 	

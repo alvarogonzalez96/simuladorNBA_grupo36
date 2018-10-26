@@ -13,6 +13,8 @@ public class Equipo {
 		ordenador = new OrdenadorJugadores();
 	}
 
+	protected int victorias, derrotas;
+	
 	protected String nombre;
 	protected String abrev;
 	protected ArrayList<Jugador> jugadores;
@@ -187,7 +189,23 @@ public class Equipo {
 	public void ordenarJugadores() {
 		jugadores.sort(ordenador);
 	}
+	
+	public int getVictorias() {
+		return victorias;
+	}
+	
+	public void nuevaVictoria() {
+		victorias++;
+	}
+	
+	public int getDerrotas() {
+		return derrotas;
+	}
 
+	public void nuevaDerrota() {
+		derrotas++;
+	}
+	
 	@Override
 	public String toString() {
 		return "Equipo [nombre=" + nombre + ", jugadores="  /*Arrays.toString(jugadores)*/ + ", ataque=" + ataque
