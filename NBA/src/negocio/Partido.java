@@ -1,7 +1,5 @@
 package negocio;
 
-import java.util.Scanner;
-
 public class Partido {
 
 	protected Equipo local;
@@ -12,42 +10,27 @@ public class Partido {
 	protected int puntosLocal, puntosVisitante;
 	protected boolean atacaLocal;
 		
-	public Partido(Equipo local, Equipo visitante) {
+	public Partido(Equipo local, Equipo visitante) {		
 		this.local = local;
 		this.visitante = visitante;
+		
+		puntosLocal = puntosVisitante = 0;
+		atacaLocal = true;
+	}
+	
+	public void jugar() {
+		int tiempo = 0;
 		
 		asignarMinutos(local);
 		asignarMinutos(visitante);
 		
-		puntosLocal = puntosVisitante = 0;
-		atacaLocal = true;
-		
-		//jugar();
-	}
-	
-	public void jugar() {
-		int tiempo = 0; 
-		
 		quintetoLocal = new Quinteto(local);
 		quintetoVisitante = new Quinteto(visitante);
-		
-		//quintetoLocal.actualizar(tiempo);
-		//quintetoVisitante.actualizar(tiempo);
 		
 		//48 min * 60 = 2880 segundos
 		while(tiempo < 2880) {
 			quintetoLocal.actualizar(tiempo);
 			quintetoVisitante.actualizar(tiempo);
-			System.out.println("h");
-			
-			for(Jugador j: quintetoLocal.jugadores) {
-				System.out.println(j.nombre+" "+j.tiempoJugado);
-			}
-			System.out.println();
-			
-			for(Jugador j: quintetoVisitante.jugadores) {
-				System.out.println(j.nombre+" "+j.tiempoJugado);
-			}
 			
 			if(atacaLocal) {
 				simularJugada(quintetoLocal, quintetoVisitante);

@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class Equipo {
 	
 	private static OrdenadorJugadores ordenador;
-	{
+	static {
 		ordenador = new OrdenadorJugadores();
 	}
 

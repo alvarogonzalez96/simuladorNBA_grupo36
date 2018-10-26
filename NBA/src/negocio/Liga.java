@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
 
@@ -26,8 +27,17 @@ public class Liga {
 		cargarEquipos();
 		asignarJugadoresAEquipos();
 		calendario = new Calendario(equipos);
-		Partido partido = new Partido(equipos[29], equipos[28]);
-		partido.jugar();
+		
+		/*
+		for(ArrayList<Partido> dia: calendario.calendario.values()) {
+			for(Partido p: dia) {
+				System.out.println(p.local.tid+" "+p.visitante.tid);
+				//p.jugar();
+				//new Scanner(System.in).nextLine();
+			}
+		}
+		System.out.println("Temporada regular finalizada");*/
+		
 	}
 	
 	private void cargarAgentesLibres() {
@@ -78,9 +88,9 @@ public class Liga {
 			public void run() {
 				Liga l = new Liga();
 				for(Equipo e: l.equipos) {
-					System.out.println("--"+e.nombre);
+					System.out.println(e.nombre+" "+e.tid);
 					for(Jugador j: e.jugadores) {
-						System.out.println(j.nombre+" "+j.overall + ", posicion: " + j.posicion+", rol: "+j.rol);
+						System.out.println(j.nombre+" "+j.posicion);
 					}
 					System.out.println();
 				}

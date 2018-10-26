@@ -35,6 +35,7 @@ public class Calendario {
 				local = equipos[tidLocal];
 				visitante = equipos[tidVisitante];
 				Partido partido = new Partido(local, visitante);
+				
 				String strFecha = p.getString("gameDateEst").substring(0, 10);
 				Date fecha = null;
 				try {
