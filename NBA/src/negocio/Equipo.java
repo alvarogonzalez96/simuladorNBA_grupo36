@@ -1,8 +1,6 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 
 import org.json.JSONObject;
 
@@ -15,6 +13,8 @@ public class Equipo {
 
 	protected int victorias, derrotas;
 	
+	protected Conferencia conferencia;
+	protected Division division;
 	protected String nombre;
 	protected String abrev;
 	protected ArrayList<Jugador> jugadores;
@@ -51,7 +51,27 @@ public class Equipo {
 		this.tid = json.getInt("tid");
 		this.nombre = json.getString("region")+" "+json.getString("name");
 		this.abrev = json.getString("abbrev");
+		int cid = json.getInt("cid");
+		if(cid == 0) {
+			this.conferencia = Conferencia.ESTE;
+		} else {
+			this.conferencia = Conferencia.OESTE;
+		}
+		int did = json.getInt("did");
+		this.division = ordinalADivision(did);
 		this.jugadores = new ArrayList<>();
+	}
+	
+	private Division ordinalADivision(int ord) {
+		switch(ord) {
+		case 0: return Division.ATLANTICO;
+		case 1: return Division.CENTRAL; 
+		case 2: return Division.SURESTE;
+		case 3: return Division.SUROESTE;
+		case 4: return Division.NOROESTE;
+		case 5: return Division.PACIFICO;
+		default: return null;
+		}
 	}
 	
 	public String getNombre() {

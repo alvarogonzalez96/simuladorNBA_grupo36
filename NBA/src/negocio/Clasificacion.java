@@ -20,6 +20,11 @@ public class Clasificacion {
 		this.equipos.sort(ord);
 	}
 	
+	public Clasificacion(ArrayList<Equipo> equipos) {
+		this.equipos = equipos;
+		this.equipos.sort(ord);
+	}
+	
 	public void ordenar() {
 		this.equipos.sort(ord);
 	}
@@ -30,6 +35,12 @@ public class Clasificacion {
 	
 	public ArrayList<Equipo> getEquipos(){
 		return this.equipos;
+	}
+	
+	public void imprimir() {
+		for(Equipo e: equipos) {
+			System.out.println(e.getVictorias()+"-"+e.getDerrotas()+" "+e.getNombre());
+		}
 	}
 }
 

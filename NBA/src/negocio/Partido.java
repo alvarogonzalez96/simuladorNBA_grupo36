@@ -46,7 +46,6 @@ public class Partido {
 			quintetoVisitante.actualizarTiempo(rand);
 		}
 		while(puntosLocal == puntosVisitante) {
-			System.out.println("empate");
 			if(atacaLocal) {
 				simularJugada(quintetoLocal, quintetoVisitante);
 			} else {				
