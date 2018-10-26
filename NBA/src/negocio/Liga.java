@@ -90,7 +90,7 @@ public class Liga {
 				for(Equipo e: l.equipos) {
 					System.out.println(e.nombre+" "+e.tid);
 					for(Jugador j: e.jugadores) {
-						System.out.println(j.nombre+" "+j.posicion);
+						System.out.println(j.nombre+" "+j.posicion + " ov: " + j.overall + " rol: " + j.rol);
 					}
 					System.out.println();
 				}
