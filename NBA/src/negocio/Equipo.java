@@ -93,43 +93,87 @@ public class Equipo {
 		ordenarJugadores();
 		boolean titBase, titEsc, titAlero, titAlap, titPivot;
 		titBase = titEsc = titAlero = titAlap = titPivot = false;
+		int basesTit, escTit, alerosTit, alapsTit, pivotsTit;
+		basesTit = escTit = alerosTit = alapsTit = pivotsTit = 0;
 		Jugador estrella1 = asignarEstrellaAlMejor();
 		switch(estrella1.posicion) {
-		case BASE: titBase = true; break;
-		case ESCOLTA: titEsc = true; break;
-		case ALERO: titAlero = true; break;
-		case ALAPIVOT: titAlap = true; break;
+		case BASE: titBase = true; basesTit++; break;
+		case ESCOLTA: titEsc = true; escTit++; break;
+		case ALERO: titAlero = true; alerosTit++; break;
+		case ALAPIVOT: titAlap = true; alapsTit++; break;
 		default:
 			titPivot = true;
+			pivotsTit++;
 		}
 		Jugador estrella2 = asignarEstrellaAlSegundoMejor(estrella1);
 		switch(estrella2.posicion) {
-		case BASE: titBase = true; break;
-		case ESCOLTA: titEsc = true; break;
-		case ALERO: titAlero = true; break;
-		case ALAPIVOT: titAlap = true; break;
+		case BASE: titBase = true; basesTit++; break;
+		case ESCOLTA: titEsc = true; escTit++; break;
+		case ALERO: titAlero = true; alerosTit++; break;
+		case ALAPIVOT: titAlap = true; alapsTit++; break;
 		default:
 			titPivot = true;
+			pivotsTit++;
 		}
 		for(Jugador j: jugadores) {
 			if(j.rol != Rol.ESTRELLA) {
 				if(!titBase && j.posicion == Posicion.BASE) {
 					j.rol = Rol.TITULAR;
 					titBase = true;
+					basesTit++;
 				}  else if(!titEsc && j.posicion == Posicion.ESCOLTA) {
 					j.rol = Rol.TITULAR;
 					titEsc = true;
+					escTit++;
 				} else if(!titAlero && j.posicion == Posicion.ALERO) {
 					j.rol = Rol.TITULAR;
 					titAlero = true;
+					alerosTit++;
 				} else if(!titAlap && j.posicion == Posicion.ALAPIVOT) {
 					j.rol = Rol.TITULAR;
 					titAlap = true;
+					alapsTit++;
 				} else if(!titPivot && j.posicion == Posicion.PIVOT) {
 					j.rol = Rol.TITULAR;
 					titPivot = true;
+					pivotsTit++;
 				} else {
-					j.rol = Rol.SUPLENTE;
+					if(j.posicion == Posicion.BASE) {
+						if(basesTit < 2) {
+							j.rol = Rol.SUPLENTE;
+							basesTit++;
+						} else {
+							j.rol = Rol.NOJUEGA;
+						}
+					} else if(j.posicion == Posicion.ESCOLTA) {
+						if(escTit < 2) {
+							j.rol = Rol.SUPLENTE;
+							escTit++;
+						} else {
+							j.rol = Rol.NOJUEGA;
+						}
+					} else if(j.posicion == Posicion.ALERO) {
+						if(alerosTit < 2) {
+							j.rol = Rol.SUPLENTE;
+							alerosTit++;
+						} else {
+							j.rol = Rol.NOJUEGA;
+						}
+					} else if(j.posicion == Posicion.ALAPIVOT) {
+						if(alapsTit < 2) {
+							j.rol = Rol.SUPLENTE;
+							alapsTit++;
+						} else {
+							j.rol = Rol.NOJUEGA;
+						}
+					} else {
+						if(pivotsTit < 2) {
+							j.rol = Rol.SUPLENTE;
+							pivotsTit++;
+						} else {
+							j.rol = Rol.NOJUEGA;
+						}
+					}
 				}
 			}
 		}

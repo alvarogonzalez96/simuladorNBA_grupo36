@@ -18,11 +18,14 @@ public class Partido {
 		asignarMinutos(local);
 		asignarMinutos(visitante);
 		
+		/*for(Jugador j: local.jugadores) {
+			System.out.println(j.nombre +" "+j.minutos+" "+j.posicion);
+		}*/
 		
 		puntosLocal = puntosVisitante = 0;
 		atacaLocal = true;
 		
-		// jugar();
+		//jugar();
 	}
 	
 	public void jugar() {
@@ -33,8 +36,6 @@ public class Partido {
 
 		//48 min * 60 = 2880 segundos
 		while(tiempo < 2880) {
-			quintetoLocal.actualizar(tiempo);
-			quintetoVisitante.actualizar(tiempo);
 
 			if(atacaLocal) {
 				simularJugada(quintetoLocal, quintetoVisitante);
@@ -48,6 +49,9 @@ public class Partido {
 			tiempo = tiempo + rand;
 			quintetoLocal.actualizarTiempo(rand);
 			quintetoVisitante.actualizarTiempo(rand);
+
+			quintetoLocal.actualizar(tiempo);
+			quintetoVisitante.actualizar(tiempo);
 		}
 		while(puntosLocal == puntosVisitante) {
 			System.out.println("empate");
@@ -187,13 +191,6 @@ public class Partido {
 		}
 	}
 	
-	public void actualizarTiempoJugadores(Jugador[] locales, Jugador[] visitantes, int rand) {
-		for (int i = 0; i < visitantes.length; i++) {
-			locales[i].setTiempoJugado(locales[i].getTiempoJugado()-rand);
-			visitantes[i].setTiempoJugado(visitantes[i].getTiempoJugado()-rand);
-		}
-	}
-	
 	public void asignarMinutos(Equipo equipo) {
 		int min = 2880;
 		int minBase = 0;
@@ -208,7 +205,7 @@ public class Partido {
 				if(j.rol == Rol.SUPLENTE) {
 					j.setMinutos(minBase);
 					j.setTiempoJugado(minBase);
-				}
+				} 
 				minBase = min - j.getMinutos();
 			} else if(j.posicion == Posicion.ESCOLTA) {
 				repartoEstrellaTitular(j);

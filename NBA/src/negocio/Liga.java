@@ -26,7 +26,7 @@ public class Liga {
 		cargarEquipos();
 		asignarJugadoresAEquipos();
 		calendario = new Calendario(equipos);
-		//Partido partido = new Partido(equipos[0], equipos[1]);
+		//Partido partido = new Partido(equipos[0], equipos[9]);
 	}
 	
 	private void cargarAgentesLibres() {
