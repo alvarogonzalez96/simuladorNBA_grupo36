@@ -83,7 +83,6 @@ public class Jugador {
 			tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
 			ins = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
 		}
-		tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
 		tiroLejos = json.getJSONArray("ratings").getJSONObject(0).getInt("tp");
 		defensa = json.getJSONArray("ratings").getJSONObject(0).getInt("diq");
 		asistencia = json.getJSONArray("ratings").getJSONObject(0).getInt("pss");

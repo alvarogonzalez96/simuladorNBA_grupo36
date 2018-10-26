@@ -6295,7 +6295,7 @@
 
 {"tid":21,
 "name":"Jonathan Isaac",
-"ratings":[{"hgt":62,"stre":33,"spd":67,"jmp":70,"endu":76,"ins":50,"dnk":75,"ft":55,"fg":69,"tp":50,"diq":52,"oiq":41,"drb":39,"pss":40,"reb":53,"skills":[]}],
+"ratings":[{"hgt":62,"stre":33,"spd":67,"jmp":70,"endu":76,"ins":50,"dnk":75,"ft":55,"fg":69,"tp":50,"diq":52,"oiq":41,"drb":39,"pss":40,"reb":63,"skills":[]}],
 "pos":"F","hgt":82,"weight":205,
 "born":{"year":1998,"loc":"Naples, FL"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628371.png",
@@ -6637,8 +6637,8 @@
 
 {"tid":21,
 "name":"Mohamed Bamba",
-"ratings":[{"hgt":74,"stre":59,"spd":60,"jmp":66,"endu":55,"ins":65,"dnk":66,"ft":42,"fg":26,"tp":20,"diq":60,"oiq":29,"drb":25,"pss":34,"reb":69,"skills":["A","Di","Dp","Po","R"]}],
-"pos":"PF","hgt":84,"weight":225,
+"ratings":[{"hgt":74,"stre":79,"spd":60,"jmp":66,"endu":55,"ins":75,"dnk":66,"ft":52,"fg":46,"tp":30,"diq":65,"oiq":29,"drb":25,"pss":34,"reb":79,"skills":["A","Di","Dp","Po","R"]}],
+"pos":"C","hgt":84,"weight":225,
 "born":{"year":1998,"loc":"Harlem, NY"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/recruiting/ncb/players/full/207369.png&w=350&h=254",
 "contract":{"amount":3489,"exp":2022},
