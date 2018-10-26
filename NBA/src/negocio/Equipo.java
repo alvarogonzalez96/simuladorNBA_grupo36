@@ -21,23 +21,6 @@ public class Equipo {
 	protected int overall;
 	int tid;
 	
-	/*public Equipo(String nombre, Jugador[] jugadores) {
-		super();
-		this.nombre = nombre;
-		this.jugadores = jugadores;
-		int at = 0;
-		int def = 0;
-		int ov = 0;
-		for (int i = 0; i < jugadores.length; i++) {
-			at = at + jugadores[i].getAtaque();
-			def = def + jugadores[i].getDefensa();
-			ov = ov + jugadores[i].getOverall();
-		}
-		this.ataque = (at/10);
-		this.defensa = (def/10);
-		this.overall = (ov/10);
-	}*/
-	
 	public Equipo(int tid, ArrayList<Jugador> jugadores) {
 		super();
 		//this.nombre = nombre;

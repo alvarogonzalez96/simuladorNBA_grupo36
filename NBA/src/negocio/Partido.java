@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.Scanner;
+
 public class Partido {
 
 	protected Equipo local;
@@ -11,16 +13,11 @@ public class Partido {
 	protected boolean atacaLocal;
 		
 	public Partido(Equipo local, Equipo visitante) {
-		
 		this.local = local;
 		this.visitante = visitante;
 		
 		asignarMinutos(local);
 		asignarMinutos(visitante);
-		
-		/*for(Jugador j: local.jugadores) {
-			System.out.println(j.nombre +" "+j.minutos+" "+j.posicion);
-		}*/
 		
 		puntosLocal = puntosVisitante = 0;
 		atacaLocal = true;
@@ -30,13 +27,28 @@ public class Partido {
 	
 	public void jugar() {
 		int tiempo = 0; 
-
+		
 		quintetoLocal = new Quinteto(local);
 		quintetoVisitante = new Quinteto(visitante);
-
+		
+		//quintetoLocal.actualizar(tiempo);
+		//quintetoVisitante.actualizar(tiempo);
+		
 		//48 min * 60 = 2880 segundos
 		while(tiempo < 2880) {
-
+			quintetoLocal.actualizar(tiempo);
+			quintetoVisitante.actualizar(tiempo);
+			System.out.println("h");
+			
+			for(Jugador j: quintetoLocal.jugadores) {
+				System.out.println(j.nombre+" "+j.tiempoJugado);
+			}
+			System.out.println();
+			
+			for(Jugador j: quintetoVisitante.jugadores) {
+				System.out.println(j.nombre+" "+j.tiempoJugado);
+			}
+			
 			if(atacaLocal) {
 				simularJugada(quintetoLocal, quintetoVisitante);
 			} else {
@@ -49,9 +61,6 @@ public class Partido {
 			tiempo = tiempo + rand;
 			quintetoLocal.actualizarTiempo(rand);
 			quintetoVisitante.actualizarTiempo(rand);
-
-			quintetoLocal.actualizar(tiempo);
-			quintetoVisitante.actualizar(tiempo);
 		}
 		while(puntosLocal == puntosVisitante) {
 			System.out.println("empate");
@@ -72,7 +81,7 @@ public class Partido {
 		double pTiro = 0.773;
 		//Probabilidad de que la jugada acabe con un tiro libre
 		double pTiroLibre = 0.098;
-		 
+
 		if(random <= pTiro) {
 			//Tira
 			tirar(atacando, defendiendo);

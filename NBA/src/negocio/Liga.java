@@ -16,7 +16,7 @@ public class Liga {
 	protected Equipo[] equipos;
 	protected ArrayList<Jugador> jugadores;
 	protected ArrayList<Jugador> agentesLibres;
-	//protected Partido partido;
+	protected Partido partido;
 	
 	public Liga() {
 		jugadores = new ArrayList<>();
@@ -26,7 +26,8 @@ public class Liga {
 		cargarEquipos();
 		asignarJugadoresAEquipos();
 		calendario = new Calendario(equipos);
-		//Partido partido = new Partido(equipos[0], equipos[9]);
+		Partido partido = new Partido(equipos[29], equipos[28]);
+		partido.jugar();
 	}
 	
 	private void cargarAgentesLibres() {

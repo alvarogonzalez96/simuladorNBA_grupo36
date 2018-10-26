@@ -3,9 +3,10 @@ package negocio;
 public class Quinteto {
 
 	private Equipo equipo;
-	private Jugador[] jugadores;
+	protected Jugador[] jugadores;
 	
 	public Quinteto(Equipo e) {
+		super();
 		this.equipo = e;
 	}
 	
@@ -24,10 +25,11 @@ public class Quinteto {
 	}
 	
 	private Jugador elegir(int tiempo, int pos) {
+		Jugador j = new Jugador();
 		Posicion p = elegirPosicion(pos);
-		for (int i = 0; i < jugadores.length; i++) {
+		for (int i = 0; i < equipo.jugadores.size(); i++) {
 			if(equipo.jugadores.get(i).posicion == p && equipo.jugadores.get(i).getTiempoJugado() > 0) {
-				return jugadores[i];
+				return equipo.jugadores.get(i);
 			}
 		}
 		System.err.println("Error, no quedan jugadores con tiempo disponible");
