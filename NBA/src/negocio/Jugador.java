@@ -76,7 +76,7 @@ public class Jugador {
 		 * media distancia
 		 */
 		
-		if(posicion == posicion.PIVOT ) {
+		if(posicion == Posicion.PIVOT ) {
 			tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
 			ins = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
 		} else {
