@@ -69,6 +69,20 @@ public class Jugador {
 		posicion = seleccionarPosicion(json.getString("pos"));
 		rebote = json.getJSONArray("ratings").getJSONObject(0).getInt("reb");
 		tiroLibre = json.getJSONArray("ratings").getJSONObject(0).getInt("ft");
+		
+		/*
+		 * En el json el atributo ins significa la calidad de tiro interior; por lo que,
+		 * para los pivots, utilizaremos dicho atributo, y para el resto, el tiro de
+		 * media distancia
+		 */
+		
+		if(posicion == posicion.PIVOT ) {
+			tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
+			ins = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
+		} else {
+			tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
+			ins = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
+		}
 		tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
 		tiroLejos = json.getJSONArray("ratings").getJSONObject(0).getInt("tp");
 		defensa = json.getJSONArray("ratings").getJSONObject(0).getInt("diq");
@@ -80,7 +94,6 @@ public class Jugador {
 		spd = json.getJSONArray("ratings").getJSONObject(0).getInt("spd");
 		jmp = json.getJSONArray("ratings").getJSONObject(0).getInt("jmp");
 		endu = json.getJSONArray("ratings").getJSONObject(0).getInt("endu");
-		ins = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
 		dnk = json.getJSONArray("ratings").getJSONObject(0).getInt("dnk");
 		oiq = json.getJSONArray("ratings").getJSONObject(0).getInt("oiq");
 		drb = json.getJSONArray("ratings").getJSONObject(0).getInt("drb");
