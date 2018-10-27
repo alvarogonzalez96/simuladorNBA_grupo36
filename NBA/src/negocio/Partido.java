@@ -19,6 +19,7 @@ public class Partido {
 		
 		puntosLocal = puntosVisitante = 0;
 		atacaLocal = true;
+		
 	}
 	
 	public void jugar() {
@@ -66,12 +67,19 @@ public class Partido {
 		System.out.println("Marcador final: "+puntosVisitante+"-"+puntosLocal);
 		System.out.println("----------------------------------------");
 		
-		for (Jugador j : local.jugadores) {
+		/*for (Jugador j : local.jugadores) {
+			if(!j.rol.equals(Rol.NOJUEGA)) {
+				System.out.println(j.nombre + " " + j.puntosPartido + " pts");
+			}
 			j.setPuntosPartido(0);
 		}
+		System.out.println();
 		for (Jugador j : visitante.jugadores) {
 			j.setPuntosPartido(0);
 		}
+		System.out.println("*******************");
+		System.out.println();
+		*/
 	}
 	
 	public void simularJugada(Quinteto atacando, Quinteto defendiendo) {
@@ -119,19 +127,18 @@ public class Partido {
 			variacionJugador = j.getTiroCerca();
 			variacionJugador = variacionJugador / 100;
 			random = Math.random()+0.5;
-			
 			if(random <= variacionJugador) {
 				//Mete el tiro de 2
 				if(atacaLocal) {
-					System.out.println("--Mete canasata el equipo local");
+					//System.out.println("--Mete canasata el equipo local");
 					j.puntosPartido += 2;
-					System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
+					//System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
 					puntosLocal += 2;
 				} else {
 
-					System.out.println("--Mete canasata el equipo visitante");
+					//System.out.println("--Mete canasata el equipo visitante");
 					j.puntosPartido += 2;
-					System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
+					//System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
 					puntosVisitante += 2;
 				}
 				//Acaba la jugada
@@ -158,14 +165,14 @@ public class Partido {
 			if(random <= variacionJugador ) {
 				//Mete el tiro de 3
 				if(atacaLocal) {
-					System.out.println("--Mete triple el equipo local");
+					//System.out.println("--Mete triple el equipo local");
 					j.puntosPartido += 3;
-					System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
+					//System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
 					puntosLocal += 3;
 				} else {
-					System.out.println("--Mete triple el equipo visitante");
+					//System.out.println("--Mete triple el equipo visitante");
 					j.puntosPartido += 3;
-					System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
+					//System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
 					puntosVisitante += 3;
 				}
 				//Acaba la jugada
@@ -267,7 +274,7 @@ public class Partido {
 					jugador = j;
 				} 
 			} else {
-				if(j.getTiroCerca() - Math.random()*20 > jugador.getTiroCerca() + Math.random()*100) {
+				if(j.getTiroCerca() - Math.random()*10 > jugador.getTiroCerca() + Math.random()*100) {
 					jugador = j;
 				}
 			}

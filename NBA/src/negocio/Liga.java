@@ -37,6 +37,7 @@ public class Liga {
 				//new Scanner(System.in).nextLine();
 			}
 		}
+
 		System.out.println("Temporada regular finalizada");
 		ordenarClasificaciones();
 		for(String d: clasificaciones.keySet()) {
@@ -137,6 +138,14 @@ public class Liga {
 			@Override
 			public void run() {
 				Liga l = new Liga();
+				for (Equipo e : l.equipos) {
+					for (Jugador j : e.jugadores) {
+						if(!j.rol.equals(Rol.NOJUEGA)) {
+							System.out.println(j.nombre + " " + j.puntosPartido/82 + " ppp");
+						}
+					}
+					System.out.println();
+				}
 			}
 		});
 	}
