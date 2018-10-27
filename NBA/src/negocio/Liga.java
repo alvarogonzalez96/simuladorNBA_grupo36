@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
 
@@ -33,7 +34,7 @@ public class Liga {
 			for(Partido p: dia) {
 				System.out.println(p.local.nombre+" "+p.visitante.nombre);
 				p.jugar();
-				//new Scanner(System.in).nextLine();
+				new Scanner(System.in).nextLine();
 			}
 		}
 		System.out.println("Temporada regular finalizada");

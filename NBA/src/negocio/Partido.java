@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.Comparator;
+
 public class Partido {
 
 	protected Equipo local;
@@ -9,6 +11,7 @@ public class Partido {
 	
 	protected int puntosLocal, puntosVisitante;
 	protected boolean atacaLocal;
+
 		
 	public Partido(Equipo local, Equipo visitante) {		
 		this.local = local;
@@ -61,6 +64,14 @@ public class Partido {
 			visitante.nuevaVictoria();
 		}
 		System.out.println("Marcador final: "+puntosVisitante+"-"+puntosLocal);
+		System.out.println("----------------------------------------");
+		
+		for (Jugador j : local.jugadores) {
+			j.setPuntosPartido(0);
+		}
+		for (Jugador j : visitante.jugadores) {
+			j.setPuntosPartido(0);
+		}
 	}
 	
 	public void simularJugada(Quinteto atacando, Quinteto defendiendo) {
@@ -89,15 +100,38 @@ public class Partido {
 		double random = Math.random();
 		double meterDos = 0.55;
 		double meterTres = 0.36;
+		double variacionJugador = 0;
+		
+		Jugador j = new Jugador();
 		
 		if(random <= tiroDeDos) {
 			//Tira de 2
-			random = Math.random();
-			if(random <= meterDos) {
+			//Elijo el tirador
+			
+			if(atacaLocal) {
+				j = elegirTiradorDos(quintetoLocal);
+				//System.out.println("Tira de 2 local: " + j.nombre);
+			} else {
+				j = elegirTiradorDos(quintetoVisitante);
+				//System.out.println("Tira de 2 visitante: " + j.nombre);
+			}
+			
+			variacionJugador = j.getTiroCerca();
+			variacionJugador = variacionJugador / 100;
+			random = Math.random()+0.5;
+			
+			if(random <= variacionJugador) {
 				//Mete el tiro de 2
 				if(atacaLocal) {
+					System.out.println("--Mete canasata el equipo local");
+					j.puntosPartido += 2;
+					System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
 					puntosLocal += 2;
 				} else {
+
+					System.out.println("--Mete canasata el equipo visitante");
+					j.puntosPartido += 2;
+					System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
 					puntosVisitante += 2;
 				}
 				//Acaba la jugada
@@ -109,12 +143,29 @@ public class Partido {
 			}
 		} else {
 			//Tira de 3
-			random = Math.random();
-			if(random <= meterTres) {
+			
+			if(atacaLocal) {
+				j = elegirTiradorTres(quintetoLocal);
+				//System.out.println("Tira de 3 local: " + j.nombre);
+			} else {
+				j = elegirTiradorTres(quintetoVisitante);
+				//System.out.println("Tira de 3 visitante: " + j.nombre);
+			}
+			variacionJugador = j.getTiroLejos();
+			variacionJugador = variacionJugador / 100;
+			random = Math.random()+0.05;
+
+			if(random <= variacionJugador ) {
 				//Mete el tiro de 3
 				if(atacaLocal) {
+					System.out.println("--Mete triple el equipo local");
+					j.puntosPartido += 3;
+					System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
 					puntosLocal += 3;
 				} else {
+					System.out.println("--Mete triple el equipo visitante");
+					j.puntosPartido += 3;
+					System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
 					puntosVisitante += 3;
 				}
 				//Acaba la jugada
@@ -128,26 +179,24 @@ public class Partido {
 	}
 	
 	public void tirosLibres(Quinteto atacando, Quinteto defendiendo) {
-		double meterTiroLibre = 0.772;
 		double random = Math.random();
 		
 		//Primer tiro libre
+		Jugador j = new Jugador();
+		if(atacaLocal) {
+			j = elegirTiradorLibre(quintetoLocal);	
+		} else {
+			j = elegirTiradorLibre(quintetoVisitante);
+		}
 		
-		/*
-		 * Podríamos hacer algo así if(random <= (meterTiroLibre + habilidadTiroLibre))
-		 * La habilidad de tiro libre puede ser positiva o negativa en funicón de qué jugador esté tirando; es decir,
-		 * si Curry en la vida real mete un 90% de tiro libre, al 0.722 sumarle un rango de valores que hagan que se aproxime
-		 * cada jugador a su porcentaje real, lo mismo podríamos hacer con los tiros de dos y de tres.
-		 * Para tomar la decisión de qué jugador tira, podríamos ordenarlos de mayor a menor éxito según sean tiros de 3 o de 2 y si son
-		 * jugadores estrella o no
-		 */
-		if(random <= meterTiroLibre) {
+		if(random <= j.getTiroLibre()) {
 			//Mete el primer tiro libre
 			if(atacaLocal) {
 				puntosLocal += 1;
 			} else {
 				puntosVisitante += 1;
 			}
+			j.puntosPartido += 1;
 		} else {
 			//Falla el primer tiro libre
 			
@@ -155,13 +204,14 @@ public class Partido {
 		
 		//Segundo tiro libre
 		random = Math.random();
-		if(random <= meterTiroLibre) {
+		if(random <= j.getTiroLibre()) {
 			//Mete el segundo tiro libre
 			if(atacaLocal) {
 				puntosLocal += 1;
 			} else {
 				puntosVisitante += 1;
 			}
+			j.puntosPartido += 1;
 			//Acaba la jugada
 			
 		} else {
@@ -187,6 +237,42 @@ public class Partido {
 			//Se inicia otra vez el ataque, recursividad.
 			simularJugada(atacando, defendiendo);
 		}
+	}
+	
+	public Jugador elegirTiradorLibre(Quinteto q) {
+		Jugador jugador = q.jugadores[0];
+		for (Jugador j : q.jugadores) {
+			if(j.getTiroLibre() + (Math.random()*70) > jugador.getTiroLibre()+ (Math.random()*70)) {
+				jugador = j;
+			}
+		}
+		return jugador;
+	}
+	
+	public Jugador elegirTiradorTres(Quinteto q) {
+		Jugador jugador = q.jugadores[0];
+		for (Jugador j : q.jugadores) {
+			if(j.getTiroLejos() + (Math.random()*70) > jugador.getTiroLejos()+ (Math.random()*70)) {
+				jugador = j;
+			}
+		}
+		return jugador;
+	}
+	
+	public Jugador elegirTiradorDos(Quinteto q) {
+		Jugador jugador = q.jugadores[0];
+		for (Jugador j : q.jugadores) {
+			if(!j.posicion.equals(Posicion.PIVOT)) {
+				if(j.getTiroCerca() + (Math.random()*100) > jugador.getTiroCerca()+ (Math.random()*100)) {
+					jugador = j;
+				} 
+			} else {
+				if(j.getTiroCerca() - Math.random()*20 > jugador.getTiroCerca() + Math.random()*100) {
+					jugador = j;
+				}
+			}
+		}
+		return jugador;
 	}
 	
 	public void asignarMinutos(Equipo equipo) {

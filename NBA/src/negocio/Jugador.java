@@ -21,6 +21,8 @@ public class Jugador {
 	protected int anyoNac;//born->year
 	protected int overall;
 	int tid;
+	protected int puntosPartido; //puntos que anota en cada partido
+
 	//Atributos para calcular la media
 	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
 	
@@ -158,7 +160,13 @@ public class Jugador {
 	public void setTiroLibre(int tiroLibre) {
 		this.tiroLibre = tiroLibre;
 	}
+	public int getPuntosPartido() {
+		return puntosPartido;
+	}
 
+	public void setPuntosPartido(int puntosPartido) {
+		this.puntosPartido = puntosPartido;
+	}
 	public int getAnyoNac() {
 		return anyoNac;
 	}
