@@ -167,6 +167,7 @@ public class Jugador {
 	public void setPuntosPartido(int puntosPartido) {
 		this.puntosPartido = puntosPartido;
 	}
+	
 	public int getAnyoNac() {
 		return anyoNac;
 	}
