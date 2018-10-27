@@ -4163,7 +4163,7 @@
 
 {"tid":10,
 "name":"Ryan Anderson",
-"ratings":[{"hgt":58,"stre":53,"spd":52,"jmp":52,"endu":70,"ins":60,"dnk":65,"ft":55,"fg":80,"tp":77,"diq":37,"oiq":56,"drb":24,"pss":29,"reb":70,"skills":["3"]}],
+"ratings":[{"hgt":58,"stre":53,"spd":52,"jmp":52,"endu":70,"ins":60,"dnk":65,"ft":55,"fg":50,"tp":77,"diq":37,"oiq":56,"drb":24,"pss":29,"reb":70,"skills":["3"]}],
 "pos":"PF","hgt":82,"weight":240,
 "born":{"year":1988,"loc":"Sacramento, CA"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3412.png",
