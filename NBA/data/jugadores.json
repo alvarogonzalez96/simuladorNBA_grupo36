@@ -1234,7 +1234,7 @@
 
 {"tid":15,
 "name":"Kelly Olynyk",
-"ratings":[{"hgt":67,"stre":45,"spd":52,"jmp":53,"endu":86,"ins":69,"dnk":59,"ft":63,"fg":68,"tp":77,"diq":42,"oiq":54,"drb":29,"pss":48,"reb":60,"skills":["3"]}],
+"ratings":[{"hgt":67,"stre":45,"spd":52,"jmp":73,"endu":96,"ins":69,"dnk":59,"ft":63,"fg":58,"tp":55,"diq":42,"oiq":54,"drb":29,"pss":48,"reb":60,"skills":["3"]}],
 "pos":"FC","hgt":84,"weight":238,
 "born":{"year":1991,"loc":"Toronto, Canada"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203482.png",
@@ -2770,7 +2770,7 @@
 
 {"tid":14,
 "name":"Omri Casspi",
-"ratings":[{"hgt":56,"stre":37,"spd":54,"jmp":52,"endu":55,"ins":50,"dnk":56,"ft":15,"fg":67,"tp":74,"diq":35,"oiq":58,"drb":42,"pss":26,"reb":44,"skills":["3"]}],
+"ratings":[{"hgt":56,"stre":37,"spd":54,"jmp":52,"endu":55,"ins":60,"dnk":56,"ft":15,"fg":67,"tp":64,"diq":35,"oiq":58,"drb":42,"pss":26,"reb":44,"skills":["3"]}],
 "pos":"SF","hgt":81,"weight":225,
 "born":{"year":1989,"loc":"Holon, Israel"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201956.png",
@@ -4485,7 +4485,7 @@
 
 {"tid":20,
 "name":"Russell Westbrook",
-"ratings":[{"hgt":40,"stre":69,"spd":97,"jmp":92,"endu":83,"ins":66,"dnk":85,"ft":47,"fg":81,"tp":40,"diq":42,"oiq":74,"drb":74,"pss":82,"reb":98,"skills":["A","B","Dp","Ps","R"]}],
+"ratings":[{"hgt":40,"stre":69,"spd":97,"jmp":92,"endu":60,"ins":66,"dnk":85,"ft":65,"fg":81,"tp":55,"diq":42,"oiq":74,"drb":74,"pss":82,"reb":98,"skills":["A","B","Dp","Ps","R"]}],
 "pos":"G","hgt":75,"weight":187,
 "born":{"year":1989,"loc":"Long Beach, CA"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201566.png",
