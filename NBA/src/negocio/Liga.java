@@ -1,5 +1,6 @@
 package negocio;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -134,14 +135,13 @@ public class Liga {
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
-			
 			@Override
 			public void run() {
 				Liga l = new Liga();
 				for (Equipo e : l.equipos) {
 					for (Jugador j : e.jugadores) {
 						if(!j.rol.equals(Rol.NOJUEGA)) {
-							System.out.println(j.nombre + " " + j.puntosPartido/82 + " ppp");
+							System.out.println(j.nombre + " " + (double)Math.round((j.puntosPartido/82)*100)/100 + " ppp" + " " + (double)Math.round((j.asistenciasPartido/82)*100)/100 + " app" + " " + (double)Math.round((j.rebotesPartido/82)*100)/100 + " rpp");
 						}
 					}
 					System.out.println();

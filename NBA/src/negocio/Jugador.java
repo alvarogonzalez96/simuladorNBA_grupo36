@@ -21,7 +21,12 @@ public class Jugador {
 	protected int anyoNac;//born->year
 	protected int overall;
 	int tid;
-	protected int puntosPartido; //puntos que anota en cada partido
+	protected double puntosPartido; //puntos que anota por partido
+	protected int nPuntos; //puntos que mete en el partido
+	protected double asistenciasPartido;//asistencias por partido
+	protected int nAsistencias;//asistencias en el partido
+	protected double rebotesPartido;//rebotes por partido
+	protected int nRebotes;//rebotes en un partido
 
 	//Atributos para calcular la media
 	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
@@ -160,11 +165,11 @@ public class Jugador {
 	public void setTiroLibre(int tiroLibre) {
 		this.tiroLibre = tiroLibre;
 	}
-	public int getPuntosPartido() {
+	public double getPuntosPartido() {
 		return puntosPartido;
 	}
 
-	public void setPuntosPartido(int puntosPartido) {
+	public void setPuntosPartido(double puntosPartido) {
 		this.puntosPartido = puntosPartido;
 	}
 	

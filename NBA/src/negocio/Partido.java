@@ -1,6 +1,6 @@
 package negocio;
 
-import java.util.Comparator;
+import javafx.geometry.Pos;
 
 public class Partido {
 
@@ -18,8 +18,7 @@ public class Partido {
 		this.visitante = visitante;
 		
 		puntosLocal = puntosVisitante = 0;
-		atacaLocal = true;
-		
+		atacaLocal = true;	
 	}
 	
 	public void jugar() {
@@ -66,29 +65,25 @@ public class Partido {
 		}
 		System.out.println("Marcador final: "+puntosVisitante+"-"+puntosLocal);
 		System.out.println("----------------------------------------");
+		for (Jugador j : local.jugadores) {
+			j.nPuntos = 0;
+			j.nAsistencias = 0;
+			j.nRebotes = 0;
+		}
 		
-		/*for (Jugador j : local.jugadores) {
-			if(!j.rol.equals(Rol.NOJUEGA)) {
-				System.out.println(j.nombre + " " + j.puntosPartido + " pts");
-			}
-			j.setPuntosPartido(0);
-		}
-		System.out.println();
 		for (Jugador j : visitante.jugadores) {
-			j.setPuntosPartido(0);
+			j.nPuntos = 0;
+			j.nAsistencias = 0;
+			j.nRebotes = 0;
 		}
-		System.out.println("*******************");
-		System.out.println();
-		*/
+		
 	}
 	
 	public void simularJugada(Quinteto atacando, Quinteto defendiendo) {
-		//Número que decide la jugada
-		double random = Math.random();
-		//Probabilidad de que la jugada acabe en un tiro de 2
-		double pTiro = 0.773;
-		//Probabilidad de que la jugada acabe con un tiro libre
-		double pTiroLibre = 0.098;
+	
+		double random = Math.random();//Número que decide la jugada
+		double pTiro = 0.773;//Probabilidad de que la jugada acabe en un tiro de 2
+		double pTiroLibre = 0.098;//Probabilidad de que la jugada acabe con un tiro libre
 
 		if(random <= pTiro) {
 			//Tira
@@ -99,7 +94,6 @@ public class Partido {
 		} else {
 			//Pérdida
 			//Termina la jugada
-			
 		}
 	}
 	
@@ -118,10 +112,8 @@ public class Partido {
 			
 			if(atacaLocal) {
 				j = elegirTiradorDos(quintetoLocal);
-				//System.out.println("Tira de 2 local: " + j.nombre);
 			} else {
 				j = elegirTiradorDos(quintetoVisitante);
-				//System.out.println("Tira de 2 visitante: " + j.nombre);
 			}
 			
 			variacionJugador = j.getTiroCerca();
@@ -130,17 +122,14 @@ public class Partido {
 			if(random <= variacionJugador) {
 				//Mete el tiro de 2
 				if(atacaLocal) {
-					//System.out.println("--Mete canasata el equipo local");
-					j.puntosPartido += 2;
-					//System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
+					elegirAsistente(quintetoLocal, j);
 					puntosLocal += 2;
 				} else {
-
-					//System.out.println("--Mete canasata el equipo visitante");
-					j.puntosPartido += 2;
-					//System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
+					elegirAsistente(quintetoVisitante, j);
 					puntosVisitante += 2;
 				}
+				j.puntosPartido += 2;
+				j.nPuntos += 2;
 				//Acaba la jugada
 			} else {
 				//Falla el tiro de 2
@@ -153,10 +142,8 @@ public class Partido {
 			
 			if(atacaLocal) {
 				j = elegirTiradorTres(quintetoLocal);
-				//System.out.println("Tira de 3 local: " + j.nombre);
 			} else {
 				j = elegirTiradorTres(quintetoVisitante);
-				//System.out.println("Tira de 3 visitante: " + j.nombre);
 			}
 			variacionJugador = j.getTiroLejos();
 			variacionJugador = variacionJugador / 100;
@@ -165,16 +152,14 @@ public class Partido {
 			if(random <= variacionJugador ) {
 				//Mete el tiro de 3
 				if(atacaLocal) {
-					//System.out.println("--Mete triple el equipo local");
-					j.puntosPartido += 3;
-					//System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
+					elegirAsistente(quintetoLocal, j);
 					puntosLocal += 3;
 				} else {
-					//System.out.println("--Mete triple el equipo visitante");
-					j.puntosPartido += 3;
-					//System.out.println("----Ha metido -> " + j.nombre + ", lleva: " + j.puntosPartido);
+					elegirAsistente(quintetoVisitante, j);
 					puntosVisitante += 3;
 				}
+				j.puntosPartido += 3;
+				j.nPuntos += 3;
 				//Acaba la jugada
 			} else {
 				//Falla el tiro de tres
@@ -206,7 +191,6 @@ public class Partido {
 			j.puntosPartido += 1;
 		} else {
 			//Falla el primer tiro libre
-			
 		}
 		
 		//Segundo tiro libre
@@ -235,21 +219,68 @@ public class Partido {
 		
 		if(random <= reboteDef) {
 			//Rebote defensivo
-			
+			elegirReboteador(defendiendo);
 			//Acaba la jugada
 			
 		} else {
 			//Rebote ofensivo
-			
+			elegirReboteador(atacando);
 			//Se inicia otra vez el ataque, recursividad.
 			simularJugada(atacando, defendiendo);
+		}
+	}
+	
+	public void elegirReboteador(Quinteto q) {
+		Jugador jugador = new Jugador();
+		for (Jugador j : q.jugadores) {
+			if(j.posicion.equals(Posicion.BASE) || j.posicion.equals(Posicion.ESCOLTA)) {
+				if(j.getRebote() >= 60) {
+					if(j.getRebote() - 50 > jugador.getRebote() + Math.random()*100) {
+						jugador = j;
+					}
+				} else if(j.getRebote() + Math.random()*30 > jugador.getRebote() + Math.random()*100) {
+					jugador = j;
+				}
+			} else if(j.posicion.equals(Posicion.ALERO)) {
+				if(j.getRebote() >= 65) {
+					if(j.getRebote() + Math.random()*20 > jugador.getRebote() + Math.random()*100) {
+						jugador = j;
+					}
+				} else if(j.getRebote() + Math.random()*30 > jugador.getRebote() + Math.random()*100) {
+					jugador = j;
+				}
+			} else if(j.posicion.equals(Posicion.ALAPIVOT)) {
+				if(j.getRebote() + Math.random()*5 > jugador.getRebote() + Math.random()*100) {
+					jugador = j;
+				}
+			} else {
+				if(j.getRebote() - Math.random()*20 > jugador.getRebote() + Math.random()*100) {
+					jugador = j;
+				}
+			}
+		}
+		jugador.rebotesPartido += 1;
+		jugador.nRebotes += 1;
+	}
+	
+	public void elegirAsistente(Quinteto q, Jugador jug) {
+		Jugador jugador = q.jugadores[0];
+		for (Jugador j : q.jugadores) {
+			if(j.getAsistencia() + (Math.random()*70) > jugador.getAsistencia() + (Math.random()*70) && !jugador.nombre.equals(jug.nombre)) {
+				jugador = j;
+			}
+		}
+		double random = Math.random();
+		if(random <= 0.582) {
+			jugador.asistenciasPartido += 1;
+			jugador.nAsistencias += 1;
 		}
 	}
 	
 	public Jugador elegirTiradorLibre(Quinteto q) {
 		Jugador jugador = q.jugadores[0];
 		for (Jugador j : q.jugadores) {
-			if(j.getTiroLibre() + (Math.random()*70) > jugador.getTiroLibre()+ (Math.random()*70)) {
+			if(j.getTiroLibre() + (Math.random()*70) > jugador.getTiroLibre() + (Math.random()*70)) {
 				jugador = j;
 			}
 		}
@@ -270,7 +301,7 @@ public class Partido {
 		Jugador jugador = q.jugadores[0];
 		for (Jugador j : q.jugadores) {
 			if(!j.posicion.equals(Posicion.PIVOT)) {
-				if(j.getTiroCerca() + (Math.random()*100) > jugador.getTiroCerca()+ (Math.random()*100)) {
+				if(j.getTiroCerca() + (Math.random()*100) > jugador.getTiroCerca() + (Math.random()*100)) {
 					jugador = j;
 				} 
 			} else {
@@ -327,7 +358,6 @@ public class Partido {
 				}
 				minPivot = min - j.getMinutos();
 			}
-			//System.out.println(j.nombre+" juega "+j.getMinutos());
 		}
 	}
 	
@@ -358,5 +388,4 @@ public class Partido {
 	public String toString() {
 		return visitante.nombre+" - "+local.nombre;
 	}
-	
 }

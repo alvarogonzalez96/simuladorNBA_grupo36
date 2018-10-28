@@ -598,7 +598,7 @@
 "contract":{"amount":4700,"exp":2019},
 "draft":{"round":1,"pick":6,"tid":25,"originalTid":25,"year":2015},
 "college":"Kentucky",
-"ratings":[{"hgt":75,"stre":74,"spd":70,"jmp":80,"endu":32,"ins":85,"dnk":72,"ft":55,"fg":66,"tp":3,"diq":49,"oiq":54,"drb":34,"pss":59,"reb":57,"skills":["A","Di","Dp","Po"]}],
+"ratings":[{"hgt":75,"stre":74,"spd":70,"jmp":40,"endu":32,"ins":85,"dnk":72,"ft":55,"fg":66,"tp":3,"diq":49,"oiq":54,"drb":34,"pss":59,"reb":87,"skills":["A","Di","Dp","Po"]}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
 {"tid":15,
@@ -3994,7 +3994,7 @@
 
 {"tid":28,
 "name":"Ricky Rubio",
-"ratings":[{"hgt":37,"stre":20,"spd":77,"jmp":50,"endu":72,"ins":48,"dnk":65,"ft":67,"fg":68,"tp":55,"diq":65,"oiq":61,"drb":60,"pss":80,"reb":66,"skills":[]}],
+"ratings":[{"hgt":57,"stre":20,"spd":77,"jmp":50,"endu":72,"ins":48,"dnk":65,"ft":67,"fg":68,"tp":55,"diq":65,"oiq":61,"drb":60,"pss":80,"reb":46,"skills":[]}],
 "pos":"PG","hgt":76,"weight":190,
 "born":{"year":1991,"loc":"El Masnou, Spain"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4011.png",
@@ -5358,7 +5358,7 @@
 
 {"tid":9,
 "name":"DeMarcus Cousins",
-"ratings":[{"hgt":69,"stre":88,"spd":73,"jmp":60,"endu":70,"ins":86,"dnk":80,"ft":49,"fg":65,"tp":57,"diq":44,"oiq":60,"drb":23,"pss":86,"reb":95,"skills":["3","A","Di","Dp","Po","Ps","R"]}],
+"ratings":[{"hgt":69,"stre":88,"spd":93,"jmp":60,"endu":70,"ins":86,"dnk":80,"ft":49,"fg":65,"tp":57,"diq":44,"oiq":60,"drb":23,"pss":66,"reb":95,"skills":["3","A","Di","Dp","Po","Ps","R"]}],
 "pos":"C","hgt":83,"weight":270,
 "born":{"year":1991,"loc":"Mobile, AL"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202326.png",
@@ -5634,7 +5634,7 @@
 
 {"tid":26,
 "name":"DeMar DeRozan",
-"ratings":[{"hgt":52,"stre":59,"spd":82,"jmp":85,"endu":52,"ins":80,"dnk":87,"ft":84,"fg":87,"tp":58,"diq":43,"oiq":54,"drb":86,"pss":54,"reb":32,"skills":["A","B","Dp","Po"]}],
+"ratings":[{"hgt":52,"stre":59,"spd":82,"jmp":75,"endu":52,"ins":80,"dnk":87,"ft":84,"fg":87,"tp":58,"diq":43,"oiq":54,"drb":86,"pss":54,"reb":42,"skills":["A","B","Dp","Po"]}],
 "pos":"GF","hgt":79,"weight":220,
 "born":{"year":1990,"loc":"Compton, CA"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3978.png",
@@ -5700,7 +5700,7 @@
 
 {"tid":27,
 "name":"Kyle Lowry",
-"ratings":[{"hgt":25,"stre":58,"spd":78,"jmp":74,"endu":70,"ins":35,"dnk":70,"ft":87,"fg":74,"tp":79,"diq":41,"oiq":55,"drb":80,"pss":51,"reb":75,"skills":["3","B","Dp"]}],
+"ratings":[{"hgt":25,"stre":58,"spd":98,"jmp":74,"endu":70,"ins":35,"dnk":70,"ft":87,"fg":74,"tp":79,"diq":41,"oiq":55,"drb":80,"pss":51,"reb":45,"skills":["3","B","Dp"]}],
 "pos":"PG","hgt":72,"weight":205,
 "born":{"year":1986,"loc":"Philadelphia, PA"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/200768.png",
@@ -5933,7 +5933,7 @@
 
 {"tid":28,
 "name":"Joe Ingles",
-"ratings":[{"hgt":53,"stre":50,"spd":54,"jmp":50,"endu":76,"ins":59,"dnk":77,"ft":70,"fg":57,"tp":70,"diq":60,"oiq":51,"drb":71,"pss":52,"reb":53,"skills":["3"]}],
+"ratings":[{"hgt":53,"stre":50,"spd":54,"jmp":50,"endu":86,"ins":59,"dnk":77,"ft":70,"fg":57,"tp":70,"diq":60,"oiq":51,"drb":71,"pss":52,"reb":43,"skills":["3"]}],
 "pos":"F","hgt":80,"weight":226,
 "born":{"year":1988,"loc":"Happy Valley, Australia"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2968436.png&w=350&h=254",
@@ -8760,7 +8760,7 @@
 
 {"tid":23,
 "name":"DeAndre Ayton",
-"ratings":[{"hgt":70,"stre":68,"spd":62,"jmp":77,"endu":63,"ins":65,"dnk":68,"ft":75,"fg":55,"tp":40,"diq":34,"oiq":68,"drb":38,"pss":50,"reb":75,"skills":["A","Di","Po","R"]}],
+"ratings":[{"hgt":70,"stre":68,"spd":62,"jmp":77,"endu":63,"ins":65,"dnk":68,"ft":75,"fg":55,"tp":40,"diq":34,"oiq":58,"drb":38,"pss":50,"reb":85,"skills":["A","Di","Po","R"]}],
 "pos":"C","hgt":84,"weight":245,
 "born":{"year":1999,"loc":"Nassau, Bahamas"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/recruiting/ncb/players/full/187828.png&w=350&h=254",
