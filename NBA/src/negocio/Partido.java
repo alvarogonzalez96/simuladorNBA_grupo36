@@ -21,6 +21,14 @@ public class Partido {
 		atacaLocal = true;	
 	}
 	
+	public Partido(Partido p) {
+		this.local = p.local;
+		this.visitante = p.visitante;
+		
+		puntosLocal = puntosVisitante = 0;
+		atacaLocal = true;
+	}
+	
 	public void jugar() {
 		int tiempo = 0;
 		
@@ -63,8 +71,8 @@ public class Partido {
 			local.nuevaDerrota();
 			visitante.nuevaVictoria();
 		}
-		System.out.println("Marcador final: "+puntosVisitante+"-"+puntosLocal);
-		System.out.println("----------------------------------------");
+		System.out.println(visitante.nombre+" "+puntosVisitante+" - "+puntosLocal+" "+local.nombre);
+		//System.out.println("----------------------------------------");
 		for (Jugador j : local.jugadores) {
 			j.nPuntos = 0;
 			j.nAsistencias = 0;

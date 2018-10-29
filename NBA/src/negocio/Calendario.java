@@ -3,6 +3,7 @@ package negocio;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -12,14 +13,47 @@ import datos.ParseadorJSON;
 
 public class Calendario {
 
+	public int anyo;
 	public Equipo[] equipos;
 	public HashMap<Date, ArrayList<Partido>> calendario;
 	public Date diaActual;
 	
 	public Calendario(Equipo[] equipos) {
+		this.anyo = 2015;
 		this.equipos = equipos;
 		calendario = new HashMap<>();
 		cargarCalendario();
+	}
+	
+	public Calendario(Calendario c, int anyo) {
+		this.equipos = c.equipos;
+		this.anyo = anyo;
+		this.calendario = new HashMap<>();
+		try {
+			diaActual = new SimpleDateFormat("yyyy-MM-dd").parse("2015-10-27");
+		} catch (ParseException e) {
+			diaActual = null;
+			e.printStackTrace();
+		}
+		copiarPartidos(c);
+	}
+	
+	private void copiarPartidos(Calendario c) {
+		for(Date d: c.calendario.keySet()) {
+			if(!calendario.containsKey(d)) {
+				calendario.put(d, new ArrayList<>());
+			}
+			for(Partido p: c.calendario.get(d)) {
+				calendario.get(d).add(new Partido(p));
+			}
+		}
+	}
+	
+	public void avanzarDia() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(diaActual);
+		cal.add(Calendar.DATE, 1);
+		diaActual = cal.getTime();
 	}
 	
 	private void cargarCalendario() {

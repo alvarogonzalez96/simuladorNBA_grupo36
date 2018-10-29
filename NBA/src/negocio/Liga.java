@@ -1,9 +1,7 @@
 package negocio;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
 
@@ -19,6 +17,8 @@ public class Liga {
 	protected ArrayList<Jugador> jugadores;
 	protected ArrayList<Jugador> agentesLibres;
 	
+	protected Temporada temporada;
+	
 	protected HashMap<String, Clasificacion> clasificaciones;
 	
 	public Liga() {
@@ -29,67 +29,19 @@ public class Liga {
 		cargarEquipos();
 		asignarJugadoresAEquipos();
 		calendario = new Calendario(equipos);
-		inicializarClasificaciones();
-		
-		for(ArrayList<Partido> dia: calendario.calendario.values()) {
-			for(Partido p: dia) {
-				System.out.println(p.local.nombre+" "+p.visitante.nombre);
-				p.jugar();
-				//new Scanner(System.in).nextLine();
-			}
+		temporada = new Temporada(2018, equipos, jugadores, calendario);
+		boolean continua = temporada.simularDia();
+		while(continua) {
+			continua = temporada.simularDia();
 		}
-
-		System.out.println("Temporada regular finalizada");
+		
+		/*System.out.println("Temporada regular finalizada");
 		ordenarClasificaciones();
 		for(String d: clasificaciones.keySet()) {
 			System.out.println("Clasificacion "+d);
 			clasificaciones.get(d).imprimir();
 			System.out.println();
-		}
-	}
-	
-	private void ordenarClasificaciones() {
-		for(Clasificacion c: clasificaciones.values()) {
-			c.ordenar();
-		}
-	}
-	
-	private void inicializarClasificaciones() {
-		clasificaciones = new HashMap<>();
-		ArrayList<Equipo> este, oeste, atl, cent, sure, pac, suro, noro;
-		este = new ArrayList<>();
-		oeste = new ArrayList<>();
-		atl = new ArrayList<>();
-		cent = new ArrayList<>();
-		sure = new ArrayList<>();
-		pac = new ArrayList<>();
-		suro = new ArrayList<>();
-		noro = new ArrayList<>();
-		
-		for(Equipo e: equipos) {
-			if(e.conferencia == Conferencia.ESTE) {
-				este.add(e);
-			} else {
-				oeste.add(e);
-			}
-			switch(e.division) {
-			case ATLANTICO: atl.add(e); break;
-			case CENTRAL: cent.add(e); break;
-			case SURESTE: sure.add(e); break;
-			case PACIFICO: pac.add(e); break;
-			case SUROESTE: suro.add(e); break;
-			case NOROESTE: noro.add(e); break;
-			}
-		}
-		clasificaciones.put("GENERAL", new Clasificacion(equipos));
-		clasificaciones.put("ESTE", new Clasificacion(este));
-		clasificaciones.put("OESTE", new Clasificacion(oeste));
-		clasificaciones.put("ATLANTICO", new Clasificacion(atl));
-		clasificaciones.put("CENTRAL", new Clasificacion(cent));
-		clasificaciones.put("SURESTE", new Clasificacion(sure));
-		clasificaciones.put("PACIFICO", new Clasificacion(pac));
-		clasificaciones.put("NOROESTE", new Clasificacion(noro));
-		clasificaciones.put("SUROESTE", new Clasificacion(suro));
+		}*/
 	}
 	
 	private void cargarAgentesLibres() {
@@ -138,14 +90,14 @@ public class Liga {
 			@Override
 			public void run() {
 				Liga l = new Liga();
-				for (Equipo e : l.equipos) {
-					for (Jugador j : e.jugadores) {
-						if(!j.rol.equals(Rol.NOJUEGA)) {
-							System.out.println(j.nombre + " " + (double)Math.round((j.puntosPartido/82)*100)/100 + " ppp" + " " + (double)Math.round((j.asistenciasPartido/82)*100)/100 + " app" + " " + (double)Math.round((j.rebotesPartido/82)*100)/100 + " rpp");
-						}
-					}
-					System.out.println();
-				}
+//				for (Equipo e : l.equipos) {
+//					for (Jugador j : e.jugadores) {
+//						if(!j.rol.equals(Rol.NOJUEGA)) {
+//							System.out.println(j.nombre + " " + (double)Math.round((j.puntosPartido/82)*100)/100 + " ppp" + " " + (double)Math.round((j.asistenciasPartido/82)*100)/100 + " app" + " " + (double)Math.round((j.rebotesPartido/82)*100)/100 + " rpp");
+//						}
+//					}
+//					System.out.println();
+//				}
 			}
 		});
 	}
