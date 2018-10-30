@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.swing.SwingUtilities;
@@ -11,37 +12,73 @@ import org.json.JSONObject;
 import datos.ParseadorJSON;
 
 public class Liga {
+	
+	/**
+	 * Esta clase se usa para simular la temporada actual.
+	 * Cuando una temporada acabe, se guardarán en la BD los datos de esta (premios, stats de
+	 * jugadores, y equipo en el que acabó la temporada cada jugador).
+	 * 
+	 **/
 
 	protected Calendario calendario;
 	protected Equipo[] equipos;
 	protected ArrayList<Jugador> jugadores;
 	protected ArrayList<Jugador> agentesLibres;
-	
-	protected Temporada temporada;
-	
 	protected HashMap<String, Clasificacion> clasificaciones;
 	
-	public Liga() {
+	protected boolean recienCreada;
+	protected int anyo;
+	
+	public Liga(boolean recienCreada) {
+		this.recienCreada = recienCreada;
 		jugadores = new ArrayList<>();
 		agentesLibres = new ArrayList<>();
 		cargarJugadores();
 		cargarAgentesLibres();
 		cargarEquipos();
 		asignarJugadoresAEquipos();
-		calendario = new Calendario(equipos);
-		temporada = new Temporada(2018, equipos, jugadores, calendario);
-		boolean continua = temporada.simularDia();
-		while(continua) {
-			continua = temporada.simularDia();
+		inicializarClasificaciones();
+		Date diaActual;
+		if(recienCreada) {
+			diaActual = Calendario.PRIMER_DIA;
+		} else {
+			diaActual = null; //cargar el dia actual en la BD
 		}
+		calendario = new Calendario(equipos, diaActual); // el calendario es el mismo para todas las temporadas
+		boolean m = simularDia();
+		while(!m) {
+			m = simularDia();
+		}
+	}
+	
+	/**
+	 *  @return true si ha terminado la temporada (incluidos los playoffs), 
+	 *  		false si no ha terminado la temporada
+	 * */
+	private boolean simularDia() {
+		System.out.println("Simulando "+calendario.getDiaActual());
+		if(!calendario.getDiaActual().after(Calendario.ULTIMO_DIA_TEMP_REGULAR)) {
+			// simular dia de temporada regular
+			if(calendario.calendario.keySet().contains(calendario.getDiaActual())) {
+				for(Partido p: calendario.calendario.get(calendario.getDiaActual())) {
+					p.jugar();
+				}
+				ordenarClasificaciones();
+			}
+			calendario.avanzarDia();
+			if(calendario.getDiaActual().equals(Calendario.ULTIMO_DIA_TEMP_REGULAR)) {
+				System.out.println("Fin de la temporada regular");
+				crearPlayoffs();
+			}
+			return false;
+		} else {
+			// playoffs / verano
+			return true;
+		}
+	}
+	
+	private void crearPlayoffs() {
 		
-		/*System.out.println("Temporada regular finalizada");
-		ordenarClasificaciones();
-		for(String d: clasificaciones.keySet()) {
-			System.out.println("Clasificacion "+d);
-			clasificaciones.get(d).imprimir();
-			System.out.println();
-		}*/
 	}
 	
 	private void cargarAgentesLibres() {
@@ -54,15 +91,23 @@ public class Liga {
 	}
 	
 	private void cargarJugadores() {
-		JSONObject all = ParseadorJSON.getObjetoPrimario("data/jugadores.json");
-		JSONArray jugadoresJSON = all.getJSONArray("players");
-		jugadores = ParseadorJSON.aArrayListJugador(jugadoresJSON);
+		if(recienCreada) { // cargar los jugadores por defecto desde el JSON
+			JSONObject all = ParseadorJSON.getObjetoPrimario("data/jugadores.json");
+			JSONArray jugadoresJSON = all.getJSONArray("players");
+			jugadores = ParseadorJSON.aArrayListJugador(jugadoresJSON);
+		} else {
+			// cargar los jugadores y sus atributos desde la BD
+		}
 	}
 	
 	private void cargarEquipos() {
-		JSONObject all = ParseadorJSON.getObjetoPrimario("data/equipos.json");
-		JSONArray equiposJSON = all.getJSONArray("teams");
-		equipos = ParseadorJSON.aArrayEquipos(equiposJSON);
+		if(recienCreada) { //cargar los equipos por defecto desde JSON
+			JSONObject all = ParseadorJSON.getObjetoPrimario("data/equipos.json");
+			JSONArray equiposJSON = all.getJSONArray("teams");
+			equipos = ParseadorJSON.aArrayEquipos(equiposJSON);
+		} else {
+			// cargar los equipos y sus atributos desde la BD
+		}
 	}
 	
 	private void asignarJugadoresAEquipos() {
@@ -85,11 +130,55 @@ public class Liga {
 		return equipos;
 	}
 	
+	private void inicializarClasificaciones() {
+		clasificaciones = new HashMap<>();
+		ArrayList<Equipo> este, oeste, atl, cent, sure, pac, suro, noro;
+		este = new ArrayList<>();
+		oeste = new ArrayList<>();
+		atl = new ArrayList<>();
+		cent = new ArrayList<>();
+		sure = new ArrayList<>();
+		pac = new ArrayList<>();
+		suro = new ArrayList<>();
+		noro = new ArrayList<>();
+		
+		for(Equipo e: equipos) {
+			if(e.conferencia == Conferencia.ESTE) {
+				este.add(e);
+			} else {
+				oeste.add(e);
+			}
+			switch(e.division) {
+			case ATLANTICO: atl.add(e); break;
+			case CENTRAL: cent.add(e); break;
+			case SURESTE: sure.add(e); break;
+			case PACIFICO: pac.add(e); break;
+			case SUROESTE: suro.add(e); break;
+			case NOROESTE: noro.add(e); break;
+			}
+		}
+		clasificaciones.put("GENERAL", new Clasificacion(equipos));
+		clasificaciones.put("ESTE", new Clasificacion(este));
+		clasificaciones.put("OESTE", new Clasificacion(oeste));
+		clasificaciones.put("ATLANTICO", new Clasificacion(atl));
+		clasificaciones.put("CENTRAL", new Clasificacion(cent));
+		clasificaciones.put("SURESTE", new Clasificacion(sure));
+		clasificaciones.put("PACIFICO", new Clasificacion(pac));
+		clasificaciones.put("NOROESTE", new Clasificacion(noro));
+		clasificaciones.put("SUROESTE", new Clasificacion(suro));
+	}
+	
+	private void ordenarClasificaciones() {
+		for(Clasificacion c: clasificaciones.values()) {
+			c.ordenar();
+		}
+	}
+	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				Liga l = new Liga();
+				Liga l = new Liga(true);
 //				for (Equipo e : l.equipos) {
 //					for (Jugador j : e.jugadores) {
 //						if(!j.rol.equals(Rol.NOJUEGA)) {

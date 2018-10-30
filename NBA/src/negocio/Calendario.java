@@ -13,14 +13,29 @@ import datos.ParseadorJSON;
 
 public class Calendario {
 
+	public static final Date PRIMER_DIA;
+	public static final Date ULTIMO_DIA_TEMP_REGULAR;
+	static {
+		Date p = null;
+		Date u = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			p = sdf.parse("2015-10-27");
+			u = sdf.parse("2016-04-13");
+		} catch (ParseException e) {}
+		PRIMER_DIA = p;
+		ULTIMO_DIA_TEMP_REGULAR = u;
+	}
+	
 	public int anyo;
 	public Equipo[] equipos;
 	public HashMap<Date, ArrayList<Partido>> calendario;
 	public Date diaActual;
 	
-	public Calendario(Equipo[] equipos) {
+	public Calendario(Equipo[] equipos, Date d) {
 		this.anyo = 2015;
 		this.equipos = equipos;
+		this.diaActual = d;
 		calendario = new HashMap<>();
 		cargarCalendario();
 	}
@@ -46,6 +61,16 @@ public class Calendario {
 			for(Partido p: c.calendario.get(d)) {
 				calendario.get(d).add(new Partido(p));
 			}
+		}
+	}
+	
+	public void addPartido(Date d, Partido p) {
+		if(calendario.keySet().contains(d)) {
+			calendario.get(d).add(p);
+		} else {
+			ArrayList<Partido> m = new ArrayList<>();
+			m.add(p);
+			calendario.put(d, m);
 		}
 	}
 	
@@ -86,6 +111,10 @@ public class Calendario {
 				}
 			}
 		}
+	}
+	
+	public Date getDiaActual() {
+		return this.diaActual;
 	}
 	
 	public static void main(String[] args) throws ParseException {

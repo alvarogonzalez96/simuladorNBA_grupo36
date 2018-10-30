@@ -25,6 +25,10 @@ public class Clasificacion {
 		this.equipos.sort(ord);
 	}
 	
+	public Equipo get(int i) {
+		return equipos.get(i);
+	}
+	
 	public void ordenar() {
 		this.equipos.sort(ord);
 	}
