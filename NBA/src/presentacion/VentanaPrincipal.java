@@ -44,6 +44,8 @@ public class VentanaPrincipal extends JFrame {
 
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridLayout());
+		
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
@@ -53,7 +55,7 @@ public class VentanaPrincipal extends JFrame {
 		barra.add(menuDatos);
 		this.setJMenuBar(barra);
 
-//Paneles HOME Principales, ordenados--------------------
+		//Paneles HOME Principales, ordenados--------------------
 		JPanel panelSuperior = new JPanel(new BorderLayout());
 		JPanel panelInferior = new JPanel (new BorderLayout() );
 
@@ -97,9 +99,8 @@ public class VentanaPrincipal extends JFrame {
 		JPanel panelNoticiario = new JPanel(new FlowLayout());
 		
 //Creamos las pestanias-----------------------------------
-		JPanel home = new JPanel();
+		JPanel home = new PanelHome();
 		tabbedPane.addTab("Home", null, home, null);
-		home.setLayout(new GridLayout(2,1));
 
 		JPanel calendario = new JPanel();
 		tabbedPane.addTab("Calendario", null, calendario, null);
@@ -232,7 +233,7 @@ public class VentanaPrincipal extends JFrame {
 		//----------------------------------------------
 		
 //Rellenamos los paneles HOME-----------------------------------
-
+		/*
 		JScrollPane scrollBalance = new JScrollPane();
 		scrollBalance.setPreferredSize(new Dimension(500, 100));
 		scrollBalance.setBorder((new TitledBorder("Balance")));
@@ -274,7 +275,8 @@ public class VentanaPrincipal extends JFrame {
 		panelSuperiorDerechaSuperior.add(panelSuperiorDerechaSuperior2, BorderLayout.EAST);
 
 		home.add(panelSuperior);
-		home.add(panelInferior);
+		home.add(panelInferior);*/
+		
 		
 		//------------------------------------------------
 
