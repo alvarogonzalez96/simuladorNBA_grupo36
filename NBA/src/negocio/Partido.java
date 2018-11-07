@@ -74,15 +74,15 @@ public class Partido {
 		System.out.println(visitante.nombre+" "+puntosVisitante+" - "+puntosLocal+" "+local.nombre);
 		//System.out.println("----------------------------------------");
 		for (Jugador j : local.jugadores) {
-			j.nPuntos = 0;
-			j.nAsistencias = 0;
-			j.nRebotes = 0;
+			j.setNPuntos(0);
+			j.setNAsistencias(0);
+			j.setNRebotes(0);
 		}
 		
 		for (Jugador j : visitante.jugadores) {
-			j.nPuntos = 0;
-			j.nAsistencias = 0;
-			j.nRebotes = 0;
+			j.setNPuntos(0);
+			j.setNPuntos(0);
+			j.setNRebotes(0);
 		}
 		
 	}
@@ -241,7 +241,7 @@ public class Partido {
 	public void elegirReboteador(Quinteto q) {
 		Jugador jugador = new Jugador();
 		for (Jugador j : q.jugadores) {
-			if(j.posicion.equals(Posicion.BASE) || j.posicion.equals(Posicion.ESCOLTA)) {
+			if(j.getPosicion().equals(Posicion.BASE) || j.getPosicion().equals(Posicion.ESCOLTA)) {
 				if(j.getRebote() >= 60) {
 					if(j.getRebote() - 50 > jugador.getRebote() + Math.random()*100) {
 						jugador = j;
@@ -249,7 +249,7 @@ public class Partido {
 				} else if(j.getRebote() + Math.random()*30 > jugador.getRebote() + Math.random()*100) {
 					jugador = j;
 				}
-			} else if(j.posicion.equals(Posicion.ALERO)) {
+			} else if(j.getPosicion().equals(Posicion.ALERO)) {
 				if(j.getRebote() >= 65) {
 					if(j.getRebote() + Math.random()*20 > jugador.getRebote() + Math.random()*100) {
 						jugador = j;
@@ -257,7 +257,7 @@ public class Partido {
 				} else if(j.getRebote() + Math.random()*30 > jugador.getRebote() + Math.random()*100) {
 					jugador = j;
 				}
-			} else if(j.posicion.equals(Posicion.ALAPIVOT)) {
+			} else if(j.getPosicion().equals(Posicion.ALAPIVOT)) {
 				if(j.getRebote() + Math.random()*5 > jugador.getRebote() + Math.random()*100) {
 					jugador = j;
 				}
@@ -274,7 +274,7 @@ public class Partido {
 	public void elegirAsistente(Quinteto q, Jugador jug) {
 		Jugador jugador = q.jugadores[0];
 		for (Jugador j : q.jugadores) {
-			if(j.getAsistencia() + (Math.random()*70) > jugador.getAsistencia() + (Math.random()*70) && !jugador.nombre.equals(jug.nombre)) {
+			if(j.getAsistencia() + (Math.random()*70) > jugador.getAsistencia() + (Math.random()*70) && !jugador.getNombre().equals(jug.getNombre())) {
 				jugador = j;
 			}
 		}
@@ -308,7 +308,7 @@ public class Partido {
 	public Jugador elegirTiradorDos(Quinteto q) {
 		Jugador jugador = q.jugadores[0];
 		for (Jugador j : q.jugadores) {
-			if(!j.posicion.equals(Posicion.PIVOT)) {
+			if(!j.getPosicion().equals(Posicion.PIVOT)) {
 				if(j.getTiroCerca() + (Math.random()*100) > jugador.getTiroCerca() + (Math.random()*100)) {
 					jugador = j;
 				} 
@@ -330,37 +330,37 @@ public class Partido {
 		int minPivot = 0;
 		
 		for(Jugador j: equipo.jugadores) {
-			if(j.posicion == Posicion.BASE) {
+			if(j.getPosicion() == Posicion.BASE) {
 				repartoEstrellaTitular(j);
-				if(j.rol == Rol.SUPLENTE) {
+				if(j.getRol() == Rol.SUPLENTE) {
 					j.setMinutos(minBase);
 					j.setTiempoJugado(minBase);
 				} 
 				minBase = min - j.getMinutos();
-			} else if(j.posicion == Posicion.ESCOLTA) {
+			} else if(j.getPosicion() == Posicion.ESCOLTA) {
 				repartoEstrellaTitular(j);
-				if(j.rol == Rol.SUPLENTE) {
+				if(j.getRol() == Rol.SUPLENTE) {
 					j.setMinutos(minEscolta);
 					j.setTiempoJugado(minEscolta);
 				}
 				minEscolta = min - j.getMinutos();
-			} else if(j.posicion == Posicion.ALERO) {
+			} else if(j.getPosicion() == Posicion.ALERO) {
 				repartoEstrellaTitular(j);
-				if(j.rol == Rol.SUPLENTE) {
+				if(j.getRol() == Rol.SUPLENTE) {
 					j.setMinutos(minAlero);
 					j.setTiempoJugado(minAlero);
 				}
 				minAlero = min - j.getMinutos();
-			} else if(j.posicion == Posicion.ALAPIVOT) {
+			} else if(j.getPosicion() == Posicion.ALAPIVOT) {
 				repartoEstrellaTitular(j);
-				if(j.rol == Rol.SUPLENTE) {
+				if(j.getRol() == Rol.SUPLENTE) {
 					j.setMinutos(minAlaPivot);
 					j.setTiempoJugado(minAlaPivot);
 				}
 				minAlaPivot = min - j.getMinutos();
 			} else {
 				repartoEstrellaTitular(j);
-				if(j.rol == Rol.SUPLENTE) {
+				if(j.getRol() == Rol.SUPLENTE) {
 					j.setMinutos(minPivot);
 					j.setTiempoJugado(minPivot);
 				}
@@ -370,10 +370,10 @@ public class Partido {
 	}
 	
 	public void repartoEstrellaTitular(Jugador jugador) {
-		if(jugador.rol == Rol.ESTRELLA) {
+		if(jugador.getRol() == Rol.ESTRELLA) {
 			minutosEstrella(jugador);
 		} 
-		if(jugador.rol == Rol.TITULAR) {
+		if(jugador.getRol() == Rol.TITULAR) {
 			minutosTitular(jugador);
 		}
 	}

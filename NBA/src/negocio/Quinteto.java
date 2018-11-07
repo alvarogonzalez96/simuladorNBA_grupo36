@@ -28,7 +28,7 @@ public class Quinteto {
 		Jugador j = new Jugador();
 		Posicion p = elegirPosicion(pos);
 		for (int i = 0; i < equipo.jugadores.size(); i++) {
-			if(equipo.jugadores.get(i).posicion == p && equipo.jugadores.get(i).getTiempoJugado() > 0) {
+			if(equipo.jugadores.get(i).getPosicion() == p && equipo.jugadores.get(i).getTiempoJugado() > 0) {
 				return equipo.jugadores.get(i);
 			}
 		}

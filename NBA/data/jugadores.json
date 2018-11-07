@@ -2758,7 +2758,7 @@
 
 {"tid":10,
 "name":"James Harden",
-"ratings":[{"hgt":43,"stre":70,"spd":80,"jmp":82,"endu":85,"ins":74,"dnk":88,"ft":67,"fg":80,"tp":74,"diq":45,"oiq":72,"drb":85,"pss":83,"reb":50,"skills":["3","A","B","Dp","Ps"]}],
+"ratings":[{"hgt":43,"stre":70,"spd":70,"jmp":82,"endu":85,"ins":74,"dnk":88,"ft":77,"fg":80,"tp":80,"diq":45,"oiq":72,"drb":85,"pss":83,"reb":50,"skills":["3","A","B","Dp","Ps"]}],
 "pos":"SG","hgt":77,"weight":220,
 "born":{"year":1990,"loc":"Los Angeles, CA"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png",

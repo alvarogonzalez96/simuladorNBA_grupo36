@@ -94,6 +94,10 @@ public class Equipo {
 		return overall;
 	}
 	
+	public int getTid() {
+		return tid;
+	}
+	
 	protected void asignarRoles() {
 		ordenarJugadores();
 		boolean titBase, titEsc, titAlero, titAlap, titPivot;
@@ -101,7 +105,7 @@ public class Equipo {
 		int basesTit, escTit, alerosTit, alapsTit, pivotsTit;
 		basesTit = escTit = alerosTit = alapsTit = pivotsTit = 0;
 		Jugador estrella1 = asignarEstrellaAlMejor();
-		switch(estrella1.posicion) {
+		switch(estrella1.getPosicion()) {
 		case BASE: titBase = true; basesTit++; break;
 		case ESCOLTA: titEsc = true; escTit++; break;
 		case ALERO: titAlero = true; alerosTit++; break;
@@ -111,7 +115,7 @@ public class Equipo {
 			pivotsTit++;
 		}
 		Jugador estrella2 = asignarEstrellaAlSegundoMejor(estrella1);
-		switch(estrella2.posicion) {
+		switch(estrella2.getPosicion()) {
 		case BASE: titBase = true; basesTit++; break;
 		case ESCOLTA: titEsc = true; escTit++; break;
 		case ALERO: titAlero = true; alerosTit++; break;
@@ -121,62 +125,62 @@ public class Equipo {
 			pivotsTit++;
 		}
 		for(Jugador j: jugadores) {
-			if(j.rol != Rol.ESTRELLA) {
-				if(!titBase && j.posicion == Posicion.BASE) {
-					j.rol = Rol.TITULAR;
+			if(j.getRol() != Rol.ESTRELLA) {
+				if(!titBase && j.getPosicion() == Posicion.BASE) {
+					j.setRol(Rol.TITULAR);
 					titBase = true;
 					basesTit++;
-				}  else if(!titEsc && j.posicion == Posicion.ESCOLTA) {
-					j.rol = Rol.TITULAR;
+				}  else if(!titEsc && j.getPosicion() == Posicion.ESCOLTA) {
+					j.setRol(Rol.TITULAR);
 					titEsc = true;
 					escTit++;
-				} else if(!titAlero && j.posicion == Posicion.ALERO) {
-					j.rol = Rol.TITULAR;
+				} else if(!titAlero && j.getPosicion() == Posicion.ALERO) {
+					j.setRol(Rol.TITULAR);
 					titAlero = true;
 					alerosTit++;
-				} else if(!titAlap && j.posicion == Posicion.ALAPIVOT) {
-					j.rol = Rol.TITULAR;
+				} else if(!titAlap && j.getPosicion() == Posicion.ALAPIVOT) {
+					j.setRol(Rol.TITULAR);
 					titAlap = true;
 					alapsTit++;
-				} else if(!titPivot && j.posicion == Posicion.PIVOT) {
-					j.rol = Rol.TITULAR;
+				} else if(!titPivot && j.getPosicion() == Posicion.PIVOT) {
+					j.setRol(Rol.TITULAR);
 					titPivot = true;
 					pivotsTit++;
 				} else {
-					if(j.posicion == Posicion.BASE) {
+					if(j.getPosicion() == Posicion.BASE) {
 						if(basesTit < 2) {
-							j.rol = Rol.SUPLENTE;
+							j.setRol(Rol.SUPLENTE);
 							basesTit++;
 						} else {
-							j.rol = Rol.NOJUEGA;
+							j.setRol(Rol.NOJUEGA);
 						}
-					} else if(j.posicion == Posicion.ESCOLTA) {
+					} else if(j.getPosicion() == Posicion.ESCOLTA) {
 						if(escTit < 2) {
-							j.rol = Rol.SUPLENTE;
+							j.setRol(Rol.SUPLENTE);
 							escTit++;
 						} else {
-							j.rol = Rol.NOJUEGA;
+							j.setRol(Rol.NOJUEGA);
 						}
-					} else if(j.posicion == Posicion.ALERO) {
+					} else if(j.getPosicion() == Posicion.ALERO) {
 						if(alerosTit < 2) {
-							j.rol = Rol.SUPLENTE;
+							j.setRol(Rol.SUPLENTE);
 							alerosTit++;
 						} else {
-							j.rol = Rol.NOJUEGA;
+							j.setRol(Rol.NOJUEGA);
 						}
-					} else if(j.posicion == Posicion.ALAPIVOT) {
+					} else if(j.getPosicion() == Posicion.ALAPIVOT) {
 						if(alapsTit < 2) {
-							j.rol = Rol.SUPLENTE;
+							j.setRol(Rol.SUPLENTE);
 							alapsTit++;
 						} else {
-							j.rol = Rol.NOJUEGA;
+							j.setRol(Rol.NOJUEGA);
 						}
 					} else {
 						if(pivotsTit < 2) {
-							j.rol = Rol.SUPLENTE;
+							j.setRol(Rol.SUPLENTE);
 							pivotsTit++;
 						} else {
-							j.rol = Rol.NOJUEGA;
+							j.setRol(Rol.NOJUEGA);
 						}
 					}
 				}
@@ -187,22 +191,22 @@ public class Equipo {
 	private Jugador asignarEstrellaAlMejor() {
 		Jugador mejor = new Jugador();
 		for(Jugador j: jugadores) {
-			if(j.rol != Rol.ESTRELLA && j.overall > mejor.overall) {
+			if(j.getRol() != Rol.ESTRELLA && j.getOverall() > mejor.getOverall()) {
 				mejor = j;
 			}
 		}
-		mejor.rol = Rol.ESTRELLA;
+		mejor.setRol(Rol.ESTRELLA);
 		return mejor;
 	}
 	
 	private Jugador asignarEstrellaAlSegundoMejor(Jugador mejor) {
 		Jugador segmejor = new Jugador();
 		for(Jugador j: jugadores) {
-			if(j.rol != Rol.ESTRELLA && j.posicion != mejor.posicion && j.overall > segmejor.overall) {
+			if(j.getRol() != Rol.ESTRELLA && j.getPosicion() != mejor.getPosicion() && j.getOverall() > segmejor.getOverall()) {
 				segmejor = j;
 			}
 		}
-		segmejor.rol = Rol.ESTRELLA;
+		segmejor.setRol(Rol.ESTRELLA);
 		return segmejor;
 	}
 	

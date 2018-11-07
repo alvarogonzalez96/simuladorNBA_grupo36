@@ -157,7 +157,27 @@ public class Jugador {
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
-
+	
+	public double getAsistenciasPartido() {
+		return asistenciasPartido;
+	}
+	
+	public double getRebotesPartido() {
+		return rebotesPartido;
+	}
+	
+	public void setNPuntos(int nPuntos) {
+		this.nPuntos = nPuntos;
+	}
+	
+	public void setNAsistencias(int nAsistencias) {
+		this.nAsistencias = nAsistencias;
+	}
+	
+	public void setNRebotes(int nRebotes) {
+		this.nRebotes = nRebotes;
+	}
+	
 	public int getTiroLibre() {
 		return tiroLibre;
 	}
@@ -225,6 +245,10 @@ public class Jugador {
 		this.rebote = rebote;
 	}
 
+	public int getOverall() {
+		return overall;
+	}
+	
 	public int getCondicionFisica() {
 		return condicionFisica;
 	}

@@ -15,8 +15,8 @@ public class Liga {
 	
 	/**
 	 * Esta clase se usa para simular la temporada actual.
-	 * Cuando una temporada acabe, se guardarán en la BD los datos de esta (premios, stats de
-	 * jugadores, y equipo en el que acabó la temporada cada jugador).
+	 * Cuando una temporada acabe, se guardarï¿½n en la BD los datos de esta (premios, stats de
+	 * jugadores, y equipo en el que acabï¿½ la temporada cada jugador).
 	 * 
 	 **/
 
@@ -84,7 +84,7 @@ public class Liga {
 	private void cargarAgentesLibres() {
 		//con la lista jugadores seleccionar los de tid = -1
 		for(Jugador j: jugadores) {
-			if(j.tid == -1) {
+			if(j.getTid() == -1) {
 				agentesLibres.add(j);
 			}
 		}
@@ -113,7 +113,7 @@ public class Liga {
 	private void asignarJugadoresAEquipos() {
 		for(Equipo e: equipos) {
 			for(Jugador j: jugadores) {
-				if(j.tid == e.tid) {
+				if(j.getTid() == e.getTid()) {
 					e.jugadores.add(j);
 				}
 			}
@@ -175,28 +175,23 @@ public class Liga {
 	}
 	
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				Liga l = new Liga(true);
-				System.out.println();
-				System.out.println("-----------------------------------------");
-				for (Equipo e : l.equipos) {
-					System.out.println("JUGADORES DE "+e.nombre.toUpperCase()+":");
-					for (Jugador j : e.jugadores) {
-						if(!j.rol.equals(Rol.NOJUEGA)) {
-							System.out.println(j.nombre + " " + (double)Math.round((j.puntosPartido/82)*100)/100 + " ppp" + " " + (double)Math.round((j.asistenciasPartido/82)*100)/100 + " app" + " " + (double)Math.round((j.rebotesPartido/82)*100)/100 + " rpp");
-						}
-					}
-					System.out.println();
-				}
-				System.out.println("-----------------------------------------");
-				for(String tipoClasif: l.clasificaciones.keySet()) {
-					System.out.println();
-					System.out.println("CLASIFICACION "+tipoClasif);
-					l.clasificaciones.get(tipoClasif).imprimir();
+		Liga l = new Liga(true);
+		System.out.println();
+		System.out.println("-----------------------------------------");
+		for (Equipo e : l.equipos) {
+			System.out.println("JUGADORES DE "+e.nombre.toUpperCase()+":");
+			for (Jugador j : e.jugadores) {
+				if(!j.rol.equals(Rol.NOJUEGA)) {
+					System.out.println(j.getNombre() + " " + (double)Math.round((j.getPuntosPartido()/82)*100)/100 + " ppp" + " " + (double)Math.round((j.getAsistenciasPartido()/82)*100)/100 + " app" + " " + (double)Math.round((j.getRebotesPartido()/82)*100)/100 + " rpp");
 				}
 			}
-		});
+			System.out.println();
+		}
+		System.out.println("-----------------------------------------");
+		for(String tipoClasif: l.clasificaciones.keySet()) {
+			System.out.println();
+			System.out.println("CLASIFICACION "+tipoClasif);
+			l.clasificaciones.get(tipoClasif).imprimir();
+		}
 	}
 }
