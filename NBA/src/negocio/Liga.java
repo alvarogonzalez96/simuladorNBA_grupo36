@@ -179,14 +179,23 @@ public class Liga {
 			@Override
 			public void run() {
 				Liga l = new Liga(true);
-//				for (Equipo e : l.equipos) {
-//					for (Jugador j : e.jugadores) {
-//						if(!j.rol.equals(Rol.NOJUEGA)) {
-//							System.out.println(j.nombre + " " + (double)Math.round((j.puntosPartido/82)*100)/100 + " ppp" + " " + (double)Math.round((j.asistenciasPartido/82)*100)/100 + " app" + " " + (double)Math.round((j.rebotesPartido/82)*100)/100 + " rpp");
-//						}
-//					}
-//					System.out.println();
-//				}
+				System.out.println();
+				System.out.println("-----------------------------------------");
+				for (Equipo e : l.equipos) {
+					System.out.println("JUGADORES DE "+e.nombre.toUpperCase()+":");
+					for (Jugador j : e.jugadores) {
+						if(!j.rol.equals(Rol.NOJUEGA)) {
+							System.out.println(j.nombre + " " + (double)Math.round((j.puntosPartido/82)*100)/100 + " ppp" + " " + (double)Math.round((j.asistenciasPartido/82)*100)/100 + " app" + " " + (double)Math.round((j.rebotesPartido/82)*100)/100 + " rpp");
+						}
+					}
+					System.out.println();
+				}
+				System.out.println("-----------------------------------------");
+				for(String tipoClasif: l.clasificaciones.keySet()) {
+					System.out.println();
+					System.out.println("CLASIFICACION "+tipoClasif);
+					l.clasificaciones.get(tipoClasif).imprimir();
+				}
 			}
 		});
 	}
