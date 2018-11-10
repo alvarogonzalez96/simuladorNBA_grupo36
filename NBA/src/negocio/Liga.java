@@ -187,11 +187,35 @@ public class Liga {
 			}
 			System.out.println();
 		}
+		
 		System.out.println("-----------------------------------------");
 		for(String tipoClasif: l.clasificaciones.keySet()) {
 			System.out.println();
 			System.out.println("CLASIFICACION "+tipoClasif);
 			l.clasificaciones.get(tipoClasif).imprimir();
 		}
+		
+		//Eleccion de premios al final de temporada
+		System.out.println();
+		System.out.println("-----------------------------------------");
+		System.out.println("PREMIOS DE LA TEMPORADA REGULAR");
+		System.out.println("MVP: " + elegirMVP(l.equipos).getNombre());
+		
+	}
+	
+	public static Jugador elegirMVP(Equipo[] e) {
+		Jugador mvp = new Jugador();
+		double puntos = 0;
+		for (Equipo equipo : e) {
+			for (Jugador j : equipo.jugadores) {
+				if(j.getRol().equals(Rol.ESTRELLA) || j.getRol().equals(Rol.TITULAR)) {
+					if((j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido()) > puntos && equipo.getVictorias() > 41) {
+						mvp = j;
+						puntos = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
+					}
+				}
+			}
+		}
+		return mvp;
 	}
 }

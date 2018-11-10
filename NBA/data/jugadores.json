@@ -225,7 +225,7 @@
 
 {"tid":25,
 "name":"Nemanja Bjelica",
-"ratings":[{"hgt":59,"stre":62,"spd":50,"jmp":48,"endu":54,"ins":55,"dnk":50,"ft":57,"fg":58,"tp":58,"diq":45,"oiq":56,"drb":35,"pss":56,"reb":67,"skills":[]}],
+"ratings":[{"hgt":59,"stre":72,"spd":50,"jmp":48,"endu":54,"ins":55,"dnk":50,"ft":57,"fg":58,"tp":58,"diq":45,"oiq":56,"drb":35,"pss":56,"reb":57,"skills":[]}],
 "pos":"F","hgt":82,"weight":225,
 "born":{"year":1988,"loc":"Belgrade, Serbia"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202357.png",
@@ -598,7 +598,7 @@
 "contract":{"amount":4700,"exp":2019},
 "draft":{"round":1,"pick":6,"tid":25,"originalTid":25,"year":2015},
 "college":"Kentucky",
-"ratings":[{"hgt":75,"stre":74,"spd":70,"jmp":40,"endu":32,"ins":85,"dnk":72,"ft":55,"fg":66,"tp":3,"diq":49,"oiq":54,"drb":34,"pss":59,"reb":87,"skills":["A","Di","Dp","Po"]}],
+"ratings":[{"hgt":75,"stre":74,"spd":64,"jmp":40,"endu":32,"ins":85,"dnk":72,"ft":55,"fg":66,"tp":3,"diq":49,"oiq":54,"drb":34,"pss":59,"reb":93,"skills":["A","Di","Dp","Po"]}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
 {"tid":15,
@@ -912,7 +912,7 @@
 
 {"tid":24,
 "name":"Jusuf Nurkic",
-"ratings":[{"hgt":71,"stre":85,"spd":50,"jmp":51,"endu":33,"ins":84,"dnk":82,"ft":60,"fg":76,"tp":0,"diq":60,"oiq":61,"drb":41,"pss":50,"reb":82,"skills":["A","Di","Po","R"]}],
+"ratings":[{"hgt":71,"stre":85,"spd":50,"jmp":51,"endu":23,"ins":84,"dnk":82,"ft":60,"fg":76,"tp":0,"diq":60,"oiq":61,"drb":41,"pss":50,"reb":92,"skills":["A","Di","Po","R"]}],
 "pos":"C","hgt":84,"weight":280,
 "born":{"year":1995,"loc":"Tuzla, Republic of Bosnia and Herzegovina"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203994.png",
@@ -1000,7 +1000,7 @@
 
 {"tid":22,
 "name":"Joel Embiid",
-"ratings":[{"hgt":70,"stre":83,"spd":59,"jmp":74,"endu":48,"ins":93,"dnk":92,"ft":62,"fg":85,"tp":63,"diq":85,"oiq":66,"drb":34,"pss":50,"reb":92,"skills":["A","Di","Dp","Po","R"]}],
+"ratings":[{"hgt":70,"stre":83,"spd":52,"jmp":74,"endu":48,"ins":93,"dnk":92,"ft":62,"fg":85,"tp":63,"diq":85,"oiq":66,"drb":34,"pss":50,"reb":99,"skills":["A","Di","Dp","Po","R"]}],
 "pos":"C","hgt":84,"weight":250,
 "born":{"year":1994,"loc":"Yaoundé, Cameroon"},
 "imgURL":"http://stats.nba.com/media/players/230x185/203954.png",
@@ -2648,7 +2648,7 @@
 
 {"tid":25,
 "name":"Harry Giles",
-"ratings":[{"hgt":66,"stre":68,"spd":70,"jmp":80,"endu":54,"ins":52,"dnk":41,"ft":62,"fg":49,"tp":40,"diq":57,"oiq":55,"drb":24,"pss":44,"reb":65,"skills":["A","Di","Dp"]}],
+"ratings":[{"hgt":66,"stre":68,"spd":70,"jmp":80,"endu":54,"ins":52,"dnk":41,"ft":62,"fg":49,"tp":40,"diq":57,"oiq":55,"drb":24,"pss":44,"reb":85,"skills":["A","Di","Dp"]}],
 "pos":"C","hgt":82,"weight":230,
 "born":{"year":1998,"loc":"Winston-Salem, NC"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628385.png",
@@ -3394,7 +3394,7 @@
 
 {"tid":23,
 "name":"Elie Okobo",
-"ratings":[{"hgt":32,"stre":49,"spd":78,"jmp":60,"endu":56,"ins":42,"dnk":58,"ft":59,"fg":64,"tp":52,"diq":49,"oiq":51,"drb":60,"pss":59,"reb":55,"skills":[]}],
+"ratings":[{"hgt":32,"stre":49,"spd":78,"jmp":80,"endu":26,"ins":42,"dnk":58,"ft":69,"fg":74,"tp":62,"diq":49,"oiq":51,"drb":60,"pss":59,"reb":35,"skills":[]}],
 "pos":"PG","hgt":74,"weight":180,
 "born":{"year":1998,"loc":"Bordeaux, France"},
 "imgURL":"https://i.imgur.com/YMPeabS.png",
@@ -3994,7 +3994,7 @@
 
 {"tid":28,
 "name":"Ricky Rubio",
-"ratings":[{"hgt":57,"stre":20,"spd":77,"jmp":50,"endu":72,"ins":48,"dnk":65,"ft":67,"fg":68,"tp":55,"diq":65,"oiq":61,"drb":60,"pss":80,"reb":46,"skills":[]}],
+"ratings":[{"hgt":57,"stre":20,"spd":70,"jmp":50,"endu":72,"ins":48,"dnk":65,"ft":67,"fg":72,"tp":60,"diq":65,"oiq":61,"drb":60,"pss":80,"reb":46,"skills":[]}],
 "pos":"PG","hgt":76,"weight":190,
 "born":{"year":1991,"loc":"El Masnou, Spain"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4011.png",
@@ -4127,7 +4127,7 @@
 
 {"tid":24,
 "name":"Al-Farouq Aminu",
-"ratings":[{"hgt":56,"stre":67,"spd":68,"jmp":65,"endu":77,"ins":55,"dnk":62,"ft":61,"fg":60,"tp":63,"diq":62,"oiq":56,"drb":27,"pss":39,"reb":69,"skills":["3"]}],
+"ratings":[{"hgt":56,"stre":67,"spd":68,"jmp":65,"endu":97,"ins":55,"dnk":62,"ft":61,"fg":60,"tp":63,"diq":62,"oiq":56,"drb":27,"pss":39,"reb":49,"skills":["3"]}],
 "pos":"F","hgt":81,"weight":220,
 "born":{"year":1991,"loc":"Atlanta, GA"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202329.png",
@@ -4292,7 +4292,7 @@
 "contract":{"amount":1950,"exp":2020},
 "draft":{"round":1,"pick":23,"tid":27,"originalTid":27,"year":2017},
 "college":"Indiana",
-"ratings":[{"hgt":52,"stre":62,"spd":68,"jmp":70,"endu":75,"ins":46,"dnk":62,"ft":65,"fg":64,"tp":66,"diq":59,"oiq":53,"drb":18,"pss":38,"reb":66,"skills":["Dp"]}],
+"ratings":[{"hgt":52,"stre":62,"spd":68,"jmp":86,"endu":75,"ins":46,"dnk":62,"ft":65,"fg":64,"tp":66,"diq":59,"oiq":53,"drb":18,"pss":38,"reb":50,"skills":["Dp"]}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
 {"tid":2,
@@ -4664,7 +4664,7 @@
 
 {"tid":25,
 "name":"Marvin Bagley",
-"ratings":[{"hgt":65,"stre":72,"spd":72,"jmp":79,"endu":65,"ins":70,"dnk":71,"ft":61,"fg":45,"tp":20,"diq":58,"oiq":60,"drb":25,"pss":44,"reb":80,"skills":["A","Di","Po","R"]}],
+"ratings":[{"hgt":65,"stre":72,"spd":72,"jmp":79,"endu":55,"ins":70,"dnk":71,"ft":71,"fg":60,"tp":20,"diq":58,"oiq":60,"drb":25,"pss":44,"reb":65,"skills":["A","Di","Po","R"]}],
 "pos":"PF","hgt":83,"weight":225,
 "born":{"year":1999,"loc":"Phoenix, AZ"},
 "imgURL":"https://i.imgur.com/d5YYyOj.png",
@@ -4808,7 +4808,7 @@
 
 {"tid":24,
 "name":"Evan Turner",
-"ratings":[{"hgt":48,"stre":48,"spd":62,"jmp":62,"endu":66,"ins":40,"dnk":55,"ft":66,"fg":76,"tp":46,"diq":38,"oiq":50,"drb":65,"pss":70,"reb":64,"skills":[]}],
+"ratings":[{"hgt":48,"stre":48,"spd":72,"jmp":62,"endu":66,"ins":40,"dnk":55,"ft":66,"fg":76,"tp":46,"diq":38,"oiq":50,"drb":65,"pss":70,"reb":54,"skills":[]}],
 "pos":"F","hgt":79,"weight":220,
 "born":{"year":1989,"loc":"Chicago, IL"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202323.png",
@@ -5114,7 +5114,7 @@
 
 {"tid":24,
 "name":"Meyers Leonard",
-"ratings":[{"hgt":71,"stre":54,"spd":45,"jmp":70,"endu":98,"ins":45,"dnk":56,"ft":60,"fg":42,"tp":57,"diq":45,"oiq":38,"drb":20,"pss":19,"reb":56,"skills":["3","Di","Po"]}],
+"ratings":[{"hgt":71,"stre":54,"spd":45,"jmp":76,"endu":78,"ins":45,"dnk":56,"ft":60,"fg":42,"tp":57,"diq":45,"oiq":38,"drb":20,"pss":19,"reb":70,"skills":["3","Di","Po"]}],
 "pos":"FC","hgt":85,"weight":255,
 "born":{"year":1992,"loc":"Woodbridge, VA"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203086.png",
@@ -5147,7 +5147,7 @@
 
 {"tid":24,
 "name":"Damian Lillard",
-"ratings":[{"hgt":36,"stre":50,"spd":87,"jmp":80,"endu":77,"ins":66,"dnk":86,"ft":76,"fg":86,"tp":82,"diq":48,"oiq":58,"drb":84,"pss":52,"reb":46,"skills":["3","A","B","Dp"]}],
+"ratings":[{"hgt":36,"stre":50,"spd":87,"jmp":80,"endu":87,"ins":66,"dnk":86,"ft":76,"fg":86,"tp":82,"diq":48,"oiq":58,"drb":84,"pss":52,"reb":36,"skills":["3","A","B","Dp"]}],
 "awards":[{"season":2013,"type":"Rookie of the Year"}],
 "pos":"PG","hgt":75,"weight":195,
 "born":{"year":1991,"loc":"Oakland, CA"},
@@ -5557,7 +5557,7 @@
 
 {"tid":28,
 "name":"Donovan Mitchell",
-"ratings":[{"hgt":36,"stre":48,"spd":78,"jmp":83,"endu":80,"ins":60,"dnk":85,"ft":60,"fg":87,"tp":72,"diq":52,"oiq":74,"drb":40,"pss":45,"reb":47,"skills":["3","Dp"]}],
+"ratings":[{"hgt":36,"stre":48,"spd":61,"jmp":83,"endu":70,"ins":60,"dnk":85,"ft":60,"fg":80,"tp":72,"diq":52,"oiq":74,"drb":40,"pss":45,"reb":47,"skills":["3","Dp"]}],
 "pos":"SG","hgt":75,"weight":210,
 "born":{"year":1997,"loc":"Greenwich, CT"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628378.png",
@@ -5579,7 +5579,7 @@
 
 {"tid":27,
 "name":"Jonas Valanciunas",
-"ratings":[{"hgt":67,"stre":84,"spd":55,"jmp":60,"endu":63,"ins":90,"dnk":84,"ft":60,"fg":58,"tp":30,"diq":43,"oiq":60,"drb":52,"pss":32,"reb":86,"skills":["A","Di","Po","R"]}],
+"ratings":[{"hgt":67,"stre":84,"spd":55,"jmp":60,"endu":63,"ins":90,"dnk":84,"ft":60,"fg":58,"tp":30,"diq":43,"oiq":60,"drb":52,"pss":32,"reb":94,"skills":["A","Di","Po","R"]}],
 "pos":"C","hgt":83,"weight":255,
 "born":{"year":1992,"loc":"Utena, Lithuania"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202685.png",
@@ -5634,7 +5634,7 @@
 
 {"tid":26,
 "name":"DeMar DeRozan",
-"ratings":[{"hgt":52,"stre":59,"spd":82,"jmp":75,"endu":52,"ins":80,"dnk":87,"ft":84,"fg":87,"tp":58,"diq":43,"oiq":54,"drb":86,"pss":54,"reb":42,"skills":["A","B","Dp","Po"]}],
+"ratings":[{"hgt":52,"stre":53,"spd":82,"jmp":75,"endu":52,"ins":80,"dnk":87,"ft":84,"fg":87,"tp":64,"diq":43,"oiq":54,"drb":86,"pss":54,"reb":42,"skills":["A","B","Dp","Po"]}],
 "pos":"GF","hgt":79,"weight":220,
 "born":{"year":1990,"loc":"Compton, CA"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3978.png",
@@ -5700,7 +5700,7 @@
 
 {"tid":27,
 "name":"Kyle Lowry",
-"ratings":[{"hgt":25,"stre":58,"spd":98,"jmp":74,"endu":70,"ins":35,"dnk":70,"ft":87,"fg":74,"tp":79,"diq":41,"oiq":55,"drb":80,"pss":51,"reb":45,"skills":["3","B","Dp"]}],
+"ratings":[{"hgt":25,"stre":58,"spd":98,"jmp":74,"endu":70,"ins":10,"dnk":70,"ft":87,"fg":74,"tp":79,"diq":41,"oiq":55,"drb":80,"pss":81,"reb":40,"skills":["3","B","Dp"]}],
 "pos":"PG","hgt":72,"weight":205,
 "born":{"year":1986,"loc":"Philadelphia, PA"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/200768.png",
@@ -5933,7 +5933,7 @@
 
 {"tid":28,
 "name":"Joe Ingles",
-"ratings":[{"hgt":53,"stre":50,"spd":54,"jmp":50,"endu":86,"ins":59,"dnk":77,"ft":70,"fg":57,"tp":70,"diq":60,"oiq":51,"drb":71,"pss":52,"reb":43,"skills":["3"]}],
+"ratings":[{"hgt":53,"stre":50,"spd":54,"jmp":50,"endu":86,"ins":64,"dnk":77,"ft":70,"fg":57,"tp":65,"diq":60,"oiq":51,"drb":71,"pss":52,"reb":43,"skills":["3"]}],
 "pos":"F","hgt":80,"weight":226,
 "born":{"year":1988,"loc":"Happy Valley, Australia"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2968436.png&w=350&h=254",
@@ -6119,7 +6119,7 @@
 
 {"tid":23,
 "name":"Trevor Ariza",
-"ratings":[{"hgt":55,"stre":48,"spd":70,"jmp":62,"endu":70,"ins":47,"dnk":65,"ft":67,"fg":69,"tp":82,"diq":65,"oiq":57,"drb":47,"pss":44,"reb":42,"skills":["3"]}],
+"ratings":[{"hgt":55,"stre":48,"spd":70,"jmp":62,"endu":80,"ins":47,"dnk":65,"ft":67,"fg":69,"tp":72,"diq":65,"oiq":57,"drb":47,"pss":44,"reb":42,"skills":["3"]}],
 "pos":"SF","hgt":80,"weight":215,
 "born":{"year":1986,"loc":"Miami, FL"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2426.png",
@@ -6240,7 +6240,7 @@
 
 {"tid":25,
 "name":"De'Aaron Fox",
-"ratings":[{"hgt":32,"stre":45,"spd":90,"jmp":85,"endu":66,"ins":35,"dnk":84,"ft":75,"fg":75,"tp":65,"diq":49,"oiq":48,"drb":44,"pss":61,"reb":44,"skills":["Dp"]}],
+"ratings":[{"hgt":32,"stre":49,"spd":90,"jmp":85,"endu":66,"ins":35,"dnk":84,"ft":75,"fg":75,"tp":65,"diq":49,"oiq":48,"drb":44,"pss":61,"reb":40,"skills":["Dp"]}],
 "pos":"PG","hgt":75,"weight":170,
 "born":{"year":1998,"loc":"Katy, TX"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1628368.png",
@@ -7334,7 +7334,7 @@
 
 {"tid":25,
 "name":"Bogdan Bogdanovic",
-"ratings":[{"hgt":40,"stre":30,"spd":72,"jmp":75,"endu":98,"ins":28,"dnk":67,"ft":66,"fg":65,"tp":66,"diq":44,"oiq":56,"drb":55,"pss":55,"reb":36,"skills":["3"]}],
+"ratings":[{"hgt":40,"stre":30,"spd":72,"jmp":65,"endu":98,"ins":28,"dnk":67,"ft":66,"fg":65,"tp":66,"diq":44,"oiq":56,"drb":55,"pss":55,"reb":46,"skills":["3"]}],
 "pos":"F","hgt":78,"weight":205,
 "born":{"year":1993,"loc":"Belgrade, Serbia"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203992.png",
@@ -8142,7 +8142,7 @@
 
 {"tid":23,
 "name":"Josh Jackson",
-"ratings":[{"hgt":55,"stre":68,"spd":82,"jmp":88,"endu":55,"ins":42,"dnk":63,"ft":57,"fg":63,"tp":55,"diq":42,"oiq":46,"drb":54,"pss":43,"reb":52,"skills":["A","Di","Dp"]}],
+"ratings":[{"hgt":55,"stre":68,"spd":82,"jmp":88,"endu":22,"ins":42,"dnk":63,"ft":67,"fg":66,"tp":55,"diq":42,"oiq":46,"drb":54,"pss":53,"reb":62,"skills":["A","Di","Dp"]}],
 "pos":"PF","hgt":80,"weight":184,
 "born":{"year":1997,"loc":"Southfield, MI"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/recruiting/ncb/players/full/170377.png&w=350&h=254",
@@ -8760,7 +8760,7 @@
 
 {"tid":23,
 "name":"DeAndre Ayton",
-"ratings":[{"hgt":70,"stre":68,"spd":62,"jmp":77,"endu":63,"ins":65,"dnk":68,"ft":75,"fg":55,"tp":40,"diq":34,"oiq":58,"drb":38,"pss":50,"reb":85,"skills":["A","Di","Po","R"]}],
+"ratings":[{"hgt":55,"stre":68,"spd":62,"jmp":77,"endu":63,"ins":75,"dnk":68,"ft":75,"fg":55,"tp":40,"diq":34,"oiq":58,"drb":38,"pss":50,"reb":85,"skills":["A","Di","Po","R"]}],
 "pos":"C","hgt":84,"weight":245,
 "born":{"year":1999,"loc":"Nassau, Bahamas"},
 "imgURL":"http://a.espncdn.com/combiner/i?img=/i/headshots/recruiting/ncb/players/full/187828.png&w=350&h=254",
@@ -8915,7 +8915,7 @@
 
 {"tid":25,
 "name":"Buddy Hield",
-"ratings":[{"hgt":37,"stre":38,"spd":76,"jmp":68,"endu":69,"ins":38,"dnk":68,"ft":72,"fg":75,"tp":75,"diq":44,"oiq":40,"drb":62,"pss":54,"reb":51,"skills":["3","B"]}],
+"ratings":[{"hgt":37,"stre":38,"spd":86,"jmp":68,"endu":69,"ins":38,"dnk":68,"ft":72,"fg":75,"tp":75,"diq":44,"oiq":40,"drb":62,"pss":54,"reb":41,"skills":["3","B"]}],
 "pos":"SG","hgt":76,"weight":214,
 "born":{"year":1994,"loc":"Freeport, Bahamas"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627741.png",
