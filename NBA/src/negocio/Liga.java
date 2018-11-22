@@ -178,12 +178,19 @@ public class Liga {
 	public static void main(String[] args) {
 		Liga l = new Liga(true);
 		System.out.println();
+		
+		//Eleccion de premios al final de temporada
+		System.out.println();
+		System.out.println("-----------------------------------------");
+		System.out.println("PREMIOS DE LA TEMPORADA REGULAR");
+		System.out.println("MVP: " + elegirMVP(l.equipos).getNombre());
+		
 		System.out.println("-----------------------------------------");
 		for (Equipo e : l.equipos) {
 			System.out.println("JUGADORES DE "+e.nombre.toUpperCase()+":");
 			for (Jugador j : e.jugadores) {
 				if(!j.rol.equals(Rol.NOJUEGA)) {
-					System.out.println(j.getNombre() + " " + (double)Math.round((j.getPuntosPartido()/82)*100)/100 + " ppp" + " " + (double)Math.round((j.getAsistenciasPartido()/82)*100)/100 + " app" + " " + (double)Math.round((j.getRebotesPartido()/82)*100)/100 + " rpp");
+					System.out.println(j.getNombre() + " " + (double)Math.round((j.getPuntosPartido()/82)*100)/100 + " ppp" + " " + (double)Math.round((j.getAsistenciasPartido()/82)*100)/100 + " app" + " " + (double)Math.round((j.getRebotesPartido()/82)*100)/100 + " rpp ; val: "+j.valoracion);
 				}
 			}
 			System.out.println();
@@ -195,12 +202,6 @@ public class Liga {
 			System.out.println("CLASIFICACION "+tipoClasif);
 			l.clasificaciones.get(tipoClasif).imprimir();
 		}
-		
-		//Eleccion de premios al final de temporada
-		System.out.println();
-		System.out.println("-----------------------------------------");
-		System.out.println("PREMIOS DE LA TEMPORADA REGULAR");
-		System.out.println("MVP: " + elegirMVP(l.equipos).getNombre());
 		
 		//PlayOffs
 		System.out.println();
@@ -295,13 +296,12 @@ public class Liga {
 	
 	public static Jugador elegirMVP(Equipo[] e) {
 		Jugador mvp = new Jugador();
-		double puntos = 0;
 		for (Equipo equipo : e) {
 			for (Jugador j : equipo.jugadores) {
+				j.valoracion = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
 				if(j.getRol().equals(Rol.ESTRELLA) || j.getRol().equals(Rol.TITULAR)) {
-					if((j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido()) > puntos && equipo.getVictorias() > 41) {
+					if(j.valoracion > mvp.valoracion && equipo.getVictorias() > 41) {
 						mvp = j;
-						puntos = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
 					}
 				}
 			}

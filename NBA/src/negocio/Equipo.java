@@ -6,10 +6,17 @@ import org.json.JSONObject;
 
 public class Equipo {
 	
+	/*
+	 * Nota: todas las unidades monetarias estan en miles de dolares.
+	 * */	
+	static final int limiteSalarial = 108000; 
+	
 	private static OrdenadorJugadores ordenador;
 	static {
 		ordenador = new OrdenadorJugadores();
 	}
+	
+	protected int salarioTotal;
 
 	protected int victorias, derrotas;
 	
@@ -71,6 +78,12 @@ public class Equipo {
 		case 4: return Division.NOROESTE;
 		case 5: return Division.PACIFICO;
 		default: return null;
+		}
+	}
+	
+	public void calcSalarioTotal() {
+		for(Jugador j: jugadores) {
+			salarioTotal += j.salario;
 		}
 	}
 	
@@ -187,6 +200,7 @@ public class Equipo {
 			}
 		}
 	}
+	
 	
 	private Jugador asignarEstrellaAlMejor() {
 		Jugador mejor = new Jugador();

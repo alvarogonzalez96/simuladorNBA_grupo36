@@ -27,7 +27,12 @@ public class Jugador {
 	protected int nAsistencias;//asistencias en el partido
 	protected double rebotesPartido;//rebotes por partido
 	protected int nRebotes;//rebotes en un partido
-
+	
+	protected int salario;
+	protected int anyosContratoRestantes;
+	
+	protected double valoracion;
+	
 	//Atributos para calcular la media
 	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
 	
@@ -76,7 +81,10 @@ public class Jugador {
 		posicion = seleccionarPosicion(json.getString("pos"));
 		rebote = json.getJSONArray("ratings").getJSONObject(0).getInt("reb");
 		tiroLibre = json.getJSONArray("ratings").getJSONObject(0).getInt("ft");
-		
+		if(tid >= 0) {
+			salario = json.getJSONObject("contract").getInt("amount");
+			anyosContratoRestantes = json.getJSONObject("contract").getInt("exp")-2018;
+		}
 		/*
 		 * En el json el atributo ins significa la calidad de tiro interior; por lo que,
 		 * para los pivots, utilizaremos dicho atributo, y para el resto, el tiro de
