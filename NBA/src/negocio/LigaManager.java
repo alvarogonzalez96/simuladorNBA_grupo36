@@ -16,8 +16,9 @@ public class LigaManager {
 	 * 	fase 0: temporada regular
 		fase 1: playoffs
 		fase 2: draft
-		fase 3: renovaciones
-		fase 4: agencia libre
+		fase 3: jubilar
+		fase 4: renovaciones
+		fase 5: agencia libre
 		volver a empezar
 	 * */
 	
@@ -48,6 +49,11 @@ public class LigaManager {
 			//de la BD
 			diaActual = null; //cargar el dia actual en la BD
 		}
+		
+		boolean m = simularDia();
+		while(!m) {
+			m = simularDia();
+		}
 	}
 	
 	/** 
@@ -67,17 +73,46 @@ public class LigaManager {
 			calendario.avanzarDia();
 			if(calendario.getDiaActual().equals(Calendario.ULTIMO_DIA_TEMP_REGULAR)) {
 				System.out.println("Fin de la temporada regular");
-				//crearPlayoffs();
-				playOffs(); //fase = 1
 			}
 			return false;
 		} else {
+			//Eleccion de premios al final de temporada
+			System.out.println();
+			System.out.println("-----------------------------------------");
+			System.out.println("PREMIOS DE LA TEMPORADA REGULAR");
+			System.out.println("MVP: " + elegirMVP().getNombre());
+			
+			System.out.println();
+			System.out.println("-----------------------------------------");
+			for (Equipo e : equipos) {
+				System.out.println("JUGADORES DE "+e.nombre.toUpperCase()+":");
+				for (Jugador j : e.jugadores) {
+					if(!j.rol.equals(Rol.NOJUEGA)) {
+						System.out.println(j.getNombre() + " " + (double)Math.round((j.getPuntosPartido()/82)*100)/100 + " ppp" + " " + (double)Math.round((j.getAsistenciasPartido()/82)*100)/100 + " app" + " " + (double)Math.round((j.getRebotesPartido()/82)*100)/100 + " rpp ; val: "+j.valoracion);
+					}
+				}
+				System.out.println();
+			}
+			
+			System.out.println();
+			System.out.println("-----------------------------------------");
+			for(String tipoClasif: clasificaciones.keySet()) {
+				System.out.println();
+				System.out.println("CLASIFICACION "+tipoClasif);
+				clasificaciones.get(tipoClasif).imprimir();
+			}
+			
 			// playoffs / verano
+			playOffs(); //fase = 1
+			draft();
+			jubilar();
+			
 			if(fase == 2) {
 				//draft
 			} else if(fase == 3) {
+				//jubilar
+			} else if(fase == 4){
 				//renovaciones
-				renovaciones();
 			} else {
 				//agencia libre
 			}
@@ -264,6 +299,66 @@ public class LigaManager {
 		}
 	}
 	
+	/**
+	 * Método para seleccionar el orden del draft de cada equipo y su respectiva eleccion 
+	 * */
+	private static void draft() {
+		Equipo[] ordenDraft = new Equipo[30];
+		
+		Clasificacion general = clasificaciones.get("GENERAL");
+		System.out.println();
+		System.out.println("-----------------------------------------");
+		System.out.println("PUESTO DE ELECCION DEL DRAFT:");
+		for (int i = 0; i < ordenDraft.length; i++) {
+			ordenDraft[i] = general.get(i);
+			System.out.println("Puesto nº: " + (30-i) + ", " + ordenDraft[i].nombre);
+		}		
+	}
+	
+	/**
+	 * Selecciona que jugadores se jubilan este año
+	 * tid = -2 -> jugadores jubilados
+	 * */
+	private static void jubilar() {
+		System.out.println();
+		System.out.println("-----------------------------------------");
+		System.out.println("JUGADORES RETIRADOS: ");
+		double rand;
+		for (Equipo e : equipos) {
+			for (Jugador j : e.jugadores) {
+				rand = Math.random();
+				if(j.getAnyoNac() >= 34) {	
+					if(j.getAnyoNac() > 40) {
+						System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac() + ", valoracion: " + j.valoracion);
+						j.setTid(-2);
+					}else if(j.valoracion >= 2500 && rand > 0.9 ) {
+						System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac() + ", valoracion: " + j.valoracion);
+						j.setTid(-2);
+					} else if(j.valoracion >= 1000 && rand > 0.6) {
+						System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac() + ", valoracion: " + j.valoracion);
+						j.setTid(-2);
+					} else if(rand > 0.2 ) {
+						System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac() + ", valoracion: " + j.valoracion);
+						j.setTid(-2);
+					}
+				}
+			}
+		}
+		System.out.println();
+		System.out.println("RETIRADOS DE LA AGENCIA LIBRE: ");
+		for (Jugador j : agentesLibres) {
+			rand = Math.random();
+			if(j.getAnyoNac() > 36 && rand > 0.5) {
+				System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac());
+				j.setTid(-2);
+			} else if(j.getAnyoNac() > 38) {
+				System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac());
+				j.setTid(-2);
+			}
+		}
+		System.out.println();
+	}
+	
 	private static void renovaciones() {
 		for(Equipo e: equipos) {
 			for(Jugador j: e.jugadores) {
@@ -280,4 +375,24 @@ public class LigaManager {
 		}
 	}
 	
+	public static Jugador elegirMVP() {
+		Jugador mvp = new Jugador();
+		for (Equipo equipo : equipos) {
+			for (Jugador j : equipo.jugadores) {
+				j.valoracion = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
+				if(j.getRol().equals(Rol.ESTRELLA) || j.getRol().equals(Rol.TITULAR)) {
+					if(j.valoracion > mvp.valoracion && equipo.getVictorias() > 41) {
+						mvp = j;
+					}
+				}
+			}
+		}
+		return mvp;
+	}
+	
+	public static void main(String[] args) {
+		inicializar(true);
+		System.out.println();
+	
+	}
 }

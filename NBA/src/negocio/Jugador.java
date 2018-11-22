@@ -18,7 +18,7 @@ public class Jugador {
 	protected int condicionFisica;
 	protected int minutos;
 	protected int tiempoJugado;
-	protected int anyoNac;//born->year
+	protected int anyoNac;//2018 - bron year
 	protected int overall;
 	int tid;
 	protected double puntosPartido; //puntos que anota por partido
@@ -112,7 +112,7 @@ public class Jugador {
 		oiq = json.getJSONArray("ratings").getJSONObject(0).getInt("oiq");
 		drb = json.getJSONArray("ratings").getJSONObject(0).getInt("drb");
 		
-		anyoNac = json.getJSONObject("born").getInt("year");
+		anyoNac = 2018 - json.getJSONObject("born").getInt("year");
 		overall = cargarOverallJugador();
 	}
 	
