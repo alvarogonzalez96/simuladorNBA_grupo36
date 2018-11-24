@@ -54,6 +54,16 @@ public class Equipo {
 		this.overall = (ov/10);
 	}
 	
+	/*
+	 * CONSTRUCTOR DE PRUEBA PARA LA 
+	 * PESTANYA CLASIFICACION, ES TEMPORAL
+	 * */
+	public Equipo(String nombre, int victorias, int derrotas) {
+		this.nombre = nombre;
+		this.victorias = victorias;
+		this.derrotas = derrotas;
+	}
+	
 	public Equipo(JSONObject json) {
 		this.tid = json.getInt("tid");
 		this.nombre = json.getString("region")+" "+json.getString("name");

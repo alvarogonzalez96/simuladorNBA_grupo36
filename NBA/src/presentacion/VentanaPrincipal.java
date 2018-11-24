@@ -107,50 +107,40 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel panelNoticiario = new JPanel(new FlowLayout());
 		
-//Creamos las pestanias-----------------------------------
+//Creamos las pestanias-----------------------------------		
 		JPanel home = new PanelHome();
 		tabbedPane.addTab("Home", null, home, null);
 
-		JPanel calendario = new JPanel();
+		JPanel calendario = new PanelHome();
 		tabbedPane.addTab("Calendario", null, calendario, null);
-		calendario.setLayout(new GridLayout(3,1));
-
+		
 		JPanel plantilla = new JPanel();
 		tabbedPane.addTab("Plantilla", null, plantilla, null);
-		plantilla.setLayout(new GridLayout(3,1));
-
+		
 		JPanel finanzas = new JPanel();
 		tabbedPane.addTab("Finanzas", null, finanzas, null);
-		finanzas.setLayout(new GridLayout(3,1));
-
+		
 		JPanel traspasos = new JPanel();
 		tabbedPane.addTab("Traspasos", null, traspasos, null);
-		traspasos.setLayout(new GridLayout(1,2));
 		
 		JPanel agencialibre = new JPanel();
 		tabbedPane.addTab("Agencia libre", null, agencialibre, null);
-		agencialibre.setLayout(new GridLayout(1,1));
-
+		
 		JPanel historialLiga = new JPanel();
 		tabbedPane.addTab("Historial Liga", null, historialLiga, null);
-		historialLiga.setLayout(new  GridLayout(1,2));
-
-		JPanel clasificacion = new JPanel();
+		
+		JPanel clasificacion = new PanelClasificacion();
 		tabbedPane.addTab("Clasificacion", null, clasificacion, null);
-		clasificacion.setLayout(new GridLayout(3,1));
 
 		JPanel lideres = new JPanel();
 		tabbedPane.addTab("Lideres de la liga", null, lideres, null);
-		lideres.setLayout(new GridLayout(3,1));
-
+		
 		JPanel noticiario = new JPanel();
 		tabbedPane.addTab("Noticiario", null, noticiario, null);
-		noticiario.setLayout(new FlowLayout());
-
+		
 		JPanel playoffs = new JPanel();
 		tabbedPane.addTab("Play Offs", null, playoffs, null);
-		playoffs.setLayout(new GridLayout(3,1));
-
+		
 		
 //Tree------------------------------
 		

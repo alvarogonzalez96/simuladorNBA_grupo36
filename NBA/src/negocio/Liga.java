@@ -173,6 +173,8 @@ public class Liga {
 		for(Clasificacion c: clasificaciones.values()) {
 			c.ordenar();
 		}
+		//Actualizar tablas de la pestanya clasificacion
+		//...
 	}
 	
 	public static void main(String[] args) {
