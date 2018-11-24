@@ -65,5 +65,3 @@ public class GeneradorNombres {
 		return lineas.get((int)(Math.random()*lineas.size()));
 	}
 }
-
-

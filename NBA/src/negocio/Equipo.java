@@ -2,6 +2,9 @@ package negocio;
 
 import java.util.ArrayList;
 
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
 import org.json.JSONObject;
 
 public class Equipo {
@@ -15,6 +18,8 @@ public class Equipo {
 	static {
 		ordenador = new OrdenadorJugadores();
 	}
+	
+	private TableModel modelo;
 	
 	protected int salarioTotal;
 
@@ -258,5 +263,84 @@ public class Equipo {
 	public String toString() {
 		return "Equipo [nombre=" + nombre + ", jugadores="  /*Arrays.toString(jugadores)*/ + ", ataque=" + ataque
 				+ ", defensa=" + defensa + ", overall=" + overall + "]";
+	}
+	
+	public TableModel getTableModel() {
+		if(modelo == null) {
+			modelo = new ModeloTablaEquipo();
+		}
+		return modelo;
+	}
+	
+	private class ModeloTablaEquipo implements TableModel {
+
+		@Override
+		public void addTableModelListener(TableModelListener l) {}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return String.class;
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 12;
+		}
+
+		@Override
+		public String getColumnName(int columnIndex) {
+			switch(columnIndex) {
+			case 0: return "Nombre";
+			case 1: return "Altura";
+			case 2: return "Posicion";
+			case 3: return "Rol";
+			case 4: return "Overall";
+			case 5: return "Rebote";
+			case 6: return "Asistencia";
+			case 7: return "Tiro Cerca";
+			case 8: return "Tiro Interior";
+			case 9: return "Tiro Lejos";
+			case 10: return "Tiro Libre";
+			case 11: return "Defensa";
+			}
+			return null;
+		}
+
+		@Override
+		public int getRowCount() {
+			return jugadores.size();
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			Jugador j = jugadores.get(rowIndex);
+			switch(columnIndex) {
+			case 0: return j.nombre;
+			case 1: return j.hgt;
+			case 2: return j.posicion;
+			case 3: return j.rol;
+			case 4: return j.overall;
+			case 5: return j.rebote;
+			case 6: return j.asistencia;
+			case 7: return j.tiroCerca;
+			case 8: return j.ins;
+			case 9: return j.tiroLejos;
+			case 10: return j.tiroLibre;
+			case 11: return j.defensa;
+			}
+			return null;
+		}
+
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return false;
+		}
+
+		@Override
+		public void removeTableModelListener(TableModelListener l) {}
+
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
+		
 	}
 }

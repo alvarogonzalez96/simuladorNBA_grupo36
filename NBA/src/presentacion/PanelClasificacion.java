@@ -12,6 +12,8 @@ import java.awt.*;
 @SuppressWarnings("serial")
 public class PanelClasificacion extends JPanel {
 
+	private Liga liga;
+	
 	private JPanel panelIzquierda;
 		private JPanel panelIzquierdaArriba, panelIzquierdaAbajo;
 	private JPanel panelDerecha;
@@ -20,8 +22,10 @@ public class PanelClasificacion extends JPanel {
 	private HashMap<String, Clasificacion> clasificaciones;	
 	private HashMap<String, JTable> tablas;
 	
-	public PanelClasificacion() {
+	public PanelClasificacion(Liga liga) {
 		super();
+		this.liga = liga;
+		clasificaciones = liga.getClasificaciones();
 		setLayout(new GridLayout(1,2));
 		setBorder(new EmptyBorder(10,10,10,10));
 		crearTablas();
@@ -33,12 +37,10 @@ public class PanelClasificacion extends JPanel {
 	 * La clase Clasificacion permite ser convertido en tabla (getTableModel).
 	 * */
 	private void crearTablas() {
-		clasificaciones = clasifPrueba(); //en realidad esta lista deberia ser 
-		//la misma que la de la clase Liga
 		tablas = new HashMap<>();
 		for(String c: clasificaciones.keySet()) {
 			tablas.put(c, new JTable(clasificaciones.get(c).getTableModel()));
-			tablas.get(c).getColumnModel().getColumn(0).setMinWidth(150);
+			tablas.get(c).getColumnModel().getColumn(0).setMinWidth(230);
 			
 			if(!c.equals("ESTE") && !c.equals("OESTE")) {
 				tablas.get(c).setFont(new Font("Arial", Font.PLAIN, 20));
@@ -85,35 +87,6 @@ public class PanelClasificacion extends JPanel {
 		JScrollPane scroll = new JScrollPane(tablas.get(tabla));
 		scroll.getViewport().setBackground(Color.WHITE);
 		destino.add(scroll);
-	}
-	
-	private HashMap<String, Clasificacion> clasifPrueba() {
-		HashMap<String, Clasificacion> clasif = new HashMap<>();
-		
-		for(int i = 0; i < 8; i++) {
-			String n = "";
-			switch(i) {
-			case 0: n = "OESTE"; break;
-			case 1: n = "ESTE"; break;
-			case 2: n = "ATLANTICO"; break;
-			case 3: n = "CENTRAL"; break;
-			case 4: n = "SURESTE"; break;
-			case 5: n = "PACIFICO"; break;
-			case 6: n = "SUROESTE"; break;
-			case 7: n = "NOROESTE"; break;
-			}
-			int tope;
-			if(i < 2) tope = 15;
-			else tope = 5;
-			
-			Equipo[] equipos = new Equipo[tope];
-			
-			for(int j = 0; j < tope; j++) {
-				equipos[j] = new Equipo(n+" "+j, 5, 6);
-			}
-			clasif.put(n, new Clasificacion(equipos));
-		}
-		return clasif;
 	}
 	
 }

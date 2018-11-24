@@ -1,5 +1,7 @@
 package presentacion;
 
+import negocio.Liga;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -14,7 +16,9 @@ import javax.swing.tree.TreeSelectionModel;
 import javax.swing.UIManager.*;//Importar para poder usar nimbus look&Feel
 
 public class VentanaPrincipal extends JFrame {
-
+	
+	private Liga liga;
+	
 	private JTextField texto;
 	private JButton simPartido, simSemana, simMes;
 	protected JMenuBar barra;
@@ -24,6 +28,7 @@ public class VentanaPrincipal extends JFrame {
 	private JTree tree;
 	
 	public VentanaPrincipal() {
+		liga = new Liga(true);
 		//Nimbus Look&Feel
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -114,7 +119,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel calendario = new PanelHome();
 		tabbedPane.addTab("Calendario", null, calendario, null);
 		
-		JPanel plantilla = new JPanel();
+		JPanel plantilla = new PanelPlantilla(liga);
 		tabbedPane.addTab("Plantilla", null, plantilla, null);
 		
 		JPanel finanzas = new JPanel();
@@ -129,7 +134,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel historialLiga = new JPanel();
 		tabbedPane.addTab("Historial Liga", null, historialLiga, null);
 		
-		JPanel clasificacion = new PanelClasificacion();
+		JPanel clasificacion = new PanelClasificacion(liga);
 		tabbedPane.addTab("Clasificacion", null, clasificacion, null);
 
 		JPanel lideres = new JPanel();

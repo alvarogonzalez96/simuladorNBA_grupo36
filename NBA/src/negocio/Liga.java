@@ -296,6 +296,22 @@ public class Liga {
 		
 	}
 	
+	public HashMap<String, Clasificacion> getClasificaciones(){
+		return clasificaciones;
+	}
+	
+	public Equipo[] getEquipos() {
+		return equipos;
+	}
+	
+	public ArrayList<Equipo> getArrayListEquipos(){
+		ArrayList<Equipo> eq = new ArrayList<>();
+		for(Equipo e: equipos) {
+			eq.add(e);
+		}
+		return eq;
+	}
+	
 	public static Jugador elegirMVP(Equipo[] e) {
 		Jugador mvp = new Jugador();
 		for (Equipo equipo : e) {
