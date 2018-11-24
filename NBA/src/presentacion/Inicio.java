@@ -3,6 +3,10 @@ package presentacion;
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import datos.BD;
+
+import negocio.Usuario;
+
 public class Inicio {	
 		
 	public Inicio() {
@@ -20,6 +24,7 @@ public class Inicio {
 	}
 	
 	protected void ventanaInicio() {
+		BD.conectar();
 		int respuesta = 2;
 		String nombreUsuario = "*";
 		String contrasenya = null;
@@ -44,7 +49,18 @@ public class Inicio {
 					ventanaInicio();
 				} else {
 					//Hacer un if para comprobar con la BD
-					new VentanaPrincipal();					
+					int g = BD.login(nombreUsuario, contrasenya);
+					if(g >= 0) {
+						//todo correcto
+						new VentanaPrincipal();
+					} else if(g == -1) {
+						//incorrecto
+						JOptionPane.showMessageDialog(null, "Los datos introducidos no son correctos", "Error", JOptionPane.ERROR_MESSAGE);
+						ventanaInicio();
+					} else {
+						//error interno
+						JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta el archivo log para mas informacion", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 
@@ -66,7 +82,22 @@ public class Inicio {
 					if(res == null) {
 						ventanaInicio();
 					} else {
-						new VentanaPrincipal();						
+						//new VentanaPrincipal();	
+						int teamID = calcularIDEquipo(res);
+						int r = BD.registrar(nombreUsuario, contrasenya, teamID);
+						if(r >= 0) {
+							//todo bien
+							Usuario usuario = new Usuario(nombreUsuario, r, teamID);
+							new VentanaPrincipal();
+						} else if(r == -1) {
+							//alertar de que ese nombre de usuario ya existe, y volver a empezar
+							JOptionPane.showMessageDialog(null, "Introduce un nombre de usuario que no este en uso", "Error", JOptionPane.ERROR_MESSAGE);
+							ventanaInicio();
+						} else {
+							//error en la base de datos, volver a empezar
+							JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta el archivo log para mas informacion", "Error", JOptionPane.ERROR_MESSAGE);
+							ventanaInicio();
+						}
 					}
 				}
 			}
@@ -85,6 +116,10 @@ public class Inicio {
 	
 	private void salir() {
 		System.exit(0);
+	}
+	
+	private int calcularIDEquipo(String equipo) {
+		return 0;
 	}
 	
 	
