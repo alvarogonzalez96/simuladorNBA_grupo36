@@ -6,20 +6,21 @@ import org.json.*;
 
 public class Jugador {
 	
+	//atributos fijos (nunca cambian para un mismo jugador)
 	protected String nombre;
 	protected Posicion posicion;
 	protected int rebote;//reb
-	protected Rol rol;
 	protected int tiroLibre;//ft
 	protected int tiroCerca;//fg
 	protected int tiroLejos;//tp
 	protected int defensa; //diq
 	protected int asistencia;//pss
 	protected int condicionFisica;
-	protected int minutos;
-	protected int tiempoJugado;
 	protected int anyoNac;//2018 - bron year
 	protected int overall;
+	
+	//atributos variables (pueden cambiar)
+	protected Rol rol;
 	int tid;
 	protected double puntosPartido; //puntos que anota por partido
 	protected int nPuntos; //puntos que mete en el partido
@@ -32,6 +33,10 @@ public class Jugador {
 	protected int anyosContratoRestantes;
 	
 	protected double valoracion;
+	
+	//Atributos para la simulacion de partidos
+	protected int minutos;
+	protected int tiempoJugado;
 	
 	//Atributos para calcular la media
 	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;

@@ -54,9 +54,7 @@ public class PanelHome extends JPanel {
 				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
 				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
 				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
+				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"}
 		};
 		tabla = new JTable(datos, columnas); 
 		tabla.setFont(new Font("Arial", Font.PLAIN, 20));
