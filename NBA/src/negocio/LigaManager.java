@@ -115,6 +115,19 @@ public class LigaManager {
 			renovaciones();
 			agenciaLibre();
 			
+			for (Equipo e : equipos) {
+				for (Jugador jugador : e.jugadores) {
+					jugador.rol = null;
+				}
+				e.ordenarJugadores();
+				e.asignarRoles();
+				System.out.println();
+				System.out.println(e.nombre);
+				for (Jugador j : e.jugadores) {
+					System.out.println(j.nombre + "(" + j.posicion + "), rol: " + j.getRol() + ", overall: " + j.overall);
+				}
+			}
+			
 			if(fase == 2) {
 				//draft
 			} else if(fase == 3) {
@@ -347,19 +360,27 @@ public class LigaManager {
 					if(j.getAnyoNac() > 40) {
 						System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac() + ", valoracion: " + j.valoracion);
 						j.setTid(-2);
+						j.salario = 0;
 					}else if(j.valoracion >= 2500 && rand > 0.9 ) {
 						System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac() + ", valoracion: " + j.valoracion);
 						j.setTid(-2);
+						j.salario = 0;
 					} else if(j.valoracion >= 1000 && rand > 0.6) {
 						System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac() + ", valoracion: " + j.valoracion);
 						j.setTid(-2);
+						j.salario = 0;
 					} else if(rand > 0.2 ) {
 						System.out.println(j.getNombre() + ", edad: " + j.getAnyoNac() + ", valoracion: " + j.valoracion);
 						j.setTid(-2);
+						j.salario = 0;
 					}
 				}
 			}
 		}
+		
+		eliminarJugadores();
+		actualizarSalarios();
+		
 		System.out.println();
 		System.out.println("RETIRADOS DE LA AGENCIA LIBRE: ");
 		for (Jugador j : agentesLibres) {
@@ -375,6 +396,13 @@ public class LigaManager {
 		System.out.println();
 	}
 	
+	private static void actualizarSalarios() {
+		for (Equipo e : equipos) {
+			e.salarioTotal = 0;
+			e.calcSalarioTotal();
+		}
+	}
+	
 	/**
 	 * Renueva los contratos de los jugadores
 	 * */
@@ -386,8 +414,7 @@ public class LigaManager {
 		for(Equipo e: equipos) {
 			System.out.println("Renovaciones de " + e.getNombre());
 			for(Jugador j: e.jugadores) {
-				e.salarioTotal = 0;
-				e.calcSalarioTotal();
+				actualizarSalarios();
 				System.out.println(Equipo.limiteSalarial-e.salarioTotal);
 				if((Equipo.limiteSalarial - e.salarioTotal) > -45000) {
 					rand = Math.random();
@@ -521,19 +548,8 @@ public class LigaManager {
 		System.out.println("AGENCIA LIBRE:");
 		mostrarAgenciaLibre();
 		for (Equipo e : clasificaciones.get("GENERAL").equipos) {
-			e.salarioTotal = 0;
-			e.calcSalarioTotal();
+			actualizarSalarios();
 			eleccionAgenciaLibre(e);
-		}
-		//
-		for (Equipo e : equipos) {
-			e.ordenarJugadores();
-			e.asignarRoles();
-			System.out.println();
-			System.out.println(e.nombre);
-			for (Jugador j : e.jugadores) {
-				System.out.println(j.nombre + "(" + j.posicion + "), rol: " + j.getRol());
-			}
 		}
 	}
 	
@@ -571,8 +587,7 @@ public class LigaManager {
 					jugador.salario = sal;
 					jugador.anyosContratoRestantes =  (int) (Math.random()*5)+1;
 					fichados.add(jugador);
-					equipo.salarioTotal = 0;
-					equipo.calcSalarioTotal();
+					actualizarSalarios();
 					System.out.println("FICHAJE ESTRELLA: " + jugador.getNombre() + ", por: " + jugador.salario + ", durante: " + jugador.anyosContratoRestantes + ", o: " + jugador.getOverall() + ", v: " + jugador.valoracion + ", tid: " +jugador.getTid());
 				}
 			}
@@ -643,7 +658,7 @@ public class LigaManager {
 				agentesLibres.sort(new OrdenadorJugadores());
 		int sal;
 		int anyosDeContrato;
-		while(!fichado){
+		//while(!fichado){
 			for (Jugador j : agentesLibres) {
 				if(j.getPosicion().equals(p)) {
 					sal = salarioAL(j);
@@ -654,8 +669,7 @@ public class LigaManager {
 						j.anyosContratoRestantes = anyosDeContrato;
 						System.out.println("Fichado: " + j.nombre + ", por: " + j.salario + ", durante: " + j.anyosContratoRestantes + ", o: " + j.getOverall() + ", v: " + j.valoracion + ", tid: " +j.getTid());
 						equipo.jugadores.add(j);
-						equipo.salarioTotal = 0;
-						equipo.calcSalarioTotal();
+						actualizarSalarios();
 						agentesLibres.clear();
 						cargarAgentesLibres();
 						fichado = true;
@@ -663,7 +677,7 @@ public class LigaManager {
 					}
 				}
 			}
-		}
+		//}
 	}
 	
 	/**
@@ -700,8 +714,7 @@ public class LigaManager {
 				jugador.anyosContratoRestantes = 1;
 				System.out.println("Fichado: " + jugador.nombre + ", por: " + jugador.salario + ", durante: " + jugador.anyosContratoRestantes + ", o: " + jugador.getOverall() + ", v: " + jugador.valoracion + ", tid: " +jugador.getTid());
 				equipo.jugadores.add(jugador);
-				equipo.salarioTotal = 0;
-				equipo.calcSalarioTotal();
+				actualizarSalarios();
 				agentesLibres.clear();
 				cargarAgentesLibres();
 				break;
