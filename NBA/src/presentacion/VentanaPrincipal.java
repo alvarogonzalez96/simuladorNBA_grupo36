@@ -116,7 +116,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel home = new PanelHome();
 		tabbedPane.addTab("Home", null, home, null);
 
-		JPanel calendario = new JPanel();
+		JPanel calendario = new PanelCalendario(liga);
 		tabbedPane.addTab("Calendario", null, calendario, null);
 		
 		JPanel plantilla = new PanelPlantilla(liga);

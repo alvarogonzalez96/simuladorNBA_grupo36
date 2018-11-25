@@ -9,6 +9,8 @@ public class Usuario {
 	protected Equipo equipo;
 	protected int equipoID;
 	
+	public Usuario() {}
+	
 	public Usuario(String user, int id, int equipoID) {
 		this.username = user;
 		this.id = id;
@@ -17,6 +19,10 @@ public class Usuario {
 	
 	protected Equipo calcularEquipo(int tid) {
 		return null;
+	}
+	
+	public Equipo getEquipo() {
+		return equipo;
 	}
 	
 }

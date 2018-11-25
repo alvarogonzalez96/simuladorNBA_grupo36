@@ -27,6 +27,8 @@ public class Liga {
 	protected ArrayList<Jugador> agentesLibres;
 	protected static HashMap<String, Clasificacion> clasificaciones;
 	
+	public Usuario usuario;
+	
 	protected boolean recienCreada;
 	protected int anyo;
 	
@@ -50,6 +52,8 @@ public class Liga {
 		while(!m) {
 			m = simularDia();
 		}
+		this.usuario = new Usuario();
+		usuario.equipo = equipos[9];
 	}
 	
 	/**
@@ -294,6 +298,10 @@ public class Liga {
 			return e2;
 		}
 		
+	}
+	
+	public Calendario getCalendario() {
+		return calendario;
 	}
 	
 	public HashMap<String, Clasificacion> getClasificaciones(){

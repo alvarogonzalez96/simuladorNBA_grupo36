@@ -216,6 +216,10 @@ public class Equipo {
 		}
 	}
 	
+	public String getAbrev() {
+		return abrev;
+	}
+	
 	
 	private Jugador asignarEstrellaAlMejor() {
 		Jugador mejor = new Jugador();

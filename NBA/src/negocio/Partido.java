@@ -369,6 +369,22 @@ public class Partido {
 		}
 	}
 	
+	public Equipo getLocal() {
+		return local;
+	}
+	
+	public Equipo getVisitante() {
+		return visitante;
+	}
+	
+	public boolean esLocal(Equipo e) {
+		return local.equals(e);
+	}
+	
+	public boolean esVisitante(Equipo e) {
+		return visitante.equals(e);
+	}
+	
 	public void repartoEstrellaTitular(Jugador jugador) {
 		if(jugador.getRol() == Rol.ESTRELLA) {
 			minutosEstrella(jugador);
