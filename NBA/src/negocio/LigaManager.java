@@ -1,8 +1,11 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -106,6 +109,8 @@ public class LigaManager {
 			playOffs(); //fase = 1
 			draft();
 			jubilar();
+			renovaciones();
+			agenciaLibre();
 			
 			if(fase == 2) {
 				//draft
@@ -359,14 +364,341 @@ public class LigaManager {
 		System.out.println();
 	}
 	
+	/**
+	 * Renueva los contratos de los jugadores
+	 * */
 	private static void renovaciones() {
+		double rand;
+		pasaAnyo();
+		System.out.println("-----------------------------------------");
+		System.out.println("RENOVACIÓN DE JUGADORES:");
 		for(Equipo e: equipos) {
+			System.out.println("Renovaciones de " + e.getNombre());
 			for(Jugador j: e.jugadores) {
-				
+				e.salarioTotal = 0;
+				e.calcSalarioTotal();
+				System.out.println(Equipo.limiteSalarial-e.salarioTotal);
+				if((Equipo.limiteSalarial - e.salarioTotal) > -45000) {
+					rand = Math.random();
+					if(j.anyosContratoRestantes == 0) {
+						if(j.valoracion >= 3500 && rand <= 0.8) {
+							if(j.getAnyoNac() > 35) {
+								//Renueva por un anyo y 30-35
+								j.anyosContratoRestantes = 1;
+								j.salario = (30000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(j.getAnyoNac() > 30 && rand <= 0.85) {
+								//Renueva por 3 años 35-40
+								j.anyosContratoRestantes = 3;
+								j.salario = (35000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(rand <= 0.9) {
+								//Renueva 5 años 35-40
+								j.anyosContratoRestantes = 5;
+								j.salario = (35000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							}
+						} else if(j.valoracion >= 2500) {
+							if(j.getAnyoNac() > 35 && rand <= 0.7) {
+								//Renueva por 1 años y 15-20
+								j.anyosContratoRestantes = 1;
+								j.salario = (15000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(j.getAnyoNac() > 30 && rand <= 0.75) {
+								//Renueva por 3 años y 20-25
+								j.anyosContratoRestantes = 3;
+								j.salario = (20000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(rand <= 0.8) {
+								//Renueva por 5 años y 25-30
+								j.anyosContratoRestantes = 5;
+								j.salario = (25000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							}
+						} else if(j.valoracion >= 1000) {
+							if(j.getAnyoNac() > 35 && rand <= 0.6) {
+								//Renueva por 1 año y 5-10
+								j.anyosContratoRestantes = 1;
+								j.salario = (5000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(j.getAnyoNac() > 30 && rand <= 0.65) {
+								//Renueva por 3 años y 6-11
+								j.anyosContratoRestantes = 3;
+								j.salario = (6000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(rand <= 0.7) {
+								//Renueva por 5 años y 11-16
+								j.anyosContratoRestantes = 5;
+								j.salario = (11000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							}
+						} else if(j.valoracion > 0){
+							if(j.getAnyoNac() > 35 && rand <= 0.4) {
+								//Renueva por 1 año y 1-5
+								j.anyosContratoRestantes = 1;
+								j.salario = (1000 + ((int)(Math.random()*4001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(j.getAnyoNac() > 30 && rand <= 0.45) {
+								//Renueva por 2 años y 2-8
+								j.anyosContratoRestantes = 2;
+								j.salario = (2000 + ((int)(Math.random()*6001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(rand <= 0.5) {
+								//Renueva por 3 años y 5-10
+								j.anyosContratoRestantes = 3;
+								j.salario = (5000 + ((int)(Math.random()*5001)));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							}	
+						} else {
+							if(j.getAnyoNac() > 35 && rand <= 0.25) {
+								//Renueva por 1 año y 1
+								j.anyosContratoRestantes = 1;
+								j.salario = 1000;
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(j.getAnyoNac() > 30 && rand <= 0.3) {
+								//Renueva por 2 años y 1
+								j.anyosContratoRestantes = 2;
+								j.salario = 1000;
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							} else if(rand <= 0.45) {
+								//Renueva por 3 años y 1-2 
+								j.anyosContratoRestantes = 3;
+								j.salario = 1000 + ((int)(Math.random()*1001));
+								System.out.println(j.getNombre() + "(valoracion: " + j.valoracion + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+							}	
+						}
+					}
+				}
+				if(j.anyosContratoRestantes==0) {
+					j.setTid(-1);
+					System.out.println(j.nombre + "(valoracion: " + j.valoracion + "), " + " 0");
+					j.salario = 0;
+				}
+			}
+			System.out.println();
+		}
+		eliminarJugadores();
+	}
+	
+	/**
+	 * Actualiza los equipos, eliminando los jugadores que pasan a ser agentes libres
+	 * */
+	private static void eliminarJugadores() {
+		boolean actualizar = false;
+		do {
+			actualizar = false;
+			for (Equipo e : equipos) {
+				for (Jugador j : e.jugadores) {
+					if(j.salario == 0) {
+						actualizar = true;
+						e.jugadores.remove(j);
+						break;
+					}
+				}
+			}	
+		} while(actualizar);
+	}
+	
+	/**
+	 * Metodo que simula la agencia libre
+	 * */
+	private static void agenciaLibre() {
+		agentesLibres.clear();
+		cargarAgentesLibres();
+		System.out.println();
+		System.out.println("-----------------------------------------");
+		System.out.println("AGENCIA LIBRE:");
+		mostrarAgenciaLibre();
+		for (Equipo e : clasificaciones.get("GENERAL").equipos) {
+			e.salarioTotal = 0;
+			e.calcSalarioTotal();
+			eleccionAgenciaLibre(e);
+		}
+		//
+		for (Equipo e : equipos) {
+			e.ordenarJugadores();
+			e.asignarRoles();
+			System.out.println();
+			System.out.println(e.nombre);
+			for (Jugador j : e.jugadores) {
+				System.out.println(j.nombre + "(" + j.posicion + "), rol: " + j.getRol());
 			}
 		}
 	}
 	
+	/**
+	 * Busca las posiciones que necesita reforzar el equipo
+	 * y a continuacion ficha a jugadores de esa posicion
+	 * */
+	private static void eleccionAgenciaLibre(Equipo equipo) {
+		System.out.println();
+		System.out.println(equipo.getNombre() + ", espacio salarial: " + (Equipo.limiteSalarial - equipo.salarioTotal) + " $");
+		int contBase, contEscolta, contAlero, contAP, contPivot;
+		contBase = contEscolta = contAlero = contAP = contPivot = 2;
+		
+		for (Jugador j : equipo.jugadores) {
+			if (j.posicion.equals(Posicion.BASE)) {
+				contBase--;
+			} else if(j.posicion.equals(Posicion.ESCOLTA)) {
+				contEscolta--;
+			} else if(j.posicion.equals(Posicion.ALERO)) {
+				contAlero--;
+			} else if(j.posicion.equals(Posicion.ALAPIVOT)) {
+				contAP--;
+			} else {
+				contPivot--;
+			}
+		}
+		ArrayList<Jugador> fichados = new ArrayList<>();
+		
+		if(equipo.salarioTotal < Equipo.limiteSalarial) {
+			for (Jugador jugador : agentesLibres) {
+				int sal = salarioAL(jugador);
+				if(equipo.salarioTotal + sal < Equipo.limiteSalarial && jugador.getOverall() > 75) {
+					equipo.jugadores.add(jugador);
+					jugador.setTid(equipo.getTid());
+					jugador.salario = sal;
+					jugador.anyosContratoRestantes =  (int) (Math.random()*5)+1;
+					fichados.add(jugador);
+					equipo.salarioTotal = 0;
+					equipo.calcSalarioTotal();
+					System.out.println("FICHAJE ESTRELLA: " + jugador.getNombre() + ", por: " + jugador.salario + ", durante: " + jugador.anyosContratoRestantes + ", o: " + jugador.getOverall() + ", v: " + jugador.valoracion + ", tid: " +jugador.getTid());
+				}
+			}
+		}
+		
+		for (Jugador jugador : fichados) {
+			agentesLibres.remove(jugador);
+			cargarAgentesLibres();
+		}
+		
+		if((equipo.salarioTotal+1000) < Equipo.limiteSalarial) {
+			while(contBase > 0 || contEscolta > 0 || contAlero > 0 || contAP > 0 || contPivot > 0 ) {
+				if(contBase > 0) {
+					ficharAgenteLibre(equipo, Posicion.BASE);
+					contBase--;
+				} else if(contEscolta > 0) {
+					ficharAgenteLibre(equipo, Posicion.ESCOLTA);
+					contEscolta--;
+				} else if(contAlero > 0) {
+					ficharAgenteLibre(equipo, Posicion.ALERO);
+					contAlero--;
+				} else if(contAP > 0) {
+					ficharAgenteLibre(equipo, Posicion.ALAPIVOT);
+					contAP--;
+				} else if(contPivot > 0) {
+					ficharAgenteLibre(equipo, Posicion.PIVOT);
+					contPivot--;
+				}
+			}
+		} else {
+			System.out.println("Ajustes de plantillas: ");
+			ajustarPlantilla(contBase, contEscolta, contAlero, contAP, contPivot, equipo);
+		}
+
+	}
+	
+	
+	private static void ajustarPlantilla(int contBase, int contEscolta, int contAlero, int contAP, int contPivot, Equipo equipo) {
+		while(contBase > 0 || contEscolta > 0 || contAlero > 0 || contAP > 0 || contPivot > 0 ) {
+			if(contBase > 0) {
+				ficharParaRellenar(equipo, Posicion.BASE);
+				contBase--;
+			} else if(contEscolta > 0) {
+				ficharParaRellenar(equipo, Posicion.ESCOLTA);
+				contEscolta--;
+			} else if(contAlero > 0) {
+				ficharParaRellenar(equipo, Posicion.ALERO);
+				contAlero--;
+			} else if(contAP > 0) {
+				ficharParaRellenar(equipo, Posicion.ALAPIVOT);
+				contAP--;
+			} else if(contPivot > 0) {
+				ficharParaRellenar(equipo, Posicion.PIVOT);
+				contPivot--;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo para fichar jugadores
+	 * */
+	private static void ficharAgenteLibre (Equipo equipo, Posicion p) {
+		boolean fichado = false;
+				agentesLibres.sort(new OrdenadorJugadores());
+		int sal;
+		int anyosDeContrato;
+		while(!fichado){
+			for (Jugador j : agentesLibres) {
+				if(j.getPosicion().equals(p)) {
+					sal = salarioAL(j);
+					if((equipo.salarioTotal + sal) < Equipo.limiteSalarial) {
+						anyosDeContrato = (int) (Math.random()*5)+1;
+						j.setTid(equipo.getTid());
+						j.salario = sal;
+						j.anyosContratoRestantes = anyosDeContrato;
+						System.out.println("Fichado: " + j.nombre + ", por: " + j.salario + ", durante: " + j.anyosContratoRestantes + ", o: " + j.getOverall() + ", v: " + j.valoracion + ", tid: " +j.getTid());
+						equipo.jugadores.add(j);
+						equipo.salarioTotal = 0;
+						equipo.calcSalarioTotal();
+						agentesLibres.clear();
+						cargarAgentesLibres();
+						fichado = true;
+						break;
+					}
+				}
+			}
+		}
+	}
+	
+	private static int salarioAL(Jugador j) {
+		int salario = 0;
+		if(j.getOverall() >= 85) {
+			//estrella
+			salario = 30000 + (int)(Math.random()*10001);
+		} else if(j.getOverall() >= 80) {
+			//normal-estrella
+			salario = 20000 + (int)(Math.random()*10001);
+		} else if(j.getOverall() >= 70) {
+			//normal
+			salario = 10000 + (int)(Math.random()*10001);
+		} else if (j.getOverall() >= 60){
+			//normal-malo
+			salario = 1000 + (int)(Math.random()*12001);
+		} else {
+			//malo
+			salario = 1000 + (int)(Math.random()*4001);
+		}
+		return salario;
+	}
+
+	
+	private static void ficharParaRellenar(Equipo equipo, Posicion p) {
+		for (Jugador jugador : agentesLibres) {
+			if(jugador.getPosicion().equals(p) && jugador.getOverall() < 60) {
+				jugador.setTid(equipo.getTid());
+				jugador.salario = 1000;
+				jugador.anyosContratoRestantes = 1;
+				System.out.println("Fichado: " + jugador.nombre + ", por: " + jugador.salario + ", durante: " + jugador.anyosContratoRestantes + ", o: " + jugador.getOverall() + ", v: " + jugador.valoracion + ", tid: " +jugador.getTid());
+				equipo.jugadores.add(jugador);
+				equipo.salarioTotal = 0;
+				equipo.calcSalarioTotal();
+				agentesLibres.clear();
+				cargarAgentesLibres();
+				break;
+			}
+		}
+	}
+	
+	
+	private static void mostrarAgenciaLibre() {
+		for (Jugador jugador : agentesLibres) {
+			if(jugador.valoracion > 0) {
+				System.out.println(jugador.getNombre() + ", edad: " + jugador.getAnyoNac() + ", valoracion: " + jugador.valoracion);
+			}
+		}
+	}
+
 	private static void pasaAnyo() {
 		for(Equipo e: equipos) {
 			for(Jugador j: e.jugadores) {
@@ -375,6 +707,9 @@ public class LigaManager {
 		}
 	}
 	
+	/**
+	 * Metodo que elige el MVP segun el rendimiento del jugador
+	 * */
 	public static Jugador elegirMVP() {
 		Jugador mvp = new Jugador();
 		for (Equipo equipo : equipos) {

@@ -16,7 +16,7 @@ public class Jugador {
 	protected int defensa; //diq
 	protected int asistencia;//pss
 	protected int condicionFisica;
-	protected int anyoNac;//2018 - bron year
+	protected int anyoNac;//2018 - born year
 	protected int overall;
 	
 	//atributos variables (pueden cambiar)
@@ -322,5 +322,5 @@ class OrdenadorJugadores implements Comparator<Jugador>{
 			}
 		}
 	}
-	
 }
+
