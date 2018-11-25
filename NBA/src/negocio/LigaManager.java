@@ -84,6 +84,9 @@ public class LigaManager {
 			System.out.println("-----------------------------------------");
 			System.out.println("PREMIOS DE LA TEMPORADA REGULAR");
 			System.out.println("MVP: " + elegirMVP().getNombre());
+			System.out.println("Sexto Hombre: " + elegirSextoHombre().getNombre());
+			System.out.println("ROY: " + elegirROY().getNombre());
+			System.out.println("DPOY: " + elegirDPOY().getNombre());
 			
 			System.out.println();
 			System.out.println("-----------------------------------------");
@@ -126,6 +129,9 @@ public class LigaManager {
 		}
 	}  
 	
+	/**
+	 * Metodo para jugar los playOffs
+	 * */
 	public static void playOffs() {
 		Equipo[] oeste = new Equipo[8];
 		Equipo[] este = new Equipo[8];
@@ -188,6 +194,10 @@ public class LigaManager {
 		
 	}
 	
+	
+	/**
+	 * @return Equipo ganador de la serie
+	 * */
 	public static Equipo ganadorSerie(Equipo e1, Equipo e2) {
 		int victorias1 = 0;
 		int victorias2 = 0;
@@ -318,6 +328,7 @@ public class LigaManager {
 			ordenDraft[i] = general.get(i);
 			System.out.println("Puesto nº: " + (30-i) + ", " + ordenDraft[i].nombre);
 		}		
+		//elegirDraft();
 	}
 	
 	/**
@@ -598,7 +609,11 @@ public class LigaManager {
 
 	}
 	
-	
+	/**
+	 * Si un equipo no tiene dinero, pero necesita fichar jugadores para su plantilla
+	 * fichara a jugadores de "baja" calidad (overall < 60) por el minimo salarial 
+	 * establecido en 1M $ por un unico anyo de contrato
+	 * */
 	private static void ajustarPlantilla(int contBase, int contEscolta, int contAlero, int contAP, int contPivot, Equipo equipo) {
 		while(contBase > 0 || contEscolta > 0 || contAlero > 0 || contAP > 0 || contPivot > 0 ) {
 			if(contBase > 0) {
@@ -651,6 +666,10 @@ public class LigaManager {
 		}
 	}
 	
+	/**
+	 * @return int con las exigencias salariales del jugador
+	 * para fichar por el equipo
+	 * */
 	private static int salarioAL(Jugador j) {
 		int salario = 0;
 		if(j.getOverall() >= 85) {
@@ -703,6 +722,7 @@ public class LigaManager {
 		for(Equipo e: equipos) {
 			for(Jugador j: e.jugadores) {
 				j.anyosContratoRestantes--;
+				j.rookie = false;
 			}
 		}
 	}
@@ -710,7 +730,7 @@ public class LigaManager {
 	/**
 	 * Metodo que elige el MVP segun el rendimiento del jugador
 	 * */
-	public static Jugador elegirMVP() {
+	private static Jugador elegirMVP() {
 		Jugador mvp = new Jugador();
 		for (Equipo equipo : equipos) {
 			for (Jugador j : equipo.jugadores) {
@@ -724,6 +744,58 @@ public class LigaManager {
 		}
 		return mvp;
 	}
+	
+	/**
+	 * Metodo que elige al mejor sexto hombre de la temporada
+	 */
+	private static Jugador elegirSextoHombre() {
+		Jugador sextoHombre = new Jugador();
+		for (Equipo equipo : equipos) {
+			for (Jugador j : equipo.jugadores) {
+				j.valoracion = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
+				if(j.getRol().equals(Rol.SUPLENTE)) {
+					if(j.valoracion > sextoHombre.valoracion && equipo.getVictorias() > 41) {
+						sextoHombre = j;
+					}
+				}
+			}
+		}
+		return sextoHombre;
+	}
+	
+	/**
+	 * Metodo que elige al novatp del anyo
+	 * */
+	private static Jugador elegirROY() {
+		Jugador ROY = new Jugador();
+		for (Equipo equipo : equipos) {
+			for (Jugador j : equipo.jugadores) {
+				j.valoracion = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
+				if(j.rookie) {
+					if(j.valoracion > ROY.valoracion && equipo.getVictorias() > 41) {
+						ROY = j;
+					}
+				}
+			}
+		}
+		return ROY;
+	}
+	
+	/**
+	 * Metodo que elige al defensor del anyo
+	 * */
+	private static Jugador elegirDPOY() {
+		Jugador DPOY = new Jugador();
+		for (Equipo equipo : equipos) {
+			for (Jugador j : equipo.jugadores) {
+				if(j.getDefensa() > DPOY.getDefensa() && equipo.getVictorias() > 41) {
+					DPOY = j;
+				}
+			}
+		}
+		return DPOY;
+	}
+	
 	
 	public static void main(String[] args) {
 		inicializar(true);

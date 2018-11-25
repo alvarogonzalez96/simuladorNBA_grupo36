@@ -34,6 +34,8 @@ public class Jugador {
 	
 	protected double valoracion;
 	
+	protected boolean rookie; //Al crear un nuevo jugador, siempre sera rookie
+	
 	//Atributos para la simulacion de partidos
 	protected int minutos;
 	protected int tiempoJugado;
@@ -58,6 +60,7 @@ public class Jugador {
 		this.tiempoJugado = 0;
 		this.anyoNac = anyoNac;
 		this.tid = tid;
+		this.rookie = true;
 	}
 	
 	public Jugador() {
@@ -76,6 +79,7 @@ public class Jugador {
 		this.tiempoJugado = 0;
 		this.anyoNac = 0;
 		this.tid = -1;	
+		this.rookie = true;
 	}
 	
 	public void cargarJugador(JSONObject json) { 
@@ -102,6 +106,12 @@ public class Jugador {
 		} else {
 			tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
 			ins = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
+		}
+		
+		if(json.getJSONObject("draft").getInt("year") == 2018 ) {
+			rookie = true;
+		} else {
+			rookie = false;
 		}
 		tiroLejos = json.getJSONArray("ratings").getJSONObject(0).getInt("tp");
 		defensa = json.getJSONArray("ratings").getJSONObject(0).getInt("diq");
