@@ -113,6 +113,19 @@ public class Calendario {
 		}
 	}
 	
+	/**
+	 * Resetea el calendario.
+	 * Reinicia cada partido del calendario, 
+	 * con los marcadores a 0, etc;
+	 * */
+	public void reset() {
+		for(ArrayList<Partido> partidos: calendario.values()) {
+			for(Partido p: partidos) {
+				p = new Partido(p); //nuevo partido con los mismos equipos.
+			}
+		}
+	}
+	
 	public Date getDiaActual() {
 		return this.diaActual;
 	}

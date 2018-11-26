@@ -22,7 +22,12 @@ public class Usuario {
 	}
 	
 	public Equipo getEquipo() {
-		return equipo;
+		for(Equipo e: LigaManager.equipos) {
+			if(e.tid == equipoID) {
+				return e;
+			}
+		}
+		return null;
 	}
 	
 }

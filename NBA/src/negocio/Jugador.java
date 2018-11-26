@@ -2,6 +2,8 @@ package negocio;
 
 import java.util.Comparator;
 
+import datos.GeneradorNombres;
+
 import org.json.*;
 
 public class Jugador {
@@ -80,6 +82,45 @@ public class Jugador {
 		this.anyoNac = 0;
 		this.tid = -1;	
 		this.rookie = true;
+	}
+	
+	/**
+	 * Construye un jugador a partir de la combinacion 
+	 * de tributos de otros dos jugadores.
+	 * Se usa para la creacion de nuevos jugadores 
+	 * para el draft.
+	 * 
+	 * Los dos jugadores pasados como parametro 
+	 * deben jugar en la misma posicion.
+	 * */
+	public Jugador(Jugador a, Jugador b) {
+		if(a.posicion != b.posicion) {
+			System.err.println("Error en el constructor de jugador.");
+		}
+		this.nombre = GeneradorNombres.getNombreCompleto();
+		this.posicion = a.posicion;
+		this.rebote = (a.rebote+b.rebote)/2;
+		this.tiroLibre = (a.tiroLibre+b.tiroLibre)/2;
+		this.tiroCerca = (a.tiroCerca+b.tiroCerca)/2;
+		this.tiroLejos = (a.tiroLejos+b.tiroLejos)/2;
+		this.defensa = (a.defensa+b.defensa)/2;
+		this.asistencia = (a.asistencia+b.asistencia)/2;
+		this.condicionFisica = (a.condicionFisica+b.condicionFisica)/2;
+		this.anyoNac = 0;
+		this.tid = -1;
+		this.rookie = true;
+	}
+	
+	public Jugador(Jugador j) {
+		this.nombre = j.nombre;
+		this.posicion = j.posicion;
+		this.rebote = j.rebote;
+		this.tiroLibre = j.tiroLibre;
+		this.tiroCerca = j.tiroCerca;
+		this.tiroLejos = j.tiroLejos;
+		this.defensa = j.defensa;
+		this.asistencia = j.asistencia;
+		this.condicionFisica = j.condicionFisica;
 	}
 	
 	public void cargarJugador(JSONObject json) { 

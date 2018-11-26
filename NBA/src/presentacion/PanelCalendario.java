@@ -134,7 +134,7 @@ public class PanelCalendario extends JPanel {
 				for(Partido p: partidos) {
 					if(p.esLocal(usuario.getEquipo())) {
 						//pintar como local
-						g.drawString("vs "+p.getVisitante().getAbrev(), marginX+d*size + 10, marginY+w*size+(size/2));
+						g.drawString("vs "+p.getVisitante().getAbrev(), marginX+d*size + 15, marginY+w*size+(size/2));
 						break;
 					} else if(p.esVisitante(usuario.getEquipo())) {
 						//pintar como visitante

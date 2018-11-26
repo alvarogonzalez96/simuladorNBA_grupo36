@@ -15,7 +15,8 @@ import datos.ParseadorJSON;
 public class LigaManager {
 
 	protected static int fase; 
-	/**
+	
+	/*
 	 * 	fase 0: temporada regular
 		fase 1: playoffs
 		fase 2: draft
@@ -23,7 +24,15 @@ public class LigaManager {
 		fase 4: renovaciones
 		fase 5: agencia libre
 		volver a empezar
-	 * */
+	 */
+	
+	protected static Usuario usuario;
+	
+	/* Lista en la que se guardara un objeto temporada por
+	 * cada anyo.
+	 * Ejemplo: para la temporada 2018-2019, la clave sera 2018
+	 */	
+	protected static HashMap<String, Temporada> temporadasPasadas;
 	
 	protected static Calendario calendario;
 	protected static Equipo[] equipos;
@@ -33,18 +42,23 @@ public class LigaManager {
 	
 	protected static boolean recienCreada;
 	protected static int anyo;
+	protected static Date diaActual;
 	
-	public static void inicializar(boolean desdeJSON) {
+	protected static Equipo campeon;
+	protected static Jugador mvp, roy, dpoy, sextoHombre;
+	
+	public static void inicializar(boolean desdeJSON, Usuario u) {
+		usuario = u;
 		recienCreada = desdeJSON;
 		jugadores = new ArrayList<>();
 		agentesLibres = new ArrayList<>();
+		temporadasPasadas = new HashMap<>();
 		cargarJugadores();
 		cargarAgentesLibres();
 		cargarEquipos();
 		asignarJugadoresAEquipos();
 		inicializarClasificaciones();
 		//cargar fase
-		Date diaActual;
 		if(desdeJSON) {
 			diaActual = Calendario.PRIMER_DIA;
 			calendario = new Calendario(equipos, diaActual); // el calendario es el mismo para todas las temporadas
@@ -57,6 +71,9 @@ public class LigaManager {
 		while(!m) {
 			m = simularDia();
 		}
+		
+		//reset();
+		//nuevaTemporada();
 	}
 	
 	/** 
@@ -107,6 +124,9 @@ public class LigaManager {
 				System.out.println("CLASIFICACION "+tipoClasif);
 				clasificaciones.get(tipoClasif).imprimir();
 			}
+			
+			//guardar datos de la temporada que acaba de terminar
+			guardarDatosFinTemporada();
 			
 			// playoffs / verano
 			playOffs(); //fase = 1
@@ -202,8 +222,8 @@ public class LigaManager {
 		
 		//Final
 		System.out.println("*FINAL DE LA NBA*");
-		Equipo ganadorNBA = ganadorSerie(equiposFinal[0], equiposFinal[1]);
-		System.out.println("Gana el anillo: " + ganadorNBA.getNombre());
+		campeon = ganadorSerie(equiposFinal[0], equiposFinal[1]);
+		System.out.println("Gana el anillo: " + campeon.getNombre());
 		
 	}
 	
@@ -753,6 +773,7 @@ public class LigaManager {
 				}
 			}
 		}
+		LigaManager.mvp = mvp;
 		return mvp;
 	}
 	
@@ -771,6 +792,7 @@ public class LigaManager {
 				}
 			}
 		}
+		LigaManager.sextoHombre = sextoHombre;
 		return sextoHombre;
 	}
 	
@@ -789,6 +811,7 @@ public class LigaManager {
 				}
 			}
 		}
+		LigaManager.roy = ROY;
 		return ROY;
 	}
 	
@@ -804,13 +827,61 @@ public class LigaManager {
 				}
 			}
 		}
+		LigaManager.dpoy = DPOY;
 		return DPOY;
 	}
 	
+	/**
+	 * Metodo que guarda en el mapa temporadasPasadas
+	 * la informacion correspondiente a la temporada que
+	 * acaba de terminar.
+	 * */
+	private static void guardarDatosFinTemporada() {
+		Equipo u = usuario.getEquipo();
+		Temporada t = new Temporada(equipos, u.getVictorias(), u.getDerrotas(), campeon);
+		t.setMVP(mvp);
+		t.setROY(roy);
+		t.setDPOY(dpoy);
+		t.setSextoHombre(sextoHombre);
+		
+		temporadasPasadas.put(""+anyo, t);
+	}
+	
+	/**
+	 * Metodo que resetea todos los datos correspondientes a la temporada actual, 
+	 * que se ejecutara cada vez que termine una temporada, para empezar una nueva.
+	 * */
+	private static void reset() {
+		//los equipos se mantienen igual, las plantillas ya estan actualizadas
+		calendario.reset();
+		inicializarClasificaciones();
+		//evolucionar atributos de jugadores + agentes libres (?)
+		campeon = null;
+		mvp = null;
+		roy = null;
+		dpoy = null;
+		sextoHombre = null;
+		
+		recienCreada = false;
+		diaActual = Calendario.PRIMER_DIA;
+	}
+	
+	private static void nuevaTemporada() {
+		anyo++;
+		
+		boolean m = simularDia();
+		while(!m) {
+			m = simularDia();
+		}
+	}
 	
 	public static void main(String[] args) {
-		inicializar(true);
+		Usuario u = new Usuario("prueba", 0, 9);
+		inicializar(true, u);
+		/*for(int i = 0; i < 10; i++) {
+			reset();
+			nuevaTemporada();
+		}*/
 		System.out.println();
-	
 	}
 }

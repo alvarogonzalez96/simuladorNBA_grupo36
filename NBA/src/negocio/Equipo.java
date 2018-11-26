@@ -84,6 +84,23 @@ public class Equipo {
 		this.jugadores = new ArrayList<>();
 	}
 	
+	/**
+	 * Constructor copia
+	 * Aparte de devolver un objeto identico al que se 
+	 * le pasa como argumento, la lista de jugadores es 
+	 * otra copia identica (no es el mismo objeto, son 
+	 * jugadores "nuevos" pero identicos)
+	 * */
+	public Equipo(Equipo e) {
+		this.tid = e.tid;
+		this.nombre = e.nombre;
+		this.abrev = e.abrev;
+		this.jugadores = new ArrayList<>();
+		for(Jugador j: e.jugadores) {
+			this.jugadores.add(new Jugador(j));
+		}
+	}
+	
 	private Division ordinalADivision(int ord) {
 		switch(ord) {
 		case 0: return Division.ATLANTICO;
