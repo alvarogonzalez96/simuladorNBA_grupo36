@@ -39,6 +39,7 @@ public class LigaManager {
 	protected static ArrayList<Jugador> jugadores;
 	protected static ArrayList<Jugador> agentesLibres;
 	protected static HashMap<String, Clasificacion> clasificaciones;
+	protected static ArrayList<Jugador> draft;
 	
 	protected static boolean recienCreada;
 	protected static int anyo;
@@ -219,14 +220,13 @@ public class LigaManager {
 		equiposFinal[1] = ganadorSerie(este[0], este[1]);
 		System.out.println("Gana la serie: " + equiposFinal[1].getNombre());
 		System.out.println();
-		
+		 
 		//Final
 		System.out.println("*FINAL DE LA NBA*");
 		campeon = ganadorSerie(equiposFinal[0], equiposFinal[1]);
 		System.out.println("Gana el anillo: " + campeon.getNombre());
 		
 	}
-	
 	
 	/**
 	 * @return Equipo ganador de la serie
@@ -351,6 +351,7 @@ public class LigaManager {
 	 * Método para seleccionar el orden del draft de cada equipo y su respectiva eleccion 
 	 * */
 	private static void draft() {
+		pasaAnyo();
 		Equipo[] ordenDraft = new Equipo[30];
 		
 		Clasificacion general = clasificaciones.get("GENERAL");
@@ -360,8 +361,111 @@ public class LigaManager {
 		for (int i = 0; i < ordenDraft.length; i++) {
 			ordenDraft[i] = general.get(i);
 			System.out.println("Puesto nº: " + (30-i) + ", " + ordenDraft[i].nombre);
-		}		
-		//elegirDraft();
+		}	
+		
+		draft = new ArrayList<Jugador>();
+		System.out.println();
+		System.out.println("JUGADORES QUE SE PRESENTAN AL DRAFT: ");
+		for (int i = 0; i < 70; i++) {
+			draft.add(crearJugadoresDraft());
+			System.out.println(draft.get(i).getNombre() + ", o: " + draft.get(i).getOverall() + " p: " + draft.get(i).getPosicion());
+		}
+		asignarSalariosYContatosDraft();
+		draft.sort(new OrdenadorJugadores());
+		elegirDraft(ordenDraft);
+		mandarAgenciaLibre();
+	}
+	
+	/**
+	 * @return Jugador del draft, creado a partir de dos jugadores aleatorios de la liga
+	 * */
+	private static Jugador crearJugadoresDraft() {
+		int rand;
+		Jugador a = new Jugador();
+		Jugador b = new Jugador();
+		
+		do {
+			rand = (int) (Math.random()*jugadores.size());
+			if(!jugadores.get(rand).equals(null)) {
+				a = jugadores.get(rand);
+			}
+			rand = (int) (Math.random()*jugadores.size());
+			if(!jugadores.get(rand).equals(null)) {
+				b = jugadores.get(rand);
+			}
+		} while(!a.getPosicion().equals(b.getPosicion()));
+		
+		Jugador c = new Jugador(a, b);
+		return c;
+	}
+	
+	/**
+	 * Asigna un salario y un contrato en funcion de la calidad del jugador del draft
+	 * */
+	private static void asignarSalariosYContatosDraft() {
+		int salario = 8000;
+		int i = 0;
+		for (Jugador j : draft) {
+			if(salario > 4000) {
+				j.salario = salario;
+				salario = salario -1000;
+			} else if(salario > 1000) {
+				j.salario = salario;
+				salario = salario - 500;
+			} else {
+				j.salario = 1000;
+			}
+			
+			if(i < 30) {
+				j.anyosContratoRestantes = 3;
+			} else {
+				j.anyosContratoRestantes = 2;
+			}
+			i++;
+		}
+	}
+	
+	/**
+	 * Eleccion de cada equipo del draft
+	 * */
+	private static void elegirDraft(Equipo[] orden) {
+		int j = 1;
+		do {
+			System.out.println();
+			System.out.println("Ronda: " + j);
+			for (int i = 29; i > 0; i--) {
+			Jugador jug = elegirMejorDisponible();
+			jug.setTid(orden[i].getTid());
+			System.out.println("El equipo: " + orden[i].getNombre() + ", elige a: " + jug.getNombre() + ", o: " + jug.getOverall());
+			orden[i].jugadores.add(jug);
+			}
+			j++;
+		} while(j <= 2);
+		
+	}
+	
+	/**
+	 * @return Jugador , el mejor disponible en el draft
+	 * */
+	private static Jugador elegirMejorDisponible() {
+		Jugador jugador = new Jugador();
+		int n = 0;
+		for (Jugador j : draft) {
+			if(jugador.overall < j.overall) {
+				jugador = j;
+			}			
+		}
+		draft.remove(jugador);
+		return jugador;
+	}
+
+	private static void mandarAgenciaLibre() {
+		for (Jugador j : draft) {
+			if(j.getTid() == -1) {
+				agentesLibres.add(j);
+			}
+		}
+		draft.clear();
 	}
 	
 	/**
@@ -428,7 +532,6 @@ public class LigaManager {
 	 * */
 	private static void renovaciones() {
 		double rand;
-		pasaAnyo();
 		System.out.println("-----------------------------------------");
 		System.out.println("RENOVACIÓN DE JUGADORES:");
 		for(Equipo e: equipos) {

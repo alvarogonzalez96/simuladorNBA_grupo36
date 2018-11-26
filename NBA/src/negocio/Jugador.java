@@ -106,9 +106,19 @@ public class Jugador {
 		this.defensa = (a.defensa+b.defensa)/2;
 		this.asistencia = (a.asistencia+b.asistencia)/2;
 		this.condicionFisica = (a.condicionFisica+b.condicionFisica)/2;
+		this.hgt = (a.hgt + b.hgt)/2;
+		this.stre = (a.stre + b.stre)/2;
+		this.spd = (a.spd + b.spd)/2;
+		this.jmp = (a.spd + b.spd)/2;
+		this.endu = (a.endu + b.endu)/2;
+		this.ins = (a.ins + b.ins)/2;
+		this.dnk = (a.dnk + b.dnk)/2;
+		this.oiq = (a.oiq + b.oiq)/2;
+		this.drb = (a.drb + b.drb)/2;
 		this.anyoNac = 0;
 		this.tid = -1;
 		this.rookie = true;
+		this.overall = cargarOverallJugador();
 	}
 	
 	public Jugador(Jugador j) {
