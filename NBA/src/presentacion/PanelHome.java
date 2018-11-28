@@ -22,11 +22,12 @@ public class PanelHome extends JPanel {
 	
 	private JLabel balance;
 	
-	private JList<String> clasificacion;
-	private DefaultListModel<String> modeloClasif;
+	private JTable clasificacion;
 	
-	private JList<String> ultimos4;
-	private DefaultListModel<String> modeloUltimos4;
+	/*
+	private JList<String> ultimosPartidos;
+	private DefaultListModel<String> modeloUltimos4;*/
+	private JTable ultimosPartidos;
 	
 	private JTable tabla;
 	
@@ -42,9 +43,9 @@ public class PanelHome extends JPanel {
 	private void initComponentes() {
 		initClasificacion();
 		initBotones();
-		initUltimos4();
+		initUltimosPartidos();
 		initBalance();
-		initTabla();
+		initPlantilla();
 	}
 	
 	private void setListeners() {
@@ -53,21 +54,52 @@ public class PanelHome extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				switch(LigaManager.fase) {
 				case 0: //temp regular
-					((JButton) (e.getSource())).setEnabled(false);
+					botonDia.setEnabled(false);
 					LigaManager.simularDia();
 					break;
 				}
-				((JButton) (e.getSource())).setEnabled(true);
+				botonDia.setEnabled(true);
 				//actualizarPanel();
 				Equipo eq = LigaManager.usuario.getEquipo();
 				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
-				System.out.println(eq.getVictorias());
+				repaint();
+			}
+		});
+		
+		botonSem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				botonSem.setEnabled(false);
+				boolean b;
+				for(int i = 0; i < 7; i++) {
+					b = LigaManager.simularDia();
+					if(b) break;
+				}
+				botonSem.setEnabled(true);
+				Equipo eq = LigaManager.usuario.getEquipo();
+				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
+				repaint();
+			}
+		});
+		
+		botonMes.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				botonMes.setEnabled(true);
+				boolean b;
+				for(int i = 0; i < 30; i++) {
+					b = LigaManager.simularDia();
+					if(b) break;
+				}
+				botonMes.setEnabled(true);
+				Equipo eq = LigaManager.usuario.getEquipo();
+				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
 				repaint();
 			}
 		});
 	}
 	
-	private void initTabla() {
+	private void initPlantilla() {
 		tabla = new JTable(LigaManager.usuario.getEquipo().getTableModel());
 		tabla.getColumnModel().getColumn(0).setMinWidth(200);
 		tabla.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -94,14 +126,14 @@ public class PanelHome extends JPanel {
 		panelBotones.setBorder(new EmptyBorder(0,0,7,0));
 	}
 	
-	private void initUltimos4() {
-		modeloUltimos4 = new DefaultListModel<>();
-		for(int i = 0; i < 10; i++) {			
-			modeloUltimos4.addElement("Derrota vs Houston (113-121)");
-		}
-		ultimos4 = new JList<>(modeloUltimos4);
-		ultimos4.setFont(new Font("Arial", Font.PLAIN, 15));
-		panelDerAbajoDer.add(ultimos4);
+	private void initUltimosPartidos() {
+		ultimosPartidos = new JTable(LigaManager.calendario.getModelo());
+		ultimosPartidos.setFont(new Font("Arial", Font.PLAIN, 15));
+		ultimosPartidos.setRowHeight(25);
+		//panelDerAbajoDer.add(new JScrollPane(ultimosPartidos));
+		JScrollPane s = new JScrollPane(ultimosPartidos);
+		s.setPreferredSize(new Dimension(200, getHeight()));
+		panelDerAbajoDer.add(s);
 	}
 	
 	private void initBalance() {
@@ -116,13 +148,12 @@ public class PanelHome extends JPanel {
 	}
 	
 	private void initClasificacion() {
-		modeloClasif = new DefaultListModel<>();
-		for(int i = 0; i < 30; i++) {			
-			modeloClasif.addElement("1 Golden State Warriors 73-9");
-		}
-		clasificacion = new JList<>(modeloClasif);
-		clasificacion.setFont(new Font("Arial", Font.PLAIN, 15));
-		panelIzq.add(clasificacion);
+		clasificacion = new JTable(LigaManager.clasificaciones.get("GENERAL").getTableModel());
+		clasificacion.setFont(new Font("Arial", Font.PLAIN, 20));
+		clasificacion.setRowHeight(25);
+		JScrollPane scrollIzq = new JScrollPane(clasificacion);
+		scrollIzq.setPreferredSize(new Dimension(250,getHeight()));
+		panelIzq.add(scrollIzq, BorderLayout.WEST);
 	}
 	
 	private void crearPanel() {

@@ -100,7 +100,7 @@ public class Clasificacion {
 		public Object getValueAt(int e, int a) {
 			Equipo equipo = equipos.get(e);
 			switch(a) {
-			case 0: return equipo.nombre;
+			case 0: return equipo.abrev;
 			case 1: return equipo.victorias;
 			case 2: return equipo.derrotas;
 			default: return null;

@@ -9,7 +9,7 @@ public class Partido {
 	
 	protected Quinteto quintetoLocal, quintetoVisitante;
 	
-	protected int puntosLocal, puntosVisitante;
+	public int puntosLocal, puntosVisitante;
 	protected boolean atacaLocal;
 
 		

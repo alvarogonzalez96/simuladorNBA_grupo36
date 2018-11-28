@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
+
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import org.json.*;
 
@@ -27,6 +33,10 @@ public class Calendario {
 		ULTIMO_DIA_TEMP_REGULAR = u;
 	}
 	
+	public LinkedList<Partido> ultimosPartidosJugados;
+	
+	private ModeloTablaCalendario modelo;
+	
 	public int anyo;
 	public Equipo[] equipos;
 	public HashMap<Date, ArrayList<Partido>> calendario;
@@ -37,7 +47,9 @@ public class Calendario {
 		this.equipos = equipos;
 		this.diaActual = d;
 		calendario = new HashMap<>();
+		ultimosPartidosJugados = new LinkedList<>();
 		cargarCalendario();
+		modelo = new ModeloTablaCalendario();
 	}
 	
 	public Calendario(Calendario c, int anyo) {
@@ -51,6 +63,18 @@ public class Calendario {
 			e.printStackTrace();
 		}
 		copiarPartidos(c);
+		modelo = new ModeloTablaCalendario();
+	}
+	
+	public ModeloTablaCalendario getModelo() {
+		return modelo;
+	}
+	
+	public void addPartidoJugado(Partido p) {
+		ultimosPartidosJugados.addFirst(p);
+		if(ultimosPartidosJugados.size() > 30) {
+			ultimosPartidosJugados.removeLast();
+		}
 	}
 	
 	private void copiarPartidos(Calendario c) {
@@ -130,11 +154,54 @@ public class Calendario {
 		return this.diaActual;
 	}
 	
-	public static void main(String[] args) throws ParseException {
-		Date d;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		d = sdf.parse("2016-01-30");
-		System.out.println(d);
-		
+	private class ModeloTablaCalendario implements TableModel {
+
+		@Override
+		public void addTableModelListener(TableModelListener l) {}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return String.class;
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 1;
+		}
+
+		@Override
+		public String getColumnName(int columnIndex) {
+			return "Últimos partidos jugados";
+		}
+
+		@Override
+		public int getRowCount() {
+			return 30;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			if(rowIndex >= ultimosPartidosJugados.size()) {
+				return "---";
+			}
+			Partido p = ultimosPartidosJugados.get(rowIndex);
+			String local = p.local.getAbrev();
+			String vis = p.visitante.getAbrev();
+			int pLocal = p.puntosLocal;
+			int pVis = p.puntosVisitante;
+			return vis+" "+pVis+" - "+pLocal+" "+local;
+		}
+
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return false;
+		}
+
+		@Override
+		public void removeTableModelListener(TableModelListener l) {}
+
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
+
 	}
 }

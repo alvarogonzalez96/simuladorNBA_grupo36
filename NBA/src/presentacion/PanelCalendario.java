@@ -29,6 +29,7 @@ public class PanelCalendario extends JPanel {
 		setLayout(new BorderLayout());
 		setBorder(new EmptyBorder(10,10,10,10));
 		crearPaneles();
+		seleccionarMes();
 	}
 	
 	private void crearPaneles() {
@@ -51,6 +52,23 @@ public class PanelCalendario extends JPanel {
 				panelPrincipal.repaint();
 			}
 		});
+	}
+	
+	private void seleccionarMes() {
+		int m = getMes(LigaManager.calendario.diaActual);
+		int selec = 0;
+		if(m < 9) { //de septiembre hacia atras
+			selec = m + 3;
+		} else {
+			selec = m - 9;
+		}
+		combo.setSelectedIndex(selec);
+	}
+	
+	private int getMes(Date d) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		return c.get(Calendar.MONTH);
 	}
 	
 	private void addElementosCombo() {
@@ -110,7 +128,6 @@ public class PanelCalendario extends JPanel {
 				}
 				g.drawString(d, marginX + i*size + size/2, marginY-20);
 			}
-			System.out.println(diaSemanaInicio);
 			//dibujar el calendario
 			for(int w = 0; w < 6; w++) {
 				for(int d = 0; d < 7; d++) {
@@ -128,15 +145,50 @@ public class PanelCalendario extends JPanel {
 		private void pintarPartido(Graphics2D g, Date dia, int w, int d, int marginX, int marginY, int size) {
 			Calendario c = LigaManager.calendario;
 			ArrayList<Partido> partidos = c.calendario.get(dia);
+			if(dia.equals(LigaManager.calendario.diaActual)) {
+				g.setColor(Color.LIGHT_GRAY);
+				g.fillRect(marginX+size*d+1, marginY+size*w+1, size-1, size-1);
+				g.setColor(Color.BLACK);
+			}
 			if(partidos != null) {
 				for(Partido p: partidos) {
+					String txt = "";
+					boolean ganado = false;
+					boolean jugado = false;
 					if(p.esLocal(usuario.getEquipo())) {
 						//pintar como local
-						g.drawString("vs "+p.getVisitante().getAbrev(), marginX+d*size + 15, marginY+w*size+(size/2));
-						break;
+						txt = "vs "+p.getVisitante().getAbrev();
+						if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
+							jugado = true;
+							if(p.puntosLocal > p.puntosVisitante) {
+								ganado = true;
+							}
+						}
 					} else if(p.esVisitante(usuario.getEquipo())) {
 						//pintar como visitante
-						g.drawString("@ "+p.getLocal().getAbrev(), marginX+d*size + 15, marginY+w*size+(size/2));
+						txt = "@ "+p.getLocal().getAbrev();
+						if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
+							jugado = true;
+							if(p.puntosLocal < p.puntosVisitante) {
+								ganado = true;
+							}
+						}
+					}
+					if(!txt.equals("")) {
+						if(jugado) {
+							if(ganado) {
+								//pintar de verde
+								g.setColor(Color.GREEN);
+							} else {
+								g.setColor(Color.RED);
+							}
+							g.fillRect(marginX+d*size + 1, marginY+w*size+1, size-1, size-1);
+							g.setColor(Color.BLACK);
+						}
+						g.drawString(txt, marginX+d*size + 15, marginY+w*size+(size/2));
+						if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
+							g.drawString(p.puntosVisitante+" - "+p.puntosLocal, marginX+d*size + 15, marginY+w*size+(3*size/4));
+						}
 						break;
 					}
 				}
@@ -156,7 +208,6 @@ public class PanelCalendario extends JPanel {
 			Calendar c = Calendar.getInstance();
 			c.setTime(d);
 			return c.get(Calendar.DAY_OF_MONTH);
-			
 		}
 		
 		private int getDiaSemana(Date d) {

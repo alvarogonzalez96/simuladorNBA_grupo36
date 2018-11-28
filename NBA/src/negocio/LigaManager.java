@@ -83,11 +83,13 @@ public class LigaManager {
 	 * */
 	public static boolean simularDia() {
 		System.out.println("Simulando "+calendario.getDiaActual());
+		System.out.println(calendario.ultimosPartidosJugados.size());
 		if(!calendario.getDiaActual().after(Calendario.ULTIMO_DIA_TEMP_REGULAR)) { //fase = 0
 			// simular dia de temporada regular
 			if(calendario.calendario.keySet().contains(calendario.getDiaActual())) {
 				for(Partido p: calendario.calendario.get(calendario.getDiaActual())) {
 					p.jugar();
+					calendario.addPartidoJugado(p);
 				}
 				ordenarClasificaciones();
 			}

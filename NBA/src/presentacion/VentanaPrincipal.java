@@ -26,7 +26,7 @@ public class VentanaPrincipal extends JFrame {
 	private JTree tree;
 	
 	public VentanaPrincipal() {
-		LigaManager.inicializar(true, new Usuario("Pedro", 18, 9));
+		LigaManager.inicializar(true, new Usuario("Pedro", 18, 1));
 		//Nimbus Look&Feel
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
