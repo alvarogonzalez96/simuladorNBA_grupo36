@@ -366,6 +366,9 @@ public class Partido {
 				}
 				minPivot = min - j.getMinutos();
 			}
+			if(j.minutos > 0) {
+				j.partidosJugadosTemporada++;
+			}
 		}
 	}
 	

@@ -305,24 +305,22 @@ public class Equipo {
 
 		@Override
 		public int getColumnCount() {
-			return 12;
+			return 10;
 		}
 
 		@Override
 		public String getColumnName(int columnIndex) {
 			switch(columnIndex) {
 			case 0: return "Nombre";
-			case 1: return "Altura";
-			case 2: return "Posicion";
-			case 3: return "Rol";
-			case 4: return "Overall";
-			case 5: return "Rebote";
-			case 6: return "Asistencia";
-			case 7: return "Tiro Cerca";
-			case 8: return "Tiro Interior";
-			case 9: return "Tiro Lejos";
-			case 10: return "Tiro Libre";
-			case 11: return "Defensa";
+			case 1: return "Posicion";
+			case 2: return "Rol";
+			case 3: return "Overall";
+			case 4: return "PPP";
+			case 5: return "APP";
+			case 6: return "RPP";
+			case 7: return "Puntos Totales";
+			case 8: return "Asistencias Totales";
+			case 9: return "Rebotes Totales";
 			}
 			return null;
 		}
@@ -337,17 +335,15 @@ public class Equipo {
 			Jugador j = jugadores.get(rowIndex);
 			switch(columnIndex) {
 			case 0: return j.nombre;
-			case 1: return j.hgt;
-			case 2: return j.posicion;
-			case 3: return j.rol;
-			case 4: return j.overall;
-			case 5: return j.rebote;
-			case 6: return j.asistencia;
-			case 7: return j.tiroCerca;
-			case 8: return j.ins;
-			case 9: return j.tiroLejos;
-			case 10: return j.tiroLibre;
-			case 11: return j.defensa;
+			case 1: return j.posicion;
+			case 2: return j.rol;
+			case 3: return j.overall;
+			case 4: return j.getPuntosPorPartido();
+			case 5: return j.getAsistenciasPorPartido();
+			case 6: return j.getRebotesPorPartido();
+			case 7: return j.puntosPartido;
+			case 8: return j.asistenciasPartido;
+			case 9: return j.rebotesPartido;
 			}
 			return null;
 		}

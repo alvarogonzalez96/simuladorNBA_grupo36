@@ -1,6 +1,10 @@
 package presentacion;
 
+import negocio.*;
+
 import javax.swing.*;
+import java.awt.event.*;
+
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
@@ -14,7 +18,9 @@ public class PanelHome extends JPanel {
 	private JScrollPane sp;
 	private JPanel panelBalance, panelBotones;
 	
-	private JButton botonPart, botonSem, botonMes;
+	private JButton botonDia, botonSem, botonMes;
+	
+	private JLabel balance;
 	
 	private JList<String> clasificacion;
 	private DefaultListModel<String> modeloClasif;
@@ -30,6 +36,7 @@ public class PanelHome extends JPanel {
 		setBorder(new EmptyBorder(10,10,10,10));
 		crearPanel();
 		initComponentes();
+		setListeners();
 	}
 	
 	private void initComponentes() {
@@ -40,23 +47,29 @@ public class PanelHome extends JPanel {
 		initTabla();
 	}
 	
+	private void setListeners() {
+		botonDia.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch(LigaManager.fase) {
+				case 0: //temp regular
+					((JButton) (e.getSource())).setEnabled(false);
+					LigaManager.simularDia();
+					break;
+				}
+				((JButton) (e.getSource())).setEnabled(true);
+				//actualizarPanel();
+				Equipo eq = LigaManager.usuario.getEquipo();
+				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
+				System.out.println(eq.getVictorias());
+				repaint();
+			}
+		});
+	}
+	
 	private void initTabla() {
-		String[] columnas = {"Nombre","Posición","Overall","Rebote","Asistencia","Cosa 1", "Cosa 2", "Cosa 3"};
-		String[][] datos = {
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"},
-				{"Stephen Curry", "Base", "92", "76", "91", "89", "43", "99"}
-		};
-		tabla = new JTable(datos, columnas); 
+		tabla = new JTable(LigaManager.usuario.getEquipo().getTableModel());
+		tabla.getColumnModel().getColumn(0).setMinWidth(200);
 		tabla.setFont(new Font("Arial", Font.PLAIN, 20));
 		tabla.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 20));
 		tabla.setFillsViewportHeight(true);
@@ -67,14 +80,14 @@ public class PanelHome extends JPanel {
 	}
 	
 	private void initBotones() {
-		botonPart = new JButton("Simular partido");
+		botonDia = new JButton("Simular partido");
 		botonSem = new JButton("Simular semana");
 		botonMes = new JButton("Simular mes");
-		botonPart.setFont(new Font("Arial", Font.PLAIN, 15));
+		botonDia.setFont(new Font("Arial", Font.PLAIN, 15));
 		botonMes.setFont(new Font("Arial", Font.PLAIN, 15));
 		botonSem.setFont(new Font("Arial", Font.PLAIN, 15));
 		
-		panelBotones.add(botonPart);
+		panelBotones.add(botonDia);
 		panelBotones.add(botonSem);
 		panelBotones.add(botonMes);
 		
@@ -92,10 +105,11 @@ public class PanelHome extends JPanel {
 	}
 	
 	private void initBalance() {
-		JLabel equipo, balance;
-		equipo = new JLabel("Mi equipo: Philadelphia 76ers");
+		JLabel equipo;
+		equipo = new JLabel("Mi equipo: "+LigaManager.usuario.getEquipo().getNombre());
 		equipo.setFont(new Font("Arial", Font.PLAIN, 22));
-		balance = new JLabel("Balance: 69-13");
+		Equipo e = LigaManager.usuario.getEquipo();
+		balance = new JLabel("Balance: "+e.getVictorias()+"-"+e.getDerrotas());
 		balance.setFont(new Font("Arial", Font.PLAIN, 22));
 		panelBalance.add(equipo);
 		panelBalance.add(balance);

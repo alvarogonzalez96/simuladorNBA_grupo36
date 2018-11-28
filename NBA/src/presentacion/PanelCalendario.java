@@ -17,17 +17,15 @@ import negocio.*;
 @SuppressWarnings("serial")
 public class PanelCalendario extends JPanel {
 
-	private Liga liga;
 	private Usuario usuario;
 	
 	private AreaCalendario panelPrincipal;
 	private JPanel panelSeleccion;
 	private JComboBox<String> combo;
 	
-	public PanelCalendario(Liga liga) {
+	public PanelCalendario() {
 		super();
-		this.liga = liga;
-		this.usuario = liga.usuario;
+		this.usuario = LigaManager.usuario;
 		setLayout(new BorderLayout());
 		setBorder(new EmptyBorder(10,10,10,10));
 		crearPaneles();
@@ -128,7 +126,7 @@ public class PanelCalendario extends JPanel {
 		}
 		
 		private void pintarPartido(Graphics2D g, Date dia, int w, int d, int marginX, int marginY, int size) {
-			Calendario c = liga.getCalendario();
+			Calendario c = LigaManager.calendario;
 			ArrayList<Partido> partidos = c.calendario.get(dia);
 			if(partidos != null) {
 				for(Partido p: partidos) {

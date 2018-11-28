@@ -11,8 +11,6 @@ import java.awt.*;
 
 @SuppressWarnings("serial")
 public class PanelClasificacion extends JPanel {
-
-	private Liga liga;
 	
 	private JPanel panelIzquierda;
 		private JPanel panelIzquierdaArriba, panelIzquierdaAbajo;
@@ -22,10 +20,9 @@ public class PanelClasificacion extends JPanel {
 	private HashMap<String, Clasificacion> clasificaciones;	
 	private HashMap<String, JTable> tablas;
 	
-	public PanelClasificacion(Liga liga) {
+	public PanelClasificacion() {
 		super();
-		this.liga = liga;
-		clasificaciones = liga.getClasificaciones();
+		clasificaciones = LigaManager.clasificaciones;
 		setLayout(new GridLayout(1,2));
 		setBorder(new EmptyBorder(10,10,10,10));
 		crearTablas();

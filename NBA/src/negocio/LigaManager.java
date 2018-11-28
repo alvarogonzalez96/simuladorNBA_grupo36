@@ -14,7 +14,7 @@ import datos.ParseadorJSON;
 
 public class LigaManager {
 
-	protected static int fase; 
+	public static int fase; 
 	
 	/*
 	 * 	fase 0: temporada regular
@@ -26,27 +26,27 @@ public class LigaManager {
 		volver a empezar
 	 */
 	
-	protected static Usuario usuario;
+	public static Usuario usuario;
 	
 	/* Lista en la que se guardara un objeto temporada por
 	 * cada anyo.
 	 * Ejemplo: para la temporada 2018-2019, la clave sera 2018
 	 */	
-	protected static HashMap<String, Temporada> temporadasPasadas;
+	public static HashMap<String, Temporada> temporadasPasadas;
 	
-	protected static Calendario calendario;
-	protected static Equipo[] equipos;
-	protected static ArrayList<Jugador> jugadores;
-	protected static ArrayList<Jugador> agentesLibres;
-	protected static HashMap<String, Clasificacion> clasificaciones;
-	protected static ArrayList<Jugador> draft;
+	public static Calendario calendario;
+	public static Equipo[] equipos;
+	public static ArrayList<Jugador> jugadores;
+	public static ArrayList<Jugador> agentesLibres;
+	public static HashMap<String, Clasificacion> clasificaciones;
+	public static ArrayList<Jugador> draft;
 	
-	protected static boolean recienCreada;
-	protected static int anyo;
-	protected static Date diaActual;
+	public static boolean recienCreada;
+	public static int anyo;
+	public static Date diaActual;
 	
-	protected static Equipo campeon;
-	protected static Jugador mvp, roy, dpoy, sextoHombre;
+	public static Equipo campeon;
+	public static Jugador mvp, roy, dpoy, sextoHombre;
 	
 	public static void inicializar(boolean desdeJSON, Usuario u) {
 		usuario = u;
@@ -68,10 +68,10 @@ public class LigaManager {
 			diaActual = null; //cargar el dia actual en la BD
 		}
 		
-		boolean m = simularDia();
+		/*boolean m = simularDia();
 		while(!m) {
 			m = simularDia();
-		}
+		}*/
 		
 		//reset();
 		//nuevaTemporada();
@@ -81,7 +81,7 @@ public class LigaManager {
 	 *  @return true si ha terminado la temporada (incluidos los playoffs), 
 	 *  		false si no ha terminado la temporada
 	 * */
-	private static boolean simularDia() {
+	public static boolean simularDia() {
 		System.out.println("Simulando "+calendario.getDiaActual());
 		if(!calendario.getDiaActual().after(Calendario.ULTIMO_DIA_TEMP_REGULAR)) { //fase = 0
 			// simular dia de temporada regular
@@ -433,7 +433,7 @@ public class LigaManager {
 		do {
 			System.out.println();
 			System.out.println("Ronda: " + j);
-			for (int i = 29; i > 0; i--) {
+			for (int i = 29; i >= 0; i--) {
 			Jugador jug = elegirMejorDisponible();
 			jug.setTid(orden[i].getTid());
 			System.out.println("El equipo: " + orden[i].getNombre() + ", elige a: " + jug.getNombre() + ", o: " + jug.getOverall());

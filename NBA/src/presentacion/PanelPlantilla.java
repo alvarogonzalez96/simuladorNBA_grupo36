@@ -1,6 +1,6 @@
 package presentacion;
 
-import negocio.Equipo;
+import negocio.*;
 
 import java.util.ArrayList;
 
@@ -27,9 +27,9 @@ public class PanelPlantilla extends JPanel {
 	private JTable tabla;
 	private JComboBox<String> combo;
 	
-	public PanelPlantilla(Liga liga) {
+	public PanelPlantilla() {
 		super();
-		equipos = liga.getEquipos();
+		equipos = LigaManager.equipos;
 		setLayout(new BorderLayout());
 		setBorder(new EmptyBorder(10,10,10,10));
 		crearPaneles();

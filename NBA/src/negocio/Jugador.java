@@ -30,6 +30,7 @@ public class Jugador {
 	protected int nAsistencias;//asistencias en el partido
 	protected double rebotesPartido;//rebotes por partido
 	protected int nRebotes;//rebotes en un partido
+	public int partidosJugadosTemporada; //numero de partidos jugados en una temporada
 	
 	protected int salario;
 	protected int anyosContratoRestantes;
@@ -250,6 +251,30 @@ public class Jugador {
 	
 	public void setNRebotes(int nRebotes) {
 		this.nRebotes = nRebotes;
+	}
+	
+	public double getPuntosPorPartido() {
+		if(partidosJugadosTemporada <= 0) {
+			return 0;
+		} else {
+			return (double) Math.round(100 * puntosPartido / partidosJugadosTemporada)/100;
+		}
+	}
+	
+	public double getAsistenciasPorPartido() {
+		if(partidosJugadosTemporada <= 0) {
+			return 0;
+		} else {
+			return (double) Math.round(100 * asistenciasPartido / partidosJugadosTemporada)/100;
+		}
+	}
+	
+	public double getRebotesPorPartido() {
+		if(partidosJugadosTemporada <= 0) {
+			return 0;
+		} else {
+			return (double) Math.round(100 * rebotesPartido / partidosJugadosTemporada)/100;
+		}
 	}
 	
 	public int getTiroLibre() {
