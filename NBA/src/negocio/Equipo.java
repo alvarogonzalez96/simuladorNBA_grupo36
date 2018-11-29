@@ -305,7 +305,7 @@ public class Equipo {
 
 		@Override
 		public int getColumnCount() {
-			return 10;
+			return 11;
 		}
 
 		@Override
@@ -321,6 +321,7 @@ public class Equipo {
 			case 7: return "Puntos Totales";
 			case 8: return "Asistencias Totales";
 			case 9: return "Rebotes Totales";
+			case 10: return "Edad";
 			}
 			return null;
 		}
@@ -344,6 +345,7 @@ public class Equipo {
 			case 7: return j.puntosPartido;
 			case 8: return j.asistenciasPartido;
 			case 9: return j.rebotesPartido;
+			case 10: return j.anyoNac;
 			}
 			return null;
 		}
