@@ -29,7 +29,7 @@ public class Partido {
 		atacaLocal = true;
 	}
 	
-	public void jugar() {
+	public void jugar(boolean playoffs) {
 		int tiempo = 0;
 		
 		asignarMinutos(local);
@@ -64,12 +64,14 @@ public class Partido {
 			}
 			atacaLocal = !atacaLocal;
 		}
-		if(puntosLocal > puntosVisitante) {
-			local.nuevaVictoria();
-			visitante.nuevaDerrota();
-		} else {
-			local.nuevaDerrota();
-			visitante.nuevaVictoria();
+		if(!playoffs) {
+			if(puntosLocal > puntosVisitante) {
+				local.nuevaVictoria();
+				visitante.nuevaDerrota();
+			} else {
+				local.nuevaDerrota();
+				visitante.nuevaVictoria();
+			}
 		}
 		System.out.println(visitante.nombre+" "+puntosVisitante+" - "+puntosLocal+" "+local.nombre);
 		//System.out.println("----------------------------------------");
@@ -409,6 +411,13 @@ public class Partido {
 		rand = (int)(Math.random()*300);
 		jugador.setMinutos(1800 + rand);
 		jugador.setTiempoJugado(jugador.getMinutos());
+	}
+	
+	public Equipo getGanador() {
+		if(puntosLocal > puntosVisitante) {
+			return local;
+		} 
+		return visitante;
 	}
 
 	@Override

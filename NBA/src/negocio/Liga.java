@@ -66,7 +66,7 @@ public class Liga {
 			// simular dia de temporada regular
 			if(calendario.calendario.keySet().contains(calendario.getDiaActual())) {
 				for(Partido p: calendario.calendario.get(calendario.getDiaActual())) {
-					p.jugar();
+					//p.jugar();
 				}
 				ordenarClasificaciones();
 			}
@@ -284,7 +284,7 @@ public class Liga {
 		
 		while(victorias1 < 4 && victorias2 < 4) {
 			Partido p = new Partido(e1, e2);
-			p.jugar();
+			//p.jugar();
 			if(p.puntosLocal > p.puntosVisitante) {
 				victorias1 ++;
 			} else {

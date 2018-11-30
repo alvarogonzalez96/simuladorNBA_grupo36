@@ -141,7 +141,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel noticiario = new JPanel();
 		tabbedPane.addTab("Noticiario", null, noticiario, null);
 		
-		JPanel playoffs = new JPanel();
+		JPanel playoffs = new PanelPlayoffs();
 		tabbedPane.addTab("Play Offs", null, playoffs, null);
 		
 		

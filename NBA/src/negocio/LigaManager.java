@@ -40,6 +40,7 @@ public class LigaManager {
 	public static ArrayList<Jugador> agentesLibres;
 	public static HashMap<String, Clasificacion> clasificaciones;
 	public static ArrayList<Jugador> draft;
+	public static Playoffs playoffs;
 	
 	public static boolean recienCreada;
 	public static int anyo;
@@ -88,14 +89,17 @@ public class LigaManager {
 			// simular dia de temporada regular
 			if(calendario.calendario.keySet().contains(calendario.getDiaActual())) {
 				for(Partido p: calendario.calendario.get(calendario.getDiaActual())) {
-					p.jugar();
+					p.jugar(false);
 					calendario.addPartidoJugado(p);
 				}
 				ordenarClasificaciones();
 			}
 			calendario.avanzarDia();
-			if(calendario.getDiaActual().equals(Calendario.ULTIMO_DIA_TEMP_REGULAR)) {
-				System.out.println("Fin de la temporada regular");
+			if(calendario.getDiaActual().after(Calendario.ULTIMO_DIA_TEMP_REGULAR)) {
+				//fin de la temporada regular
+				fase++;
+				playoffs = new Playoffs();
+				return true;
 			}
 			return false;
 		} else {
@@ -239,7 +243,7 @@ public class LigaManager {
 		
 		while(victorias1 < 4 && victorias2 < 4) {
 			Partido p = new Partido(e1, e2);
-			p.jugar();
+			p.jugar(true);
 			if(p.puntosLocal > p.puntosVisitante) {
 				victorias1 ++;
 			} else {

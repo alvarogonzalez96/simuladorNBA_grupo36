@@ -23,6 +23,8 @@ public class PanelCalendario extends JPanel {
 	private JPanel panelSeleccion;
 	private JComboBox<String> combo;
 	
+	private JButton hoy;
+	
 	public PanelCalendario() {
 		super();
 		this.usuario = LigaManager.usuario;
@@ -35,8 +37,10 @@ public class PanelCalendario extends JPanel {
 	private void crearPaneles() {
 		panelSeleccion = new JPanel();
 		combo = new JComboBox<>();
+		hoy = new JButton("Hoy");
 		addElementosCombo();
 		panelSeleccion.add(combo);
+		panelSeleccion.add(hoy);
 		add(panelSeleccion, BorderLayout.NORTH);
 		
 		panelPrincipal = new AreaCalendario();
@@ -50,6 +54,13 @@ public class PanelCalendario extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				panelPrincipal.repaint();
+			}
+		});
+		
+		hoy.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seleccionarMes();
 			}
 		});
 	}
@@ -184,6 +195,7 @@ public class PanelCalendario extends JPanel {
 							}
 							g.fillRect(marginX+d*size + 1, marginY+w*size+1, size-1, size-1);
 							g.setColor(Color.BLACK);
+							g.drawString(""+d, marginX+d*size+5, marginY+w*size+20);
 						}
 						g.drawString(txt, marginX+d*size + 15, marginY+w*size+(size/2));
 						if(p.puntosLocal > 0 || p.puntosVisitante > 0) {

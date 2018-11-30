@@ -280,6 +280,13 @@ public class Equipo {
 		derrotas++;
 	}
 	
+	public boolean equals(Equipo e) {
+		if(e.tid == tid) {
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return "Equipo [nombre=" + nombre + ", jugadores="  /*Arrays.toString(jugadores)*/ + ", ataque=" + ataque

@@ -24,9 +24,6 @@ public class PanelHome extends JPanel {
 	
 	private JTable clasificacion;
 	
-	/*
-	private JList<String> ultimosPartidos;
-	private DefaultListModel<String> modeloUltimos4;*/
 	private JTable ultimosPartidos;
 	
 	private JTable tabla;
@@ -52,13 +49,23 @@ public class PanelHome extends JPanel {
 		botonDia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				boolean fin = false;
 				switch(LigaManager.fase) {
 				case 0: //temp regular
 					botonDia.setEnabled(false);
 					LigaManager.simularDia();
-					break;
+					if(LigaManager.fase == 1) {
+						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaña de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+						botonDia.setEnabled(false);
+						botonSem.setEnabled(false);
+						botonMes.setEnabled(false);
+						fin = true;
+					}
 				}
-				botonDia.setEnabled(true);
+				if(!fin) {
+					botonDia.setEnabled(true);
+				}
 				//actualizarPanel();
 				Equipo eq = LigaManager.usuario.getEquipo();
 				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
@@ -70,12 +77,21 @@ public class PanelHome extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				botonSem.setEnabled(false);
-				boolean b;
+				boolean fin = false;;
 				for(int i = 0; i < 7; i++) {
-					b = LigaManager.simularDia();
-					if(b) break;
+					LigaManager.simularDia();
+					if(LigaManager.fase == 1) {
+						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaña de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						botonDia.setEnabled(false);
+						botonSem.setEnabled(false);
+						botonMes.setEnabled(false);
+						fin = true;
+						break;
+					}
 				}
-				botonSem.setEnabled(true);
+				if(!fin) {
+					botonSem.setEnabled(true);
+				}
 				Equipo eq = LigaManager.usuario.getEquipo();
 				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
 				repaint();
@@ -86,12 +102,21 @@ public class PanelHome extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				botonMes.setEnabled(true);
-				boolean b;
+				boolean fin = false;
 				for(int i = 0; i < 30; i++) {
-					b = LigaManager.simularDia();
-					if(b) break;
+					LigaManager.simularDia();
+					if(LigaManager.fase == 1) {
+						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaña de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						botonDia.setEnabled(false);
+						botonSem.setEnabled(false);
+						botonMes.setEnabled(false);
+						fin = true;
+						break;
+					}
 				}
-				botonMes.setEnabled(true);
+				if(!fin) {
+					botonMes.setEnabled(true);
+				}
 				Equipo eq = LigaManager.usuario.getEquipo();
 				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
 				repaint();
