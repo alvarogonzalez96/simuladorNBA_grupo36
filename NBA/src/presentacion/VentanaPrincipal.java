@@ -144,6 +144,8 @@ public class VentanaPrincipal extends JFrame {
 		JPanel playoffs = new PanelPlayoffs();
 		tabbedPane.addTab("Play Offs", null, playoffs, null);
 		
+		tabbedPane.setSelectedIndex(10);
+		
 		
 //Tree------------------------------
 		

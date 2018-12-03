@@ -171,6 +171,22 @@ public class Playoffs {
 			}
 		}
 		
+		public int getVictoriasA() {
+			return victoriasA;
+		}
+		
+		public int getVictoriasB() {
+			return victoriasB;
+		}
+		
+		public Equipo getA() {
+			return a;
+		}
+		
+		public Equipo getB() {
+			return b;
+		}
+		
 		/**
 		 * Metodo que devuelve el equipo ganador de la serie una vez terminada
 		 * */

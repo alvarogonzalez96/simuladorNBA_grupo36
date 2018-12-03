@@ -102,7 +102,7 @@ public class LigaManager {
 				return true;
 			}
 			return false;
-		} else {
+		} else { // elimiar este rama de la alternativa cuando este terminado el juego
 			//Eleccion de premios al final de temporada
 			System.out.println();
 			System.out.println("-----------------------------------------");
@@ -169,6 +169,7 @@ public class LigaManager {
 		}
 	}  
 	
+	@Deprecated
 	/**
 	 * Metodo para jugar los playOffs
 	 * */
@@ -234,6 +235,7 @@ public class LigaManager {
 		
 	}
 	
+	@Deprecated
 	/**
 	 * @return Equipo ganador de la serie
 	 * */

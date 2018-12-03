@@ -195,7 +195,7 @@ public class PanelCalendario extends JPanel {
 							}
 							g.fillRect(marginX+d*size + 1, marginY+w*size+1, size-1, size-1);
 							g.setColor(Color.BLACK);
-							g.drawString(""+d, marginX+d*size+5, marginY+w*size+20);
+							g.drawString(""+getDiaAnterior(dia), marginX+d*size+5, marginY+w*size+20);
 						}
 						g.drawString(txt, marginX+d*size + 15, marginY+w*size+(size/2));
 						if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
@@ -219,6 +219,13 @@ public class PanelCalendario extends JPanel {
 		private int getDia(Date d) {
 			Calendar c = Calendar.getInstance();
 			c.setTime(d);
+			return c.get(Calendar.DAY_OF_MONTH);
+		}
+		
+		private int getDiaAnterior(Date d) {	
+			Calendar c = Calendar.getInstance();
+			c.setTime(d);
+			c.add(Calendar.DATE, -1);
 			return c.get(Calendar.DAY_OF_MONTH);
 		}
 		
