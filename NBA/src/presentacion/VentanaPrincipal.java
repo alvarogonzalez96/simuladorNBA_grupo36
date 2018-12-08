@@ -138,7 +138,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel lideres = new JPanel();
 		tabbedPane.addTab("Lideres de la liga", null, lideres, null);
 		
-		JPanel noticiario = new JPanel();
+		JPanel noticiario = new PanelNoticiario();
 		tabbedPane.addTab("Noticiario", null, noticiario, null);
 		
 		JPanel playoffs = new PanelPlayoffs();
@@ -301,14 +301,14 @@ public class VentanaPrincipal extends JFrame {
 		//---------------------------------------------------------------------
 //Rellenamos el panel NOTICIARIO-----------------------------------
 		
-		noticiarioTexto = new JScrollPane();
+		/*noticiarioTexto = new JScrollPane();
 		
 		noticiarioTexto.setPreferredSize(new Dimension(700,700));
 		noticiarioTexto.setBorder((new TitledBorder("Noticias")));
 		
 		panelNoticiario.add(noticiarioTexto);
 		//noticiarioTexto.setViewportView(a);
-		noticiario.add(panelNoticiario);
+		noticiario.add(panelNoticiario);*/
 		
 		//--------------------------------------------------------
 		

@@ -59,6 +59,10 @@ public class PanelPlayoffs extends JPanel {
 					}
 					//la fase de LigaManager la incrementa la propia clase playoffs
 					JOptionPane.showMessageDialog(null, "Campeon: "+LigaManager.campeon.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+					//Aqui para probar
+					LigaManager.jubilar();
+					LigaManager.renovaciones();
+					LigaManager.agenciaLibre();
 				}
 			}
 		});
@@ -119,8 +123,8 @@ public class PanelPlayoffs extends JPanel {
 					e2 = sp.getB();
 					
 					//pintarlos en el cuadro
-					g.drawString(sp.getVictoriasA()+" "+e1.getNombre(), a.x+5, a.y+20);
-					g.drawString(sp.getVictoriasB()+" "+e2.getNombre(), b.x+5, b.y+20);
+					g.drawString(sp.getVictoriasA()+" "+e1.getAbrev(), a.x+5, a.y+20);
+					g.drawString(sp.getVictoriasB()+" "+e2.getAbrev(), b.x+5, b.y+20);
 				}
 			}
 		}

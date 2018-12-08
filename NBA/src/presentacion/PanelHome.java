@@ -55,7 +55,7 @@ public class PanelHome extends JPanel {
 					botonDia.setEnabled(false);
 					LigaManager.simularDia();
 					if(LigaManager.fase == 1) {
-						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaña de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaï¿½a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
 						botonDia.setEnabled(false);
 						botonSem.setEnabled(false);
@@ -81,7 +81,7 @@ public class PanelHome extends JPanel {
 				for(int i = 0; i < 7; i++) {
 					LigaManager.simularDia();
 					if(LigaManager.fase == 1) {
-						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaña de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaï¿½a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						botonDia.setEnabled(false);
 						botonSem.setEnabled(false);
 						botonMes.setEnabled(false);
@@ -95,6 +95,7 @@ public class PanelHome extends JPanel {
 				Equipo eq = LigaManager.usuario.getEquipo();
 				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
 				repaint();
+				
 			}
 		});
 		
@@ -106,7 +107,7 @@ public class PanelHome extends JPanel {
 				for(int i = 0; i < 30; i++) {
 					LigaManager.simularDia();
 					if(LigaManager.fase == 1) {
-						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaña de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaï¿½a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						botonDia.setEnabled(false);
 						botonSem.setEnabled(false);
 						botonMes.setEnabled(false);

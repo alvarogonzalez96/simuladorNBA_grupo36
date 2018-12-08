@@ -132,6 +132,7 @@ public class Jugador {
 		this.defensa = j.defensa;
 		this.asistencia = j.asistencia;
 		this.condicionFisica = j.condicionFisica;
+	
 	}
 	
 	public void cargarJugador(JSONObject json) { 
@@ -374,6 +375,10 @@ public class Jugador {
 
 	public void setTiempoJugado(int tiempoJugado) {
 		this.tiempoJugado = tiempoJugado;
+	}
+	
+	public double getValoracion() {	
+		return (this.getPuntosPartido() + this.getAsistenciasPartido() + this.getRebotesPartido());
 	}
 
 	@Override
