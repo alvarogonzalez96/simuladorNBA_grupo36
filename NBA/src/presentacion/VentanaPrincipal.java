@@ -120,7 +120,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel plantilla = new PanelPlantilla();
 		tabbedPane.addTab("Plantilla", null, plantilla, null);
 		
-		JPanel finanzas = new JPanel();
+		JPanel finanzas = new PanelFinanzas();
 		tabbedPane.addTab("Finanzas", null, finanzas, null);
 		
 		JPanel traspasos = new JPanel();

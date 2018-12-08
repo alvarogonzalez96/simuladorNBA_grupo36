@@ -50,7 +50,7 @@ public class LigaManager {
 	public static Equipo campeon;
 	public static Jugador mvp, roy, dpoy, sextoHombre;
 	
-	public static ArrayList<String> noticiasAgenciaLibre;
+	public static ArrayList<String> noticiasAgenciaLibre, noticiasDraft;
 	
 	public static void inicializar(boolean desdeJSON, Usuario u) {
 		usuario = u;
@@ -139,12 +139,11 @@ public class LigaManager {
 			guardarDatosFinTemporada();
 			
 			// playoffs / verano
-			jubilar();
+			//jubilar();
 			playOffs(); //fase = 1
-			draft();
-			jubilar();
-			renovaciones();
-			agenciaLibre();
+			//draft();
+			//renovaciones();
+			//agenciaLibre();
 			
 			for (Equipo e : equipos) {
 				for (Jugador jugador : e.jugadores) {
@@ -362,7 +361,10 @@ public class LigaManager {
 	/**
 	 * Método para seleccionar el orden del draft de cada equipo y su respectiva eleccion 
 	 * */
-	private static void draft() {
+	public static void draft() {
+		noticiasDraft = new ArrayList<String>();
+		noticiasDraft.add("");
+		noticiasDraft.add("DRAFT: ");
 		pasaAnyo();
 		Equipo[] ordenDraft = new Equipo[30];
 		
@@ -386,6 +388,7 @@ public class LigaManager {
 		draft.sort(new OrdenadorJugadores());
 		elegirDraft(ordenDraft);
 		mandarAgenciaLibre();
+		PanelNoticiario.rellenarNoticiario(noticiasDraft);
 	}
 	
 	/**
@@ -443,12 +446,12 @@ public class LigaManager {
 	private static void elegirDraft(Equipo[] orden) {
 		int j = 1;
 		do {
-			System.out.println();
-			System.out.println("Ronda: " + j);
+			//System.out.println();
+			noticiasDraft.add("Ronda: " + j);
 			for (int i = 29; i >= 0; i--) {
 			Jugador jug = elegirMejorDisponible();
 			jug.setTid(orden[i].getTid());
-			System.out.println("El equipo: " + orden[i].getNombre() + ", elige a: " + jug.getNombre() + ", o: " + jug.getOverall());
+			noticiasDraft.add("El equipo: " + orden[i].getNombre() + ", elige a: " + jug.getNombre() + ", o: " + jug.getOverall());
 			orden[i].jugadores.add(jug);
 			}
 			j++;

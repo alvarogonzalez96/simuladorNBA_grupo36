@@ -19,7 +19,7 @@ public class Equipo {
 		ordenador = new OrdenadorJugadores();
 	}
 	
-	private TableModel modelo;
+	private TableModel modelo, modeloFinanzas;
 	
 	protected int salarioTotal;
 
@@ -300,6 +300,68 @@ public class Equipo {
 		return modelo;
 	}
 	
+	public TableModel getModeloFinanzas() {
+		if(modeloFinanzas == null) {
+			modeloFinanzas = new ModeloFinanzasEquipo();
+		}
+		return modeloFinanzas;
+	}
+	
+	public class ModeloFinanzasEquipo implements TableModel{
+		@Override
+		public void addTableModelListener(TableModelListener l) {}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return String.class;
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 4;
+		}
+
+		@Override
+		public String getColumnName(int columnIndex) {
+			switch(columnIndex) {
+			case 0: return "Nombre";
+			case 1: return "Edad";
+			case 2: return "Años de contrato";
+			case 3: return "Salario";
+			}
+			return null;
+		}
+
+		@Override
+		public int getRowCount() {
+			return jugadores.size();
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			Jugador j = jugadores.get(rowIndex);
+			switch(columnIndex) {
+			case 0: return j.nombre;
+			case 1: return j.anyoNac;
+			case 2: return j.anyosContratoRestantes;
+			case 3: return j.salario;
+			}
+			return null;
+		}
+
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return false;
+		}
+
+		@Override
+		public void removeTableModelListener(TableModelListener l) {}
+
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
+		
+	}
+	
 	private class ModeloTablaEquipo implements TableModel {
 
 		@Override
@@ -369,4 +431,5 @@ public class Equipo {
 		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
 		
 	}
+
 }

@@ -61,6 +61,7 @@ public class PanelPlayoffs extends JPanel {
 					JOptionPane.showMessageDialog(null, "Campeon: "+LigaManager.campeon.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
 					//Aqui para probar
 					LigaManager.jubilar();
+					LigaManager.draft();
 					LigaManager.renovaciones();
 					LigaManager.agenciaLibre();
 				}
