@@ -362,7 +362,7 @@ public class Equipo {
 		
 	}
 	
-	private class ModeloTablaEquipo implements TableModel {
+	public class ModeloTablaEquipo implements TableModel {
 
 		@Override
 		public void addTableModelListener(TableModelListener l) {}

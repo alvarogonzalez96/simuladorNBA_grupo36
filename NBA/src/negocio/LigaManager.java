@@ -7,10 +7,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import datos.ParseadorJSON;
+import negocio.Equipo.ModeloFinanzasEquipo;
+import negocio.Equipo.ModeloTablaEquipo;
 import presentacion.PanelNoticiario;
 
 public class LigaManager {
@@ -51,6 +56,8 @@ public class LigaManager {
 	public static Jugador mvp, roy, dpoy, sextoHombre;
 	
 	public static ArrayList<String> noticiasAgenciaLibre, noticiasDraft;
+	
+	private static TableModel modelo;
 	
 	public static void inicializar(boolean desdeJSON, Usuario u) {
 		usuario = u;
@@ -1010,4 +1017,68 @@ public class LigaManager {
 		}*/
 		System.out.println();
 	}
+	
+	public static TableModel getModeloTablaAgenciaLibre() {
+		if(modelo == null) {
+			modelo = new ModeloTablaAgenciaLibre();
+		}
+		return modelo;
+	}
+	
+	public static class ModeloTablaAgenciaLibre implements TableModel {
+
+		@Override
+		public void addTableModelListener(TableModelListener l) {}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return String.class;
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 4;
+		}
+
+		@Override
+		public String getColumnName(int columnIndex) {
+			switch(columnIndex) {
+			case 0: return "Nombre";
+			case 1: return "Edad";
+			case 2: return "Posicion";
+			case 3: return "Overall";
+			}
+			return null;
+		}
+
+		@Override
+		public int getRowCount() {
+			return agentesLibres.size();
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			Jugador j = agentesLibres.get(rowIndex);
+			switch(columnIndex) {
+			case 0: return j.nombre;
+			case 1: return j.anyoNac;
+			case 2: return j.posicion;
+			case 3: return j.overall;
+			}
+			return null;
+		}
+
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return false;
+		}
+
+		@Override
+		public void removeTableModelListener(TableModelListener l) {}
+
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
+		
+	}
+
 }

@@ -87,10 +87,10 @@ public class VentanaPrincipal extends JFrame {
 		//
 		//Panel Agencia Libre-------------------------------------------------------------------
 
-		JPanel panelAgencia= new JPanel();
+		/*JPanel panelAgencia= new JPanel();
 		panelAgencia.setLayout(new GridLayout(1,1));
 		
-		
+		*/
 		
 		
 		
@@ -126,7 +126,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel traspasos = new JPanel();
 		tabbedPane.addTab("Traspasos", null, traspasos, null);
 		
-		JPanel agencialibre = new JPanel();
+		JPanel agencialibre = new PanelAgenciaLibre();
 		tabbedPane.addTab("Agencia libre", null, agencialibre, null);
 		
 		JPanel historialLiga = new JPanel();
@@ -378,14 +378,14 @@ public class VentanaPrincipal extends JFrame {
 		
 		//Rellenamos panel Agencia Libre---------------
 
-		JScrollPane scrollAgencia = new JScrollPane();
+		/*JScrollPane scrollAgencia = new JScrollPane();
 		scrollAgencia.setBorder((new TitledBorder("Historial")));
 		scrollAgencia.setPreferredSize(new Dimension(1000,100));
 		panelAgencia.add(scrollAgencia);
 		agencialibre.add(panelAgencia);
 		
 		
-		
+		*/
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("NBA");

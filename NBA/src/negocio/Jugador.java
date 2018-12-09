@@ -2,6 +2,8 @@ package negocio;
 
 import java.util.Comparator;
 
+import javax.swing.table.TableModel;
+
 import datos.GeneradorNombres;
 
 import org.json.*;
@@ -45,6 +47,8 @@ public class Jugador {
 	
 	//Atributos para calcular la media
 	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
+	
+	private TableModel modelo;
 	
 	public Jugador(String nombre, Posicion posicion, int rebote, Rol rol, int tiroLibre, int tiroCerca, int tiroLejos, int defensa,
 			int asistencia, int anyoNac, int tid) {
@@ -390,6 +394,7 @@ public class Jugador {
 				+ ", condicionFisica=" + condicionFisica  + ", defensa="
 				+ defensa +  ", segundos=" + minutos + ", minutos= "+ min + ", m="+ tiempoJugado + "]";
 	}
+	
 }
 
 
