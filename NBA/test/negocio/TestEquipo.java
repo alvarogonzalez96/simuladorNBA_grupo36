@@ -8,15 +8,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestLigaManager {
+public class TestEquipo {
 
-	Jugador j1;
 	Equipo e1;
 	ArrayList<Jugador> jugadores;
 	
 	@Before
 	public void setUp() throws Exception {
-		j1 = new Jugador();
 		jugadores = new ArrayList<Jugador>();
 		
 		for (int i = 0; i < 11; i++) {
@@ -30,10 +28,6 @@ public class TestLigaManager {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testValoracionJugador() {
-		assertEquals(0, j1.getValoracion(), 0.1);
-	}
 	
 	@Test
 	public void testEquipoSalario() {
