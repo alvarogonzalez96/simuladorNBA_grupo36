@@ -202,5 +202,15 @@ public class PanelHome extends JPanel {
 		
 		panelDerAbajoDer = new JPanel(new BorderLayout());
 		panelDerAbajo.add(panelDerAbajoDer, BorderLayout.EAST);
-	}	
+	}
+	
+	public void seleccionado() {
+		if(LigaManager.fase == 0) {
+			//temporada regular
+			botonDia.setEnabled(true);
+			botonSem.setEnabled(true);
+			botonMes.setEnabled(true);
+		} 
+		repaint();
+	}
 }

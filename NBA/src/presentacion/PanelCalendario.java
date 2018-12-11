@@ -169,7 +169,8 @@ public class PanelCalendario extends JPanel {
 					if(p.esLocal(usuario.getEquipo())) {
 						//pintar como local
 						txt = "vs "+p.getVisitante().getAbrev();
-						if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
+						//if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
+						if(p.finalizado) {
 							jugado = true;
 							if(p.puntosLocal > p.puntosVisitante) {
 								ganado = true;
@@ -178,7 +179,8 @@ public class PanelCalendario extends JPanel {
 					} else if(p.esVisitante(usuario.getEquipo())) {
 						//pintar como visitante
 						txt = "@ "+p.getLocal().getAbrev();
-						if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
+						//if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
+						if(p.finalizado) {
 							jugado = true;
 							if(p.puntosLocal < p.puntosVisitante) {
 								ganado = true;

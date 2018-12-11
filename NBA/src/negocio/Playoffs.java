@@ -61,6 +61,9 @@ public class Playoffs {
 				campeon = series.get(Series.FINAL).getGanador();
 				LigaManager.campeon = campeon;
 				LigaManager.fase++;
+				
+				//
+				
 				break;
 			}
 		}

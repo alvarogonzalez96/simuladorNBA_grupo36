@@ -12,6 +12,7 @@ public class Partido {
 	public int puntosLocal, puntosVisitante;
 	protected boolean atacaLocal;
 
+	public boolean finalizado = false;
 		
 	public Partido(Equipo local, Equipo visitante) {		
 		this.local = local;
@@ -31,6 +32,7 @@ public class Partido {
 	
 	public void jugar(boolean playoffs) {
 		int tiempo = 0;
+		puntosLocal = puntosVisitante = 0;
 		
 		asignarMinutos(local);
 		asignarMinutos(visitante);
@@ -86,11 +88,10 @@ public class Partido {
 			j.setNPuntos(0);
 			j.setNRebotes(0);
 		}
-		
+		finalizado = true;
 	}
 	
-	public void simularJugada(Quinteto atacando, Quinteto defendiendo) {
-	
+	public void simularJugada(Quinteto atacando, Quinteto defendiendo) {		
 		double random = Math.random();//Número que decide la jugada
 		double pTiro = 0.773;//Probabilidad de que la jugada acabe en un tiro de 2
 		double pTiroLibre = 0.098;//Probabilidad de que la jugada acabe con un tiro libre

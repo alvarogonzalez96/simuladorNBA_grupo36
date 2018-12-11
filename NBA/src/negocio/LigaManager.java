@@ -334,6 +334,8 @@ public class LigaManager {
 		noro = new ArrayList<>();
 		
 		for(Equipo e: equipos) {
+			e.victorias = 0;
+			e.derrotas = 0;
 			if(e.conferencia == Conferencia.ESTE) {
 				este.add(e);
 			} else {
@@ -348,6 +350,7 @@ public class LigaManager {
 			case NOROESTE: noro.add(e); break;
 			}
 		}
+		
 		clasificaciones.put("GENERAL", new Clasificacion(equipos));
 		clasificaciones.put("ESTE", new Clasificacion(este));
 		clasificaciones.put("OESTE", new Clasificacion(oeste));
@@ -396,6 +399,7 @@ public class LigaManager {
 		elegirDraft(ordenDraft);
 		mandarAgenciaLibre();
 		PanelNoticiario.rellenarNoticiario(noticiasDraft);
+		fase++;
 	}
 	
 	/**
@@ -463,7 +467,7 @@ public class LigaManager {
 			}
 			j++;
 		} while(j <= 2);
-		
+		actualizarRoles();
 	}
 	
 	/**
@@ -523,6 +527,7 @@ public class LigaManager {
 					}
 				}
 			}
+			e.asignarRoles();
 		}
 		
 		eliminarJugadores();
@@ -667,6 +672,7 @@ public class LigaManager {
 		}
 		eliminarJugadores();
 		PanelNoticiario.rellenarNoticiario(noticiasRenovaciones);
+		fase++;
 	}
 	
 	/**
@@ -684,6 +690,7 @@ public class LigaManager {
 						break;
 					}
 				}
+				e.asignarRoles();
 			}	
 		} while(actualizar);
 	}
@@ -704,6 +711,7 @@ public class LigaManager {
 			eleccionAgenciaLibre(e);
 		}
 		PanelNoticiario.rellenarNoticiario(noticiasAgenciaLibre);
+		fase++;
 	}
 	
 	/**
@@ -774,7 +782,7 @@ public class LigaManager {
 			noticiasAgenciaLibre.add("Ajustes de plantillas: ");
 			ajustarPlantilla(contBase, contEscolta, contAlero, contAP, contPivot, equipo);
 		}
-
+		equipo.asignarRoles();
 	}
 	
 	/**
@@ -801,6 +809,7 @@ public class LigaManager {
 				contPivot--;
 			}
 		}
+		equipo.asignarRoles();
 	}
 	
 	/**
@@ -829,6 +838,7 @@ public class LigaManager {
 				}
 			}
 		}
+		equipo.asignarRoles();
 	}
 	
 	/**
@@ -871,6 +881,7 @@ public class LigaManager {
 				break;
 			}
 		}
+		equipo.asignarRoles();
 	}
 	
 	
@@ -984,7 +995,7 @@ public class LigaManager {
 	 * Metodo que resetea todos los datos correspondientes a la temporada actual, 
 	 * que se ejecutara cada vez que termine una temporada, para empezar una nueva.
 	 * */
-	private static void reset() {
+	public static void reset() {
 		//los equipos se mantienen igual, las plantillas ya estan actualizadas
 		calendario.reset();
 		inicializarClasificaciones();
@@ -994,17 +1005,20 @@ public class LigaManager {
 		roy = null;
 		dpoy = null;
 		sextoHombre = null;
+		playoffs = null;
+		
+		fase = 0;
+		
+		actualizarRoles();
 		
 		recienCreada = false;
 		diaActual = Calendario.PRIMER_DIA;
+		calendario.diaActual = Calendario.PRIMER_DIA;
 	}
 	
-	private static void nuevaTemporada() {
-		anyo++;
-		
-		boolean m = simularDia();
-		while(!m) {
-			m = simularDia();
+	private static void actualizarRoles() {
+		for(Equipo e: equipos) {
+			e.asignarRoles();
 		}
 	}
 	

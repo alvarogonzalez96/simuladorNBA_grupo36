@@ -33,6 +33,7 @@ public class Quinteto {
 			}
 		}
 		System.err.println("Error, no quedan jugadores con tiempo disponible");
+		System.err.println(p);
 		return null;
 	}
 	

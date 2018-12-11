@@ -146,6 +146,8 @@ public class Calendario {
 		for(ArrayList<Partido> partidos: calendario.values()) {
 			for(Partido p: partidos) {
 				p = new Partido(p); //nuevo partido con los mismos equipos.
+				p.puntosLocal = p.puntosVisitante = 0;
+				p.finalizado = false;
 			}
 		}
 	}

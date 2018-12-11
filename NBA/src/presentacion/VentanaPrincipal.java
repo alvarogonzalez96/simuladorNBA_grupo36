@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
@@ -25,6 +27,8 @@ public class VentanaPrincipal extends JFrame {
 	protected JComboBox historial;
 	private JTree tree;
 	
+	PanelHome home;
+	
 	public VentanaPrincipal() {
 		LigaManager.inicializar(true, new Usuario("Pedro", 18, 1));
 		//Nimbus Look&Feel
@@ -35,15 +39,7 @@ public class VentanaPrincipal extends JFrame {
 					break;
 				}
 			}
-		} catch (UnsupportedLookAndFeelException e) {
-			// handle exception
-		} catch (ClassNotFoundException e) {
-			// handle exception
-		} catch (InstantiationException e) {
-			// handle exception
-		} catch (IllegalAccessException e) {
-			// handle exception
-		}
+		} catch (Exception e) {}
 
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridLayout());
@@ -111,7 +107,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel panelNoticiario = new JPanel(new FlowLayout());
 		
 //Creamos las pestanias-----------------------------------		
-		JPanel home = new PanelHome();
+		home = new PanelHome();
 		tabbedPane.addTab("Home", null, home, null);
 
 		JPanel calendario = new PanelCalendario();
@@ -143,8 +139,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel playoffs = new PanelPlayoffs();
 		tabbedPane.addTab("Play Offs", null, playoffs, null);
-		
-		tabbedPane.setSelectedIndex(10);
 		
 		
 //Tree------------------------------
@@ -386,6 +380,16 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 		*/
+		
+		tabbedPane.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if(tabbedPane.getSelectedIndex() == 0) {
+					//se ha seleccionado la pestanya Home 
+					home.seleccionado();
+				}
+			}
+		});
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("NBA");

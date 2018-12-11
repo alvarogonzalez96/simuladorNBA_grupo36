@@ -23,7 +23,7 @@ public class Equipo {
 	
 	protected int salarioTotal;
 
-	protected int victorias, derrotas;
+	public int victorias, derrotas;
 	
 	protected Conferencia conferencia;
 	protected Division division;
