@@ -211,6 +211,7 @@ public class PanelHome extends JPanel {
 			botonSem.setEnabled(true);
 			botonMes.setEnabled(true);
 		}
+		clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
 		repaint();
 	}
 }
