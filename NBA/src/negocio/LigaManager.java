@@ -370,7 +370,7 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Método para seleccionar el orden del draft de cada equipo y su respectiva eleccion 
+	 * Mï¿½todo para seleccionar el orden del draft de cada equipo y su respectiva eleccion 
 	 * */
 	public static void draft() {
 		noticiasDraft = new ArrayList<String>();
@@ -385,7 +385,7 @@ public class LigaManager {
 		System.out.println("PUESTO DE ELECCION DEL DRAFT:");
 		for (int i = 0; i < ordenDraft.length; i++) {
 			ordenDraft[i] = general.get(i);
-			System.out.println("Puesto nº: " + (30-i) + ", " + ordenDraft[i].nombre);
+			System.out.println("Puesto nï¿½: " + (30-i) + ", " + ordenDraft[i].nombre);
 		}	
 		
 		draft = new ArrayList<Jugador>();
@@ -495,7 +495,7 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Selecciona que jugadores se jubilan este año
+	 * Selecciona que jugadores se jubilan este aï¿½o
 	 * tid = -2 -> jugadores jubilados
 	 * */
 	public static void jubilar() {
@@ -563,7 +563,7 @@ public class LigaManager {
 		noticiasRenovaciones.add("");
 		double rand;
 		//System.out.println("-----------------------------------------");
-		noticiasRenovaciones.add("RENOVACIÓN DE JUGADORES:");
+		noticiasRenovaciones.add("RENOVACIï¿½N DE JUGADORES:");
 		for(Equipo e: equipos) {
 			noticiasRenovaciones.add("");
 			noticiasRenovaciones.add("Renovaciones de " + e.getNombre());
@@ -578,85 +578,85 @@ public class LigaManager {
 								//Renueva por un anyo y 30-35
 								j.anyosContratoRestantes = 1;
 								j.salario = (30000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(j.getEdad() > 30 && rand <= 0.85) {
-								//Renueva por 3 años 35-40
+								//Renueva por 3 aï¿½os 35-40
 								j.anyosContratoRestantes = 3;
 								j.salario = (35000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(rand <= 0.9) {
-								//Renueva 5 años 35-40
+								//Renueva 5 aï¿½os 35-40
 								j.anyosContratoRestantes = 5;
 								j.salario = (35000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							}
 						} else if(j.getValoracion() >= 2500) {
 							if(j.getEdad() > 35 && rand <= 0.7) {
-								//Renueva por 1 años y 15-20
+								//Renueva por 1 aï¿½os y 15-20
 								j.anyosContratoRestantes = 1;
 								j.salario = (15000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(j.getEdad() > 30 && rand <= 0.75) {
-								//Renueva por 3 años y 20-25
+								//Renueva por 3 aï¿½os y 20-25
 								j.anyosContratoRestantes = 3;
 								j.salario = (20000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(rand <= 0.8) {
-								//Renueva por 5 años y 25-30
+								//Renueva por 5 aï¿½os y 25-30
 								j.anyosContratoRestantes = 5;
 								j.salario = (25000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							}
 						} else if(j.getValoracion() >= 1000) {
 							if(j.getEdad() > 35 && rand <= 0.6) {
-								//Renueva por 1 año y 5-10
+								//Renueva por 1 aï¿½o y 5-10
 								j.anyosContratoRestantes = 1;
 								j.salario = (5000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(j.getEdad() > 30 && rand <= 0.65) {
-								//Renueva por 3 años y 6-11
+								//Renueva por 3 aï¿½os y 6-11
 								j.anyosContratoRestantes = 3;
 								j.salario = (6000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(rand <= 0.7) {
-								//Renueva por 5 años y 11-16
+								//Renueva por 5 aï¿½os y 11-16
 								j.anyosContratoRestantes = 5;
 								j.salario = (11000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							}
 						} else if(j.getValoracion() > 0){
 							if(j.getEdad() > 35 && rand <= 0.4) {
-								//Renueva por 1 año y 1-5
+								//Renueva por 1 aï¿½o y 1-5
 								j.anyosContratoRestantes = 1;
 								j.salario = (1000 + ((int)(Math.random()*4001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(j.getEdad() > 30 && rand <= 0.45) {
-								//Renueva por 2 años y 2-8
+								//Renueva por 2 aï¿½os y 2-8
 								j.anyosContratoRestantes = 2;
 								j.salario = (2000 + ((int)(Math.random()*6001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(rand <= 0.5) {
-								//Renueva por 3 años y 5-10
+								//Renueva por 3 aï¿½os y 5-10
 								j.anyosContratoRestantes = 3;
 								j.salario = (5000 + ((int)(Math.random()*5001)));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							}	
 						} else {
 							if(j.getEdad() > 35 && rand <= 0.25) {
-								//Renueva por 1 año y 1
+								//Renueva por 1 aï¿½o y 1
 								j.anyosContratoRestantes = 1;
 								j.salario = 1000;
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(j.getEdad() > 30 && rand <= 0.3) {
-								//Renueva por 2 años y 1
+								//Renueva por 2 aï¿½os y 1
 								j.anyosContratoRestantes = 2;
 								j.salario = 1000;
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							} else if(rand <= 0.45) {
-								//Renueva por 3 años y 1-2 
+								//Renueva por 3 aï¿½os y 1-2 
 								j.anyosContratoRestantes = 3;
 								j.salario = 1000 + ((int)(Math.random()*1001));
-								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " años por " + j.salario + " $");
+								noticiasRenovaciones.add(j.getNombre() + "(valoracion: " + j.getValoracion() + ")" + ", " + j.anyosContratoRestantes + " aï¿½os por " + j.salario + " $");
 							}	
 						}
 					}
@@ -891,6 +891,72 @@ public class LigaManager {
 		}
 	}
 	
+	
+	/**
+	 * Metodo para que ningun equipo de la liga
+	 * supere el maximo de 15 jugadores
+	 * */
+	public static void despedirJugadores() {
+		actualizarRoles();
+		Integer[] contPos = new Integer[5];
+		int maxJugadores = 0;
+		for (Equipo e : equipos) {
+			for (int i = 0; i < contPos.length; i++) {
+				contPos[i] = 0;
+			}
+			contPos = contarPosiciones(e, contPos);
+			
+			for (int i = 0; i < contPos.length; i++) {
+				maxJugadores = maxJugadores+contPos[i];
+			}
+			cortarJugador(e, maxJugadores);
+		}	
+		
+	}
+	
+	/**
+	 * Metodo para mandar los jugadores sobrantes a la 
+	 * agencia libre
+	 * */
+	private static void cortarJugador(Equipo e, int maxJugadores) {
+		
+			for (Jugador j : e.jugadores) {
+				if(j.getRol().equals(Rol.NOJUEGA) && maxJugadores > 15) {
+					j.setTid(-1);
+					j.anyosContratoRestantes = 0;
+					j.salario = 0;
+					maxJugadores--;
+				}
+			}
+		
+	}
+	
+	/**
+	 * Metodo para contar el numero de jugadores por
+	 * posicion de un equipo
+	 * contPos[0] -> bases
+	 * contPos[1] -> escoltas
+	 * contPos[2] -> aleros
+	 * contPos[3] -> alapivots
+	 * contPos[4] -> pivots
+	 * */
+	private static Integer[] contarPosiciones(Equipo e, Integer[] contPos) {
+		for (Jugador j : e.jugadores) {
+			if(j.getPosicion().equals(Posicion.BASE)) {
+				contPos[0] = contPos[0] + 1;
+			} else if(j.getPosicion().equals(Posicion.ESCOLTA)) {
+				contPos[1] = contPos[1] + 1;
+			} else if(j.getPosicion().equals(Posicion.ALERO)) {
+				contPos[2] = contPos[2] + 1;
+			} else if(j.getPosicion().equals(Posicion.ALAPIVOT)) {
+				contPos[3] = contPos[3] + 1;
+			} else {
+				contPos[4] = contPos[4] + 1;
+			}
+		}
+		
+		return contPos;
+	}
 	
 	private static void mostrarAgenciaLibre() {
 		for (Jugador jugador : agentesLibres) {

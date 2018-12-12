@@ -64,6 +64,7 @@ public class PanelPlayoffs extends JPanel {
 					LigaManager.draft();
 					LigaManager.renovaciones();
 					LigaManager.agenciaLibre();
+					LigaManager.despedirJugadores();
 					//que el usuario elija los roles de su equipo
 					LigaManager.reset();
 				}
