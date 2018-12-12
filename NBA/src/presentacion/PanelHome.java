@@ -95,7 +95,7 @@ public class PanelHome extends JPanel {
 				Equipo eq = LigaManager.usuario.getEquipo();
 				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
 				repaint();
-				
+				System.out.println(LigaManager.clasificaciones.get("GENERAL").get(4).getAbrev());
 			}
 		});
 		
@@ -210,7 +210,7 @@ public class PanelHome extends JPanel {
 			botonDia.setEnabled(true);
 			botonSem.setEnabled(true);
 			botonMes.setEnabled(true);
-		} 
+		}
 		repaint();
 	}
 }

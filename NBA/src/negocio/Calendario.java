@@ -173,7 +173,7 @@ public class Calendario {
 
 		@Override
 		public String getColumnName(int columnIndex) {
-			return "Últimos partidos jugados";
+			return "ï¿½ltimos partidos jugados";
 		}
 
 		@Override

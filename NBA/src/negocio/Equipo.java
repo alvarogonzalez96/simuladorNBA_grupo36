@@ -144,6 +144,9 @@ public class Equipo {
 	}
 	
 	protected void asignarRoles() {
+		for(Jugador j: jugadores) {
+			j.rol = null;
+		}
 		ordenarJugadores();
 		boolean titBase, titEsc, titAlero, titAlap, titPivot;
 		titBase = titEsc = titAlero = titAlap = titPivot = false;
@@ -326,7 +329,7 @@ public class Equipo {
 			switch(columnIndex) {
 			case 0: return "Nombre";
 			case 1: return "Edad";
-			case 2: return "AÃ±os de contrato";
+			case 2: return "Años de contrato";
 			case 3: return "Salario";
 			}
 			return null;
@@ -342,7 +345,7 @@ public class Equipo {
 			Jugador j = jugadores.get(rowIndex);
 			switch(columnIndex) {
 			case 0: return j.nombre;
-			case 1: return j.anyoNac;
+			case 1: return j.edad;
 			case 2: return j.anyosContratoRestantes;
 			case 3: return j.salario;
 			}
@@ -414,7 +417,7 @@ public class Equipo {
 			case 7: return j.puntosPartido;
 			case 8: return j.asistenciasPartido;
 			case 9: return j.rebotesPartido;
-			case 10: return j.anyoNac;
+			case 10: return j.edad;
 			}
 			return null;
 		}

@@ -194,7 +194,7 @@ public class VentanaPrincipal extends JFrame {
 				 }
 			}
 		});
-		DefaultMutableTreeNode node_0 = new DefaultMutableTreeNode("GestiÃ³n Equipo");
+		DefaultMutableTreeNode node_0 = new DefaultMutableTreeNode("Gestión Equipo");
 		DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode("Informacion");
 		node_1.add(new DefaultMutableTreeNode("Plantilla"));
 		node_1.add(new DefaultMutableTreeNode("Traspasos"));

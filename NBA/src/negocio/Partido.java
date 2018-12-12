@@ -1,7 +1,5 @@
 package negocio;
 
-import javafx.geometry.Pos;
-
 public class Partido {
 
 	protected Equipo local;
@@ -92,7 +90,7 @@ public class Partido {
 	}
 	
 	public void simularJugada(Quinteto atacando, Quinteto defendiendo) {		
-		double random = Math.random();//NÃºmero que decide la jugada
+		double random = Math.random();//Número que decide la jugada
 		double pTiro = 0.773;//Probabilidad de que la jugada acabe en un tiro de 2
 		double pTiroLibre = 0.098;//Probabilidad de que la jugada acabe con un tiro libre
 
@@ -103,7 +101,7 @@ public class Partido {
 			//Tiros libres
 			tirosLibres(atacando, defendiendo);
 		} else {
-			//PÃ©rdida
+			//Pérdida
 			//Termina la jugada
 		}
 	}

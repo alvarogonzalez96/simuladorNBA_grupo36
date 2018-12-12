@@ -20,7 +20,7 @@ public class Jugador {
 	protected int defensa; //diq
 	protected int asistencia;//pss
 	protected int condicionFisica;
-	protected int anyoNac;//2018 - born year
+	protected int edad;//2018 - born year
 	protected int overall;
 	
 	//atributos variables (pueden cambiar)
@@ -51,7 +51,7 @@ public class Jugador {
 	private TableModel modelo;
 	
 	public Jugador(String nombre, Posicion posicion, int rebote, Rol rol, int tiroLibre, int tiroCerca, int tiroLejos, int defensa,
-			int asistencia, int anyoNac, int tid) {
+			int asistencia, int edad, int tid) {
 		super();
 		this.nombre = nombre;
 		this.posicion = posicion;
@@ -65,7 +65,7 @@ public class Jugador {
 		this.condicionFisica = 100;
 		this.minutos = 0;
 		this.tiempoJugado = 0;
-		this.anyoNac = anyoNac;
+		this.edad = edad;
 		this.tid = tid;
 		this.rookie = true;
 	}
@@ -84,7 +84,7 @@ public class Jugador {
 		this.condicionFisica = 0;
 		this.minutos = 0;
 		this.tiempoJugado = 0;
-		this.anyoNac = 0;
+		this.edad = 0;
 		this.tid = -1;	
 		this.rookie = true;
 	}
@@ -120,7 +120,7 @@ public class Jugador {
 		this.dnk = (a.dnk + b.dnk)/2;
 		this.oiq = (a.oiq + b.oiq)/2;
 		this.drb = (a.drb + b.drb)/2;
-		this.anyoNac = 0;
+		this.edad = 0;
 		this.tid = -1;
 		this.rookie = true;
 		this.overall = cargarOverallJugador();
@@ -184,7 +184,7 @@ public class Jugador {
 		oiq = json.getJSONArray("ratings").getJSONObject(0).getInt("oiq");
 		drb = json.getJSONArray("ratings").getJSONObject(0).getInt("drb");
 		
-		anyoNac = 2018 - json.getJSONObject("born").getInt("year");
+		edad = 2018 - json.getJSONObject("born").getInt("year");
 		overall = cargarOverallJugador();
 	}
 	
@@ -297,12 +297,12 @@ public class Jugador {
 		this.puntosPartido = puntosPartido;
 	}
 	
-	public int getAnyoNac() {
-		return anyoNac;
+	public int getEdad() {
+		return edad;
 	}
 
-	public void setAnyoNac(int anyoNac) {
-		this.anyoNac = anyoNac;
+	public void setEdad(int edad) {
+		this.edad = edad;
 	}
 
 	public int getTid() {
