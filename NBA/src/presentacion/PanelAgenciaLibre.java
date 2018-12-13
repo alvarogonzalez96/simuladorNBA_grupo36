@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 import negocio.*;
 
-public class PanelAgenciaLibre extends JPanel{
+public class PanelAgenciaLibre extends PanelTab {
 private ArrayList<Jugador> jugadores;
 	
 	private JPanel panelSeleccion;
@@ -21,16 +21,13 @@ private ArrayList<Jugador> jugadores;
 	
 	public PanelAgenciaLibre() {
 		super();
-		jugadores = LigaManager.agentesLibres;
-		setLayout(new BorderLayout());
-		setBorder(new EmptyBorder(10,10,10,10));
-		crearPaneles();
 	}
 	
-	private void crearPaneles() {
+	@Override
+	protected void crearPaneles() {
 		panelSeleccion = new JPanel();
-		
-		//JLabel label = new JLabel("Equipo: ");
+
+		jugadores = LigaManager.agentesLibres;
 		tabla = new JTable();
 		tabla.setRowHeight(50);
 		tabla.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -42,6 +39,23 @@ private ArrayList<Jugador> jugadores;
 		
 		add(panelSeleccion, BorderLayout.NORTH);
 		add(scrollTabla, BorderLayout.CENTER);
+	}
+
+	@Override
+	protected void initComponentes() {
+		
+	}
+
+	@Override
+	protected void setListeners() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void seleccionado() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import negocio.*;
 
-public class PanelFinanzas extends JPanel{
+public class PanelFinanzas extends PanelTab {
 
 	private Equipo[] equipos;
 	private JPanel panelSeleccion;
@@ -19,15 +19,33 @@ public class PanelFinanzas extends JPanel{
 	
 	public PanelFinanzas() {
 		super();
-		equipos = LigaManager.equipos;
-		setLayout(new BorderLayout());
-		setBorder(new EmptyBorder(10,10,10,10));
-		crearPaneles();
-		setListeners();
 	}
 	
-	public void crearPaneles() {
+	@Override
+	protected void crearPaneles() {
+		equipos = LigaManager.equipos;
 		panelSeleccion = new JPanel();
+	}
+	
+	@Override
+	protected void setListeners() {
+		combo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Equipo equipo = getEquipoSeleccionado(combo.getSelectedIndex());
+				
+				tabla.setModel(equipo.getModeloFinanzas());
+				tabla.getColumnModel().getColumn(0).setMinWidth(200);
+			}
+		});
+	}
+	
+	private Equipo getEquipoSeleccionado(int n) {
+		return equipos[n];
+	}
+
+	@Override
+	protected void initComponentes() {
 		combo = new JComboBox<>();
 		for(Equipo e: equipos) {
 			combo.addItem(e.getNombre());
@@ -48,20 +66,10 @@ public class PanelFinanzas extends JPanel{
 		add(panelSeleccion, BorderLayout.NORTH);
 		add(scrollTabla, BorderLayout.CENTER);	
 	}
-	
-	private void setListeners() {
-		combo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Equipo equipo = getEquipoSeleccionado(combo.getSelectedIndex());
-				
-				tabla.setModel(equipo.getModeloFinanzas());
-				tabla.getColumnModel().getColumn(0).setMinWidth(200);
-			}
-		});
-	}
-	
-	private Equipo getEquipoSeleccionado(int n) {
-		return equipos[n];
+
+	@Override
+	protected void seleccionado() {
+		// TODO Auto-generated method stub
+		
 	}
 }

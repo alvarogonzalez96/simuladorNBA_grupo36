@@ -15,7 +15,7 @@ import java.awt.event.*;
 import negocio.*;
 
 @SuppressWarnings("serial")
-public class PanelCalendario extends JPanel {
+public class PanelCalendario extends PanelTab {
 
 	private Usuario usuario;
 	
@@ -34,22 +34,13 @@ public class PanelCalendario extends JPanel {
 		seleccionarMes();
 	}
 	
-	private void crearPaneles() {
+	@Override
+	protected void crearPaneles() {
 		panelSeleccion = new JPanel();
-		combo = new JComboBox<>();
-		hoy = new JButton("Hoy");
-		addElementosCombo();
-		panelSeleccion.add(combo);
-		panelSeleccion.add(hoy);
-		add(panelSeleccion, BorderLayout.NORTH);
-		
-		panelPrincipal = new AreaCalendario();
-		add(panelPrincipal, BorderLayout.CENTER);
-		
-		setListeners();
 	}
 	
-	private void setListeners() {
+	@Override
+	protected void setListeners() {
 		combo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -95,6 +86,25 @@ public class PanelCalendario extends JPanel {
 		combo.addItem("Julio");
 		combo.addItem("Agosto");
 		combo.addItem("Septiembre");
+	}
+	
+	@Override
+	protected void initComponentes() {
+		combo = new JComboBox<>();
+		hoy = new JButton("Hoy");
+		addElementosCombo();
+		panelSeleccion.add(combo);
+		panelSeleccion.add(hoy);
+		add(panelSeleccion, BorderLayout.NORTH);
+		
+		panelPrincipal = new AreaCalendario();
+		add(panelPrincipal, BorderLayout.CENTER);
+	}
+
+	@Override
+	protected void seleccionado() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	private class AreaCalendario extends JPanel {

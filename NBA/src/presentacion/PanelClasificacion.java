@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 @SuppressWarnings("serial")
-public class PanelClasificacion extends JPanel {
+public class PanelClasificacion extends PanelTab {
 	
 	private JPanel panelIzquierda;
 		private JPanel panelIzquierdaArriba, panelIzquierdaAbajo;
@@ -22,11 +22,6 @@ public class PanelClasificacion extends JPanel {
 	
 	public PanelClasificacion() {
 		super();
-		clasificaciones = LigaManager.clasificaciones;
-		setLayout(new GridLayout(1,2));
-		setBorder(new EmptyBorder(10,10,10,10));
-		crearTablas();
-		crearPanel();
 	}
 	
 	/**
@@ -37,7 +32,6 @@ public class PanelClasificacion extends JPanel {
 		tablas = new HashMap<>();
 		for(String c: clasificaciones.keySet()) {
 			tablas.put(c, new JTable(clasificaciones.get(c).getTableModel()));
-			tablas.get(c).getColumnModel().getColumn(0).setMinWidth(230);
 			
 			if(!c.equals("ESTE") && !c.equals("OESTE")) {
 				tablas.get(c).setFont(new Font("Arial", Font.PLAIN, 20));
@@ -49,7 +43,10 @@ public class PanelClasificacion extends JPanel {
 		}
 	}
 	
-	private void crearPanel() {
+	@Override
+	protected void crearPaneles() {
+		clasificaciones = LigaManager.clasificaciones;
+		
 		panelIzquierda = new JPanel(new GridLayout(2,1));
 		panelDerecha = new JPanel(new GridLayout(2,1));
 		panelIzquierdaArriba = new JPanel();
@@ -84,6 +81,24 @@ public class PanelClasificacion extends JPanel {
 		JScrollPane scroll = new JScrollPane(tablas.get(tabla));
 		scroll.getViewport().setBackground(Color.WHITE);
 		destino.add(scroll);
+	}
+
+	@Override
+	protected void initComponentes() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void setListeners() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void seleccionado() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

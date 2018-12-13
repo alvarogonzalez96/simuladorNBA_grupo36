@@ -13,7 +13,7 @@ import java.awt.event.*;
 
 import negocio.Liga;
 
-public class PanelPlantilla extends JPanel {
+public class PanelPlantilla extends PanelTab {
 
 	/**
 	 * En este panel (pestanya) se mostrara una tabla con la
@@ -29,35 +29,14 @@ public class PanelPlantilla extends JPanel {
 	
 	public PanelPlantilla() {
 		super();
+	}
+	
+	protected void crearPaneles() {
 		equipos = LigaManager.equipos;
-		setLayout(new BorderLayout());
-		setBorder(new EmptyBorder(10,10,10,10));
-		crearPaneles();
-		setListeners();
-	}
-	
-	private void crearPaneles() {
 		panelSeleccion = new JPanel();
-		combo = new JComboBox<>();
-		addEquipos();
-		JLabel label = new JLabel("Equipo: ");
-		
-		tabla = new JTable();
-		tabla.setRowHeight(50);
-		tabla.setFont(new Font("Arial", Font.PLAIN, 20));
-		tabla.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 20));
-		scrollTabla = new JScrollPane(tabla);
-		tabla.setModel(equipos[0].getTableModel());
-		tabla.getColumnModel().getColumn(0).setMinWidth(200);
-		scrollTabla.getViewport().setBackground(Color.WHITE);
-		
-		panelSeleccion.add(label);
-		panelSeleccion.add(combo);
-		add(panelSeleccion, BorderLayout.NORTH);
-		add(scrollTabla, BorderLayout.CENTER);
 	}
 	
-	private void setListeners() {
+	protected void setListeners() {
 		combo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -76,6 +55,32 @@ public class PanelPlantilla extends JPanel {
 		for(Equipo e: equipos) {
 			combo.addItem(e.getNombre());
 		}
+	}
+
+	@Override
+	protected void initComponentes() {
+		combo = new JComboBox<>();
+		addEquipos();
+		JLabel label = new JLabel("Equipo: ");
+		
+		tabla = new JTable();
+		tabla.setRowHeight(50);
+		tabla.setFont(new Font("Arial", Font.PLAIN, 20));
+		tabla.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 20));
+		scrollTabla = new JScrollPane(tabla);
+		tabla.setModel(equipos[0].getTableModel());
+		tabla.getColumnModel().getColumn(0).setMinWidth(200);
+		scrollTabla.getViewport().setBackground(Color.WHITE);
+		
+		panelSeleccion.add(label);
+		panelSeleccion.add(combo);
+		add(panelSeleccion, BorderLayout.NORTH);
+		add(scrollTabla, BorderLayout.CENTER);
+	}
+
+	@Override
+	protected void seleccionado() {
+		//actualizar tablas para edad de rookies
 	}
 	
 }

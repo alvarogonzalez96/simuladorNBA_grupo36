@@ -1085,7 +1085,7 @@ public class LigaManager {
 		roy = null;
 		dpoy = null;
 		sextoHombre = null;
-		playoffs = null;
+		//playoffs = null;
 		
 		fase = 0;
 		

@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 @SuppressWarnings("serial")
-public class PanelHome extends JPanel {
+public class PanelHome extends PanelTab {
 
 	private JPanel panelIzq, panelDer; 
 	private JPanel panelDerArriba, panelDerAbajo;
@@ -30,14 +30,10 @@ public class PanelHome extends JPanel {
 	
 	public PanelHome() {
 		super();
-		setLayout(new BorderLayout());
-		setBorder(new EmptyBorder(10,10,10,10));
-		crearPanel();
-		initComponentes();
-		setListeners();
 	}
 	
-	private void initComponentes() {
+	@Override
+	protected void initComponentes() {
 		initClasificacion();
 		initBotones();
 		initUltimosPartidos();
@@ -45,7 +41,8 @@ public class PanelHome extends JPanel {
 		initPlantilla();
 	}
 	
-	private void setListeners() {
+	@Override
+	protected void setListeners() {
 		botonDia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -182,7 +179,8 @@ public class PanelHome extends JPanel {
 		panelIzq.add(scrollIzq, BorderLayout.WEST);
 	}
 	
-	private void crearPanel() {
+	@Override
+	protected void crearPaneles() {
 		panelIzq = new JPanel(new BorderLayout());
 		panelDer = new JPanel(new BorderLayout());
 		this.add(panelIzq, BorderLayout.WEST);
@@ -204,6 +202,7 @@ public class PanelHome extends JPanel {
 		panelDerAbajo.add(panelDerAbajoDer, BorderLayout.EAST);
 	}
 	
+	@Override
 	public void seleccionado() {
 		if(LigaManager.fase == 0) {
 			//temporada regular

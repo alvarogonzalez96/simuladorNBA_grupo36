@@ -89,7 +89,7 @@ public class PanelPlayoffs extends JPanel {
 			alto = (getHeight()-marginY)/15;
 			separacion = 20;
 			espacioX = ancho/3;
-
+			
 			for(Series s: Series.values()) {
 				dibujarSerie(s, g);
 			}
@@ -119,7 +119,10 @@ public class PanelPlayoffs extends JPanel {
 		}
 		
 		private void rellenarSerie(Series s, Point a, Point b, Graphics2D g) {
-			if(LigaManager.fase > 0) {
+			//if(LigaManager.fase > 0) {
+			if(LigaManager.playoffs == null) return;
+			if(LigaManager.playoffs.series == null) return;
+				
 				Equipo e1, e2;
 				SeriePlayoffs sp = LigaManager.playoffs.series.get(s);
 				if(sp != null) { //comprobar que se existe esa serie
@@ -130,7 +133,7 @@ public class PanelPlayoffs extends JPanel {
 					g.drawString(sp.getVictoriasA()+" "+e1.getAbrev(), a.x+5, a.y+20);
 					g.drawString(sp.getVictoriasB()+" "+e2.getAbrev(), b.x+5, b.y+20);
 				}
-			}
+			//}
 		}
 		
 		private int calcularOffset(Series s) {
