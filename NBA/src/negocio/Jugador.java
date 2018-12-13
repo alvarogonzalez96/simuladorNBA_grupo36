@@ -104,6 +104,8 @@ public class Jugador {
 		}
 		this.nombre = GeneradorNombres.getNombreCompleto();
 		this.posicion = a.posicion;
+		int rand = (int)(Math.random()*3);
+		this.edad = 18 + rand; 
 		this.rebote = (a.rebote+b.rebote)/2;
 		this.tiroLibre = (a.tiroLibre+b.tiroLibre)/2;
 		this.tiroCerca = (a.tiroCerca+b.tiroCerca)/2;

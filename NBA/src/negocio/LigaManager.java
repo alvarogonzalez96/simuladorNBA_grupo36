@@ -897,10 +897,10 @@ public class LigaManager {
 	 * supere el maximo de 15 jugadores
 	 * */
 	public static void despedirJugadores() {
-		actualizarRoles();
 		Integer[] contPos = new Integer[5];
-		int maxJugadores = 0;
+		actualizarRoles();
 		for (Equipo e : equipos) {
+			int maxJugadores = 0;
 			for (int i = 0; i < contPos.length; i++) {
 				contPos[i] = 0;
 			}
@@ -910,6 +910,7 @@ public class LigaManager {
 				maxJugadores = maxJugadores+contPos[i];
 			}
 			cortarJugador(e, maxJugadores);
+			
 		}	
 		
 	}
@@ -919,16 +920,21 @@ public class LigaManager {
 	 * agencia libre
 	 * */
 	private static void cortarJugador(Equipo e, int maxJugadores) {
-		
-			for (Jugador j : e.jugadores) {
-				if(j.getRol().equals(Rol.NOJUEGA) && maxJugadores > 15) {
-					j.setTid(-1);
-					j.anyosContratoRestantes = 0;
-					j.salario = 0;
-					maxJugadores--;
-				}
+		ArrayList<Jugador> jugadoresBorrar = new ArrayList<Jugador>();
+		for (Jugador j : e.jugadores) {
+			if(j.getRol().equals(Rol.NOJUEGA) && maxJugadores > 15) {
+				j.setTid(-1);
+				j.anyosContratoRestantes = 0;
+				j.salario = 0;
+				maxJugadores--;
+				jugadoresBorrar.add(j);
 			}
-		
+		}
+
+		for (Jugador jugador : jugadoresBorrar) {
+			e.jugadores.remove(jugador);
+		}
+
 	}
 	
 	/**
