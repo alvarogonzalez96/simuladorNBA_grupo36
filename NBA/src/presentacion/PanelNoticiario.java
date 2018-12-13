@@ -7,27 +7,14 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class PanelNoticiario extends JPanel {
+public class PanelNoticiario extends PanelTab {
 
 	public static JScrollPane scroll;
 	public static JList<String> noticias;
 	public static DefaultListModel<String> model = new DefaultListModel<>();
 	
-	public PanelNoticiario() {
-	/*	noticias = rellenarNoticiario(new ArrayList<String>());
-		noticias.setPreferredSize(new Dimension(700, 700));
-		
-		add(noticias);*/
-		
-		noticias = rellenarNoticiario(new ArrayList<String>());
-		scroll = new JScrollPane(noticias);
-		scroll.setPreferredSize(new Dimension(1200, 700));
-		
-		add(scroll);
-		
+	public PanelNoticiario() {		
 		setLayout(new FlowLayout());
-		setVisible(true);
-		
 	}
 	
 	public static JList<String> rellenarNoticiario(ArrayList<String> not) {
@@ -42,6 +29,33 @@ public class PanelNoticiario extends JPanel {
 		noticias = new JList<String>(model);
 		return noticias;
 		
+		
+	}
+
+	@Override
+	protected void initComponentes() {
+		noticias = rellenarNoticiario(new ArrayList<String>());
+		scroll = new JScrollPane(noticias);
+		scroll.setPreferredSize(new Dimension(1200, 700));
+		
+		add(scroll);
+	}
+
+	@Override
+	protected void crearPaneles() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void setListeners() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void seleccionado() {
+		// TODO Auto-generated method stub
 		
 	}
 	

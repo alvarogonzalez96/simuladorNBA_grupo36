@@ -27,15 +27,12 @@ public class PanelCalendario extends PanelTab {
 	
 	public PanelCalendario() {
 		super();
-		this.usuario = LigaManager.usuario;
-		setLayout(new BorderLayout());
-		setBorder(new EmptyBorder(10,10,10,10));
-		crearPaneles();
 		seleccionarMes();
 	}
 	
 	@Override
 	protected void crearPaneles() {
+		this.usuario = LigaManager.usuario;
 		panelSeleccion = new JPanel();
 	}
 	

@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 @SuppressWarnings("serial")
-public class PanelPlayoffs extends JPanel {
+public class PanelPlayoffs extends PanelTab {
 
 	private JPanel panelBotones;
 	private AreaCuadroPlayoffs cuadro;
@@ -18,22 +18,11 @@ public class PanelPlayoffs extends JPanel {
 	private JButton botonPartido, botonPlayoffs;
 	
 	public PanelPlayoffs() {
-		panelBotones = new JPanel();
-		botonPlayoffs = new JButton("Simular playoffs");
-		botonPartido = new JButton("Simular partido");
-		panelBotones.add(botonPartido);
-		panelBotones.add(botonPlayoffs);
-		
-		cuadro = new AreaCuadroPlayoffs();
-		
-		setLayout(new BorderLayout());
-		add(panelBotones, BorderLayout.NORTH);
-		add(cuadro, BorderLayout.CENTER);
-		
-		setListeners();
+		super();
 	}
 	
-	private void setListeners() {
+	@Override
+	protected void setListeners() {
 		botonPartido.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -70,6 +59,30 @@ public class PanelPlayoffs extends JPanel {
 				}
 			}
 		});
+	}
+
+	@Override
+	protected void initComponentes() {
+		botonPlayoffs = new JButton("Simular playoffs");
+		botonPartido = new JButton("Simular partido");
+		panelBotones.add(botonPartido);
+		panelBotones.add(botonPlayoffs);
+		
+		add(panelBotones, BorderLayout.NORTH);
+		add(cuadro, BorderLayout.CENTER);
+	}
+
+	@Override
+	protected void crearPaneles() {
+		panelBotones = new JPanel();
+
+		cuadro = new AreaCuadroPlayoffs();
+	}
+
+	@Override
+	protected void seleccionado() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	private class AreaCuadroPlayoffs extends JPanel {

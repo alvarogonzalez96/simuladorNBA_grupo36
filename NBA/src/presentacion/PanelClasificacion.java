@@ -5,7 +5,6 @@ import negocio.*;
 import java.util.*;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 
@@ -22,6 +21,7 @@ public class PanelClasificacion extends PanelTab {
 	
 	public PanelClasificacion() {
 		super();
+		setLayout(new GridLayout(1,2));
 	}
 	
 	/**
@@ -43,26 +43,8 @@ public class PanelClasificacion extends PanelTab {
 		}
 	}
 	
-	@Override
 	protected void crearPaneles() {
 		clasificaciones = LigaManager.clasificaciones;
-		
-		panelIzquierda = new JPanel(new GridLayout(2,1));
-		panelDerecha = new JPanel(new GridLayout(2,1));
-		panelIzquierdaArriba = new JPanel();
-		panelIzquierdaAbajo = new JPanel(new GridLayout(1,3));
-		panelDerechaArriba = new JPanel();
-		panelDerechaAbajo = new JPanel(new GridLayout(1,3));
-		
-		panelIzquierda.add(panelIzquierdaArriba);
-		panelIzquierda.add(panelIzquierdaAbajo);
-		panelDerecha.add(panelDerechaArriba);
-		panelDerecha.add(panelDerechaAbajo);
-		
-		add(panelIzquierda);
-		add(panelDerecha);
-		
-		insertarTablas();
 	}
 	
 	private void insertarTablas() {
@@ -85,8 +67,23 @@ public class PanelClasificacion extends PanelTab {
 
 	@Override
 	protected void initComponentes() {
-		// TODO Auto-generated method stub
+		crearTablas();
+		panelIzquierda = new JPanel(new GridLayout(2,1));
+		panelDerecha = new JPanel(new GridLayout(2,1));
+		panelIzquierdaArriba = new JPanel();
+		panelIzquierdaAbajo = new JPanel(new GridLayout(1,3));
+		panelDerechaArriba = new JPanel();
+		panelDerechaAbajo = new JPanel(new GridLayout(1,3));
 		
+		panelIzquierda.add(panelIzquierdaArriba);
+		panelIzquierda.add(panelIzquierdaAbajo);
+		panelDerecha.add(panelDerechaArriba);
+		panelDerecha.add(panelDerechaAbajo);
+		
+		add(panelIzquierda);
+		add(panelDerecha);
+		
+		insertarTablas();
 	}
 
 	@Override

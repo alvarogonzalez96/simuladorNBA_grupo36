@@ -40,11 +40,15 @@ public class PanelPlantilla extends PanelTab {
 		combo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Equipo equipo = getEquipoSeleccionado(combo.getSelectedIndex());
-				tabla.setModel(equipo.getTableModel());
-				tabla.getColumnModel().getColumn(0).setMinWidth(200);
+				actualizarEquipo();
 			}
 		});
+	}
+	
+	private void actualizarEquipo() {
+		Equipo equipo = getEquipoSeleccionado(combo.getSelectedIndex());
+		tabla.setModel(equipo.getTableModel());
+		tabla.getColumnModel().getColumn(0).setMinWidth(200);
 	}
 	
 	private Equipo getEquipoSeleccionado(int n) {
@@ -81,6 +85,8 @@ public class PanelPlantilla extends PanelTab {
 	@Override
 	protected void seleccionado() {
 		//actualizar tablas para edad de rookies
+		actualizarEquipo();
+		repaint();
 	}
 	
 }
