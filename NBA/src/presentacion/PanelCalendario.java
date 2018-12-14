@@ -100,8 +100,8 @@ public class PanelCalendario extends PanelTab {
 
 	@Override
 	protected void seleccionado() {
-		// TODO Auto-generated method stub
-		
+		seleccionarMes();
+		repaint();
 	}
 	
 	private class AreaCalendario extends JPanel {

@@ -21,6 +21,7 @@ public class PanelHome extends PanelTab {
 	private JButton botonDia, botonSem, botonMes;
 	
 	private JLabel balance;
+	private JLabel temporada;
 	
 	private JTable clasificacion;
 	
@@ -166,6 +167,12 @@ public class PanelHome extends PanelTab {
 		Equipo e = LigaManager.usuario.getEquipo();
 		balance = new JLabel("Balance: "+e.getVictorias()+"-"+e.getDerrotas());
 		balance.setFont(new Font("Arial", Font.PLAIN, 22));
+		
+		int anyo = LigaManager.anyo;
+		temporada = new JLabel("Temporada "+anyo+"/"+(anyo+1));
+		temporada.setFont(new Font("Arial", Font.PLAIN, 22));
+		
+		panelBalance.add(temporada);
 		panelBalance.add(equipo);
 		panelBalance.add(balance);
 	}
@@ -192,7 +199,7 @@ public class PanelHome extends PanelTab {
 		panelDer.add(panelDerArriba, BorderLayout.NORTH);
 		panelDer.add(panelDerAbajo, BorderLayout.CENTER);
 		
-		panelBalance = new JPanel(new GridLayout(2,1));
+		panelBalance = new JPanel(new GridLayout(3,1));
 		panelBalance.setBorder(new EmptyBorder(10,10,10,10));
 		panelBotones = new JPanel(new GridLayout(3,1));
 		panelDerArriba.add(panelBalance, BorderLayout.CENTER);
@@ -211,6 +218,7 @@ public class PanelHome extends PanelTab {
 			botonMes.setEnabled(true);
 		}
 		clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
+		temporada.setText("Temporada "+LigaManager.anyo+"/"+(LigaManager.anyo+1));
 		repaint();
 	}
 }

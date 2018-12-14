@@ -6,9 +6,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -138,80 +135,7 @@ public class VentanaPrincipal extends JFrame {
 		tabbedPane.addTab("Noticiario", null, noticiario, null);
 		
 		JPanel playoffs = new PanelPlayoffs();
-		tabbedPane.addTab("Play Offs", null, playoffs, null);
-		
-		
-//Tree------------------------------
-		
-	/*	
-	
-		getContentPane().setLayout(new BorderLayout());
-		tree = new JTree();
-		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		tree.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-				 if (node != null) {
-					 if (node.isLeaf()) {
-						 switch(node.getUserObject().toString().toUpperCase()){
-						 	case "HOME":
-						 		tabbedPane.setSelectedIndex(0);
-						 		break;
-						 	case "CALENDARIO":
-						 		tabbedPane.setSelectedIndex(1);
-						 		break;
-						 	case "Plantilla":
-						 		tabbedPane.setSelectedIndex(2);
-						 		break;
-						 	case "Finanzas":
-						 		tabbedPane.setSelectedIndex(3);
-						 		break;
-						 	case "Traspasos":
-						 		tabbedPane.setSelectedIndex(4);
-						 		break;	
-						 	case "Agencia libre":
-						 		tabbedPane.setSelectedIndex(5);
-						 		break;	
-						 	case "Historial Liga":
-						 		tabbedPane.setSelectedIndex(6);
-						 		break;	
-						 	case "Clasificacion":
-						 		tabbedPane.setSelectedIndex(7);
-						 		break;	
-						 	case "Lideres de la liga":
-						 		tabbedPane.setSelectedIndex(8);
-						 		break;	
-						 	case "Noiticiario":
-						 		tabbedPane.setSelectedIndex(9);
-						 		break;	
-						 	case "Play Offs":
-						 		tabbedPane.setSelectedIndex(10);
-						 		break;	
-						 }
-						 						 
-					 }
-				 }
-			}
-		});
-		DefaultMutableTreeNode node_0 = new DefaultMutableTreeNode("Gestión Equipo");
-		DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode("Informacion");
-		node_1.add(new DefaultMutableTreeNode("Plantilla"));
-		node_1.add(new DefaultMutableTreeNode("Traspasos"));
-		node_1.add(new DefaultMutableTreeNode("Agencia libre"));
-		node_1.add(new DefaultMutableTreeNode("Finanzas"));
-		node_0.add(node_1);
-		DefaultMutableTreeNode node_2 = new DefaultMutableTreeNode("Gesti\u00F3n");
-		node_2.add(new DefaultMutableTreeNode("Consultas"));
-		node_0.add(node_2);
-		DefaultTreeModel dtmRaiz = new DefaultTreeModel(node_0);
-		tree.setModel(dtmRaiz);
-		//tree.setBounds(0, 0, 300, 745);
-		getContentPane().add(tree, BorderLayout.WEST);
-		
-		
-		*/
-	
+		tabbedPane.addTab("Play Offs", null, playoffs, null);	
 		
 		//----------------------------------
 // Aqui creamos los botones para las simulaciones-----------------------------------------------------------------
@@ -230,53 +154,6 @@ public class VentanaPrincipal extends JFrame {
 			
 		//----------------------------------------------
 		
-//Rellenamos los paneles HOME-----------------------------------
-		/*
-		JScrollPane scrollBalance = new JScrollPane();
-		scrollBalance.setPreferredSize(new Dimension(500, 100));
-		scrollBalance.setBorder((new TitledBorder("Balance")));
-		panelSuperiorDerechaSuperior.add(scrollBalance, BorderLayout.WEST);
-		panelSuperiorDerechaSuperior.add(panelSuperiorDerechaSuperior2, BorderLayout.EAST);
-		panelSuperiorDerecha.add(panelSuperiorDerechaSuperior);
-		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
-
-		JScrollPane scrollQuinteto = new JScrollPane();
-		scrollQuinteto.setPreferredSize(new Dimension(400, 500));
-		scrollQuinteto.setBorder((new TitledBorder("Quinteto")));
-		panelSuperiorDerechaInferior.add(scrollQuinteto, BorderLayout.WEST);
-		panelSuperiorDerecha.add(panelSuperiorDerechaInferior);
-		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
-
-		JScrollPane scrollResultados= new JScrollPane();
-		scrollResultados.setPreferredSize(new Dimension(200, 800));
-		scrollResultados.setBorder((new TitledBorder("Resultados")));
-		panelSuperiorDerechaInferior.add(scrollResultados, BorderLayout.EAST);
-		panelSuperiorDerecha.add(panelSuperiorDerechaInferior);
-		panelSuperior.add(panelSuperiorDerecha, BorderLayout.EAST);
-
-		JScrollPane scrollClasificacion = new JScrollPane();
-
-		scrollClasificacion.setPreferredSize(new Dimension(200, 400));
-		scrollClasificacion.setBorder((new TitledBorder("Clasificacion")));
-		panelSuperiorIzquierda.add(scrollClasificacion);
-		panelSuperior.add(panelSuperiorIzquierda, BorderLayout.WEST);
-
-		JScrollPane scrollCalendario= new JScrollPane();
-		scrollCalendario.setPreferredSize(new Dimension(600, 100));
-		scrollCalendario.setBorder((new TitledBorder("Calendario")));
-		panelInferiorInferior.add(scrollCalendario);
-		panelInferior.add(panelInferiorInferior, BorderLayout.SOUTH);
-
-		panelSuperiorDerechaSuperior2.add(simPartido);
-		panelSuperiorDerechaSuperior2.add(simSemana);
-		panelSuperiorDerechaSuperior2.add(simMes);
-		panelSuperiorDerechaSuperior.add(panelSuperiorDerechaSuperior2, BorderLayout.EAST);
-
-		home.add(panelSuperior);
-		home.add(panelInferior);*/
-		
-		
-		//------------------------------------------------
 
 //Rellenamos los paneles HISTORIAL-----------------------------------
 		
@@ -292,22 +169,7 @@ public class VentanaPrincipal extends JFrame {
 		historialLiga.add(panelIzquierdoHistorial, BorderLayout.WEST);
 		historialLiga.add(panelDerechoHistorial, BorderLayout.EAST);
 		
-		//---------------------------------------------------------------------
-//Rellenamos el panel NOTICIARIO-----------------------------------
-		
-		/*noticiarioTexto = new JScrollPane();
-		
-		noticiarioTexto.setPreferredSize(new Dimension(700,700));
-		noticiarioTexto.setBorder((new TitledBorder("Noticias")));
-		
-		panelNoticiario.add(noticiarioTexto);
-		//noticiarioTexto.setViewportView(a);
-		noticiario.add(panelNoticiario);*/
-		
-		//--------------------------------------------------------
-		
-//Rellennamos los paneles TRASPASOS-------------------------------------
-		
+	
 		JButton aceptar = new JButton("Aceptar");
 		aceptar.setPreferredSize(new Dimension(300, 50));
 		aceptar.addActionListener(new ActionListener() {
@@ -368,18 +230,6 @@ public class VentanaPrincipal extends JFrame {
 		trasPanel.add(trasAbajoDcha);
 		
 		traspasos.add(trasPanel);	
-		//------------------------------------
-		
-		//Rellenamos panel Agencia Libre---------------
-
-		/*JScrollPane scrollAgencia = new JScrollPane();
-		scrollAgencia.setBorder((new TitledBorder("Historial")));
-		scrollAgencia.setPreferredSize(new Dimension(1000,100));
-		panelAgencia.add(scrollAgencia);
-		agencialibre.add(panelAgencia);
-		
-		
-		*/
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
 			@Override

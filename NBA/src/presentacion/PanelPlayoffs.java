@@ -32,7 +32,7 @@ public class PanelPlayoffs extends PanelTab {
 					//repintar cuadro de playoffs y comprobar si ha terminado la temporada
 					repaint();
 					if(LigaManager.playoffs.getCampeon() != null) {
-						JOptionPane.showMessageDialog(null, "Campeon: "+LigaManager.campeon.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						finPlayoffs();
 					}
 				}
 			}
@@ -46,21 +46,25 @@ public class PanelPlayoffs extends PanelTab {
 						LigaManager.playoffs.avanzar();
 						repaint();
 					}
-					//la fase de LigaManager la incrementa la propia clase playoffs
-					JOptionPane.showMessageDialog(null, "Campeon: "+LigaManager.campeon.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
-					//Aqui para probar
-					LigaManager.jubilar();
-					LigaManager.draft();
-					LigaManager.renovaciones();
-					LigaManager.agenciaLibre();
-					LigaManager.despedirJugadores();
-					//que el usuario elija los roles de su equipo
-					LigaManager.reset();
+					finPlayoffs();
 				}
 			}
 		});
 	}
 
+	private void finPlayoffs() {
+		//la fase de LigaManager la incrementa la propia clase playoffs
+		JOptionPane.showMessageDialog(null, "Campeon: "+LigaManager.campeon.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		//Aqui para probar
+		LigaManager.jubilar();
+		LigaManager.draft();
+		LigaManager.renovaciones();
+		LigaManager.agenciaLibre();
+		LigaManager.despedirJugadores();
+		//que el usuario elija los roles de su equipo
+		LigaManager.reset();
+	}
+	
 	@Override
 	protected void initComponentes() {
 		botonPlayoffs = new JButton("Simular playoffs");

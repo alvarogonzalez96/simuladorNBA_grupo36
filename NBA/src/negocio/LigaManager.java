@@ -1088,6 +1088,7 @@ public class LigaManager {
 		//playoffs = null;
 		
 		fase = 0;
+		anyo++;
 		
 		actualizarRoles();
 		
