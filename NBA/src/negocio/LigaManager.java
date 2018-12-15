@@ -74,9 +74,11 @@ public class LigaManager {
 		if(desdeJSON) {
 			diaActual = Calendario.PRIMER_DIA;
 			calendario = new Calendario(equipos, diaActual); // el calendario es el mismo para todas las temporadas
+			anyo = 2018;
 		} else {
 			//de la BD
 			diaActual = null; //cargar el dia actual en la BD
+			anyo = 0;
 		}
 		
 		/*boolean m = simularDia();

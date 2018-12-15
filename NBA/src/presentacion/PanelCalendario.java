@@ -152,9 +152,9 @@ public class PanelCalendario extends PanelTab {
 					g.drawRect(marginX+d*size, marginY+w*size, size, size);
 					if(w != 0 || d >= diaSemanaInicio) {
 						//pintar el dia
-						g.drawString(getDia(dia)+"", marginX + d*size + 5, marginY + w*size + 20);
 						dia = incrementarDia(dia);
 						pintarPartido(g, dia, w, d, marginX, marginY, size);
+						g.drawString(getDia(dia)+"", marginX + d*size + 5, marginY + w*size + 20);
 					}
 				}
 			}
@@ -195,7 +195,7 @@ public class PanelCalendario extends PanelTab {
 						}
 					}
 					if(!txt.equals("")) {
-						if(jugado) {
+						if(jugado && LigaManager.calendario.diaActual.after(dia)) {
 							if(ganado) {
 								//pintar de verde
 								g.setColor(Color.GREEN);
@@ -204,13 +204,14 @@ public class PanelCalendario extends PanelTab {
 							}
 							g.fillRect(marginX+d*size + 1, marginY+w*size+1, size-1, size-1);
 							g.setColor(Color.BLACK);
-							g.drawString(""+getDiaAnterior(dia), marginX+d*size+5, marginY+w*size+20);
+							g.drawString(txt, marginX+d*size + 15, marginY+w*size+(size/2));
+							if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
+								g.drawString(p.puntosVisitante+" - "+p.puntosLocal, marginX+d*size + 15, marginY+w*size+(3*size/4));
+							}
+							break;
+						} else {
+							g.drawString(txt, marginX+d*size + 15, marginY+w*size+(size/2));
 						}
-						g.drawString(txt, marginX+d*size + 15, marginY+w*size+(size/2));
-						if(p.puntosLocal > 0 || p.puntosVisitante > 0) {
-							g.drawString(p.puntosVisitante+" - "+p.puntosLocal, marginX+d*size + 15, marginY+w*size+(3*size/4));
-						}
-						break;
 					}
 				}
 			}

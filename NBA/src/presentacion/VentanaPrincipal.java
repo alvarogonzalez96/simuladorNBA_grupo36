@@ -24,6 +24,12 @@ public class VentanaPrincipal extends JFrame {
 	protected JComboBox historial;
 	private JTree tree;
 	
+	JMenu menuUsuario;
+	
+	protected JMenuItem itemInfo;
+	protected JMenuItem itemLogout;
+	protected JMenuItem itemAcercaDe;
+	
 	PanelHome home;
 	
 	public VentanaPrincipal() {
@@ -47,8 +53,8 @@ public class VentanaPrincipal extends JFrame {
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		JMenuBar barra = new JMenuBar();
-		JMenu menuDatos = new JMenu("Jugador");
-		barra.add(menuDatos);
+		menuUsuario = new JMenu("Usuario");
+		barra.add(menuUsuario);
 		this.setJMenuBar(barra);
 
 		//Paneles HOME Principales, ordenados--------------------
@@ -241,10 +247,44 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		
+		initBarra();
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("NBA");
 		this.pack();
 		this.setVisible(true);
+	}
+	
+	private void initBarra() {
+		itemInfo = new JMenuItem("Info");
+		itemLogout = new JMenuItem("Cerrar sesion");
+		itemAcercaDe = new JMenuItem("Acerca de...");
+		
+		menuUsuario.add(itemInfo);
+		menuUsuario.add(itemAcercaDe);
+		menuUsuario.addSeparator();
+		menuUsuario.add(itemLogout);
+		
+		itemInfo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//mostrar ventana con informacion del jugador y estadisticas
+			}
+		});
+		
+		itemAcercaDe.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//mostrar ventana con informacion sobre el desarrollo del juego
+			}
+		});
+		
+		itemLogout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//cerrar sesion, cerrar la ventana principal y mostrar la ventana de inicio
+			}
+		});
 	}
 
 	public static void main(String[] args) {

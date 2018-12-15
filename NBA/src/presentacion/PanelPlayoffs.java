@@ -147,8 +147,13 @@ public class PanelPlayoffs extends PanelTab {
 					e2 = sp.getB();
 					
 					//pintarlos en el cuadro
-					g.drawString(sp.getVictoriasA()+" "+e1.getAbrev(), a.x+5, a.y+20);
-					g.drawString(sp.getVictoriasB()+" "+e2.getAbrev(), b.x+5, b.y+20);
+					if(s != Series.SEMIS_2_OESTE && s != Series.SEMIS_2_ESTE) {
+						g.drawString(sp.getVictoriasA()+" "+e1.getAbrev(), a.x+5, a.y+20);
+						g.drawString(sp.getVictoriasB()+" "+e2.getAbrev(), b.x+5, b.y+20);
+					} else {
+						g.drawString(sp.getVictoriasA()+" "+e1.getAbrev(), b.x+5, b.y+20);
+						g.drawString(sp.getVictoriasB()+" "+e2.getAbrev(), a.x+5, a.y+20);
+					}
 				}
 			//}
 		}
@@ -172,13 +177,13 @@ public class PanelPlayoffs extends PanelTab {
 		private Point calcPunto(Series s) {
 			switch(s) {
 			case CUARTOS_1_ESTE: return new Point(getWidth()-marginX-ancho, marginY);
-			case CUARTOS_2_ESTE: return new Point(getWidth()-marginX-ancho, marginY+separacion+3*alto);
+			case CUARTOS_4_ESTE: return new Point(getWidth()-marginX-ancho, marginY+separacion+3*alto);
 			case CUARTOS_3_ESTE: return new Point(getWidth()-marginX-ancho, marginY+2*separacion+6*alto);
-			case CUARTOS_4_ESTE: return new Point(getWidth()-marginX-ancho, marginY+3*separacion+9*alto);
+			case CUARTOS_2_ESTE: return new Point(getWidth()-marginX-ancho, marginY+3*separacion+9*alto);
 			case CUARTOS_1_OESTE: return new Point(marginX, marginY);
-			case CUARTOS_2_OESTE: return new Point(marginX, marginY+separacion+3*alto);
+			case CUARTOS_4_OESTE: return new Point(marginX, marginY+separacion+3*alto);
 			case CUARTOS_3_OESTE: return new Point(marginX, marginY+2*separacion+6*alto);
-			case CUARTOS_4_OESTE: return new Point(marginX, marginY+3*separacion+9*alto);
+			case CUARTOS_2_OESTE: return new Point(marginX, marginY+3*separacion+9*alto);
 			case SEMIS_1_OESTE: return new Point(marginX+ancho+espacioX, marginY+(alto+separacion)/2);
 			case SEMIS_2_OESTE: return new Point(marginX+ancho+espacioX, marginY+6*alto+2*separacion+(alto+separacion)/2);
 			case SEMIS_1_ESTE: return new Point(getWidth()-marginX-ancho*2-espacioX, marginY+(alto+separacion)/2);
