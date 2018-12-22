@@ -341,8 +341,21 @@ public class Jugador {
 		this.tiempoJugado = tiempoJugado;
 	}
 	
-	public double getValoracion() {	
-		return (this.getPuntosPartido() + this.getAsistenciasPartido() + this.getRebotesPartido());
+	public int getPuntosTemporada() {
+		return puntosTemporada;
+	}
+	
+	public int getAsistenciasTemporada() {
+		return asistenciasTemporada;
+	}
+	
+	public int getRebotesTemporada() {
+		return rebotesTemporada;
+	}
+	
+	public double getValoracion() {
+		return ((double) (Math.round((this.getPuntosTemporada() + this.getAsistenciasTemporada() + this.getRebotesTemporada())*100))/100);
+		
 	}
 
 	@Override

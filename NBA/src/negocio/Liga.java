@@ -196,7 +196,7 @@ public class Liga {
 			System.out.println("JUGADORES DE "+e.nombre.toUpperCase()+":");
 			for (Jugador j : e.jugadores) {
 				if(!j.rol.equals(Rol.NOJUEGA)) {
-					System.out.println(j.getNombre() + " " + (double)Math.round((j.getPuntosPartido()/82)*100)/100 + " ppp" + " " + (double)Math.round((j.getAsistenciasPartido()/82)*100)/100 + " app" + " " + (double)Math.round((j.getRebotesPartido()/82)*100)/100 + " rpp ; val: "+j.valoracion);
+					System.out.println(j.getNombre() + " " + j.getPuntosPartido() + " ppp" + " " + j.getAsistenciasPartido() + " app" + " " + j.getRebotesPartido() + " rpp ; val: "+j.valoracion);
 				}
 			}
 			System.out.println();
