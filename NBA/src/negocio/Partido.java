@@ -76,15 +76,15 @@ public class Partido {
 		System.out.println(visitante.nombre+" "+puntosVisitante+" - "+puntosLocal+" "+local.nombre);
 		//System.out.println("----------------------------------------");
 		for (Jugador j : local.jugadores) {
-			j.setNPuntos(0);
-			j.setNAsistencias(0);
-			j.setNRebotes(0);
+			j.puntosPartido = 0;
+			j.asistenciasPartido = 0;
+			j.rebotesPartido = 0;
 		}
 		
 		for (Jugador j : visitante.jugadores) {
-			j.setNPuntos(0);
-			j.setNPuntos(0);
-			j.setNRebotes(0);
+			j.puntosPartido = 0;
+			j.asistenciasPartido = 0;
+			j.rebotesPartido = 0;
 		}
 		finalizado = true;
 	}
@@ -138,7 +138,7 @@ public class Partido {
 					puntosVisitante += 2;
 				}
 				j.puntosPartido += 2;
-				j.nPuntos += 2;
+				j.puntosTemporada += 2;
 				//Acaba la jugada
 			} else {
 				//Falla el tiro de 2
@@ -168,7 +168,7 @@ public class Partido {
 					puntosVisitante += 3;
 				}
 				j.puntosPartido += 3;
-				j.nPuntos += 3;
+				j.puntosTemporada += 3;
 				//Acaba la jugada
 			} else {
 				//Falla el tiro de tres
@@ -198,6 +198,7 @@ public class Partido {
 				puntosVisitante += 1;
 			}
 			j.puntosPartido += 1;
+			j.puntosTemporada += 1;
 		} else {
 			//Falla el primer tiro libre
 		}
@@ -212,6 +213,7 @@ public class Partido {
 				puntosVisitante += 1;
 			}
 			j.puntosPartido += 1;
+			j.puntosTemporada += 1;
 			//Acaba la jugada
 			
 		} else {
@@ -269,7 +271,7 @@ public class Partido {
 			}
 		}
 		jugador.rebotesPartido += 1;
-		jugador.nRebotes += 1;
+		jugador.rebotesTemporada += 1;
 	}
 	
 	public void elegirAsistente(Quinteto q, Jugador jug) {
@@ -282,7 +284,7 @@ public class Partido {
 		double random = Math.random();
 		if(random <= 0.582) {
 			jugador.asistenciasPartido += 1;
-			jugador.nAsistencias += 1;
+			jugador.asistenciasTemporada += 1;
 		}
 	}
 	

@@ -85,8 +85,10 @@ public class PanelPlayoffs extends PanelTab {
 
 	@Override
 	protected void seleccionado() {
-		// TODO Auto-generated method stub
-		
+		if(LigaManager.fase != 2) {
+			botonPartido.setEnabled(false);
+			botonPlayoffs.setEnabled(false);
+		}
 	}
 	
 	private class AreaCuadroPlayoffs extends JPanel {

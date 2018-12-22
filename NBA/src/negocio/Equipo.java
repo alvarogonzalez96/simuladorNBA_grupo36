@@ -345,7 +345,7 @@ public class Equipo {
 			Jugador j = jugadores.get(rowIndex);
 			switch(columnIndex) {
 			case 0: return j.nombre;
-			case 1: return j.edad;
+			case 1: return j.getEdad();
 			case 2: return j.anyosContratoRestantes;
 			case 3: return j.salario;
 			}
@@ -414,10 +414,10 @@ public class Equipo {
 			case 4: return j.getPuntosPorPartido();
 			case 5: return j.getAsistenciasPorPartido();
 			case 6: return j.getRebotesPorPartido();
-			case 7: return j.puntosPartido;
-			case 8: return j.asistenciasPartido;
-			case 9: return j.rebotesPartido;
-			case 10: return j.edad;
+			case 7: return j.puntosTemporada;
+			case 8: return j.asistenciasTemporada;
+			case 9: return j.rebotesTemporada;
+			case 10: return j.getEdad();
 			}
 			return null;
 		}

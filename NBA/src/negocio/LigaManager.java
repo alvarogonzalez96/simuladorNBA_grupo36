@@ -1104,10 +1104,9 @@ public class LigaManager {
 			j.puntosPartido = 0;
 			j.asistenciasPartido = 0;
 			j.rebotesPartido = 0;
-			j.nPuntos = 0;
-			j.nAsistencias= 0;
-			j.nRebotes = 0;
-			j.edad++;
+			j.puntosTemporada = 0;
+			j.asistenciasTemporada = 0;
+			j.rebotesTemporada = 0;
 			j.partidosJugadosTemporada = 0;
 		}
 	}
@@ -1171,7 +1170,7 @@ public class LigaManager {
 			Jugador j = agentesLibres.get(rowIndex);
 			switch(columnIndex) {
 			case 0: return j.nombre;
-			case 1: return j.edad;
+			case 1: return j.getEdad();
 			case 2: return j.posicion;
 			case 3: return j.overall;
 			}

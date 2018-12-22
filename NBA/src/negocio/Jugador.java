@@ -2,8 +2,6 @@ package negocio;
 
 import java.util.Comparator;
 
-import javax.swing.table.TableModel;
-
 import datos.GeneradorNombres;
 
 import org.json.*;
@@ -20,19 +18,16 @@ public class Jugador {
 	protected int defensa; //diq
 	protected int asistencia;//pss
 	protected int condicionFisica;
-	protected int edad;//2018 - born year
+	protected int anyoNac;
 	protected int overall;
 	
-	//atributos variables (pueden cambiar)
+	//atributos variables (de cada temporada)
 	protected Rol rol;
 	int tid;
-	protected double puntosPartido; //puntos que anota por partido
-	protected int nPuntos; //puntos que mete en el partido
-	protected double asistenciasPartido;//asistencias por partido
-	protected int nAsistencias;//asistencias en el partido
-	protected double rebotesPartido;//rebotes por partido
-	protected int nRebotes;//rebotes en un partido
-	public int partidosJugadosTemporada; //numero de partidos jugados en una temporada
+	protected int puntosTemporada; //puntos anotados en la temporada actual
+	protected int asistenciasTemporada;//asistencias que lleva en la temporada actual
+	protected int rebotesTemporada;//rebotes que lleva en la temporada actual
+	public int partidosJugadosTemporada; //numero de partidos jugados en la temporada actual
 	
 	protected int salario;
 	protected int anyosContratoRestantes;
@@ -44,31 +39,12 @@ public class Jugador {
 	//Atributos para la simulacion de partidos
 	protected int minutos;
 	protected int tiempoJugado;
+	protected int puntosPartido; //puntos que anota en el partido actual
+	protected int asistenciasPartido;//asistencias en el partido actual
+	protected int rebotesPartido;//rebotes en el partido actual
 	
 	//Atributos para calcular la media
 	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
-	
-	private TableModel modelo;
-	
-	public Jugador(String nombre, Posicion posicion, int rebote, Rol rol, int tiroLibre, int tiroCerca, int tiroLejos, int defensa,
-			int asistencia, int edad, int tid) {
-		super();
-		this.nombre = nombre;
-		this.posicion = posicion;
-		this.rebote = rebote;
-		this.rol = rol;
-		this.tiroLibre = tiroLibre;
-		this.tiroCerca = tiroCerca;
-		this.tiroLejos = tiroLejos;
-		this.defensa = defensa;
-		this.asistencia = asistencia;
-		this.condicionFisica = 100;
-		this.minutos = 0;
-		this.tiempoJugado = 0;
-		this.edad = edad;
-		this.tid = tid;
-		this.rookie = true;
-	}
 	
 	public Jugador() {
 		super();
@@ -84,7 +60,7 @@ public class Jugador {
 		this.condicionFisica = 0;
 		this.minutos = 0;
 		this.tiempoJugado = 0;
-		this.edad = 0;
+		this.anyoNac = 1992;
 		this.tid = -1;	
 		this.rookie = true;
 	}
@@ -104,8 +80,8 @@ public class Jugador {
 		}
 		this.nombre = GeneradorNombres.getNombreCompleto();
 		this.posicion = a.posicion;
-		int rand = (int)(Math.random()*3);
-		this.edad = 18 + rand; 
+		int rand = 18 + (int)(Math.random()*3);
+		this.anyoNac = LigaManager.anyo - rand; 
 		this.rebote = (a.rebote+b.rebote)/2;
 		this.tiroLibre = (a.tiroLibre+b.tiroLibre)/2;
 		this.tiroCerca = (a.tiroCerca+b.tiroCerca)/2;
@@ -122,7 +98,6 @@ public class Jugador {
 		this.dnk = (a.dnk + b.dnk)/2;
 		this.oiq = (a.oiq + b.oiq)/2;
 		this.drb = (a.drb + b.drb)/2;
-		this.edad = 0;
 		this.tid = -1;
 		this.rookie = true;
 		this.overall = cargarOverallJugador();
@@ -138,7 +113,6 @@ public class Jugador {
 		this.defensa = j.defensa;
 		this.asistencia = j.asistencia;
 		this.condicionFisica = j.condicionFisica;
-	
 	}
 	
 	public void cargarJugador(JSONObject json) { 
@@ -186,7 +160,7 @@ public class Jugador {
 		oiq = json.getJSONArray("ratings").getJSONObject(0).getInt("oiq");
 		drb = json.getJSONArray("ratings").getJSONObject(0).getInt("drb");
 		
-		edad = 2018 - json.getJSONObject("born").getInt("year");
+		anyoNac = json.getJSONObject("born").getInt("year");
 		overall = cargarOverallJugador();
 	}
 	
@@ -248,23 +222,11 @@ public class Jugador {
 		return rebotesPartido;
 	}
 	
-	public void setNPuntos(int nPuntos) {
-		this.nPuntos = nPuntos;
-	}
-	
-	public void setNAsistencias(int nAsistencias) {
-		this.nAsistencias = nAsistencias;
-	}
-	
-	public void setNRebotes(int nRebotes) {
-		this.nRebotes = nRebotes;
-	}
-	
 	public double getPuntosPorPartido() {
 		if(partidosJugadosTemporada <= 0) {
 			return 0;
 		} else {
-			return (double) Math.round(100 * puntosPartido / partidosJugadosTemporada)/100;
+			return (double) Math.round(100 * (double) puntosTemporada / partidosJugadosTemporada)/100;
 		}
 	}
 	
@@ -272,7 +234,7 @@ public class Jugador {
 		if(partidosJugadosTemporada <= 0) {
 			return 0;
 		} else {
-			return (double) Math.round(100 * asistenciasPartido / partidosJugadosTemporada)/100;
+			return (double) Math.round(100 * (double) asistenciasTemporada / partidosJugadosTemporada)/100;
 		}
 	}
 	
@@ -280,7 +242,7 @@ public class Jugador {
 		if(partidosJugadosTemporada <= 0) {
 			return 0;
 		} else {
-			return (double) Math.round(100 * rebotesPartido / partidosJugadosTemporada)/100;
+			return (double) Math.round(100 * (double) rebotesTemporada / partidosJugadosTemporada)/100;
 		}
 	}
 	
@@ -295,16 +257,8 @@ public class Jugador {
 		return puntosPartido;
 	}
 
-	public void setPuntosPartido(double puntosPartido) {
-		this.puntosPartido = puntosPartido;
-	}
-	
-	public int getEdad() {
-		return edad;
-	}
-
-	public void setEdad(int edad) {
-		this.edad = edad;
+	public void setPuntosTemporada(int puntosTemporada) {
+		this.puntosTemporada = puntosTemporada;
 	}
 
 	public int getTid() {
@@ -349,6 +303,10 @@ public class Jugador {
 
 	public void setRebote(int rebote) {
 		this.rebote = rebote;
+	}
+	
+	public int getEdad() {
+		return LigaManager.anyo - anyoNac;
 	}
 
 	public int getOverall() {
