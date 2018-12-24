@@ -19,43 +19,51 @@ public class Temporada {
 	 * para que sus estadisticas de esa temporada permanezcan
 	 * intactas.
 	 * */
-	public Equipo[] equipos;
+	public String[] nombresEquipos;
+	public int[] victorias, derrotas;
 	
-	public Jugador mvp, roy, dpoy, sextoHombre;
+	public String mvp, roy, dpoy, sextoHombre;
 	
-	public Equipo campeon;
+	public String nombreCampeon;
 	public int victoriasUsuario, derrotasUsuario;
 	
-	public Temporada(Equipo[] eq, int v, int d, Equipo campeon) {
-		equipos = getCopia(eq);
+	public Temporada() {
+		
+	}
+	
+	public void guardaClasificacion(Equipo[] eq) {
+		nombresEquipos = new String[30];
+		victorias = new int[30];
+		derrotas = new int[30];
+		for(int i = 0; i < 30; i++) {
+			nombresEquipos[i] = eq[i].getNombre();
+			victorias[i] = eq[i].getVictorias();
+			derrotas[i] = eq[i].getDerrotas();
+		}
+	}
+	
+	public void guardaCampeon(Equipo campeon) {
+		this.nombreCampeon = campeon.getNombre();
+	}
+	
+	public void guardaBalanceUsuario(int v, int d) {
 		victoriasUsuario = v;
 		derrotasUsuario = d;
-		this.campeon = campeon; //no hacemos copia porque solo nos interesa el nombre del equipo;
 	}
 	
-	public void setMVP(Jugador j) {
-		this.mvp = new Jugador(j);
+	public void setMVP(String j) {
+		this.mvp = new String(j);
 	}
 	
-	public void setROY(Jugador j) {
-		roy = new Jugador(j);
+	public void setROY(String j) {
+		roy = new String(j);
 	}
 	
-	public void setSextoHombre(Jugador j) {
-		sextoHombre = new Jugador(j);
+	public void setSextoHombre(String j) {
+		sextoHombre = new String(j);
 	}
 	
-	public void setDPOY(Jugador j) {
-		dpoy = new Jugador(j);
+	public void setDPOY(String j) {
+		dpoy = new String(j);
 	}
-	
-	private Equipo[] getCopia(Equipo[] eq) {
-		Equipo[] e = new Equipo[30];
-		for(int i = 0; i < 30; i++) {
-			e[i] = new Equipo(eq[i]);
-		}
-		return e;
-	}
-	
-	
 }

@@ -31,6 +31,7 @@ public class VentanaPrincipal extends JFrame {
 	protected JMenuItem itemAcercaDe;
 	
 	PanelHome home;
+	PanelHistorial historialLiga;
 	
 	public VentanaPrincipal() {
 		LigaManager.inicializar(true, new Usuario("Pedro", 18, 1));
@@ -56,59 +57,7 @@ public class VentanaPrincipal extends JFrame {
 		menuUsuario = new JMenu("Usuario");
 		barra.add(menuUsuario);
 		this.setJMenuBar(barra);
-
-		//Paneles HOME Principales, ordenados--------------------
-		JPanel panelSuperior = new JPanel(new BorderLayout());
-		JPanel panelInferior = new JPanel (new BorderLayout() );
-
-		JPanel panelInferiorInferior = new JPanel ();
-		JPanel panelInferiorSuperior = new JPanel ();
-
-		JPanel panelSuperiorIzquierda = new JPanel( new FlowLayout());
-		JPanel panelSuperiorDerecha = new JPanel(new GridLayout(2,1) );
-
-		JPanel panelSuperiorDerechaSuperior= new JPanel( new BorderLayout());
-		JPanel panelSuperiorDerechaInferior= new JPanel(new BorderLayout());
-		JPanel panelSuperiorDerechaSuperior2= new JPanel( new GridLayout(3,1));
 		
-	
-		
-//Paneles HISTORIAL Principales, ordenados--------------------
-		
-		JPanel panelIzquierdoHistorial = new JPanel( new BorderLayout());
-		JPanel panelIzquierdoSuperiorHistorial = new JPanel();
-		JPanel panelIzquierdoInferiorHistorial = new JPanel( );
-		
-		JPanel panelDerechoHistorial = new JPanel ( new BorderLayout());
-			
-	
-		
-		//
-		//Panel Agencia Libre-------------------------------------------------------------------
-
-		/*JPanel panelAgencia= new JPanel();
-		panelAgencia.setLayout(new GridLayout(1,1));
-		
-		*/
-		
-		
-		
-		
-//Panel TRASPASOS-------------------------------------------------------------------
-
-		/*JPanel trasPanel = new JPanel();
-		trasPanel.setLayout(new GridLayout(3, 3));
-		JPanel trasArribaIzq = new JPanel(new FlowLayout());
-		JPanel trasArribaDcha = new JPanel(new FlowLayout());
-		JPanel trasCentroIzq = new JPanel(new BorderLayout());
-		JPanel trasCentroDcha = new JPanel(new FlowLayout());
-		JPanel trasAbajoIzq = new JPanel(new GridLayout(3, 1));
-		JPanel trasAbajoDcha = new JPanel(new FlowLayout());
-		*/
-
-//Paneles Noticiario Principales, ordenados--------------------
-		
-		JPanel panelNoticiario = new JPanel(new FlowLayout());
 		
 //Creamos las pestanias-----------------------------------		
 		home = new PanelHome();
@@ -129,7 +78,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel agencialibre = new PanelAgenciaLibre();
 		tabbedPane.addTab("Agencia libre", null, agencialibre, null);
 		
-		JPanel historialLiga = new JPanel();
+		historialLiga = new PanelHistorial();
 		tabbedPane.addTab("Historial Liga", null, historialLiga, null);
 		
 		JPanel clasificacion = new PanelClasificacion();
@@ -152,91 +101,6 @@ public class VentanaPrincipal extends JFrame {
 	
 		//----------------------------------------------------------------------------
 	
-//ComboBox---------------------------------
-		historial = new JComboBox();
-		historial.addItem("Liga");
-		historial.addItem("MVP");
-		historial.addItem("ROY");
-		historial.setSize(new Dimension(800,600));
-			
-		//----------------------------------------------
-		
-
-//Rellenamos los paneles HISTORIAL-----------------------------------
-		
-		JScrollPane scrollHistorial = new JScrollPane();
-
-		scrollHistorial.setPreferredSize(new Dimension(200, 400));
-		scrollHistorial.setBorder((new TitledBorder("Historial")));
-		scrollHistorial.setBackground(Color.WHITE );
-		panelDerechoHistorial.add(scrollHistorial);
-		panelIzquierdoSuperiorHistorial.add(historial);
-		panelIzquierdoHistorial.add(panelIzquierdoSuperiorHistorial, BorderLayout.NORTH);
-		panelIzquierdoHistorial.add(panelIzquierdoInferiorHistorial, BorderLayout.SOUTH);
-		historialLiga.add(panelIzquierdoHistorial, BorderLayout.WEST);
-		historialLiga.add(panelDerechoHistorial, BorderLayout.EAST);
-		
-	
-		JButton aceptar = new JButton("Aceptar");
-		aceptar.setPreferredSize(new Dimension(300, 50));
-		aceptar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int i =	JOptionPane.showConfirmDialog(rootPane, "Esta seguro que quiere descargar este archivo?", "Confirma", JOptionPane.YES_NO_OPTION);
-				if (i == JOptionPane.YES_OPTION)
-				{			
-				
-				}
-			}
-		});
-		
-		/*
-		JComboBox comboJugadores = new JComboBox();
-		comboJugadores.setPreferredSize(new Dimension(300, 50));
-		comboJugadores.addItem("Alvaro");
-		comboJugadores.addItem("Pablo");
-		comboJugadores.addItem("Goiri");
-		
-		
-		JComboBox comboEquipos = new JComboBox();
-		comboEquipos.setPreferredSize(new Dimension(300, 50));
-		comboEquipos.addItem("Lakers");
-		comboEquipos.addItem("Warriors");
-		
-		
-		JComboBox comboNombres = new JComboBox();
-		comboNombres.setPreferredSize(new Dimension(300, 50));
-		comboNombres.addItem("Asier");
-		comboNombres.addItem("Pablo");
-		
-		
-		JScrollPane scrollTraspasos1 = new JScrollPane();
-		scrollTraspasos1.setBorder((new TitledBorder("TRASPASOS1")));
-		scrollTraspasos1.setPreferredSize(new Dimension(300, 300));
-		
-		JScrollPane scrollTraspasos2 = new JScrollPane();
-		scrollTraspasos2.setBorder((new TitledBorder("TRASPASOS2")));
-		scrollTraspasos2.setPreferredSize(new Dimension(300, 300));
-		
-		trasArribaIzq.add(comboJugadores);
-		trasArribaDcha.add(scrollTraspasos1);
-		JPanel apoyoAbajoIzq = new JPanel(new FlowLayout());
-		JPanel apoyoAbajoIz = new JPanel(new FlowLayout());
-		apoyoAbajoIzq.add(comboEquipos);
-		apoyoAbajoIz.add(comboNombres);
-		trasAbajoIzq.add(apoyoAbajoIzq, BorderLayout.NORTH);
-		trasAbajoIzq.add(apoyoAbajoIz, BorderLayout.CENTER);
-		trasCentroDcha.add(aceptar);
-		trasAbajoDcha.add(scrollTraspasos2);
-		
-		trasPanel.add(trasArribaIzq);
-		trasPanel.add(trasArribaDcha);
-		trasPanel.add(trasCentroIzq);
-		trasPanel.add(trasCentroDcha);
-		trasPanel.add(trasAbajoIzq);
-		trasPanel.add(trasAbajoDcha);
-		
-		traspasos.add(trasPanel);	*/
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
 			@Override
@@ -244,6 +108,8 @@ public class VentanaPrincipal extends JFrame {
 				if(tabbedPane.getSelectedIndex() == 0) {
 					//se ha seleccionado la pestanya Home 
 					home.seleccionado();
+				} else if(tabbedPane.getSelectedIndex() == 6) {
+					historialLiga.seleccionado();
 				}
 			}
 		});

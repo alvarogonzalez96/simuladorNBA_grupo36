@@ -58,6 +58,7 @@ public class PanelHome extends PanelTab {
 						botonDia.setEnabled(false);
 						botonSem.setEnabled(false);
 						botonMes.setEnabled(false);
+						LigaManager.elegirPremiosIndividuales();
 						fin = true;
 					}
 				}
@@ -84,6 +85,7 @@ public class PanelHome extends PanelTab {
 						botonSem.setEnabled(false);
 						botonMes.setEnabled(false);
 						fin = true;
+						LigaManager.elegirPremiosIndividuales();
 						break;
 					}
 				}
@@ -110,6 +112,7 @@ public class PanelHome extends PanelTab {
 						botonSem.setEnabled(false);
 						botonMes.setEnabled(false);
 						fin = true;
+						LigaManager.elegirPremiosIndividuales();
 						break;
 					}
 				}

@@ -40,7 +40,7 @@ public class LigaManager {
 	 * cada anyo.
 	 * Ejemplo: para la temporada 2018-2019, la clave sera 2018
 	 */	
-	public static HashMap<String, Temporada> temporadasPasadas;
+	public static HashMap<Integer, Temporada> temporadasPasadas;
 	
 	public static Calendario calendario;
 	public static Equipo[] equipos;
@@ -67,6 +67,7 @@ public class LigaManager {
 		jugadores = new ArrayList<>();
 		agentesLibres = new ArrayList<>();
 		temporadasPasadas = new HashMap<>();
+		temporadasPasadas.put(2018, new Temporada());
 		cargarJugadores();
 		cargarAgentesLibres();
 		cargarEquipos();
@@ -146,9 +147,6 @@ public class LigaManager {
 				System.out.println("CLASIFICACION "+tipoClasif);
 				clasificaciones.get(tipoClasif).imprimir();
 			}
-			
-			//guardar datos de la temporada que acaba de terminar
-			guardarDatosFinTemporada();
 			
 			// playoffs / verano
 			//jubilar();
@@ -425,10 +423,17 @@ public class LigaManager {
 		}
 		
 		//crear jugadores nuevos de cada posicion para llegar al limite (draft)
+		int nuevos = 0;
 		for(int i = 0; i < 5; i++) {
 			for(int j = 0; j < limiteJugadoresPorPosicionAgenciaLibre - contPos[i]; j++) {
 				draft.add(crearJugador(Quinteto.elegirPosicion(i)));
+				nuevos++;
 			}
+		}
+		
+		while(nuevos < 60) {
+			draft.add(crearJugadorDraft());
+			nuevos++;
 		}
 	}
 	
@@ -479,10 +484,10 @@ public class LigaManager {
 	/**
 	 * @return Jugador del draft, creado a partir de dos jugadores aleatorios de la liga
 	 * */
-	private static Jugador crearJugadoresDraft() {
+	private static Jugador crearJugadorDraft() {
 		int rand;
-		Jugador a = new Jugador();
-		Jugador b = new Jugador();
+		Jugador a = null;
+		Jugador b = null;
 		
 		do {
 			rand = (int) (Math.random()*jugadores.size());
@@ -547,6 +552,7 @@ public class LigaManager {
 	 * */
 	private static Jugador elegirMejorDisponible() {
 		Jugador mejor = new Jugador();
+		mejor.overall = -100;
 		for (Jugador j : draft) {
 			if(mejor.overall < j.overall) {
 				mejor = j;
@@ -1127,6 +1133,7 @@ public class LigaManager {
 			}
 		}
 		LigaManager.mvp = mvp;
+		temporadasPasadas.get(anyo).setMVP(mvp.getNombre());
 		return mvp;
 	}
 	
@@ -1146,6 +1153,7 @@ public class LigaManager {
 			}
 		}
 		LigaManager.sextoHombre = sextoHombre;
+		temporadasPasadas.get(anyo).setSextoHombre(sextoHombre.getNombre());
 		return sextoHombre;
 	}
 	
@@ -1165,6 +1173,7 @@ public class LigaManager {
 			}
 		}
 		LigaManager.roy = ROY;
+		temporadasPasadas.get(anyo).setROY(ROY.getNombre());
 		return ROY;
 	}
 	
@@ -1181,23 +1190,15 @@ public class LigaManager {
 			}
 		}
 		LigaManager.dpoy = DPOY;
+		temporadasPasadas.get(anyo).setDPOY(DPOY.getNombre());
 		return DPOY;
 	}
 	
-	/**
-	 * Metodo que guarda en el mapa temporadasPasadas
-	 * la informacion correspondiente a la temporada que
-	 * acaba de terminar.
-	 * */
-	private static void guardarDatosFinTemporada() {
-		Equipo u = usuario.getEquipo();
-		Temporada t = new Temporada(equipos, u.getVictorias(), u.getDerrotas(), campeon);
-		t.setMVP(mvp);
-		t.setROY(roy);
-		t.setDPOY(dpoy);
-		t.setSextoHombre(sextoHombre);
-		
-		temporadasPasadas.put(""+anyo, t);
+	public static void elegirPremiosIndividuales() {
+		elegirMVP();
+		elegirROY();
+		elegirSextoHombre();
+		elegirDPOY();
 	}
 	
 	/**
@@ -1205,6 +1206,13 @@ public class LigaManager {
 	 * que se ejecutara cada vez que termine una temporada, para empezar una nueva.
 	 * */
 	public static void reset() {
+		//guardar datos fin de temporada
+		Equipo u = usuario.getEquipo();
+		temporadasPasadas.get(anyo).guardaBalanceUsuario(u.getVictorias(), u.getDerrotas());
+		temporadasPasadas.get(anyo).guardaCampeon(campeon);
+		temporadasPasadas.get(anyo).guardaClasificacion(equipos);
+		
+		
 		//los equipos se mantienen igual, las plantillas ya estan actualizadas
 		calendario.reset();
 		inicializarClasificaciones();
@@ -1225,6 +1233,8 @@ public class LigaManager {
 		recienCreada = false;
 		diaActual = Calendario.PRIMER_DIA;
 		calendario.diaActual = Calendario.PRIMER_DIA;
+		
+		temporadasPasadas.put(anyo, new Temporada());
 	}
 	
 	private static void resetearJugadores() {
