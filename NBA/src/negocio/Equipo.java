@@ -12,7 +12,7 @@ public class Equipo {
 	/**
 	 * Nota: todas las unidades monetarias estan en miles de dolares.
 	 * */	
-	static final int limiteSalarial = 108000; 
+	public static final int limiteSalarial = 108000; 
 	
 	private static OrdenadorJugadores ordenador;
 	static {

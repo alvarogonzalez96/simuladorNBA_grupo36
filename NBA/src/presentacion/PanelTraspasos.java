@@ -163,6 +163,7 @@ public class PanelTraspasos extends PanelTab{
 						equipoSeleccionado = equipo;
 					}
 				}
+				actualizarTablaLiga();
 			}
 		});	
 	}
@@ -172,6 +173,78 @@ public class PanelTraspasos extends PanelTab{
 		tablaUsuario.setModel(getModeloUsuario());
 		tablaUsuario.getColumnModel().getColumn(0).setMinWidth(200);
 		repaint();
+	}
+	
+	private void actualizarTablaLiga() {
+		modeloJugadoresLiga = null;
+		calcularOferta();
+		tablaLiga.setModel(getModeloLiga());
+		tablaLiga.getColumnModel().getColumn(0).setMinWidth(200);
+	}
+	
+	private void calcularOferta() {
+		int dineroDisponibleUsuario, dineroDisponibleLiga;
+		int salarioOfrecido = 0;
+		double overallTotal;
+		Integer[] contadorLiga, contadorUsuario;
+		contadorLiga = new Integer[5];
+		contadorUsuario = new Integer[5];
+		jugadoresOfreceLiga = null;
+		
+		for (Jugador j : jugadoresOfreceUsuario) {
+			salarioOfrecido = salarioOfrecido + j.getSalario();
+		}
+		
+		for (int i = 0; i < contadorUsuario.length; i++) {
+			contadorLiga[i] = 0;
+			contadorUsuario[i] = 0;
+		}
+		contadorUsuario = LigaManager.contarPosiciones(equipoUsuario, contadorUsuario);
+		contadorLiga = LigaManager.contarPosiciones(equipoSeleccionado, contadorLiga);
+		
+		overallTotal = calcularOverallTotal(jugadoresOfreceUsuario);
+		dineroDisponibleUsuario = calcularDineroDisponible(equipoUsuario, jugadoresOfreceUsuario);
+		dineroDisponibleLiga = calcularDineroDisponible(equipoSeleccionado, jugadoresOfreceLiga);
+		
+		if(dineroDisponibleUsuario >= 1000) {
+			//El usuario tiene dinero disponible
+			if(dineroDisponibleLiga - salarioOfrecido > 0) {
+				//Liga tiene dinero
+				for (Jugador j : equipoSeleccionado.getJugadores()) {
+					if(j.getOverall() > overallTotal - 3 && j.getOverall() < overallTotal + 5) {
+						
+					}
+				}
+				
+			} else {
+				//Liga no tiene dinero
+				
+			}
+		} else {
+			//El usuario no tiene dinero disponible
+		}
+			
+	}
+	
+	private double calcularOverallTotal(ArrayList<Jugador> jugadores) {
+		double overall = 0;
+		for (Jugador j : jugadores) {
+			overall = overall + j.getValoracion();
+		}
+		return overall;
+	}
+	
+	private int calcularDineroDisponible(Equipo e, ArrayList<Jugador> jugadores) {
+		int disponible = 0;
+		int salarioTotal = 0;
+		for (Jugador j : e.getJugadores()) {
+			if(!jugadores.contains(j)) {
+				salarioTotal = salarioTotal + j.getSalario();	
+			}
+		}
+	
+		disponible = Equipo.limiteSalarial - salarioTotal;
+		return disponible;
 	}
 	
 	@Override

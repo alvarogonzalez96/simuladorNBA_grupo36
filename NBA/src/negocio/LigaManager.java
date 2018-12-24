@@ -1077,7 +1077,7 @@ public class LigaManager {
 	 * contPos[3] -> alapivots
 	 * contPos[4] -> pivots
 	 * */
-	private static Integer[] contarPosiciones(Equipo e, Integer[] contPos) {
+	public static Integer[] contarPosiciones(Equipo e, Integer[] contPos) {
 		for (Jugador j : e.jugadores) {
 			if(j.getPosicion().equals(Posicion.BASE)) {
 				contPos[0] = contPos[0] + 1;
