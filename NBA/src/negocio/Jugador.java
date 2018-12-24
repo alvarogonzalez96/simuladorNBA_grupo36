@@ -357,6 +357,14 @@ public class Jugador {
 		return ((double) (Math.round((this.getPuntosTemporada() + this.getAsistenciasTemporada() + this.getRebotesTemporada())*100))/100);
 		
 	}
+	
+	public int getSalario() {
+		return salario;
+	}
+	
+	public int getAnyosContratoRestantes() {
+		return anyosContratoRestantes;
+	}
 
 	@Override
 	public String toString() {

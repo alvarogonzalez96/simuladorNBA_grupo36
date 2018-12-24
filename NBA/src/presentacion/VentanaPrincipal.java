@@ -96,7 +96,7 @@ public class VentanaPrincipal extends JFrame {
 		
 //Panel TRASPASOS-------------------------------------------------------------------
 
-		JPanel trasPanel = new JPanel();
+		/*JPanel trasPanel = new JPanel();
 		trasPanel.setLayout(new GridLayout(3, 3));
 		JPanel trasArribaIzq = new JPanel(new FlowLayout());
 		JPanel trasArribaDcha = new JPanel(new FlowLayout());
@@ -104,6 +104,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel trasCentroDcha = new JPanel(new FlowLayout());
 		JPanel trasAbajoIzq = new JPanel(new GridLayout(3, 1));
 		JPanel trasAbajoDcha = new JPanel(new FlowLayout());
+		*/
 
 //Paneles Noticiario Principales, ordenados--------------------
 		
@@ -122,7 +123,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel finanzas = new PanelFinanzas();
 		tabbedPane.addTab("Finanzas", null, finanzas, null);
 		
-		JPanel traspasos = new JPanel();
+		JPanel traspasos = new PanelTraspasos();
 		tabbedPane.addTab("Traspasos", null, traspasos, null);
 		
 		JPanel agencialibre = new PanelAgenciaLibre();
@@ -189,7 +190,7 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		
-		//
+		/*
 		JComboBox comboJugadores = new JComboBox();
 		comboJugadores.setPreferredSize(new Dimension(300, 50));
 		comboJugadores.addItem("Alvaro");
@@ -235,7 +236,7 @@ public class VentanaPrincipal extends JFrame {
 		trasPanel.add(trasAbajoIzq);
 		trasPanel.add(trasAbajoDcha);
 		
-		traspasos.add(trasPanel);	
+		traspasos.add(trasPanel);	*/
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
 			@Override

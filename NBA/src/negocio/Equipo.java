@@ -267,6 +267,10 @@ public class Equipo {
 		jugadores.sort(ordenador);
 	}
 	
+	public ArrayList<Jugador> getJugadores(){
+		return jugadores;
+	}
+	
 	public int getVictorias() {
 		return victorias;
 	}
@@ -329,7 +333,7 @@ public class Equipo {
 			switch(columnIndex) {
 			case 0: return "Nombre";
 			case 1: return "Edad";
-			case 2: return "Años de contrato";
+			case 2: return "Aï¿½os de contrato";
 			case 3: return "Salario";
 			}
 			return null;
