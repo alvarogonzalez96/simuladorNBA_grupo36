@@ -33,11 +33,40 @@ public class Quinteto {
 			}
 		}
 		System.err.println("Error, no quedan jugadores con tiempo disponible");
+		cuentaPosiciones();
 		System.err.println(p);
 		return null;
 	}
 	
-	private Posicion elegirPosicion(int pos) {
+	void cuentaPosiciones() {
+		int[] pos = new int[5];
+		for(Jugador j: equipo.jugadores) {
+			switch(j.posicion) {
+			case BASE:
+				pos[0]++;
+				break;
+			case ESCOLTA:
+				pos[1]++;
+				break;
+			case ALERO:
+				pos[2]++;
+				break;
+			case ALAPIVOT:
+				pos[3]++;
+				break;
+			case PIVOT:
+				pos[4]++;
+				break;
+			}
+		}
+		System.out.println("BASES: "+pos[0]);
+		System.out.println("ESCOLTAS: "+pos[1]);
+		System.out.println("ALEROS: "+pos[2]);
+		System.out.println("ALAPIVOTS: "+pos[3]);
+		System.out.println("PIVOTS: "+pos[4]);
+	}
+	
+	protected static Posicion elegirPosicion(int pos) {
 		if(pos == 0) {
 			return Posicion.BASE;
 		} else if(pos == 1) {

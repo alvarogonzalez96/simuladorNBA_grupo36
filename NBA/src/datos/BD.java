@@ -1,8 +1,9 @@
 package datos;
 
 import java.sql.*;
+import java.util.ArrayList;
 
-import negocio.Usuario;
+import negocio.*;
 
 public class BD {
 
@@ -10,9 +11,9 @@ public class BD {
 	 * Clase desde la que se manejara la base de datos,
 	 * todas las consultas y conexiones se realizaran desde esta clase.
 	 * */
-	
+
 	static final String DIRECTORIO = "data/database.db";
-	
+
 	static {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -20,10 +21,10 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
-	
+
 	static Connection conexion;
 	static Statement st;
-	
+
 	/**
 	 * Metodo que se conecta con la base de datos.
 	 * @return true si la conexion se establece correctamente | false si hay algun problema
@@ -38,11 +39,35 @@ public class BD {
 			return false;
 		}
 	}
-	
+
+	public static ArrayList<Jugador> cargarJugadores() {
+		try {
+			int id = LigaManager.usuario.getID();
+			String s = "SELECT JUG.* FROM JUGADOR JUG, JUEGA"
+					+ "WHERE JUG.ID=JUEGA.ID_JUGADOR "
+					+ "AND JUEGA.ID_USUARIO="+id+";";
+			ResultSet rs = st.executeQuery(s);
+
+			ArrayList<Jugador> jugadores = new ArrayList<>();
+
+			while(rs.next()) {
+				Jugador j = new Jugador();
+				jugadores.add(j);
+			}
+
+			return jugadores;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	// Metodos de registro / login
+
 	/**
 	 * Metodo que registra un usuario nuevo en la BD.
-	 * @return int >= 0 si todo va bien (ese numero sera el id de usuario) | 
-	 * -1 si el nombre de usuario elegido ya existe | 
+	 * @return int >= 0 si todo va bien (ese numero sera el id de usuario) |
+	 * -1 si el nombre de usuario elegido ya existe |
 	 * -2 si ha habido algun otro tipo de error
 	 * */
 	public static int registrar(String username, String pass, int teamID) {
@@ -71,11 +96,11 @@ public class BD {
 			return -2;
 		}
 	}
-	
+
 	/**
 	 * Metodo para verificar la identidad del usuario.
-	 * @return 1 si los valores introducidos son correctos | 
-	 * -1 si los valores introductidos son incorrectos | 
+	 * @return 1 si los valores introducidos son correctos |
+	 * -1 si los valores introductidos son incorrectos |
 	 * -2 si se da algun error interno
 	 * */
 	public static int login(String username, String pass) {

@@ -21,8 +21,8 @@ public class PanelNoticiario extends PanelTab {
 		int i = 0;
 		for (String s : not) {
 			model.addElement(s);
-			System.out.println(s);
-			System.out.println(model.getElementAt(i));
+			//System.out.println(s);
+			//System.out.println(model.getElementAt(i));
 			i++;
 		}
 		

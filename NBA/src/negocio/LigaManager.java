@@ -32,6 +32,8 @@ public class LigaManager {
 		volver a empezar
 	 */
 	
+	static final int limiteJugadoresPorPosicionAgenciaLibre = 150;
+	
 	public static Usuario usuario;
 	
 	/* Lista en la que se guardara un objeto temporada por
@@ -382,27 +384,96 @@ public class LigaManager {
 		Equipo[] ordenDraft = new Equipo[30];
 		
 		Clasificacion general = clasificaciones.get("GENERAL");
-		//System.out.println();
-		//System.out.println("-----------------------------------------");
-		//System.out.println("PUESTO DE ELECCION DEL DRAFT:");
+		
 		for (int i = 0; i < ordenDraft.length; i++) {
 			ordenDraft[i] = general.get(i);
 			System.out.println("Puesto numero: " + (30-i) + ", " + ordenDraft[i].nombre);
 		}	
 		
-		draft = new ArrayList<Jugador>();
-		//System.out.println();
-		//System.out.println("JUGADORES QUE SE PRESENTAN AL DRAFT: ");
-		for (int i = 0; i < 70; i++) {
-			draft.add(crearJugadoresDraft());
-			//System.out.println(draft.get(i).getNombre() + ", o: " + draft.get(i).getOverall() + " p: " + draft.get(i).getPosicion());
-		}
-		asignarSalariosYContatosDraft();
+		draft = new ArrayList<>();
+		
+		//ajustar agencia libre
+		ajustarAgenciaLibre(); //en este metodo se crean los jugadores del draft
+		jugadores.addAll(draft);
+		
+		asignarSalariosYContratosDraft();
 		draft.sort(new OrdenadorJugadores());
 		elegirDraft(ordenDraft);
 		mandarAgenciaLibre();
 		PanelNoticiario.rellenarNoticiario(noticiasDraft);
 		fase++;
+	}
+	
+	/**
+	 * Para evitar la descompensacion entre las diferentes
+	 * posiciones a lo largo de las temporadas, hay que ajustar la agencia libre 
+	 * al final de cada temporada.
+	 * 
+	 * Ajustar la agencia libre significa hacer que de cada posicion haya 250 jugadores:
+	 *   - Si hay de mas: eliminando los peores
+	 *   - Si hay de menos: creando mas en el draft 
+	 * */
+	private static void ajustarAgenciaLibre() {
+		int[] contPos = contarPosicionesAgenciaLibre();
+		
+		//quitar los sobrantes
+		for(int i = 0; i < 5; i++) {
+			while(contPos[i] > limiteJugadoresPorPosicionAgenciaLibre) {
+				borrarPeorAgenciaLibre(Quinteto.elegirPosicion(i));
+				contPos[i]--;
+			}
+		}
+		
+		//crear jugadores nuevos de cada posicion para llegar al limite (draft)
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j < limiteJugadoresPorPosicionAgenciaLibre - contPos[i]; j++) {
+				draft.add(crearJugador(Quinteto.elegirPosicion(i)));
+			}
+		}
+	}
+	
+	private static void borrarPeorAgenciaLibre(Posicion p) {
+		Jugador peor = new Jugador();
+		peor.overall = 10000;
+		for(Jugador j: agentesLibres) {
+			if(j.posicion == p) {
+				if(j.overall < peor.overall) {
+					peor = j;
+				}
+			}
+		}
+		agentesLibres.remove(peor);
+	}
+	
+	private static int[] contarPosicionesAgenciaLibre() {
+		int[] c = new int[5];
+		for(Jugador j: agentesLibres) {
+			c[j.posicion.ordinal()]++;
+		}
+		return c;
+	}
+	
+	private static Jugador crearJugador(Posicion p) {
+		int rand;
+		Jugador a = new Jugador();
+		Jugador b = new Jugador();
+		
+		do {
+			rand = (int) (Math.random()*jugadores.size());
+			if(!jugadores.get(rand).equals(null)) {
+				a = jugadores.get(rand);
+			}
+		} while(a.posicion != p);
+		
+		do {
+			rand = (int) (Math.random()*jugadores.size());
+			if(!jugadores.get(rand).equals(null)) {
+				b = jugadores.get(rand);
+			}
+		} while(!a.getPosicion().equals(b.getPosicion()));
+		
+		Jugador c = new Jugador(a, b);
+		return c;
 	}
 	
 	/**
@@ -431,7 +502,7 @@ public class LigaManager {
 	/**
 	 * Asigna un salario y un contrato en funcion de la calidad del jugador del draft
 	 * */
-	private static void asignarSalariosYContatosDraft() {
+	private static void asignarSalariosYContratosDraft() {
 		int salario = 8000;
 		int i = 0;
 		for (Jugador j : draft) {
@@ -462,10 +533,10 @@ public class LigaManager {
 		do {
 			noticiasDraft.add("Ronda: " + j);
 			for (int i = 29; i >= 0; i--) {
-			Jugador jug = elegirMejorDisponible();
-			jug.setTid(orden[i].getTid());
-			noticiasDraft.add("El equipo: " + orden[i].getNombre() + ", elige a: " + jug.getNombre() + ", o: " + jug.getOverall());
-			orden[i].jugadores.add(jug);
+				Jugador jug = elegirMejorDisponible();
+				jug.setTid(orden[i].getTid());
+				noticiasDraft.add("El equipo: " + orden[i].getNombre() + ", elige a: " + jug.getNombre() + ", o: " + jug.getOverall());
+				orden[i].jugadores.add(jug);
 			}
 			j++;
 		} while(j <= 2);
@@ -475,14 +546,14 @@ public class LigaManager {
 	 * @return Jugador , el mejor disponible en el draft
 	 * */
 	private static Jugador elegirMejorDisponible() {
-		Jugador jugador = new Jugador();
+		Jugador mejor = new Jugador();
 		for (Jugador j : draft) {
-			if(jugador.overall < j.overall) {
-				jugador = j;
+			if(mejor.overall < j.overall) {
+				mejor = j;
 			}			
 		}
-		draft.remove(jugador);
-		return jugador;
+		draft.remove(mejor);
+		return mejor;
 	}
 
 	private static void mandarAgenciaLibre() {
@@ -500,8 +571,6 @@ public class LigaManager {
 	 * */
 	public static void jubilar() {
 		ArrayList<String> noticiasJubilados = new ArrayList<String>();
-		//System.out.println();
-		//System.out.println("-----------------------------------------");
 		noticiasJubilados.add("JUGADORES RETIRADOS: ");
 		double rand;
 		for (Equipo e : equipos) {
@@ -529,10 +598,9 @@ public class LigaManager {
 			}
 		}
 		
-		eliminarJugadores();
+		eliminarJugadores(); //borra de los arrays de cada equipo
 		actualizarSalarios();
 		
-		//System.out.println();
 		noticiasJubilados.add("RETIRADOS DE LA AGENCIA LIBRE: ");
 		for (Jugador j : agentesLibres) {
 			rand = Math.random();
@@ -544,8 +612,20 @@ public class LigaManager {
 				j.setTid(-2);
 			}
 		}
-		PanelNoticiario.rellenarNoticiario(noticiasJubilados);
 		
+		//eliminar de los arraylists jugadores y agentesLibres los jugadores retirados (tid == -2)
+		for(int i = jugadores.size()-1; i >= 0; i--) {
+			if(jugadores.get(i).getTid()==-2) {
+				jugadores.remove(i);
+			}
+		}
+		for(int i = agentesLibres.size()-1; i >= 0; i--) {
+			if(agentesLibres.get(i).getTid()==-2) {
+				agentesLibres.remove(i);
+			}
+		}
+		
+		PanelNoticiario.rellenarNoticiario(noticiasJubilados);
 	}
 	
 	private static void actualizarSalarios() {
@@ -562,14 +642,14 @@ public class LigaManager {
 		ArrayList<String> noticiasRenovaciones = new ArrayList<String>();
 		noticiasRenovaciones.add("");
 		double rand;
-		//System.out.println("-----------------------------------------");
+		
 		noticiasRenovaciones.add("RENOVACION DE JUGADORES:");
 		for(Equipo e: equipos) {
 			noticiasRenovaciones.add("");
 			noticiasRenovaciones.add("Renovaciones de " + e.getNombre());
 			for(Jugador j: e.jugadores) {
 				actualizarSalarios();
-				//noticiasRenovaciones.add((Equipo.limiteSalarial-e.salarioTotal) + "");
+				
 				if((Equipo.limiteSalarial - e.salarioTotal) > -45000) {
 					rand = Math.random();
 					if(j.anyosContratoRestantes == 0) {
@@ -667,9 +747,18 @@ public class LigaManager {
 					j.salario = 0;
 				}
 			}
-			System.out.println();
+			
+		}
+		
+		for(Equipo e: equipos) {
+			for(Jugador j: e.jugadores) {
+				if(j.getTid() == -1) {
+					agentesLibres.add(j);
+				}
+			}
 		}
 		eliminarJugadores();
+		
 		PanelNoticiario.rellenarNoticiario(noticiasRenovaciones);
 		fase++;
 	}
@@ -700,16 +789,15 @@ public class LigaManager {
 		noticiasAgenciaLibre = new ArrayList<String>();
 		agentesLibres.clear();
 		cargarAgentesLibres();
-		//System.out.println();
-		//System.out.println("-----------------------------------------");
+
 		noticiasAgenciaLibre.add("");
 		noticiasAgenciaLibre.add("AGENCIA LIBRE:");
-		//mostrarAgenciaLibre();
+		
 		for (Equipo e : clasificaciones.get("GENERAL").equipos) {
 			actualizarSalarios();
 			eleccionAgenciaLibre(e);
 		}
-		//PanelNoticiario.rellenarNoticiario(noticiasAgenciaLibre);
+
 		fase++;
 	}
 	
@@ -721,19 +809,19 @@ public class LigaManager {
 		noticiasAgenciaLibre.add("");
 		noticiasAgenciaLibre.add(equipo.getNombre() + ", espacio salarial: " + (Equipo.limiteSalarial - equipo.salarioTotal) + " $");
 		int contBase, contEscolta, contAlero, contAP, contPivot;
-		contBase = contEscolta = contAlero = contAP = contPivot = 2;
+		contBase = contEscolta = contAlero = contAP = contPivot = 0;
 		
 		for (Jugador j : equipo.jugadores) {
 			if (j.posicion.equals(Posicion.BASE)) {
-				contBase--;
+				contBase++;
 			} else if(j.posicion.equals(Posicion.ESCOLTA)) {
-				contEscolta--;
+				contEscolta++;
 			} else if(j.posicion.equals(Posicion.ALERO)) {
-				contAlero--;
+				contAlero++;
 			} else if(j.posicion.equals(Posicion.ALAPIVOT)) {
-				contAP--;
+				contAP++;
 			} else if(j.posicion.equals(Posicion.PIVOT)){
-				contPivot--;
+				contPivot++;
 			}
 		}
 		ArrayList<Jugador> fichados = new ArrayList<>();
@@ -755,26 +843,29 @@ public class LigaManager {
 		
 		for (Jugador jugador : fichados) {
 			agentesLibres.remove(jugador);
-			cargarAgentesLibres();
 		}
 		
 		if((equipo.salarioTotal+1000) < Equipo.limiteSalarial) {
-			while(contBase > 0 || contEscolta > 0 || contAlero > 0 || contAP > 0 || contPivot > 0 ) {
-				if(contBase > 0) {
+			while(contBase < 2 || contEscolta < 2 || contAlero < 2 || contAP < 2 || contPivot < 2) {
+				if((equipo.salarioTotal+1000) >= Equipo.limiteSalarial) {
+					ajustarPlantilla(contBase, contEscolta, contAlero, contAP, contPivot, equipo);
+					break;
+				}
+				if(contBase < 2) {
 					ficharAgenteLibre(equipo, Posicion.BASE);
-					contBase--;
-				} else if(contEscolta > 0) {
+					contBase++;
+				} else if(contEscolta < 2) {
 					ficharAgenteLibre(equipo, Posicion.ESCOLTA);
-					contEscolta--;
-				} else if(contAlero > 0) {
+					contEscolta++;
+				} else if(contAlero < 2) {
 					ficharAgenteLibre(equipo, Posicion.ALERO);
-					contAlero--;
-				} else if(contAP > 0) {
+					contAlero++;
+				} else if(contAP < 2) {
 					ficharAgenteLibre(equipo, Posicion.ALAPIVOT);
-					contAP--;
-				} else if(contPivot > 0) {
+					contAP++;
+				} else if(contPivot < 2) {
 					ficharAgenteLibre(equipo, Posicion.PIVOT);
-					contPivot--;
+					contPivot++;
 				}
 			}
 		} else {
@@ -789,46 +880,24 @@ public class LigaManager {
 	 * establecido en 1M $ por un unico anyo de contrato
 	 * */
 	private static void ajustarPlantilla(int contBase, int contEscolta, int contAlero, int contAP, int contPivot, Equipo equipo) {
-		while(contBase > 0 || contEscolta > 0 || contAlero > 0 || contAP > 0 || contPivot > 0) {
-			if(contBase > 0) {
+		while(contBase < 2 || contEscolta < 2 || contAlero < 2 || contAP < 2 || contPivot < 2) {
+			if(contBase < 2) {
 				ficharParaRellenar(equipo, Posicion.BASE);
-				contBase--;
-			} else if(contEscolta > 0) {
+				contBase++;
+			} else if(contEscolta < 2) {
 				ficharParaRellenar(equipo, Posicion.ESCOLTA);
-				contEscolta--;
-			} else if(contAlero > 0) {
+				contEscolta++;
+			} else if(contAlero < 2) {
 				ficharParaRellenar(equipo, Posicion.ALERO);
-				contAlero--;
-			} else if(contAP > 0) {
+				contAlero++;
+			} else if(contAP < 2) {
 				ficharParaRellenar(equipo, Posicion.ALAPIVOT);
-				contAP--;
-			} else if(contPivot > 0) {
+				contAP++;
+			} else if(contPivot < 2) {
 				ficharParaRellenar(equipo, Posicion.PIVOT);
-				contPivot--;
+				contPivot++;
 			}
 		}
-		/*
-		if(contBase > 0) {
-			System.err.println("BBBBBBB");
-			System.out.println(equipo.nombre);
-		}
-		if(contEscolta > 0) {
-			System.err.println("EEEEEE");
-			System.out.println(equipo.nombre);
-		}
-		if(contAlero > 0) {
-			System.err.println("AAAAAAAA");
-			System.out.println(equipo.nombre);
-		}
-		if(contAP > 0) {
-			System.err.println("APAPAPAPAP");
-			System.out.println(equipo.nombre);
-		}
-		if(contPivot > 0) {
-			System.err.println("PPPPPPP");
-			System.out.println(equipo.nombre);
-		}
-		*/
 	}
 	
 	/**
@@ -857,7 +926,7 @@ public class LigaManager {
 		}
 		//si se llega aqui, fichar si o si
 		for(Jugador j: agentesLibres) {
-			if(j.getPosicion().equals(p) && j.overall <= 60) {
+			if(j.getPosicion().equals(p) && j.overall <= 70) {
 				anyosDeContrato = (int) (Math.random()*5)+1;
 				j.setTid(equipo.getTid());
 				j.salario = 1000;
@@ -899,24 +968,48 @@ public class LigaManager {
 
 	
 	private static void ficharParaRellenar(Equipo equipo, Posicion p) {
-		int contador = 0;
 		int overall = 59;
-		while(contador == 0) {
-			overall++;
+		boolean fichado = false;
+		Jugador peor = new Jugador();
+		peor.overall = 1000;
+		
+		for(int i = 0; i < 100-overall; i++) {
 			for (Jugador jugador : agentesLibres) {
-				if(jugador.getPosicion().equals(p) && jugador.getOverall() <= overall) {
-					jugador.setTid(equipo.getTid());
-					jugador.salario = 1000;
-					jugador.anyosContratoRestantes = 1;
-					noticiasAgenciaLibre.add("Fichado: " + jugador.nombre + ", por: " + jugador.salario + ", durante: " + jugador.anyosContratoRestantes + ", o: " + jugador.getOverall() + ", valoracion: " + jugador.getValoracion() + ", tid: " +jugador.getTid());
-					equipo.jugadores.add(jugador);
-					actualizarSalarios();
-					agentesLibres.clear();
-					cargarAgentesLibres();
-					contador++;
-					break;
+				if(jugador.getPosicion() == p) {
+					if(jugador.getOverall() <= overall+i) {
+						if (p == Posicion.PIVOT)  System.out.println(equipo.getNombre()+" ficha relleno de pivot");
+						jugador.setTid(equipo.getTid());
+						jugador.salario = 1000;
+						jugador.anyosContratoRestantes = 1;
+						noticiasAgenciaLibre.add("Fichado: " + jugador.nombre + ", por: " + jugador.salario + ", durante: " + jugador.anyosContratoRestantes + ", o: " + jugador.getOverall() + ", valoracion: " + jugador.getValoracion() + ", tid: " +jugador.getTid());
+						equipo.jugadores.add(jugador);
+						actualizarSalarios();
+						agentesLibres.clear();
+						cargarAgentesLibres();
+						fichado = true;
+						break;
+					}
+					if(peor.getOverall() > jugador.getOverall()) {
+						peor = jugador;
+					}
 				}
 			}
+			if(fichado) {
+				break;
+			}
+		}
+		
+		//si se llega aqui y no se ha fichado, fichar si o si
+		if(!fichado) {
+			Jugador jugador = peor;
+			jugador.setTid(equipo.getTid());
+			jugador.salario = 1000;
+			jugador.anyosContratoRestantes = 1;
+			noticiasAgenciaLibre.add("Fichado: " + jugador.nombre + ", por: " + jugador.salario + ", durante: " + jugador.anyosContratoRestantes + ", o: " + jugador.getOverall() + ", valoracion: " + jugador.getValoracion() + ", tid: " +jugador.getTid());
+			equipo.jugadores.add(jugador);
+			actualizarSalarios();
+			agentesLibres.clear();
+			cargarAgentesLibres();
 		}
 	}
 	
@@ -949,11 +1042,14 @@ public class LigaManager {
 	 * agencia libre
 	 * */
 	private static void cortarJugador(Equipo e, int maxJugadores) {
+		if(noticiasAgenciaLibre == null) {
+			noticiasAgenciaLibre = new ArrayList<>();
+		}
 		ArrayList<Jugador> jugadoresBorrar = new ArrayList<Jugador>();
 		while(maxJugadores > 15) {
 			actualizarRoles();
 			for (Jugador j : e.jugadores) {
-				if(j.getRol().equals(Rol.NOJUEGA) && maxJugadores > 15) {
+				if(j.getRol().equals(Rol.NOJUEGA)) {
 					j.setTid(-1);
 					j.anyosContratoRestantes = 0;
 					j.salario = 0;
@@ -967,6 +1063,7 @@ public class LigaManager {
 
 			for (Jugador jugador : jugadoresBorrar) {
 				e.jugadores.remove(jugador);
+				agentesLibres.add(jugador);
 			}
 		}
 	}
