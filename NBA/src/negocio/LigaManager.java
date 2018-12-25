@@ -1255,6 +1255,47 @@ public class LigaManager {
 		}
 	}
 	
+	/**
+	 * c:
+	 * 	0 -> puntos
+	 * 	1 -> rebotes
+	 * 	2 -> asistencias
+	 * */
+	public static Jugador[] getMejoresEn(int c) {
+		ArrayList<Jugador> jugs = new ArrayList<>();
+		
+		for(int i = 0; i < 5; i++) {
+			Jugador max = new Jugador();
+			for(Jugador j: jugadores) {
+				if(j.tid >= 0 && !jugs.contains(j)) { //esta jugando
+					if(c == 0) {
+						//puntos
+						if(j.puntosTemporada > max.puntosTemporada) {
+							max = j;
+						}
+					} else if(c == 1) {
+						//rebotes
+						if(j.rebotesTemporada > max.rebotesTemporada) {
+							max = j;
+						}
+					} else {
+						//asistencias
+						if(j.asistenciasTemporada > max.asistenciasTemporada) {
+							max = j;
+						}
+					}
+				}
+			}
+			jugs.add(max);
+		}
+		
+		Jugador[] j = new Jugador[5];
+		for(int i = 0; i < 5; i++) {
+			j[i] = jugs.get(i);
+		}
+		return j;
+	}
+	
 	public static void main(String[] args) {
 		Usuario u = new Usuario("prueba", 0, 9);
 		inicializar(true, u);

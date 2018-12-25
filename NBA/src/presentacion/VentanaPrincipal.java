@@ -32,6 +32,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	PanelHome home;
 	PanelHistorial historialLiga;
+	PanelLideres lideres;
 	
 	public VentanaPrincipal() {
 		LigaManager.inicializar(true, new Usuario("Pedro", 18, 0));
@@ -84,7 +85,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel clasificacion = new PanelClasificacion();
 		tabbedPane.addTab("Clasificacion", null, clasificacion, null);
 
-		JPanel lideres = new JPanel();
+		lideres = new PanelLideres();
 		tabbedPane.addTab("Lideres de la liga", null, lideres, null);
 		
 		JPanel noticiario = new PanelNoticiario();
@@ -104,12 +105,14 @@ public class VentanaPrincipal extends JFrame {
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
 			@Override
-			public void stateChanged(ChangeEvent e) {
+			public void stateChanged(ChangeEvent e) {				
 				if(tabbedPane.getSelectedIndex() == 0) {
 					//se ha seleccionado la pestanya Home 
 					home.seleccionado();
 				} else if(tabbedPane.getSelectedIndex() == 6) {
 					historialLiga.seleccionado();
+				} else if(tabbedPane.getSelectedIndex() == 8) {
+					lideres.seleccionado();
 				}
 			}
 		});
