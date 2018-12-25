@@ -193,8 +193,6 @@ public class PanelTraspasos extends PanelTab{
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Jugador> borrar = new ArrayList<>();
 				if(jugadoresOfreceUsuario.size() > 0 && jugadoresOfreceLiga.size() > 0) {
-					JOptionPane.showConfirmDialog(null, "Traspaso completado");
-					
 					for (Jugador j : jugadoresOfreceUsuario) {
 						j.setTid(equipoSeleccionado.getTid());
 						borrar.add(j);
