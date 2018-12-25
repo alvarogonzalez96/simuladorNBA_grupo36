@@ -34,7 +34,7 @@ public class VentanaPrincipal extends JFrame {
 	PanelHistorial historialLiga;
 	
 	public VentanaPrincipal() {
-		LigaManager.inicializar(true, new Usuario("Pedro", 18, 1));
+		LigaManager.inicializar(true, new Usuario("Pedro", 18, 0));
 		//Nimbus Look&Feel
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {

@@ -143,7 +143,7 @@ public class Equipo {
 		return tid;
 	}
 	
-	protected void asignarRoles() {
+	public void asignarRoles() {
 		for(Jugador j: jugadores) {
 			j.rol = null;
 		}
