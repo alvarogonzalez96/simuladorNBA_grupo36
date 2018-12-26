@@ -66,11 +66,13 @@ public class PanelTraspasos extends PanelTab{
 	
 	private void initComboBox() {
 		comboJugadoresUsuario = new JComboBox<String>();
+		comboJugadoresUsuario.addItem("Elige un jugador");
 		for (Jugador j : equipoUsuario.getJugadores()) {
 			comboJugadoresUsuario.addItem(j.getNombre());
 		}
 		
 		comboEquiposLiga = new JComboBox<String>();
+		comboEquiposLiga.addItem("Elige un equipo");
 		for (Equipo e : equipos) {
 			if(!e.equals(equipoUsuario)) {
 				comboEquiposLiga.addItem(e.getNombre());
@@ -160,10 +162,15 @@ public class PanelTraspasos extends PanelTab{
 		comboEquiposLiga.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				boolean match = false;
 				for (Equipo equipo : equipos) {
 					if(equipo.getNombre().equals(comboEquiposLiga.getSelectedItem())) {
 						equipoSeleccionado = equipo;
+						match = true;
 					}
+				}
+				if(!match) {
+					equipoSeleccionado = null;
 				}
 			}
 		});	
@@ -172,8 +179,12 @@ public class PanelTraspasos extends PanelTab{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jugadoresOfreceLiga.clear();
-				calcularOferta();
-				actualizarTablaLiga();		
+				if(!jugadoresOfreceUsuario.isEmpty() && equipoSeleccionado != null) {
+					calcularOferta();
+					actualizarTablaLiga();		
+				} else {
+					JOptionPane.showConfirmDialog(null, "Faltan jugadores para completar el traspaso");
+				}
 			}
 		});
 		
