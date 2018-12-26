@@ -1070,7 +1070,9 @@ public class LigaManager {
 
 			for (Jugador jugador : jugadoresBorrar) {
 				e.jugadores.remove(jugador);
-				agentesLibres.add(jugador);
+				if(!agentesLibres.contains(jugador)) {
+					agentesLibres.add(jugador);
+				}
 			}
 		}
 	}
@@ -1349,6 +1351,7 @@ public class LigaManager {
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
+			LigaManager.agentesLibres.sort(new OrdenadorAgenciaLibre());
 			Jugador j = agentesLibres.get(rowIndex);
 			switch(columnIndex) {
 			case 0: return j.nombre;
@@ -1368,7 +1371,9 @@ public class LigaManager {
 		public void removeTableModelListener(TableModelListener l) {}
 
 		@Override
-		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+			System.out.println("hey");
+		}
 		
 	}
 

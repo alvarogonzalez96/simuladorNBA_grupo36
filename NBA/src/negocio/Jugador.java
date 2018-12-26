@@ -380,7 +380,7 @@ public class Jugador {
 
 
 
-class OrdenadorJugadores implements Comparator<Jugador>{
+class OrdenadorJugadores implements Comparator<Jugador> {
 
 	@Override
 	public int compare(Jugador a, Jugador b) {
@@ -397,6 +397,17 @@ class OrdenadorJugadores implements Comparator<Jugador>{
 			} else {
 				return 1;
 			}
+		}
+	}
+}
+
+class OrdenadorAgenciaLibre implements Comparator<Jugador> {
+	@Override
+	public int compare(Jugador a, Jugador b) {
+		if(a.posicion == b.posicion) {
+			return b.overall-a.overall;
+		} else {
+			return a.posicion.ordinal()-b.posicion.ordinal();
 		}
 	}
 }
