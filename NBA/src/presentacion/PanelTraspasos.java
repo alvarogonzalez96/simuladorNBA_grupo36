@@ -204,52 +204,99 @@ public class PanelTraspasos extends PanelTab{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Jugador> borrar = new ArrayList<>();
 				if(jugadoresOfreceUsuario.size() > 0 && jugadoresOfreceLiga.size() > 0) {
-					for (Jugador j : jugadoresOfreceUsuario) {
-						j.setTid(equipoSeleccionado.getTid());
-						borrar.add(j);
+					recontarPosiciones();
+					if(contadorUsuario[0] >= 2 && contadorUsuario[1] >= 2 && contadorUsuario[2] >= 2 && contadorUsuario[3] >= 2 && contadorUsuario[4] >= 2) {
+						traspasarJugadores();
+					} else {
+						JOptionPane.showConfirmDialog(null, "No tienes suficientes jugadores cubriendo todas las posiciones");
 					}
-
-					for (Jugador j : borrar) {
-						if(equipoUsuario.getJugadores().contains(j)) {
-							equipoUsuario.getJugadores().remove(j);
-							jugadoresOfreceUsuario.remove(j);
-							equipoSeleccionado.getJugadores().add(j);
-						}
-					}
-
-					borrar.clear();
-
-					for (Jugador j : jugadoresOfreceLiga) {
-						j.setTid(equipoUsuario.getTid());
-						borrar.add(j);
-					}
-
-					for (Jugador j : borrar) {
-						if(equipoSeleccionado.getJugadores().contains(j)) {
-							equipoSeleccionado.getJugadores().remove(j);
-							jugadoresOfreceLiga.remove(j);
-							equipoUsuario.getJugadores().add(j);
-						}
-					}
-					equipoUsuario.ordenarJugadores();
-					equipoUsuario.asignarRoles();
-					equipoSeleccionado.ordenarJugadores();
-					equipoSeleccionado.asignarRoles();
-					
-					actualizarCombo();
-					
-					JOptionPane.showConfirmDialog(null, "Traspaso completado");
-
 				} else {
-					JOptionPane.showConfirmDialog(null, "Faltan jugadores para completar el traspaso");
+					JOptionPane.showConfirmDialog(null, "Faltan jugadores para completar el traspaso");	
 				}
-
+				resetearContadores();
 			}
 		});
 	}
+	
+	private void resetearContadores() {
+		for (int i = 0; i < contadorLiga.length; i++) {
+			contadorUsuario[i] = 0;
+		}
+		
+		contadorUsuario = LigaManager.contarPosiciones(equipoUsuario, contadorUsuario);
+	}
+	
+	private void recontarPosiciones() {
+		for (Jugador j : jugadoresOfreceUsuario) {
+			if(j.getPosicion().equals(Posicion.BASE)) {
+				contadorUsuario[0]--;
+			} else if(j.getPosicion().equals(Posicion.ESCOLTA)) {
+				contadorUsuario[1]--;
+			} else if(j.getPosicion().equals(Posicion.ALERO)) {
+				contadorUsuario[2]--;
+			} else if(j.getPosicion().equals(Posicion.ALAPIVOT)) {
+				contadorUsuario[3]--;
+			} else if(j.getPosicion().equals(Posicion.PIVOT)) {
+				contadorUsuario[4]--;
+			}
+		}
+		
+		for (Jugador j : jugadoresOfreceLiga) {
+			if(j.getPosicion().equals(Posicion.BASE)) {
+				contadorUsuario[0]++;
+			} else if(j.getPosicion().equals(Posicion.ESCOLTA)) {
+				contadorUsuario[1]++;
+			} else if(j.getPosicion().equals(Posicion.ALERO)) {
+				contadorUsuario[2]++;
+			} else if(j.getPosicion().equals(Posicion.ALAPIVOT)) {
+				contadorUsuario[3]++;
+			} else if(j.getPosicion().equals(Posicion.PIVOT)) {
+				contadorUsuario[4]++;
+			}
+		}
+	}
+	
+	private void traspasarJugadores() {
+		ArrayList<Jugador> borrar = new ArrayList<>();
+		for (Jugador j : jugadoresOfreceUsuario) {
+			j.setTid(equipoSeleccionado.getTid());
+			borrar.add(j);
+		}
 
+		for (Jugador j : borrar) {
+			if(equipoUsuario.getJugadores().contains(j)) {
+				equipoUsuario.getJugadores().remove(j);
+				jugadoresOfreceUsuario.remove(j);
+				equipoSeleccionado.getJugadores().add(j);
+			}
+		}
+
+		borrar.clear();
+
+		for (Jugador j : jugadoresOfreceLiga) {
+			j.setTid(equipoUsuario.getTid());
+			borrar.add(j);
+		}
+
+		for (Jugador j : borrar) {
+			if(equipoSeleccionado.getJugadores().contains(j)) {
+				equipoSeleccionado.getJugadores().remove(j);
+				jugadoresOfreceLiga.remove(j);
+				equipoUsuario.getJugadores().add(j);
+			}
+		}
+		equipoUsuario.ordenarJugadores();
+		equipoUsuario.asignarRoles();
+		equipoSeleccionado.ordenarJugadores();
+		equipoSeleccionado.asignarRoles();
+		
+		actualizarCombo();
+		
+		JOptionPane.showConfirmDialog(null, "Traspaso completado");
+
+	}
+	
 	public static void actualizarCombo() {
 		comboJugadoresUsuario.removeAllItems();
 		equipoUsuario = LigaManager.usuario.getEquipo();
@@ -386,7 +433,7 @@ public class PanelTraspasos extends PanelTab{
 
 		@Override
 		public int getColumnCount() {
-			return 6;
+			return 7;
 		}
 
 		@Override
@@ -394,10 +441,11 @@ public class PanelTraspasos extends PanelTab{
 			switch(columnIndex) {
 			case 0: return "Nombre";
 			case 1: return "Posicion";
-			case 2: return "Overall";
-			case 3: return "Salario";
-			case 4: return "Anyos de Contrato";
-			case 5: return "Valoracion";
+			case 2: return "Edad";
+			case 3: return "Overall";
+			case 4: return "Salario";
+			case 5: return "Anyos de Contrato";
+			case 6: return "Valoracion";
 			}
 			return null;
 		}
@@ -412,11 +460,12 @@ public class PanelTraspasos extends PanelTab{
 			Jugador j = jugadoresOfreceUsuario.get(rowIndex);
 			switch(columnIndex) {
 			case 0: return j.getNombre();
-			case 1: return j.getEdad();
-			case 2: return j.getOverall();
-			case 3: return j.getSalario();
-			case 4: return j.getAnyosContratoRestantes();
-			case 5: return j.getValoracion();
+			case 1: return j.getPosicion();
+			case 2: return j.getEdad();
+			case 3: return j.getOverall();
+			case 4: return j.getSalario();
+			case 5: return j.getAnyosContratoRestantes();
+			case 6: return j.getValoracion();
 			}
 			return null;
 		}
@@ -444,7 +493,7 @@ public class PanelTraspasos extends PanelTab{
 
 		@Override
 		public int getColumnCount() {
-			return 6;
+			return 7;
 		}
 
 		@Override
@@ -452,10 +501,11 @@ public class PanelTraspasos extends PanelTab{
 			switch(columnIndex) {
 			case 0: return "Nombre";
 			case 1: return "Posicion";
-			case 2: return "Overall";
-			case 3: return "Salario";
-			case 4: return "Anyos de Contrato";
-			case 5: return "Valoracion";
+			case 2: return "Edad";
+			case 3: return "Overall";
+			case 4: return "Salario";
+			case 5: return "Anyos de Contrato";
+			case 6: return "Valoracion";
 			}
 			return null;
 		}
@@ -470,11 +520,12 @@ public class PanelTraspasos extends PanelTab{
 			Jugador j = jugadoresOfreceLiga.get(rowIndex);
 			switch(columnIndex) {
 			case 0: return j.getNombre();
-			case 1: return j.getEdad();
-			case 2: return j.getOverall();
-			case 3: return j.getSalario();
-			case 4: return j.getAnyosContratoRestantes();
-			case 5: return j.getValoracion();
+			case 1: return j.getPosicion();
+			case 2: return j.getEdad();
+			case 3: return j.getOverall();
+			case 4: return j.getSalario();
+			case 5: return j.getAnyosContratoRestantes();
+			case 6: return j.getValoracion();
 			}
 			return null;
 		}
