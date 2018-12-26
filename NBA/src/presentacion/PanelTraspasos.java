@@ -57,6 +57,7 @@ public class PanelTraspasos extends PanelTab{
 		
 		jugadoresOfreceUsuario = new ArrayList<Jugador>();
 		jugadoresOfreceLiga = new ArrayList<Jugador>();
+		equipoSeleccionadoPorDefecto();
 		
 		initComboBox();
 		initBotones();
@@ -64,13 +65,21 @@ public class PanelTraspasos extends PanelTab{
 		anyadirPaneles();
 	}
 	
+	private void equipoSeleccionadoPorDefecto() {
+		ArrayList<Jugador> auxiliar = new ArrayList<Jugador>();
+		auxiliar.add(new Jugador());
+		equipoSeleccionado = new Equipo(-8, auxiliar);
+	}
+	
 	private void initComboBox() {
 		comboJugadoresUsuario = new JComboBox<String>();
+		comboJugadoresUsuario.addItem("Elige un jugador");
 		for (Jugador j : equipoUsuario.getJugadores()) {
 			comboJugadoresUsuario.addItem(j.getNombre());
 		}
-		
+	
 		comboEquiposLiga = new JComboBox<String>();
+		comboEquiposLiga.addItem("Elige un equipo");
 		for (Equipo e : equipos) {
 			if(!e.equals(equipoUsuario)) {
 				comboEquiposLiga.addItem(e.getNombre());
@@ -163,7 +172,7 @@ public class PanelTraspasos extends PanelTab{
 				for (Equipo equipo : equipos) {
 					if(equipo.getNombre().equals(comboEquiposLiga.getSelectedItem())) {
 						equipoSeleccionado = equipo;
-					}
+					} 
 				}
 			}
 		});	
@@ -171,9 +180,13 @@ public class PanelTraspasos extends PanelTab{
 		buscarOferta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				jugadoresOfreceLiga.clear();
-				calcularOferta();
-				actualizarTablaLiga();		
+				if(equipoSeleccionado.getTid() != -8) {
+					jugadoresOfreceLiga.clear();
+					calcularOferta();
+					actualizarTablaLiga();	
+				} else {
+					JOptionPane.showConfirmDialog(null, "Elige un equipo al que ofrecer el traspaso");
+				}
 			}
 		});
 		
@@ -241,6 +254,7 @@ public class PanelTraspasos extends PanelTab{
 		comboJugadoresUsuario.removeAllItems();
 		equipoUsuario = LigaManager.usuario.getEquipo();
 		
+		comboJugadoresUsuario.addItem("Elige un jugador");
 		for (Jugador j : equipoUsuario.getJugadores()) {
 			comboJugadoresUsuario.addItem(j.getNombre());
 		}
@@ -286,34 +300,33 @@ public class PanelTraspasos extends PanelTab{
 			ArrayList<Jugador> jug = new ArrayList<>();
 			jug.add(j);
 			dineroDisponibleLiga = calcularDineroDisponible(equipoSeleccionado, jug);
-			if(((j.getSalario() > salarioOfrecido - 3000 && j.getSalario() < salarioOfrecido + 3000) || (dineroDisponibleLiga + salarioOfrecido >= 0 && (dineroDisponibleUsuario + j.getSalario()) >= 0))) {
-				System.out.println("Los salarios cuadran");
-				System.out.println(overallTotal);
-				System.out.println(j.getOverall());
-				if(((j.getOverall() > overallTotal - 5) && (j.getOverall() < overallTotal + 5))) {
-					//El jugador elegido tiene un overall en torno al overall ofrecido
-					if(j.getPosicion().equals(Posicion.BASE) && contadorLiga[0] >= 2) {
-						//Es base y no hay carencia de bases
-						jugadoresOfreceLiga.add(j);	
-						break;
-					} else if(j.getPosicion().equals(Posicion.ESCOLTA) && contadorLiga[1] >= 2) {
-						//Es escolta y no hay carencia de escoltas
-						jugadoresOfreceLiga.add(j);
-						break;
-					} else if(j.getPosicion().equals(Posicion.ALERO) && contadorLiga[2] >= 2) {
-						//Es alero y no hay carencia de aleros
-						jugadoresOfreceLiga.add(j);
-						break;
-					} else if(j.getPosicion().equals(Posicion.ALAPIVOT) && contadorLiga[3] >= 2) {
-						//Es alapivot y no hay carencia de alapivots
-						jugadoresOfreceLiga.add(j);
-						break;
-					} else if(j.getPosicion().equals(Posicion.PIVOT) && contadorLiga[4] >= 2) {
-						//Es pivot y no hay carencia de pivots
-						jugadoresOfreceLiga.add(j);
-						break;
-					}
-				} 
+			if((j.getSalario() > salarioOfrecido - 3000 && j.getSalario() < salarioOfrecido + 3000)) {
+				if((dineroDisponibleLiga + salarioOfrecido >= 0 && (dineroDisponibleUsuario + j.getSalario()) >= 0)) {
+					if(((j.getOverall() > overallTotal - 3) && (j.getOverall() < overallTotal + 3))) {
+						//El jugador elegido tiene un overall en torno al overall ofrecido
+						if(j.getPosicion().equals(Posicion.BASE) && contadorLiga[0] >= 2) {
+							//Es base y no hay carencia de bases
+							jugadoresOfreceLiga.add(j);	
+							break;
+						} else if(j.getPosicion().equals(Posicion.ESCOLTA) && contadorLiga[1] >= 2) {
+							//Es escolta y no hay carencia de escoltas
+							jugadoresOfreceLiga.add(j);
+							break;
+						} else if(j.getPosicion().equals(Posicion.ALERO) && contadorLiga[2] >= 2) {
+							//Es alero y no hay carencia de aleros
+							jugadoresOfreceLiga.add(j);
+							break;
+						} else if(j.getPosicion().equals(Posicion.ALAPIVOT) && contadorLiga[3] >= 2) {
+							//Es alapivot y no hay carencia de alapivots
+							jugadoresOfreceLiga.add(j);
+							break;
+						} else if(j.getPosicion().equals(Posicion.PIVOT) && contadorLiga[4] >= 2) {
+							//Es pivot y no hay carencia de pivots
+							jugadoresOfreceLiga.add(j);
+							break;
+						}
+					} 
+				}
 			}
 		}
 		if(jugadoresOfreceLiga.size() == 0) {
