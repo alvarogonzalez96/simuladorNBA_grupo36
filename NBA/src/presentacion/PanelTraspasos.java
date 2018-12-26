@@ -21,12 +21,12 @@ public class PanelTraspasos extends PanelTab{
 	
 	private Equipo[] equipos;
 	private Equipo equipoSeleccionado;
-	private Equipo equipoUsuario;
+	private static Equipo equipoUsuario;
 	
 	private ArrayList<Jugador> jugadoresOfreceUsuario;
 	private ArrayList<Jugador> jugadoresOfreceLiga;
 	
-	private JComboBox<String> comboJugadoresUsuario; //Jugadores del equipo que utiliza el usuario
+	private static JComboBox<String> comboJugadoresUsuario; //Jugadores del equipo que utiliza el usuario
 	private JComboBox<String> comboEquiposLiga; //Equipos de la liga (exceptuando el del usuario)
 	
 	private JButton aceptarOferta;
@@ -225,12 +225,7 @@ public class PanelTraspasos extends PanelTab{
 					equipoSeleccionado.ordenarJugadores();
 					equipoSeleccionado.asignarRoles();
 					
-					comboJugadoresUsuario.removeAllItems();
-					equipoUsuario = LigaManager.usuario.getEquipo();
-					
-					for (Jugador j : equipoUsuario.getJugadores()) {
-						comboJugadoresUsuario.addItem(j.getNombre());
-					}
+					actualizarCombo();
 					
 					JOptionPane.showConfirmDialog(null, "Traspaso completado");
 
@@ -242,6 +237,15 @@ public class PanelTraspasos extends PanelTab{
 		});
 	}
 
+	public static void actualizarCombo() {
+		comboJugadoresUsuario.removeAllItems();
+		equipoUsuario = LigaManager.usuario.getEquipo();
+		
+		for (Jugador j : equipoUsuario.getJugadores()) {
+			comboJugadoresUsuario.addItem(j.getNombre());
+		}
+	}
+	
 	private void actualizarTablaUsuario() {
 		modeloJugadoresUsuario = null;
 		tablaUsuario.setModel(getModeloUsuario());

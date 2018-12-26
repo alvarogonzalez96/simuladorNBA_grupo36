@@ -17,6 +17,7 @@ import datos.ParseadorJSON;
 import negocio.Equipo.ModeloFinanzasEquipo;
 import negocio.Equipo.ModeloTablaEquipo;
 import presentacion.PanelNoticiario;
+import presentacion.PanelTraspasos;
 
 public class LigaManager {
 
@@ -1233,6 +1234,8 @@ public class LigaManager {
 		recienCreada = false;
 		diaActual = Calendario.PRIMER_DIA;
 		calendario.diaActual = Calendario.PRIMER_DIA;
+		
+		PanelTraspasos.actualizarCombo();
 		
 		temporadasPasadas.put(anyo, new Temporada());
 	}
