@@ -11,8 +11,6 @@ import java.awt.*;
 
 import java.awt.event.*;
 
-import negocio.Liga;
-
 public class PanelPlantilla extends PanelTab {
 
 	/**
@@ -41,6 +39,17 @@ public class PanelPlantilla extends PanelTab {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				actualizarEquipo();
+			}
+		});
+		
+		tabla.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Point p = e.getPoint();
+				int row = tabla.rowAtPoint(p);
+				if(e.getClickCount() >= 2 && tabla.getSelectedRow() != -1) {
+					new VentanaJugador(LigaManager.getJugadorConNombre((String) tabla.getValueAt(row, 0)));
+				}
 			}
 		});
 	}
@@ -74,6 +83,7 @@ public class PanelPlantilla extends PanelTab {
 		scrollTabla = new JScrollPane(tabla);
 		tabla.setModel(equipos[0].getTableModel());
 		tabla.getColumnModel().getColumn(0).setMinWidth(200);
+		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollTabla.getViewport().setBackground(Color.WHITE);
 		
 		panelSeleccion.add(label);

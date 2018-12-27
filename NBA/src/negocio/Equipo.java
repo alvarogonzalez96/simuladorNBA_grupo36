@@ -113,10 +113,12 @@ public class Equipo {
 		}
 	}
 	
-	public void calcSalarioTotal() {
+	public int calcSalarioTotal() {
+		salarioTotal = 0;
 		for(Jugador j: jugadores) {
 			salarioTotal += j.salario;
 		}
+		return salarioTotal;
 	}
 	
 	public String getNombre() {

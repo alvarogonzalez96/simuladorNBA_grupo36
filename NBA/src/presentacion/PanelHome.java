@@ -107,7 +107,7 @@ public class PanelHome extends PanelTab {
 				for(int i = 0; i < 30; i++) {
 					LigaManager.simularDia();
 					if(LigaManager.fase == 1) {
-						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pesta�a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestanya de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						botonDia.setEnabled(false);
 						botonSem.setEnabled(false);
 						botonMes.setEnabled(false);
@@ -124,6 +124,17 @@ public class PanelHome extends PanelTab {
 				repaint();
 			}
 		});
+		
+		tabla.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Point p = e.getPoint();
+				int row = tabla.rowAtPoint(p);
+				if(e.getClickCount() >= 2 && tabla.getSelectedRow() != -1) {
+					new VentanaJugador(LigaManager.getJugadorConNombre((String) tabla.getValueAt(row, 0)));
+				}
+			}
+		});
 	}
 	
 	private void initPlantilla() {
@@ -133,6 +144,7 @@ public class PanelHome extends PanelTab {
 		tabla.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 20));
 		tabla.setFillsViewportHeight(true);
 		tabla.setRowHeight(60);
+		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		sp = new JScrollPane(tabla);
 		sp.setPreferredSize(new Dimension(1000,100));
 		panelDerAbajo.add(sp, BorderLayout.CENTER);

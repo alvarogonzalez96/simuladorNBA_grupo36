@@ -22,15 +22,15 @@ public class Jugador {
 	protected int overall;
 	
 	//atributos variables (de cada temporada)
-	protected Rol rol;
+	public Rol rol;
 	int tid;
 	protected int puntosTemporada; //puntos anotados en la temporada actual
 	protected int asistenciasTemporada;//asistencias que lleva en la temporada actual
 	protected int rebotesTemporada;//rebotes que lleva en la temporada actual
 	public int partidosJugadosTemporada; //numero de partidos jugados en la temporada actual
 	
-	protected int salario;
-	protected int anyosContratoRestantes;
+	public int salario;
+	public int anyosContratoRestantes;
 	
 	protected double valoracion;
 	
@@ -78,7 +78,9 @@ public class Jugador {
 		if(a.posicion != b.posicion) {
 			System.err.println("Error en el constructor de jugador.");
 		}
-		this.nombre = GeneradorNombres.getNombreCompleto();
+		do { //evitar que haya dos jugadores con el mismo nombre
+			this.nombre = GeneradorNombres.getNombreCompleto();
+		} while(LigaManager.getJugadorConNombre(this.nombre) != null);
 		this.posicion = a.posicion;
 		int rand = 18 + (int)(Math.random()*3);
 		this.anyoNac = LigaManager.anyo - rand; 

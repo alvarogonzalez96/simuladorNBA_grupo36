@@ -635,7 +635,7 @@ public class LigaManager {
 		PanelNoticiario.rellenarNoticiario(noticiasJubilados);
 	}
 	
-	private static void actualizarSalarios() {
+	public static void actualizarSalarios() {
 		for (Equipo e : equipos) {
 			e.salarioTotal = 0;
 			e.calcSalarioTotal();
@@ -984,7 +984,6 @@ public class LigaManager {
 			for (Jugador jugador : agentesLibres) {
 				if(jugador.getPosicion() == p) {
 					if(jugador.getOverall() <= overall+i) {
-						if (p == Posicion.PIVOT)  System.out.println(equipo.getNombre()+" ficha relleno de pivot");
 						jugador.setTid(equipo.getTid());
 						jugador.salario = 1000;
 						jugador.anyosContratoRestantes = 1;
@@ -1258,6 +1257,15 @@ public class LigaManager {
 		for(Equipo e: equipos) {
 			e.asignarRoles();
 		}
+	}
+	
+	public static Jugador getJugadorConNombre(String n) {
+		for(Jugador j: jugadores) {
+			if(j.nombre.equals(n)) {
+				return j;
+			}
+		}
+		return null;
 	}
 	
 	/**
