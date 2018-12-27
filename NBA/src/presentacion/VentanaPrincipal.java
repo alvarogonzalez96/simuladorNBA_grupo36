@@ -16,13 +16,9 @@ import javax.swing.UIManager.*;//Importar para poder usar nimbus look&Feel
 
 public class VentanaPrincipal extends JFrame {
 	
-	private JTextField texto;
-	private JButton simPartido, simSemana, simMes;
 	protected JMenuBar barra;
 	protected JTabbedPane tabbedPane;
 	protected JScrollPane scroll, noticiarioTexto;
-	protected JComboBox historial;
-	private JTree tree;
 	
 	JMenu menuUsuario;
 	
@@ -93,15 +89,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel playoffs = new PanelPlayoffs();
 		tabbedPane.addTab("Play Offs", null, playoffs, null);	
-		
-		//----------------------------------
-// Aqui creamos los botones para las simulaciones-----------------------------------------------------------------
-		simPartido = new JButton ("Simular Partido");
-		simSemana = new JButton ("Simular Semana");
-		simMes = new JButton ("Simular Mes");
-	
-		//----------------------------------------------------------------------------
-	
+
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
 			@Override

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import negocio.Equipo;
+import negocio.Renovacion;
 import negocio.Jugador;
 import negocio.LigaManager;
 
@@ -82,7 +83,6 @@ public class VentanaJugador extends JFrame {
 	
 	private void setListeners() {
 		botonFichar.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//si no es posible el fichaje -> mensaje de error
@@ -118,6 +118,26 @@ public class VentanaJugador extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//abrir ventana para renovar -> eleccion de cantidad y anyos de contrato
+				int cantidad, anyos;
+				try {
+					cantidad = Integer.parseInt(inputCantidad.getText());
+					anyos = sliderAnyos.getValue();
+					int of = proponerRenovacion(jugador, cantidad, anyos);
+					if(of == 1) {
+						int opcion = JOptionPane.showConfirmDialog(null, jugador.getNombre()+" ha aceptado tu oferta. Deseas renovarlo?");
+						if(opcion == JOptionPane.YES_OPTION) {
+							renovar(jugador, cantidad, anyos);
+							JOptionPane.showMessageDialog(null, "Has renovado a "+jugador.getNombre()+" por "+anyos+" temporadas ("+cantidad+"/temporada)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+						}
+					} else if(of == 0) {
+						JOptionPane.showMessageDialog(null, jugador.getNombre()+" ha rechazado tu oferta", "Oferta rechazada", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "No puedes realizar esta renovacion porque no tienes suficiente dinero disponible", "Aviso", JOptionPane.WARNING_MESSAGE);
+					}
+				} catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Error, la cantidad introducida debe ser un numero entero", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
@@ -153,8 +173,20 @@ public class VentanaJugador extends JFrame {
 			return -2;
 		} else {
 			double rand = Math.random();
-			System.out.println(rand);
-			if(rand<0.5) {
+			if(rand < 0.5) {
+				return 1;
+			}
+		}
+		return 0;
+	}
+	
+	private int proponerRenovacion(Jugador j, int cantidad, int anyos) {
+		Equipo e = LigaManager.usuario.getEquipo();
+		if(e.calcSalarioTotal()-j.salario+cantidad > Equipo.limiteSalarial) {
+			return -2;
+		} else {
+			double rand = Math.random();
+			if(rand < 0.5) {
 				return 1;
 			}
 		}
@@ -171,6 +203,11 @@ public class VentanaJugador extends JFrame {
 		LigaManager.actualizarSalarios();
 		equipo.ordenarJugadores();
 		equipo.asignarRoles();
+	}
+	
+	private void renovar(Jugador j, int cantidad, int anyos) {
+		Equipo equipo = LigaManager.usuario.getEquipo();
+		equipo.renovacionesPendientes.add(new Renovacion(j,cantidad,anyos));
 	}
 	
 	private void cortar(Jugador j) {

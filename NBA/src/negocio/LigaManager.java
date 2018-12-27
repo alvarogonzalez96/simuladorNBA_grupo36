@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import datos.ParseadorJSON;
 import negocio.Equipo.ModeloFinanzasEquipo;
 import negocio.Equipo.ModeloTablaEquipo;
+import negocio.Renovacion;
 import presentacion.PanelNoticiario;
 import presentacion.PanelTraspasos;
 
@@ -1229,6 +1230,27 @@ public class LigaManager {
 		
 		fase = 0;
 		anyo++;
+		
+		Equipo e = usuario.getEquipo();
+		for(Renovacion reno: e.renovacionesPendientes) {
+			for(Jugador j: e.getJugadores()) {
+				if(j.getNombre().equals(reno.getNombre())) {
+					j.salario = reno.getCantidad();
+					j.anyosContratoRestantes = reno.getAnyos();
+				}
+			}
+		}
+		
+//		for(Equipo eq: equipos) {
+//			for(int i = eq.getJugadores().size()-1; i >= 0; i--) {
+//				if(eq.jugadores.get(i).anyosContratoRestantes < 0) {
+//					agentesLibres.add(eq.jugadores.get(i));
+//					eq.jugadores.remove(i);
+//				}
+//			}
+//		}
+		
+		e.renovacionesPendientes.clear();
 		
 		actualizarRoles();
 		
