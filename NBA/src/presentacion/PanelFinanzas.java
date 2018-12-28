@@ -14,6 +14,7 @@ public class PanelFinanzas extends PanelTab {
 	private JScrollPane scrollTabla;
 	private JTable tabla;
 	private JComboBox<String> combo;
+	private JLabel labelSalarioTotal;
 	
 	public PanelFinanzas() {
 		super();
@@ -22,7 +23,7 @@ public class PanelFinanzas extends PanelTab {
 	@Override
 	protected void crearPaneles() {
 		equipos = LigaManager.equipos;
-		panelSeleccion = new JPanel();
+		panelSeleccion = new JPanel(new FlowLayout());
 	}
 	
 	@Override
@@ -34,6 +35,7 @@ public class PanelFinanzas extends PanelTab {
 				
 				tabla.setModel(equipo.getModeloFinanzas());
 				tabla.getColumnModel().getColumn(0).setMinWidth(200);
+				seleccionado();
 			}
 		});
 		
@@ -43,10 +45,14 @@ public class PanelFinanzas extends PanelTab {
 				Point p = e.getPoint();
 				int row = tabla.rowAtPoint(p);
 				if(e.getClickCount() >= 2 && tabla.getSelectedRow() != -1) {
-					new VentanaJugador(LigaManager.getJugadorConNombre((String) tabla.getValueAt(row, 0)));
+					lanzaVentanaJugador(LigaManager.getJugadorConNombre((String) tabla.getValueAt(row, 0)));
 				}
 			}
 		});
+	}
+	
+	private void lanzaVentanaJugador(Jugador j) {
+		new VentanaJugador(this, j);
 	}
 	
 	private Equipo getEquipoSeleccionado(int n) {
@@ -71,6 +77,11 @@ public class PanelFinanzas extends PanelTab {
 		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollTabla.getViewport().setBackground(Color.WHITE);
 		
+		labelSalarioTotal = new JLabel("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
+		JLabel labelLimite = new JLabel("Limite salarial: "+Equipo.limiteSalarial);
+		panelSeleccion.add(labelLimite);
+		panelSeleccion.add(labelSalarioTotal);
+		
 		panelSeleccion.add(label);
 		panelSeleccion.add(combo);
 		add(panelSeleccion, BorderLayout.NORTH);
@@ -79,7 +90,7 @@ public class PanelFinanzas extends PanelTab {
 
 	@Override
 	protected void seleccionado() {
-		// TODO Auto-generated method stub
-		
+		labelSalarioTotal.setText("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
+		repaint();
 	}
 }

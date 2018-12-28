@@ -185,7 +185,7 @@ public class PanelTraspasos extends PanelTab{
 					calcularOferta();
 					actualizarTablaLiga();	
 				} else {
-					JOptionPane.showConfirmDialog(null, "Elige un equipo al que ofrecer el traspaso");
+					JOptionPane.showMessageDialog(null, "Elige un equipo al que ofrecer el traspaso");
 				}
 			}
 		});
@@ -209,10 +209,10 @@ public class PanelTraspasos extends PanelTab{
 					if(contadorUsuario[0] >= 2 && contadorUsuario[1] >= 2 && contadorUsuario[2] >= 2 && contadorUsuario[3] >= 2 && contadorUsuario[4] >= 2) {
 						traspasarJugadores();
 					} else {
-						JOptionPane.showConfirmDialog(null, "No tienes suficientes jugadores cubriendo todas las posiciones");
+						JOptionPane.showMessageDialog(null, "No tienes suficientes jugadores cubriendo todas las posiciones");
 					}
 				} else {
-					JOptionPane.showConfirmDialog(null, "Faltan jugadores para completar el traspaso");	
+					JOptionPane.showMessageDialog(null, "Faltan jugadores para completar el traspaso");	
 				}
 				resetearContadores();
 			}
@@ -293,7 +293,7 @@ public class PanelTraspasos extends PanelTab{
 		
 		actualizarCombo();
 		
-		JOptionPane.showConfirmDialog(null, "Traspaso completado");
+		JOptionPane.showMessageDialog(null, "Traspaso completado");
 
 	}
 	
@@ -377,7 +377,7 @@ public class PanelTraspasos extends PanelTab{
 			}
 		}
 		if(jugadoresOfreceLiga.size() == 0) {
-			JOptionPane.showConfirmDialog(null, "El equipo " + equipoSeleccionado.getNombre() + " no esta interesado en un traspaso");
+			JOptionPane.showMessageDialog(null, "El equipo " + equipoSeleccionado.getNombre() + " no esta interesado en un traspaso");
 		}
 	}
 

@@ -47,6 +47,25 @@ public class PanelHome extends PanelTab {
 		botonDia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(LigaManager.finTemporada) {
+					int op = LigaManager.comprobarEquipoUsuario();
+					if(op == 0) {
+						botonDia.setText("Simular dia");
+						botonDia.setEnabled(true);
+						botonSem.setEnabled(true);
+						botonMes.setEnabled(true);
+						LigaManager.finTemporada = false;
+						LigaManager.reset();
+						repaint();
+					} else if(op == -1) {
+						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que la suma de los salarios de tus jugadores no sobrepase el limite salarial", "Aviso", JOptionPane.WARNING_MESSAGE);
+					} else if(op == -2) {
+						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tu plantilla no tenga mas de 15 jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tengas, por lo menos, por cada posicion, dos jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
+					}
+					return;
+				}
 				boolean fin = false;
 				switch(LigaManager.fase) {
 				case 0: //temp regular
@@ -131,10 +150,14 @@ public class PanelHome extends PanelTab {
 				Point p = e.getPoint();
 				int row = tabla.rowAtPoint(p);
 				if(e.getClickCount() >= 2 && tabla.getSelectedRow() != -1) {
-					new VentanaJugador(LigaManager.getJugadorConNombre((String) tabla.getValueAt(row, 0)));
+					lanzaVentanaJugador(LigaManager.getJugadorConNombre((String) tabla.getValueAt(row, 0)));
 				}
 			}
 		});
+	}
+	
+	private void lanzaVentanaJugador(Jugador j) {
+		new VentanaJugador(this, j);
 	}
 	
 	private void initPlantilla() {
@@ -226,14 +249,21 @@ public class PanelHome extends PanelTab {
 	
 	@Override
 	public void seleccionado() {
-		if(LigaManager.fase == 0) {
-			//temporada regular
+		if(LigaManager.finTemporada) {
+			botonDia.setText("Comenzar temporada");
 			botonDia.setEnabled(true);
-			botonSem.setEnabled(true);
-			botonMes.setEnabled(true);
+			botonSem.setEnabled(false);
+			botonMes.setEnabled(false);
+		} else {
+			if(LigaManager.fase == 0) {
+				//temporada regular
+				botonDia.setEnabled(true);
+				botonSem.setEnabled(true);
+				botonMes.setEnabled(true);
+			}
+			clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
+			temporada.setText("Temporada "+LigaManager.anyo+"/"+(LigaManager.anyo+1));
+			repaint();
 		}
-		clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
-		temporada.setText("Temporada "+LigaManager.anyo+"/"+(LigaManager.anyo+1));
-		repaint();
 	}
 }

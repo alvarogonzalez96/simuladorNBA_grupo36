@@ -31,7 +31,7 @@ public class VentanaPrincipal extends JFrame {
 	PanelLideres lideres;
 	
 	public VentanaPrincipal() {
-		LigaManager.inicializar(true, new Usuario("Pedro", 18, 0));
+		LigaManager.inicializar(true, new Usuario("Pedro", 18, 1));
 		//Nimbus Look&Feel
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {

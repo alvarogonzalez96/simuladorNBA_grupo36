@@ -55,6 +55,7 @@ public class LigaManager {
 	public static boolean recienCreada;
 	public static int anyo;
 	public static Date diaActual;
+	public static boolean finTemporada;
 	
 	public static Equipo campeon;
 	public static Jugador mvp, roy, dpoy, sextoHombre;
@@ -62,6 +63,8 @@ public class LigaManager {
 	public static ArrayList<String> noticiasAgenciaLibre, noticiasDraft;
 	
 	private static TableModel modelo;
+	
+	public static boolean draftEnCurso = false;
 	
 	public static void inicializar(boolean desdeJSON, Usuario u) {
 		usuario = u;
@@ -80,6 +83,7 @@ public class LigaManager {
 			diaActual = Calendario.PRIMER_DIA;
 			calendario = new Calendario(equipos, diaActual); // el calendario es el mismo para todas las temporadas
 			anyo = 2018;
+			finTemporada = false;
 		} else {
 			//de la BD
 			diaActual = null; //cargar el dia actual en la BD
@@ -100,8 +104,6 @@ public class LigaManager {
 	 *  		false si no ha terminado la temporada
 	 * */
 	public static boolean simularDia() {
-		System.out.println("Simulando "+calendario.getDiaActual());
-		System.out.println(calendario.ultimosPartidosJugados.size());
 		if(!calendario.getDiaActual().after(Calendario.ULTIMO_DIA_TEMP_REGULAR)) { //fase = 0
 			// simular dia de temporada regular
 			if(calendario.calendario.keySet().contains(calendario.getDiaActual())) {
@@ -110,7 +112,6 @@ public class LigaManager {
 					calendario.addPartidoJugado(p);
 				}
 				ordenarClasificaciones();
-				System.out.println(clasificaciones.get("GENERAL").getEquipos().get(3).getAbrev());
 			}
 			calendario.avanzarDia();
 			if(calendario.getDiaActual().after(Calendario.ULTIMO_DIA_TEMP_REGULAR)) {
@@ -120,161 +121,10 @@ public class LigaManager {
 				return true;
 			}
 			return false;
-		} else { // eliminar este rama de la alternativa cuando este terminado el juego
-			//Eleccion de premios al final de temporada
-			System.out.println();
-			System.out.println("-----------------------------------------");
-			System.out.println("PREMIOS DE LA TEMPORADA REGULAR");
-			System.out.println("MVP: " + elegirMVP().getNombre());
-			System.out.println("Sexto Hombre: " + elegirSextoHombre().getNombre());
-			System.out.println("ROY: " + elegirROY().getNombre());
-			System.out.println("DPOY: " + elegirDPOY().getNombre());
-			
-			System.out.println();
-			System.out.println("-----------------------------------------");
-			for (Equipo e : equipos) {
-				System.out.println("JUGADORES DE "+e.nombre.toUpperCase()+":");
-				for (Jugador j : e.jugadores) {
-					if(!j.rol.equals(Rol.NOJUEGA)) {
-						System.out.println(j.getNombre() + " " + (double)Math.round((j.getPuntosPartido()/82)*100)/100 + " ppp" + " " + (double)Math.round((j.getAsistenciasPartido()/82)*100)/100 + " app" + " " + (double)Math.round((j.getRebotesPartido()/82)*100)/100 + " rpp ; val: "+j.getValoracion());
-					}
-				}
-				System.out.println();
-			}
-			
-			System.out.println();
-			System.out.println("-----------------------------------------");
-			for(String tipoClasif: clasificaciones.keySet()) {
-				System.out.println();
-				System.out.println("CLASIFICACION "+tipoClasif);
-				clasificaciones.get(tipoClasif).imprimir();
-			}
-			
-			// playoffs / verano
-			//jubilar();
-			playOffs(); //fase = 1
-			//draft();
-			//renovaciones();
-			//agenciaLibre();
-			
-			for (Equipo e : equipos) {
-				for (Jugador jugador : e.jugadores) {
-					jugador.rol = null;
-				}
-				e.ordenarJugadores();
-				e.asignarRoles();
-				System.out.println();
-				System.out.println(e.nombre);
-				for (Jugador j : e.jugadores) {
-					System.out.println(j.nombre + "(" + j.posicion + "), rol: " + j.getRol() + ", overall: " + j.overall);
-				}
-			}
-			
-			if(fase == 2) {
-				//draft
-			} else if(fase == 3) {
-				//jubilar
-			} else if(fase == 4){
-				//renovaciones
-			} else {
-				//agencia libre
-			}
-			
+		} else {
 			return true;
 		}
 	}  
-	
-	@Deprecated
-	/**
-	 * Metodo para jugar los playOffs
-	 * */
-	public static void playOffs() {
-		Equipo[] oeste = new Equipo[8];
-		Equipo[] este = new Equipo[8];
-		
-		Clasificacion cOeste = clasificaciones.get("OESTE");
-		Clasificacion cEste = clasificaciones.get("ESTE");
-		
-		for (int i = 0; i < oeste.length; i++) {
-			oeste[i] = cOeste.get(i);
-			este[i] = cEste.get(i);
-		}
-
-		//Cuartos de final de conferencia
-		Equipo[] semisOeste = new Equipo[4];
-		Equipo[] semisEste = new Equipo[4];
-		System.out.println();
-		System.out.println("*CUARTOS DE FINAL DE CONFERENCIA*");
-		int j = 7;
-		for (int i = 0; i < semisOeste.length; i++) {
-			semisOeste[i] = ganadorSerie(oeste[i], oeste[j]);
-			System.out.println("Gana la serie: " + semisOeste[i].getNombre());
-			System.out.println();
-			semisEste[i] = ganadorSerie(este[i], este[j]);
-			System.out.println("Gana la serie: " + semisEste[i].getNombre());	
-			System.out.println();
-			j--;
-		}
-		
-		//Semifinales de conferencia
-		oeste = new Equipo[2];
-		este = new Equipo[2];
-		j = 3;
-		System.out.println();
-		System.out.println("*SEMIFINALES DE CONFERENCIA*");
-		for (int i = 0; i < oeste.length; i++) {
-			oeste[i] = ganadorSerie(semisOeste[i], semisOeste[j]);
-			System.out.println("Gana la serie: " + oeste[i].getNombre());
-			System.out.println();
-			este[i] = ganadorSerie(semisEste[i], semisEste[j]);
-			System.out.println("Gana la serie: " + semisEste[i].getNombre());	
-			System.out.println();
-			j--;
-		}
-		
-		//Final de conferencia
-		Equipo[] equiposFinal = new Equipo[2];
-		System.out.println();
-		System.out.println("*FINALES DE CONFERENCIA*");
-		equiposFinal[0] = ganadorSerie(oeste[0], oeste[1]);
-		System.out.println("Gana la serie: " + equiposFinal[0].getNombre());
-		System.out.println();
-		equiposFinal[1] = ganadorSerie(este[0], este[1]);
-		System.out.println("Gana la serie: " + equiposFinal[1].getNombre());
-		System.out.println();
-		 
-		//Final
-		System.out.println("*FINAL DE LA NBA*");
-		campeon = ganadorSerie(equiposFinal[0], equiposFinal[1]);
-		System.out.println("Gana el anillo: " + campeon.getNombre());
-		
-	}
-	
-	@Deprecated
-	/**
-	 * @return Equipo ganador de la serie
-	 * */
-	public static Equipo ganadorSerie(Equipo e1, Equipo e2) {
-		int victorias1 = 0;
-		int victorias2 = 0;
-		
-		while(victorias1 < 4 && victorias2 < 4) {
-			Partido p = new Partido(e1, e2);
-			p.jugar(true);
-			if(p.puntosLocal > p.puntosVisitante) {
-				victorias1 ++;
-			} else {
-				victorias2 ++;
-			}
-		}
-		
-		if(victorias1 > victorias2) {
-			return e1;
-		} else {
-			return e2;
-		}
-		
-	}
 	
 	private static void cargarJugadores() {
 		if(recienCreada) { // cargar los jugadores por defecto desde el JSON
@@ -376,11 +226,11 @@ public class LigaManager {
 	/**
 	 * Metodo para seleccionar el orden del draft de cada equipo y su respectiva eleccion 
 	 * */
-	public static void draft() {
+	public static ArrayList<Jugador> prepararDraft() {
 		noticiasDraft = new ArrayList<String>();
 		noticiasDraft.add("");
 		noticiasDraft.add("DRAFT: ");
-		pasaAnyo();
+		resetearRookies();
 		Equipo[] ordenDraft = new Equipo[30];
 		
 		Clasificacion general = clasificaciones.get("GENERAL");
@@ -392,13 +242,20 @@ public class LigaManager {
 		
 		draft = new ArrayList<>();
 		
-		//ajustar agencia libre
 		ajustarAgenciaLibre(); //en este metodo se crean los jugadores del draft
 		jugadores.addAll(draft);
 		
 		asignarSalariosYContratosDraft();
 		draft.sort(new OrdenadorJugadores());
-		elegirDraft(ordenDraft);
+		return elegirDraft(ordenDraft);
+		//terminarDraft
+	}
+	
+	/**
+	 * Una vez terminada la seleccion de los 60 mejores jugadores
+	 * del draft, los demas se mandan a la agencia libre, y se cambia de fase
+	 * */
+	public static void terminarDraft() {
 		mandarAgenciaLibre();
 		PanelNoticiario.rellenarNoticiario(noticiasDraft);
 		fase++;
@@ -409,7 +266,7 @@ public class LigaManager {
 	 * posiciones a lo largo de las temporadas, hay que ajustar la agencia libre 
 	 * al final de cada temporada.
 	 * 
-	 * Ajustar la agencia libre significa hacer que de cada posicion haya 250 jugadores:
+	 * Ajustar la agencia libre significa hacer que de cada posicion haya un numero fijo de jugadores:
 	 *   - Si hay de mas: eliminando los peores
 	 *   - Si hay de menos: creando mas en el draft 
 	 * */
@@ -533,34 +390,38 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Eleccion de cada equipo del draft
+	 * Devuelve un ArrayList con los 60 mejores jugadores del draft en orden
+	 * (2 rondas completas)
 	 * */
-	private static void elegirDraft(Equipo[] orden) {
+	private static ArrayList<Jugador> elegirDraft(Equipo[] orden) {
+		ArrayList<Jugador> jugs = new ArrayList<Jugador>();
 		int j = 1;
 		do {
 			noticiasDraft.add("Ronda: " + j);
 			for (int i = 29; i >= 0; i--) {
-				Jugador jug = elegirMejorDisponible();
-				jug.setTid(orden[i].getTid());
-				noticiasDraft.add("El equipo: " + orden[i].getNombre() + ", elige a: " + jug.getNombre() + ", o: " + jug.getOverall());
-				orden[i].jugadores.add(jug);
+				Jugador jug = elegirMejorDisponible(draft);
+				jugs.add(jug);
+				//jug.setTid(orden[i].getTid());
+				//noticiasDraft.add("El equipo: " + orden[i].getNombre() + ", elige a: " + jug.getNombre() + ", o: " + jug.getOverall());
+				//orden[i].jugadores.add(jug);
 			}
 			j++;
 		} while(j <= 2);
+		return jugs;
 	}
 	
 	/**
 	 * @return Jugador , el mejor disponible en el draft
 	 * */
-	private static Jugador elegirMejorDisponible() {
+	public static Jugador elegirMejorDisponible(ArrayList<Jugador> jugs) {
 		Jugador mejor = new Jugador();
 		mejor.overall = -100;
-		for (Jugador j : draft) {
+		for (Jugador j : jugs) {
 			if(mejor.overall < j.overall) {
 				mejor = j;
 			}			
 		}
-		draft.remove(mejor);
+		jugs.remove(mejor);
 		return mejor;
 	}
 
@@ -576,31 +437,44 @@ public class LigaManager {
 	/**
 	 * Selecciona que jugadores se jubilan este anyo
 	 * tid = -2 -> jugadores jubilados
+	 * 
+	 * Devuelve un array de los jugadores retirados
+	 * del equipo del usuario
 	 * */
-	public static void jubilar() {
+	public static ArrayList<Jugador> jubilar() {
 		ArrayList<String> noticiasJubilados = new ArrayList<String>();
 		noticiasJubilados.add("JUGADORES RETIRADOS: ");
+		ArrayList<Jugador> retirados = new ArrayList<>();
+		boolean retirado;
 		double rand;
 		for (Equipo e : equipos) {
 			for (Jugador j : e.jugadores) {
 				rand = Math.random();
+				retirado = false;
 				if(j.getEdad() >= 34) {	
 					if(j.getEdad() > 40) {
 						noticiasJubilados.add(j.getNombre() + ", edad: " + j.getEdad() + ", valoracion: " + j.getValoracion());
 						j.setTid(-2);
 						j.salario = 0;
-					}else if(j.getValoracion() >= 2500 && rand > 0.9 ) {
+						retirado = true;
+					} else if(j.getValoracion() >= 2500 && rand > 0.9 ) {
 						noticiasJubilados.add(j.getNombre() + ", edad: " + j.getEdad() + ", valoracion: " + j.getValoracion());
 						j.setTid(-2);
 						j.salario = 0;
+						retirado = true;
 					} else if(j.getValoracion() >= 1000 && rand > 0.6) {
 						noticiasJubilados.add(j.getNombre() + ", edad: " + j.getEdad() + ", valoracion: " + j.getValoracion());
 						j.setTid(-2);
 						j.salario = 0;
+						retirado = true;
 					} else if(rand > 0.2 ) {
 						noticiasJubilados.add(j.getNombre() + ", edad: " + j.getEdad() + ", valoracion: " + j.getValoracion());
 						j.setTid(-2);
 						j.salario = 0;
+						retirado = true;
+					}
+					if(retirado && e.getTid() == usuario.getEquipo().getTid()) {
+						retirados.add(j);
 					}
 				}
 			}
@@ -634,6 +508,8 @@ public class LigaManager {
 		}
 		
 		PanelNoticiario.rellenarNoticiario(noticiasJubilados);
+
+		return retirados;
 	}
 	
 	public static void actualizarSalarios() {
@@ -1102,19 +978,18 @@ public class LigaManager {
 		}
 		return contPos;
 	}
-	/*
-	private static void mostrarAgenciaLibre() {
-		for (Jugador jugador : agentesLibres) {
-			if(jugador.getValoracion() > 0) {
-				System.out.println(jugador.getNombre() + ", edad: " + jugador.getEdad() + ", valoracion: " + jugador.getValoracion());
-			}
-		}
-	}
-*/
-	private static void pasaAnyo() {
+	
+	private static void actualizarAnyosContrato() {
 		for(Equipo e: equipos) {
 			for(Jugador j: e.jugadores) {
 				j.anyosContratoRestantes--;
+			}
+		}
+	}
+	
+	private static void resetearRookies() {
+		for(Equipo e: equipos) {
+			for(Jugador j: e.jugadores) {
 				j.rookie = false;
 			}
 		}
@@ -1205,6 +1080,44 @@ public class LigaManager {
 	}
 	
 	/**
+	 * Metodo que comprueba que el equipo del usuario esta en condiciones
+	 * de comenzar una nueva temporada:
+	 * Devuelve: 
+	 * 	-> 0 si todo esta bien
+	 * 	-> -1 si se pasa del limite salarial
+	 *  -> -2 si tiene mas de 15 jugadores
+	 *  -> -3 si no tiene como minimo 2 jugadores por posicion
+	 * */
+	public static int comprobarEquipoUsuario() {
+		Equipo e = usuario.getEquipo();
+		int contadorJugadoresConContrato = 0;
+		for(Jugador j: e.jugadores) {
+			if(j.anyosContratoRestantes > 0) { // 0 o 1???
+				contadorJugadoresConContrato++;
+			}
+		}
+		boolean noTiene2PorPosicion = false;
+		int[] pos = new int[5];
+		for(Jugador j: e.jugadores) {
+			pos[j.posicion.ordinal()]++;
+		}
+		for(int i: pos) {
+			if(i < 2) {
+				noTiene2PorPosicion = true;
+				break;
+			}
+		}
+		if(e.calcSalarioTotal() > Equipo.limiteSalarial) {
+			return -1;
+		} else if(contadorJugadoresConContrato > 15) {
+			return -2;
+		} else if(noTiene2PorPosicion){
+			return -3;
+		}
+		return 0;
+	}
+	
+	/**
 	 * Metodo que resetea todos los datos correspondientes a la temporada actual, 
 	 * que se ejecutara cada vez que termine una temporada, para empezar una nueva.
 	 * */
@@ -1250,7 +1163,7 @@ public class LigaManager {
 //			}
 //		}
 		
-		e.renovacionesPendientes.clear();
+		//e.renovacionesPendientes.clear();
 		
 		actualizarRoles();
 		
