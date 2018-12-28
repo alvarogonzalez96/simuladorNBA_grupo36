@@ -294,7 +294,6 @@ public class PanelTraspasos extends PanelTab{
 		actualizarCombo();
 		
 		JOptionPane.showMessageDialog(null, "Traspaso completado");
-
 	}
 	
 	public static void actualizarCombo() {
