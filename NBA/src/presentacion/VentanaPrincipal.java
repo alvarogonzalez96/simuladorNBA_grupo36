@@ -31,6 +31,7 @@ public class VentanaPrincipal extends JFrame {
 	PanelLideres lideres;
 	PanelFinanzas finanzas;
 	PanelCalendario calendario;
+	PanelClasificacion clasificacion;
 	
 	public VentanaPrincipal() {
 		LigaManager.inicializar(true, new Usuario("Pedro", 18, 13));
@@ -78,7 +79,7 @@ public class VentanaPrincipal extends JFrame {
 		historialLiga = new PanelHistorial();
 		tabbedPane.addTab("Historial Liga", null, historialLiga, null);
 		
-		JPanel clasificacion = new PanelClasificacion();
+		clasificacion = new PanelClasificacion();
 		tabbedPane.addTab("Clasificacion", null, clasificacion, null);
 
 		lideres = new PanelLideres();
@@ -105,6 +106,8 @@ public class VentanaPrincipal extends JFrame {
 					finanzas.seleccionado();
 				} else if(tabbedPane.getSelectedIndex() == 1) {
 					calendario.seleccionado();
+				} else if(tabbedPane.getSelectedIndex() == 7) {
+					clasificacion.seleccionado();
 				}
 			}
 		});

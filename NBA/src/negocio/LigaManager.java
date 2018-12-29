@@ -1116,7 +1116,7 @@ public class LigaManager {
 		Equipo e = usuario.getEquipo();
 		int contadorJugadoresConContrato = 0;
 		for(Jugador j: e.jugadores) {
-			if(j.anyosContratoRestantes > 0) { // 0 o 1???
+			if(j.anyosContratoRestantes >= 0) { // 0 o 1???
 				contadorJugadoresConContrato++;
 			}
 		}
