@@ -84,10 +84,20 @@ public class VentanaJugador extends JFrame {
 		}
 	}
 	
+	private void alertaDraft() {
+		JOptionPane.showMessageDialog(null, "No puedes realizar ninguna gestion hasta que haya concluido el draft", "Aviso", JOptionPane.WARNING_MESSAGE);
+	}
+	
 	private void setListeners() {
 		botonFichar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//los playoffs estan en curso no se puede hacer nada
+				if(LigaManager.draftEnCurso) {
+					alertaDraft();
+					return;
+				}
+				
 				//si no es posible el fichaje -> mensaje de error
 				//si es posible -> confirmacion -> si confirma, recomendar que reasigne roles
 				int cantidad, anyos;
@@ -120,6 +130,12 @@ public class VentanaJugador extends JFrame {
 		botonRenovar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//los playoffs estan en curso no se puede hacer nada
+				if(LigaManager.draftEnCurso) {
+					alertaDraft();
+					return;
+				}
+				
 				//abrir ventana para renovar -> eleccion de cantidad y anyos de contrato
 				int cantidad, anyos;
 				try {
@@ -147,6 +163,12 @@ public class VentanaJugador extends JFrame {
 		botonCortar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//los playoffs estan en curso no se puede hacer nada
+				if(LigaManager.draftEnCurso) {
+					alertaDraft();
+					return;
+				}
+				
 				//lanzar mensaje de confirmacion, y si confirma, cortar el contrato
 				if(esPosibleCortar(jugador)) {
 					int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro de que quieres cortar a "+jugador.getNombre()+"?");

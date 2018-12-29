@@ -89,14 +89,6 @@ public class LigaManager {
 			diaActual = null; //cargar el dia actual en la BD
 			anyo = 0;
 		}
-		
-		/*boolean m = simularDia();
-		while(!m) {
-			m = simularDia();
-		}*/
-		
-		//reset();
-		//nuevaTemporada();
 	}
 	
 	/** 
@@ -522,18 +514,29 @@ public class LigaManager {
 	/**
 	 * Renueva los contratos de los jugadores
 	 * */
-	public static void renovaciones() {
+	public static void renovaciones(ArrayList<Equipo> orden, boolean antesQueUsuario) {
 		ArrayList<String> noticiasRenovaciones = new ArrayList<String>();
 		noticiasRenovaciones.add("");
 		double rand;
 		
 		noticiasRenovaciones.add("RENOVACION DE JUGADORES:");
-		for(Equipo e: equipos) {
+		int inicio, fin;
+		int posUsuario = orden.indexOf(usuario.getEquipo());
+		if(antesQueUsuario) {
+			//que procese todos los previos al usuario
+			inicio = 0;
+			fin = posUsuario;
+		} else {
+			//que procese todos los que estan detras del usuario
+			inicio = posUsuario+1;
+			fin = orden.size();
+		}
+		for(int i = inicio; i < fin; i++) {
+			Equipo e = orden.get(i);
 			noticiasRenovaciones.add("");
 			noticiasRenovaciones.add("Renovaciones de " + e.getNombre());
 			for(Jugador j: e.jugadores) {
 				actualizarSalarios();
-				
 				if((Equipo.limiteSalarial - e.salarioTotal) > -45000) {
 					rand = Math.random();
 					if(j.anyosContratoRestantes == 0) {
@@ -669,7 +672,7 @@ public class LigaManager {
 	/**
 	 * Metodo que simula la agencia libre
 	 * */
-	public static void agenciaLibre() {
+	public static void agenciaLibre(ArrayList<Equipo> orden, boolean antesQueUsuario) {
 		noticiasAgenciaLibre = new ArrayList<String>();
 		agentesLibres.clear();
 		cargarAgentesLibres();
@@ -677,7 +680,17 @@ public class LigaManager {
 		noticiasAgenciaLibre.add("");
 		noticiasAgenciaLibre.add("AGENCIA LIBRE:");
 		
-		for (Equipo e : clasificaciones.get("GENERAL").equipos) {
+		int inicio, fin;
+		int posUsuario = orden.indexOf(usuario.getEquipo());
+		if(antesQueUsuario) {
+			inicio = 0;
+			fin = posUsuario;
+		} else {
+			inicio = posUsuario;
+			fin = orden.size();
+		}
+		for(int i = inicio; i < fin; i++) {
+			Equipo e = orden.get(i);
 			actualizarSalarios();
 			eleccionAgenciaLibre(e);
 		}
@@ -901,10 +914,21 @@ public class LigaManager {
 	 * Metodo para que ningun equipo de la liga
 	 * supere el maximo de 15 jugadores
 	 * */
-	public static void despedirJugadores() {
+	public static void despedirJugadores(ArrayList<Equipo> orden, boolean antesQueUsuario) {
 		Integer[] contPos = new Integer[5];
 		actualizarRoles();
-		for (Equipo e : equipos) {
+	
+		int inicio, fin;
+		int posUsuario = orden.indexOf(usuario.getEquipo());
+		if(antesQueUsuario) {
+			inicio = 0;
+			fin = posUsuario;
+		} else {
+			inicio = posUsuario+1;
+			fin = orden.size();
+		}
+		for(int j = inicio; j < fin; j++) {
+			Equipo e = orden.get(j);
 			for (int i = 0; i < contPos.length; i++) {
 				contPos[i] = 0;
 			}
@@ -979,7 +1003,7 @@ public class LigaManager {
 		return contPos;
 	}
 	
-	private static void actualizarAnyosContrato() {
+	public static void actualizarAnyosContrato() {
 		for(Equipo e: equipos) {
 			for(Jugador j: e.jugadores) {
 				j.anyosContratoRestantes--;
@@ -1117,18 +1141,18 @@ public class LigaManager {
 		return 0;
 	}
 	
-	/**
-	 * Metodo que resetea todos los datos correspondientes a la temporada actual, 
-	 * que se ejecutara cada vez que termine una temporada, para empezar una nueva.
-	 * */
-	public static void reset() {
-		//guardar datos fin de temporada
+	public static void guardarDatosFinTemporada() {
 		Equipo u = usuario.getEquipo();
 		temporadasPasadas.get(anyo).guardaBalanceUsuario(u.getVictorias(), u.getDerrotas());
 		temporadasPasadas.get(anyo).guardaCampeon(campeon);
 		temporadasPasadas.get(anyo).guardaClasificacion(equipos);
-		
-		
+	}
+	
+	/**
+	 * Metodo que resetea todos los datos correspondientes a la temporada actual, 
+	 * que se ejecutara cada vez que termine una temporada, para empezar una nueva.
+	 * */
+	public static void reset() {		
 		//los equipos se mantienen igual, las plantillas ya estan actualizadas
 		calendario.reset();
 		inicializarClasificaciones();

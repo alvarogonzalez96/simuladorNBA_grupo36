@@ -57,9 +57,24 @@ public class PanelPlayoffs extends PanelTab {
 		LigaManager.finTemporada = true;
 		//la fase de LigaManager la incrementa la propia clase playoffs
 		JOptionPane.showMessageDialog(null, "Campeon: "+LigaManager.campeon.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
-		//Aqui para probar
+		LigaManager.guardarDatosFinTemporada();
 		ArrayList<Jugador> retiradosUsuario = LigaManager.jubilar();
 		avisarJubilados(retiradosUsuario);
+		LigaManager.actualizarAnyosContrato();
+		for(Equipo e: LigaManager.equipos) {
+			for(int i = e.getJugadores().size()-1; i >= 0; i--) {
+				Jugador j = e.getJugadores().get(i);
+				if(j.getAnyosContratoRestantes() < 0) {
+					LigaManager.agentesLibres.add(j);
+					j.setTid(-1);
+					j.salario = 0;
+					j.anyosContratoRestantes = 0;
+					e.calcSalarioTotal();
+					e.getJugadores().remove(i);
+				}
+			}
+		}
+		
 		ArrayList<Jugador> draft = LigaManager.prepararDraft();
 		LigaManager.draftEnCurso = true;
 		new VentanaDraft(this, draft); //se realiza la seleccion de los 60 jugadores (2 rondas)
@@ -74,9 +89,12 @@ public class PanelPlayoffs extends PanelTab {
 	public void comenzarFaseGestiones() {
 		LigaManager.terminarDraft();
 		
-		LigaManager.renovaciones();
-		LigaManager.agenciaLibre();
-		LigaManager.despedirJugadores();
+		//el orden en el que se realizaran las gestiones sera el de la clasificacion
+		ArrayList<Equipo> orden = LigaManager.clasificaciones.get("GENERAL").getEquipos();
+		
+		LigaManager.renovaciones(orden, true);
+		LigaManager.agenciaLibre(orden, true);
+		LigaManager.despedirJugadores(orden, true);
 		//roles
 	}
 	

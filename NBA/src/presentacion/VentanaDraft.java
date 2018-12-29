@@ -42,7 +42,7 @@ public class VentanaDraft extends JFrame {
 		this.panelPlayoffs = panelPlayoffs;
 		this.draft = draft;
 		this.finalizado = false;
-		this.ordenEquipos = LigaManager.clasificaciones.get("GENERAL").getEquipos();
+		this.ordenEquipos = new ArrayList<>(LigaManager.clasificaciones.get("GENERAL").getEquipos());
 		Collections.reverse(ordenEquipos);
 		this.seleccion = new ArrayList<>();
 		this.indice = 0;
@@ -76,7 +76,7 @@ public class VentanaDraft extends JFrame {
 		Equipo e = ordenEquipos.get(t);
 		Jugador j = LigaManager.elegirMejorDisponible(draft); //esto lo elimina de la lista
 		seleccionar(j,e);
-		repintar();
+		repaint();
 		indice++;
 	}
 	
@@ -86,12 +86,6 @@ public class VentanaDraft extends JFrame {
 		LigaManager.jugadores.add(j);
 		draft.remove(j);
 		seleccion.add(j);
-	}
-	
-	private void repintar() {
-		tablaEquipos.setModel(getModeloEquipos());
-		tablaJugadores.setModel(getModeloJugadores());
-		repaint();
 	}
 	
 	private void inicializarPaneles() {
@@ -140,7 +134,7 @@ public class VentanaDraft extends JFrame {
 						int opcion = JOptionPane.showConfirmDialog(null,  "Deseas seleccionar a "+j.getNombre()+"?");
 						if(opcion == JOptionPane.YES_OPTION) {
 							seleccionar(j, LigaManager.usuario.getEquipo());
-							repintar();
+							repaint();
 							indice++;
 							turnoUsuario = false;
 							hilo.interrupt();
@@ -184,7 +178,7 @@ public class VentanaDraft extends JFrame {
 				if(indice >= 60) {
 					JOptionPane.showMessageDialog(null, "El draft ha terminado. Ahora es tiempo de renovaciones, despidos y fichajes de la agencia libre. Cuando estes listo, haz click en comenzar temporada!", "Fin del draft", JOptionPane.INFORMATION_MESSAGE);
 					finalizado = true;
-					dispose();
+					//dispose();
 				}
 			}
 			

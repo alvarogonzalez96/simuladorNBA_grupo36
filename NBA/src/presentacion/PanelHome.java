@@ -4,6 +4,7 @@ import negocio.*;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.border.EmptyBorder;
 
@@ -47,15 +48,26 @@ public class PanelHome extends PanelTab {
 		botonDia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(LigaManager.draftEnCurso) {
+					JOptionPane.showMessageDialog(null, "No puedes comenzar una nueva temporada hasta que haya terminado el draft y hayas realizado las gestiones necesarias", "Aviso", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 				if(LigaManager.finTemporada) {
 					int op = LigaManager.comprobarEquipoUsuario();
 					if(op == 0) {
+						//que el resto de equipos terminen sus gestiones
+						ArrayList<Equipo> orden = LigaManager.clasificaciones.get("GENERAL").getEquipos();
+						LigaManager.renovaciones(orden, false);
+						LigaManager.despedirJugadores(orden, false);
+						LigaManager.agenciaLibre(orden, false);
+						
 						botonDia.setText("Simular dia");
 						botonDia.setEnabled(true);
 						botonSem.setEnabled(true);
 						botonMes.setEnabled(true);
 						LigaManager.finTemporada = false;
 						LigaManager.reset();
+						clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
 						repaint();
 					} else if(op == -1) {
 						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que la suma de los salarios de tus jugadores no sobrepase el limite salarial", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -261,7 +273,8 @@ public class PanelHome extends PanelTab {
 				botonSem.setEnabled(true);
 				botonMes.setEnabled(true);
 			}
-			clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
+			System.out.println(LigaManager.clasificaciones.get("GENERAL").get(0).getNombre());
+			//clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
 			temporada.setText("Temporada "+LigaManager.anyo+"/"+(LigaManager.anyo+1));
 			repaint();
 		}
