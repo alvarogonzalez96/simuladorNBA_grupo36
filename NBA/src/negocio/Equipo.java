@@ -341,7 +341,7 @@ public class Equipo {
 			switch(columnIndex) {
 			case 0: return "Nombre";
 			case 1: return "Edad";
-			case 2: return "A�os de contrato";
+			case 2: return "Anyos de contrato";
 			case 3: return "Salario";
 			}
 			return null;

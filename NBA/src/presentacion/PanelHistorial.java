@@ -71,13 +71,13 @@ public class PanelHistorial extends PanelTab {
 	@Override
 	protected void seleccionado() {
 		int sel = (int) comboAnyo.getSelectedItem();
-		while(LigaManager.anyo-1 > ultimoAnyo) {
+		while(LigaManager.anyo > ultimoAnyo) {
 			ultimoAnyo++;
 			comboAnyo.addItem(ultimoAnyo);
 		}
 		comboAnyo.setSelectedItem(sel);
 		
-		if(sel >= 2018 && sel < LigaManager.anyo) {
+		if(sel >= 2018 && (sel < LigaManager.anyo || (sel == LigaManager.anyo && LigaManager.fase > 1))) {
 			Temporada temp = LigaManager.temporadasPasadas.get(sel);
 			labelCampeon.setText("Campeon: "+temp.nombreCampeon);
 			labelMVP.setText("MVP: "+temp.mvp);

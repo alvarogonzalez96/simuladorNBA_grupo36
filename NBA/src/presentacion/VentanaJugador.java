@@ -26,7 +26,10 @@ public class VentanaJugador extends JFrame {
 	JTextField inputCantidad;
 	JSlider sliderAnyos;
 	
-	public VentanaJugador(Jugador j) {
+	PanelTab panelTab;
+	
+	public VentanaJugador(PanelTab panelTab, Jugador j) {
+		this.panelTab = panelTab;
 		Container cp = getContentPane();
 		this.jugador = j;
 		cp.setLayout(new BorderLayout());
@@ -81,10 +84,20 @@ public class VentanaJugador extends JFrame {
 		}
 	}
 	
+	private void alertaDraft() {
+		JOptionPane.showMessageDialog(null, "No puedes realizar ninguna gestion hasta que haya concluido el draft", "Aviso", JOptionPane.WARNING_MESSAGE);
+	}
+	
 	private void setListeners() {
 		botonFichar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//los playoffs estan en curso no se puede hacer nada
+				if(LigaManager.draftEnCurso) {
+					alertaDraft();
+					return;
+				}
+				
 				//si no es posible el fichaje -> mensaje de error
 				//si es posible -> confirmacion -> si confirma, recomendar que reasigne roles
 				int cantidad, anyos;
@@ -117,6 +130,12 @@ public class VentanaJugador extends JFrame {
 		botonRenovar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//los playoffs estan en curso no se puede hacer nada
+				if(LigaManager.draftEnCurso) {
+					alertaDraft();
+					return;
+				}
+				
 				//abrir ventana para renovar -> eleccion de cantidad y anyos de contrato
 				int cantidad, anyos;
 				try {
@@ -144,6 +163,12 @@ public class VentanaJugador extends JFrame {
 		botonCortar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//los playoffs estan en curso no se puede hacer nada
+				if(LigaManager.draftEnCurso) {
+					alertaDraft();
+					return;
+				}
+				
 				//lanzar mensaje de confirmacion, y si confirma, cortar el contrato
 				if(esPosibleCortar(jugador)) {
 					int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro de que quieres cortar a "+jugador.getNombre()+"?");
@@ -175,6 +200,7 @@ public class VentanaJugador extends JFrame {
 			double rand = Math.random();
 			double randAnyos = Math.random()*5;
 			if(j.getOverall() >= 85 && cantidad >= 30000 + rand*10001  && anyos >= randAnyos) {
+<<<<<<< HEAD
 				return 1;
 			} 
 			if(j.getOverall() >= 80 && j.getOverall() < 85 && cantidad >= 20000 + rand*10001 && anyos >= randAnyos) {
@@ -184,13 +210,31 @@ public class VentanaJugador extends JFrame {
 				return 1;
 			} 
 			if(j.getOverall() >= 60 && j.getOverall() < 70 && cantidad >= 1000 + rand*12001) {
+=======
+>>>>>>> branch 'master' of https://github.com/alvarogonzalez96/simuladorNBA_grupo36.git
 				return 1;
+<<<<<<< HEAD
 			}
 			if(j.getOverall() < 60 && cantidad >= 1000 + rand*4001) {
 				return 1;
 			} 	
+=======
+			} 
+			if(j.getOverall() >= 80 && j.getOverall() < 85 && cantidad >= 20000 + rand*10001 && anyos >= randAnyos) {
+				return 1;
+			} 
+			if(j.getOverall() >= 70 && j.getOverall() < 80 && cantidad >= 10000+rand*10001 && anyos >= randAnyos-1) {
+				return 1;
+			} 
+			if(j.getOverall() >= 60 && j.getOverall() < 70 && cantidad >= 1000 + rand*12001) {
+				return 1;	 				
+			}	 			
+			if(j.getOverall() < 60 && cantidad >= 1000 + rand*4001) {
+				return 1;
+			} 	
+			return 0;
+>>>>>>> branch 'master' of https://github.com/alvarogonzalez96/simuladorNBA_grupo36.git
 		}
-		return 0;
 	}
 	
 	private int proponerRenovacion(Jugador j, int cantidad, int anyos) {
@@ -265,5 +309,11 @@ public class VentanaJugador extends JFrame {
 		sliderAnyos.setPaintTicks(true);
 		sliderAnyos.setMajorTickSpacing(1);
 		sliderAnyos.setPaintLabels(true);
+	}
+	
+	@Override
+	public void dispose() {
+		panelTab.seleccionado();
+		super.dispose();
 	}
 }

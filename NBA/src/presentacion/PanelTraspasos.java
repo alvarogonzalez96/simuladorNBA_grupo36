@@ -204,6 +204,12 @@ public class PanelTraspasos extends PanelTab{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//hasta que el draft no haya terminado no se puede hacer nada
+				if(LigaManager.draftEnCurso) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna gestion hasta que haya concluido el draft", "Aviso", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				
 				if(jugadoresOfreceUsuario.size() > 0 && jugadoresOfreceLiga.size() > 0) {
 					recontarPosiciones();
 					if(contadorUsuario[0] >= 2 && contadorUsuario[1] >= 2 && contadorUsuario[2] >= 2 && contadorUsuario[3] >= 2 && contadorUsuario[4] >= 2) {
@@ -294,7 +300,10 @@ public class PanelTraspasos extends PanelTab{
 		actualizarCombo();
 		
 		JOptionPane.showMessageDialog(null, "Traspaso completado");
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/alvarogonzalez96/simuladorNBA_grupo36.git
 	}
 	
 	public static void actualizarCombo() {

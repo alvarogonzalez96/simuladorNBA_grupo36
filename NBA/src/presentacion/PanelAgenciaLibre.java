@@ -58,10 +58,14 @@ private ArrayList<Jugador> jugadores;
 				Point p = e.getPoint();
 				int row = tabla.rowAtPoint(p);
 				if(e.getClickCount() >= 2 && tabla.getSelectedRow() != -1) {
-					new VentanaJugador(LigaManager.getJugadorConNombre((String) tabla.getValueAt(row, 0)));
+					lanzaVentanaJugador(LigaManager.getJugadorConNombre((String) tabla.getValueAt(row, 0)));
 				}
 			}
 		});
+	}
+	
+	private void lanzaVentanaJugador(Jugador j) {
+		new VentanaJugador(this, j);
 	}
 
 	@Override

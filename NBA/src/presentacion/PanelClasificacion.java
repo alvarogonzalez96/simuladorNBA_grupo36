@@ -94,8 +94,9 @@ public class PanelClasificacion extends PanelTab {
 
 	@Override
 	protected void seleccionado() {
-		// TODO Auto-generated method stub
-		
+		for(String c: tablas.keySet()) {
+			tablas.get(c).setModel(LigaManager.clasificaciones.get(c).getTableModel());
+		}
 	}
 	
 }

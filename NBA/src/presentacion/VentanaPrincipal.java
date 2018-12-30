@@ -29,9 +29,12 @@ public class VentanaPrincipal extends JFrame {
 	PanelHome home;
 	PanelHistorial historialLiga;
 	PanelLideres lideres;
+	PanelFinanzas finanzas;
+	PanelCalendario calendario;
+	PanelClasificacion clasificacion;
 	
 	public VentanaPrincipal() {
-		LigaManager.inicializar(true, new Usuario("Pedro", 18, 0));
+		LigaManager.inicializar(true, new Usuario("Pedro", 18, 13));
 		//Nimbus Look&Feel
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -54,19 +57,17 @@ public class VentanaPrincipal extends JFrame {
 		menuUsuario = new JMenu("Usuario");
 		barra.add(menuUsuario);
 		this.setJMenuBar(barra);
-		
-		
-//Creamos las pestanias-----------------------------------		
+				
 		home = new PanelHome();
 		tabbedPane.addTab("Home", null, home, null);
 
-		JPanel calendario = new PanelCalendario();
+		calendario = new PanelCalendario();
 		tabbedPane.addTab("Calendario", null, calendario, null);
 		
 		JPanel plantilla = new PanelPlantilla();
 		tabbedPane.addTab("Plantilla", null, plantilla, null);
 		
-		JPanel finanzas = new PanelFinanzas();
+		finanzas = new PanelFinanzas();
 		tabbedPane.addTab("Finanzas", null, finanzas, null);
 		
 		JPanel traspasos = new PanelTraspasos();
@@ -78,7 +79,7 @@ public class VentanaPrincipal extends JFrame {
 		historialLiga = new PanelHistorial();
 		tabbedPane.addTab("Historial Liga", null, historialLiga, null);
 		
-		JPanel clasificacion = new PanelClasificacion();
+		clasificacion = new PanelClasificacion();
 		tabbedPane.addTab("Clasificacion", null, clasificacion, null);
 
 		lideres = new PanelLideres();
@@ -101,6 +102,12 @@ public class VentanaPrincipal extends JFrame {
 					historialLiga.seleccionado();
 				} else if(tabbedPane.getSelectedIndex() == 8) {
 					lideres.seleccionado();
+				} else if(tabbedPane.getSelectedIndex() == 3) {
+					finanzas.seleccionado();
+				} else if(tabbedPane.getSelectedIndex() == 1) {
+					calendario.seleccionado();
+				} else if(tabbedPane.getSelectedIndex() == 7) {
+					clasificacion.seleccionado();
 				}
 			}
 		});
