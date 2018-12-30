@@ -275,7 +275,6 @@ public class VentanaJugador extends JFrame {
 		}
 		e.asignarRoles();
 		LigaManager.agentesLibres.add(jugador);
-		//LigaManager.noticiasAgenciaLibre.add("DESPIDO: " + j.getNombre() + ", rol: " + j.rol + ", equipo: " + e.getNombre());
 	}
 	
 	private boolean esPosibleCortar(Jugador jug) {
