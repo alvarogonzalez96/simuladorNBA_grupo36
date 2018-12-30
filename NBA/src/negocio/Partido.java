@@ -73,8 +73,7 @@ public class Partido {
 				visitante.nuevaVictoria();
 			}
 		}
-		System.out.println(visitante.nombre+" "+puntosVisitante+" - "+puntosLocal+" "+local.nombre);
-		//System.out.println("----------------------------------------");
+		
 		for (Jugador j : local.jugadores) {
 			j.puntosPartido = 0;
 			j.asistenciasPartido = 0;
