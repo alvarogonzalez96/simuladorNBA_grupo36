@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class TestEquipo {
 
-	Equipo e1;
+	Equipo e1, e2;
 	ArrayList<Jugador> jugadores;
 	
 	@Before
@@ -22,12 +22,22 @@ public class TestEquipo {
 		}
 		e1 = new Equipo(30, jugadores);
 		e1.jugadores = jugadores;
+		
+		e2 = new Equipo(31, jugadores);
+		e2.jugadores = jugadores;
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 
+	@Test
+	public void testEquipoAsignarEstrellaAlMejor() {
+		e2.getJugadores().get(2).setNombre("Antonio");
+		e2.getJugadores().get(2).overall = 90;
+		
+		assertEquals("Antonio", e2.asignarEstrellaAlMejor().getNombre());
+	}
 	
 	@Test
 	public void testEquipoSalario() {
@@ -42,7 +52,4 @@ public class TestEquipo {
 		e1.calcSalarioTotal();
 		assertEquals(66, e1.salarioTotal, 0.1);
 	}
-	
-	
-
 }

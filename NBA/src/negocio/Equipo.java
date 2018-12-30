@@ -249,7 +249,7 @@ public class Equipo {
 	}
 	
 	
-	private Jugador asignarEstrellaAlMejor() {
+	public Jugador asignarEstrellaAlMejor() {
 		Jugador mejor = new Jugador();
 		for(Jugador j: jugadores) {
 			if(j.getRol() != Rol.ESTRELLA && j.getOverall() > mejor.getOverall()) {
