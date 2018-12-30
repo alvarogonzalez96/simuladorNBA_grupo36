@@ -224,9 +224,22 @@ public class VentanaJugador extends JFrame {
 			return -2;
 		} else {
 			double rand = Math.random();
-			if(rand < 0.5) {
+			double randAnyos = Math.random()*5;
+			if(j.getOverall() >= 85 && cantidad >= 30000 + rand*10001  && anyos >= randAnyos) {
+				return 1;
+			} 
+			if(j.getOverall() >= 80 && j.getOverall() < 85 && cantidad >= 20000 + rand*10001 && anyos >= randAnyos) {
+				return 1;
+			} 
+			if(j.getOverall() >= 70 && j.getOverall() < 80 && cantidad >= 10000+rand*10001 && anyos >= randAnyos-1) {
+				return 1;
+			} 
+			if(j.getOverall() >= 60 && j.getOverall() < 70 && cantidad >= 1000 + rand*12001) {
 				return 1;
 			}
+			if(j.getOverall() < 60 && cantidad >= 1000 + rand*4001) {
+				return 1;
+			} 		
 		}
 		return 0;
 	}
