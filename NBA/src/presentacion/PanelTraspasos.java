@@ -300,10 +300,7 @@ public class PanelTraspasos extends PanelTab{
 		actualizarCombo();
 		
 		JOptionPane.showMessageDialog(null, "Traspaso completado");
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/alvarogonzalez96/simuladorNBA_grupo36.git
 	}
 	
 	public static void actualizarCombo() {

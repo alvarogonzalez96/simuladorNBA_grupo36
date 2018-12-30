@@ -390,7 +390,7 @@
 "college":"Houston",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":13,
+{"tid":-1,
 "name":"Alex Caruso",
 "ratings":[{"hgt":41,"stre":24,"spd":50,"jmp":66,"endu":46,"ins":21,"dnk":59,"ft":53,"fg":61,"tp":60,"diq":32,"oiq":46,"drb":32,"pss":32,"reb":21,"skills":[]}],
 "pos":"G","hgt":77,"weight":186,
@@ -1945,7 +1945,7 @@
 "ratings":[{"hgt":63,"stre":75,"spd":42,"jmp":51,"endu":31,"ins":55,"dnk":57,"ft":62,"fg":38,"tp":17,"diq":59,"oiq":52,"drb":26,"pss":50,"reb":72,"skills":[]}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":13,
+{"tid":-1,
 "name":"Luol Deng",
 "ratings":[{"hgt":56,"stre":48,"spd":50,"jmp":50,"endu":30,"ins":42,"dnk":52,"ft":53,"fg":50,"tp":57,"diq":39,"oiq":54,"drb":40,"pss":47,"reb":55,"skills":[]}],
 "pos":"SF","hgt":81,"weight":220,
@@ -9322,7 +9322,7 @@
 "college":"France",
 "ratings":[{"hgt":66,"stre":74,"spd":34,"jmp":66,"endu":53,"ins":54,"dnk":45,"ft":70,"fg":33,"tp":0,"diq":38,"oiq":55,"drb":43,"pss":47,"reb":72}],"skills":[]},
 
-{"tid":13,
+{"tid":-1,
 "name":"Gary Payton II",
 "pos":"PG","hgt":74,"weight":190,
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627780.png",
