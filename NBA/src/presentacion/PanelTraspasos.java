@@ -425,7 +425,6 @@ public class PanelTraspasos extends PanelTab{
 				salarioTotal = salarioTotal + j.getSalario();
 			}
 		}
-	
 		disponible = Equipo.limiteSalarial - salarioTotal;
 		return disponible;
 	}
