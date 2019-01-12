@@ -17,6 +17,7 @@ public class VentanaJugador extends JFrame {
 	
 	JLabel nombre;
 	JTable tablaEstadisticas;
+	JScrollPane scrollTabla;
 	
 	JButton botonFichar, botonRenovar, botonCortar;
 	
@@ -37,7 +38,6 @@ public class VentanaJugador extends JFrame {
 		initComponentes();
 		
 		panelTitulo = new JPanel();
-		panelCentral = new JPanel();
 		panelInferior = new JPanel(new BorderLayout());
 		panelBotones = new JPanel(new FlowLayout());
 		
@@ -47,7 +47,7 @@ public class VentanaJugador extends JFrame {
 		addBotones();
 		
 		add(panelTitulo, BorderLayout.NORTH);
-		add(panelCentral, BorderLayout.CENTER);
+		add(scrollTabla, BorderLayout.CENTER);
 		add(panelInferior, BorderLayout.SOUTH);
 		panelInferior.add(panelBotones, BorderLayout.WEST);
 		
@@ -291,6 +291,7 @@ public class VentanaJugador extends JFrame {
 	private void initComponentes() {
 		nombre = new JLabel(jugador.getNombre());
 		nombre.setSize(new Dimension(100, 100));
+		nombre.setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		botonFichar = new JButton("Fichar");
 		botonRenovar = new JButton("Renovar");
@@ -302,6 +303,11 @@ public class VentanaJugador extends JFrame {
 		sliderAnyos.setPaintTicks(true);
 		sliderAnyos.setMajorTickSpacing(1);
 		sliderAnyos.setPaintLabels(true);
+		
+		tablaEstadisticas = new JTable();
+		scrollTabla = new JScrollPane(tablaEstadisticas);
+		tablaEstadisticas.setModel(jugador.getModeloTablaTemporadas());
+		scrollTabla.getViewport().setBackground(Color.WHITE);
 	}
 	
 	@Override

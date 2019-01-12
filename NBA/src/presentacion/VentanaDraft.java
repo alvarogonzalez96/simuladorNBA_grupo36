@@ -89,7 +89,7 @@ public class VentanaDraft extends JFrame {
 	}
 	
 	private void inicializarPaneles() {
-		sliderVel = new JSlider(1,5,2);
+		sliderVel = new JSlider(1,5,5);
 		sliderVel.setPaintTicks(true);
 		sliderVel.setMajorTickSpacing(1);
 		sliderVel.setSnapToTicks(true);

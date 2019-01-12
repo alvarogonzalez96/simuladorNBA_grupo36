@@ -1146,6 +1146,9 @@ public class LigaManager {
 		temporadasPasadas.get(anyo).guardaBalanceUsuario(u.getVictorias(), u.getDerrotas());
 		temporadasPasadas.get(anyo).guardaCampeon(campeon);
 		temporadasPasadas.get(anyo).guardaClasificacion(equipos);
+		for(Jugador j: jugadores) {
+			j.guardaStatsTemporada();
+		}
 	}
 	
 	/**

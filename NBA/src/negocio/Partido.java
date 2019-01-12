@@ -117,7 +117,6 @@ public class Partido {
 		if(random <= tiroDeDos) {
 			//Tira de 2
 			//Elijo el tirador
-			
 			if(atacaLocal) {
 				j = elegirTiradorDos(quintetoLocal);
 			} else {

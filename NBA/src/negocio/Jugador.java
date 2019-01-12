@@ -1,6 +1,10 @@
 package negocio;
 
 import java.util.Comparator;
+import java.util.HashMap;
+
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import datos.GeneradorNombres;
 
@@ -46,6 +50,8 @@ public class Jugador {
 	//Atributos para calcular la media
 	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
 	
+	protected HashMap<Integer, Estadistica> statsTemporadas;
+	
 	public Jugador() {
 		super();
 		this.nombre = "Desconocido";
@@ -63,6 +69,7 @@ public class Jugador {
 		this.anyoNac = 1992;
 		this.tid = -1;	
 		this.rookie = true;
+		statsTemporadas = new HashMap<>();
 	}
 	
 	/**
@@ -103,6 +110,7 @@ public class Jugador {
 		this.tid = -1;
 		this.rookie = true;
 		this.overall = cargarOverallJugador();
+		statsTemporadas = new HashMap<>();
 	}
 	
 	public Jugador(Jugador j) {
@@ -115,6 +123,7 @@ public class Jugador {
 		this.defensa = j.defensa;
 		this.asistencia = j.asistencia;
 		this.condicionFisica = j.condicionFisica;
+		statsTemporadas = new HashMap<>();
 	}
 	
 	public void cargarJugador(JSONObject json) { 
@@ -378,9 +387,148 @@ public class Jugador {
 				+ defensa +  ", segundos=" + minutos + ", minutos= "+ min + ", m="+ tiempoJugado + "]";
 	}
 	
+	public void guardaStatsTemporada() {
+		this.statsTemporadas.put(LigaManager.anyo, new Estadistica());
+	}
+	
+	protected String getAbrevEquipo() {
+		for(Equipo e: LigaManager.equipos) {
+			if(e.tid == this.tid) {
+				return e.getAbrev();
+			}
+		}
+		return "";
+	}
+	
+	//Clase interna para almacenar los datos de
+	//temporadas pasadas de cada jugador
+	private class Estadistica {
+		int anyo;
+		int idEquipo; //equipo con el que comienza la temporada
+		int puntos;
+		int asistencias;
+		int rebotes;
+		int partidosJugados; 
+		
+		public Estadistica() {
+			this.anyo = LigaManager.anyo;
+			this.idEquipo = tid;
+			this.puntos = puntosTemporada;
+			this.asistencias = asistenciasTemporada;
+			this.rebotes = rebotesTemporada;
+			this.partidosJugados = partidosJugadosTemporada;
+		}
+		
+		protected String getAbrevEquipo() {
+			for(Equipo e: LigaManager.equipos) {
+				if(e.tid == idEquipo) {
+					return e.getAbrev();
+				}
+			}
+			return "";
+		}
+		
+		protected double getPuntosPorPartido() {
+			if(partidosJugados == 0) return 0;
+			return Math.round(100*puntos*1.0/partidosJugados)/100.0;
+		}
+		
+		protected double getAsistenciasPorPartido() {
+			if(partidosJugados == 0) return 0;
+			return Math.round(100*asistencias*1.0/partidosJugados)/100.0;
+		}
+		
+		protected double getRebotesPorPartido() {
+			if(partidosJugados == 0) return 0;
+			return Math.round(100*rebotes*1.0/partidosJugados)/100.0;
+		}
+	}
+	
+	private class ModeloTablaTemporadas implements TableModel {
+
+		@Override
+		public void addTableModelListener(TableModelListener arg0) {}
+
+		@Override
+		public Class<?> getColumnClass(int arg0) {
+			return String.class;
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 6;
+		}
+
+		@Override
+		public String getColumnName(int col) {
+			switch(col) {
+			case 0:
+				return "Temporada";
+			case 1:
+				return "Equipo";
+			case 2:
+				return "Partidos jugados";
+			case 3:
+				return "PPP";
+			case 4:
+				return "APP";
+			case 5:
+				return "RPP";
+			default: return "";
+			}
+		}
+
+		@Override
+		public int getRowCount() {
+			return statsTemporadas.size()+1;
+		}
+
+		@Override
+		public Object getValueAt(int row, int col) {
+			if(row == statsTemporadas.size()) {
+				//esta pidiendo informacion sobre la temporada actual
+				switch(col) {
+				case 0: return LigaManager.anyo;
+				case 1: return getAbrevEquipo();
+				case 2: return partidosJugadosTemporada;
+				case 3: return getPuntosPorPartido();
+				case 4: return getAsistenciasPorPartido();
+				case 5: return getRebotesPorPartido();
+				}
+			}
+			System.out.println(row);
+			Estadistica e = statsTemporadas.get(row+2018);
+			switch(col) {
+			case 0: return e.anyo;
+			case 1: return e.getAbrevEquipo();
+			case 2: return e.partidosJugados;
+			case 3: return e.getPuntosPorPartido();
+			case 4: return e.getAsistenciasPorPartido();
+			case 5: return e.getRebotesPorPartido();
+			}
+			return null;
+		}
+
+		@Override
+		public boolean isCellEditable(int arg0, int arg1) {
+			return false;
+		}
+
+		@Override
+		public void removeTableModelListener(TableModelListener arg0) {}
+
+		@Override
+		public void setValueAt(Object arg0, int arg1, int arg2) {}
+		
+	}
+	
+	private ModeloTablaTemporadas modeloTablaTemporadas = null;
+	
+	public ModeloTablaTemporadas getModeloTablaTemporadas() {
+		if(modeloTablaTemporadas == null) modeloTablaTemporadas = new ModeloTablaTemporadas();
+		return modeloTablaTemporadas;
+	}
 }
-
-
 
 class OrdenadorJugadores implements Comparator<Jugador> {
 
