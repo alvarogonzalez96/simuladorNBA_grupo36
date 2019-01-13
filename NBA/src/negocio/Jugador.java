@@ -488,7 +488,7 @@ public class Jugador {
 			if(row == statsTemporadas.size()) {
 				//esta pidiendo informacion sobre la temporada actual
 				switch(col) {
-				case 0: return LigaManager.anyo;
+				case 0: return LigaManager.anyo+"/"+(""+(LigaManager.anyo+1)).substring(2);
 				case 1: return getAbrevEquipo();
 				case 2: return partidosJugadosTemporada;
 				case 3: return getPuntosPorPartido();
@@ -499,7 +499,7 @@ public class Jugador {
 			System.out.println(row);
 			Estadistica e = statsTemporadas.get(row+2018);
 			switch(col) {
-			case 0: return e.anyo;
+			case 0: return e.anyo+"/"+(""+(e.anyo+1)).substring(2);
 			case 1: return e.getAbrevEquipo();
 			case 2: return e.partidosJugados;
 			case 3: return e.getPuntosPorPartido();

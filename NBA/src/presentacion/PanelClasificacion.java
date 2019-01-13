@@ -13,8 +13,10 @@ public class PanelClasificacion extends PanelTab {
 	
 	private JPanel panelIzquierda;
 		private JPanel panelIzquierdaArriba, panelIzquierdaAbajo;
+			private JPanel panelPacifico, panelSuroeste, panelNoroeste;
 	private JPanel panelDerecha;
 		private JPanel panelDerechaArriba, panelDerechaAbajo;
+			private JPanel panelAtlantico, panelCentral, panelSureste;
 	
 	private HashMap<String, Clasificacion> clasificaciones;	
 	private HashMap<String, JTable> tablas;
@@ -49,14 +51,14 @@ public class PanelClasificacion extends PanelTab {
 	
 	private void insertarTablas() {
 		addTabla(panelIzquierdaArriba, "OESTE");
-		addTabla(panelIzquierdaAbajo, "PACIFICO");
-		addTabla(panelIzquierdaAbajo, "SUROESTE");
-		addTabla(panelIzquierdaAbajo, "NOROESTE");
+		addTabla(panelPacifico, "PACIFICO");
+		addTabla(panelSuroeste, "SUROESTE");
+		addTabla(panelNoroeste, "NOROESTE");
 		
 		addTabla(panelDerechaArriba, "ESTE");
-		addTabla(panelDerechaAbajo, "ATLANTICO");
-		addTabla(panelDerechaAbajo, "CENTRAL");
-		addTabla(panelDerechaAbajo, "SURESTE");
+		addTabla(panelAtlantico, "ATLANTICO");
+		addTabla(panelCentral, "CENTRAL");
+		addTabla(panelSureste, "SURESTE");
 	}
 	
 	private void addTabla(JPanel destino, String tabla) {
@@ -70,10 +72,37 @@ public class PanelClasificacion extends PanelTab {
 		crearTablas();
 		panelIzquierda = new JPanel(new GridLayout(2,1));
 		panelDerecha = new JPanel(new GridLayout(2,1));
-		panelIzquierdaArriba = new JPanel();
+		panelIzquierdaArriba = new JPanel(new BorderLayout());
 		panelIzquierdaAbajo = new JPanel(new GridLayout(1,3));
-		panelDerechaArriba = new JPanel();
+		panelDerechaArriba = new JPanel(new BorderLayout());
 		panelDerechaAbajo = new JPanel(new GridLayout(1,3));
+		
+		panelPacifico = new JPanel(new BorderLayout());
+		panelSuroeste= new JPanel(new BorderLayout());
+		panelNoroeste = new JPanel(new BorderLayout());
+		
+		panelAtlantico = new JPanel(new BorderLayout());
+		panelCentral = new JPanel(new BorderLayout());
+		panelSureste = new JPanel(new BorderLayout());
+		
+		panelIzquierdaAbajo.add(panelPacifico);
+		panelIzquierdaAbajo.add(panelSuroeste);
+		panelIzquierdaAbajo.add(panelNoroeste);
+		
+		panelDerechaAbajo.add(panelAtlantico);
+		panelDerechaAbajo.add(panelCentral);
+		panelDerechaAbajo.add(panelSureste);
+		
+		panelPacifico.add(new JLabel("PACIFICIO"), BorderLayout.NORTH);
+		panelSuroeste.add(new JLabel("SUROESTE"), BorderLayout.NORTH);
+		panelNoroeste.add(new JLabel("NOROESTE"), BorderLayout.NORTH);
+		
+		panelAtlantico.add(new JLabel("ATLANTICO"), BorderLayout.NORTH);
+		panelCentral.add(new JLabel("CENTRAL"), BorderLayout.NORTH);
+		panelSureste.add(new JLabel("SURESTE"), BorderLayout.NORTH);
+		
+		panelDerechaArriba.add(new JLabel("OESTE"), BorderLayout.NORTH);
+		panelIzquierdaArriba.add(new JLabel("ESTE"), BorderLayout.NORTH);
 		
 		panelIzquierda.add(panelIzquierdaArriba);
 		panelIzquierda.add(panelIzquierdaAbajo);

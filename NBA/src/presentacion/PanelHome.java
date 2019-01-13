@@ -207,6 +207,7 @@ public class PanelHome extends PanelTab {
 		//panelDerAbajoDer.add(new JScrollPane(ultimosPartidos));
 		JScrollPane s = new JScrollPane(ultimosPartidos);
 		s.setPreferredSize(new Dimension(200, getHeight()));
+		s.getViewport().setBackground(Color.WHITE);
 		panelDerAbajoDer.add(s);
 	}
 	
@@ -233,6 +234,7 @@ public class PanelHome extends PanelTab {
 		clasificacion.setRowHeight(25);
 		JScrollPane scrollIzq = new JScrollPane(clasificacion);
 		scrollIzq.setPreferredSize(new Dimension(250,getHeight()));
+		scrollIzq.getViewport().setBackground(Color.WHITE);
 		panelIzq.add(scrollIzq, BorderLayout.WEST);
 	}
 	
