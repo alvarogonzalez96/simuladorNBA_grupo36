@@ -333,16 +333,17 @@ public class Equipo {
 
 		@Override
 		public int getColumnCount() {
-			return 4;
+			return 5;
 		}
 
 		@Override
 		public String getColumnName(int columnIndex) {
 			switch(columnIndex) {
 			case 0: return "Nombre";
-			case 1: return "Edad";
-			case 2: return "Anyos de contrato";
-			case 3: return "Salario";
+			case 1: return "Posicion";
+			case 2: return "Edad";
+			case 3: return "Anyos de contrato";
+			case 4: return "Salario";
 			}
 			return null;
 		}
@@ -357,9 +358,10 @@ public class Equipo {
 			Jugador j = jugadores.get(rowIndex);
 			switch(columnIndex) {
 			case 0: return j.nombre;
-			case 1: return j.getEdad();
-			case 2: return j.anyosContratoRestantes;
-			case 3: return j.salario;
+			case 1: return j.posicion;
+			case 2: return j.getEdad();
+			case 3: return j.anyosContratoRestantes;
+			case 4: return j.salario;
 			}
 			return null;
 		}

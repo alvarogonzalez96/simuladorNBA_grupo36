@@ -181,6 +181,10 @@ public class PanelTraspasos extends PanelTab{
 		buscarOferta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(LigaManager.draftEnCurso) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ningun traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 				if(equipoSeleccionado.getTid() != -8) {
 					jugadoresOfreceLiga.clear();
 					calcularOferta();
@@ -194,6 +198,10 @@ public class PanelTraspasos extends PanelTab{
 		borrarOferta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(LigaManager.draftEnCurso) {
+					JOptionPane.showMessageDialog(null, "No puedes realizar ningun traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 				jugadoresOfreceLiga.clear();
 				jugadoresOfreceUsuario.clear();
 				actualizarTablaUsuario();

@@ -118,10 +118,8 @@ public class PanelPlayoffs extends PanelTab {
 
 	@Override
 	protected void seleccionado() {
-		if(LigaManager.fase != 2) {
-			botonPartido.setEnabled(false);
-			botonPlayoffs.setEnabled(false);
-		}
+		botonPartido.setEnabled(LigaManager.fase == 1);
+		botonPlayoffs.setEnabled(LigaManager.fase == 1);
 	}
 	
 	private class AreaCuadroPlayoffs extends JPanel {

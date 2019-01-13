@@ -105,7 +105,7 @@ public class BD {
 	 * */
 	public static int login(String username, String pass) {
 		try {
-			PreparedStatement pst = conexion.prepareStatement("SELECT NOM_USUARIO,PASS WHERE NOM_USUARIO=? AND PASS=?;");
+			PreparedStatement pst = conexion.prepareStatement("SELECT NOM_USUARIO,PASS FROM USUARIO WHERE NOM_USUARIO=? AND PASS=?;");
 			pst.setString(1, username);
 			pst.setString(2, pass);
 			ResultSet rs = pst.executeQuery();
@@ -114,7 +114,13 @@ public class BD {
 			}
 			return -1;
 		} catch(Exception e) {
+			e.printStackTrace();
 			return -2;
 		}
 	}
+	
+//	public static void main(String[] args) {
+//		conectar();
+//		st.executeQuery("SELECT * FROM USUARIO");
+//	}
 }

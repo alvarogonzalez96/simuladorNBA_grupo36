@@ -84,7 +84,7 @@ public class PanelHome extends PanelTab {
 					botonDia.setEnabled(false);
 					LigaManager.simularDia();
 					if(LigaManager.fase == 1) {
-						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pesta�a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\nVe a la pesta�a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
 						botonDia.setEnabled(false);
 						botonSem.setEnabled(false);

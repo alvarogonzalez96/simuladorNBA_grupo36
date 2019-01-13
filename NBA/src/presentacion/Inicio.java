@@ -1,5 +1,13 @@
 package presentacion;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.Properties;
+
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -9,8 +17,28 @@ import negocio.Usuario;
 
 public class Inicio {	
 		
+	private static String nombreUsuarioAnterior;
+	private String nombreUsuarioIntroducido;
+
+	static Properties prop;
+	
+	static void cargaUltimoNombreUsuario() {
+		prop = new Properties();
+		try {
+			File f = new File("prop.properties");
+			if(!f.exists()) f.createNewFile();
+			InputStream is = new FileInputStream("prop.properties");
+			prop.load(is);
+			nombreUsuarioAnterior = prop.getProperty("usuario.nombre");
+			if(nombreUsuarioAnterior == null) nombreUsuarioAnterior = "";
+		} catch (IOException e) {
+			// No hacer nada, no se carga el nombre y listo
+			e.printStackTrace();
+		}
+	}
+	
 	public Inicio() {
-		
+		cargaUltimoNombreUsuario();
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -37,13 +65,13 @@ public class Inicio {
 		 */
 		if(respuesta == 0) {
 			//Introduce su nombre de usuario
-			nombreUsuario = popup("Introduce tu nombre de usuario");
+			nombreUsuario = popup("Introduce tu nombre de usuario", true);
 			if(nombreUsuario == null) {
 				// volver a la ventana inicial
 				ventanaInicio();
 			} else {
 				//Selecciona la contrasenya
-				contrasenya = popup("Introduce tu contraseña");
+				contrasenya = popup("Introduce tu contraseña", false);
 				if(contrasenya == null) {
 					//volver a la ventana inicial
 					ventanaInicio();
@@ -52,6 +80,8 @@ public class Inicio {
 					int g = BD.login(nombreUsuario, contrasenya);
 					if(g >= 0) {
 						//todo correcto
+						nombreUsuarioIntroducido = nombreUsuario;
+						recordarUsuario();
 						new VentanaPrincipal();
 					} else if(g == -1) {
 						//incorrecto
@@ -66,12 +96,12 @@ public class Inicio {
 
 		} else if(respuesta == 1) {
 			//Selecciona su nombre de usuario
-			nombreUsuario = popup("Elige tu nombre de usuario");
+			nombreUsuario = popup("Elige tu nombre de usuario", false);
 			if(nombreUsuario == null) {
 				ventanaInicio();
 			} else {
 				//Selecciona la contrasenya
-				contrasenya = popup("Elige tu contraseña");
+				contrasenya = popup("Elige tu contraseña", false);
 				if(contrasenya == null) {
 					ventanaInicio();
 				} else {
@@ -106,10 +136,14 @@ public class Inicio {
 		}
 	}
 	
-	private String popup(String mensaje) {
+	private String popup(String mensaje, boolean loginNombre) {
 		String campo = "";
 		do {
-			campo = (String) JOptionPane.showInputDialog(null, mensaje, null);
+			if(loginNombre) {				
+				campo = (String) JOptionPane.showInputDialog(null, mensaje, nombreUsuarioAnterior);
+			} else {
+				campo = (String) JOptionPane.showInputDialog(null, mensaje, "");
+			}
 		} while(campo != null && campo.isEmpty());
 		return campo;
 	}
@@ -120,6 +154,17 @@ public class Inicio {
 	
 	private int calcularIDEquipo(String equipo) {
 		return 0;
+	}
+	
+	// Guarda en el archivo properties el nombre de usuario
+	private void recordarUsuario() {
+		prop.put("usuario.nombre", nombreUsuarioIntroducido);
+		try {
+			prop.store(new FileWriter("prop.properties"), ""+new Date());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		nombreUsuarioAnterior = nombreUsuarioIntroducido;
 	}
 	
 	

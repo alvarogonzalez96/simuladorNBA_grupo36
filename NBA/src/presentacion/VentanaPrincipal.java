@@ -18,7 +18,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	protected JMenuBar barra;
 	protected JTabbedPane tabbedPane;
-	protected JScrollPane scroll, noticiarioTexto;
+	protected JScrollPane scroll;
 	
 	JMenu menuUsuario;
 	
@@ -34,7 +34,7 @@ public class VentanaPrincipal extends JFrame {
 	PanelClasificacion clasificacion;
 	
 	public VentanaPrincipal() {
-		LigaManager.inicializar(true, new Usuario("Pedro", 18, 13));
+		LigaManager.inicializar(true, new Usuario("Pedro", 18, 1));
 		//Nimbus Look&Feel
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -84,31 +84,16 @@ public class VentanaPrincipal extends JFrame {
 
 		lideres = new PanelLideres();
 		tabbedPane.addTab("Lideres de la liga", null, lideres, null);
-		
-		JPanel noticiario = new PanelNoticiario();
-		tabbedPane.addTab("Noticiario", null, noticiario, null);
-		
+	
 		JPanel playoffs = new PanelPlayoffs();
 		tabbedPane.addTab("Play Offs", null, playoffs, null);	
-
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
+
 			@Override
-			public void stateChanged(ChangeEvent e) {				
-				if(tabbedPane.getSelectedIndex() == 0) {
-					//se ha seleccionado la pestanya Home 
-					home.seleccionado();
-				} else if(tabbedPane.getSelectedIndex() == 6) {
-					historialLiga.seleccionado();
-				} else if(tabbedPane.getSelectedIndex() == 8) {
-					lideres.seleccionado();
-				} else if(tabbedPane.getSelectedIndex() == 3) {
-					finanzas.seleccionado();
-				} else if(tabbedPane.getSelectedIndex() == 1) {
-					calendario.seleccionado();
-				} else if(tabbedPane.getSelectedIndex() == 7) {
-					clasificacion.seleccionado();
-				}
+			public void stateChanged(ChangeEvent arg0) {
+				if(tabbedPane.getSelectedComponent() instanceof PanelTab)
+				((PanelTab)tabbedPane.getSelectedComponent()).seleccionado();
 			}
 		});
 		
@@ -121,7 +106,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	private void initBarra() {
-		itemInfo = new JMenuItem("Info");
+		itemInfo = new JMenuItem("Ayuda");
 		itemLogout = new JMenuItem("Cerrar sesion");
 		itemAcercaDe = new JMenuItem("Acerca de...");
 		

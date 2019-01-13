@@ -188,7 +188,7 @@ public class VentanaDraft extends JFrame {
 	@Override
 	public void dispose() {
 		if(!finalizado) {
-			JOptionPane.showMessageDialog(null, "No puedes cerrar esta ventana hasta que hayas elegido a tus dos jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No puedes cerrar esta ventana hasta que haya terminado del draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
 		} else {
 			LigaManager.draftEnCurso = false;
 			super.dispose();

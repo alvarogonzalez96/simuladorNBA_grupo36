@@ -19,7 +19,6 @@ public class TestQuinteto {
 
 	@Test
 	public void test() {
-		
 		assertEquals(Posicion.BASE, Quinteto.elegirPosicion(0));
 		assertEquals(Posicion.ESCOLTA, Quinteto.elegirPosicion(1));
 		assertEquals(Posicion.ALERO, Quinteto.elegirPosicion(2));
