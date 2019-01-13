@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
 
 import negocio.Equipo;
 import negocio.Renovacion;
@@ -54,6 +55,7 @@ public class VentanaJugador extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.pack();
+		this.setMinimumSize(this.getSize());
 		this.setTitle(jugador.getNombre());
 	}
 	
@@ -305,6 +307,7 @@ public class VentanaJugador extends JFrame {
 		sliderAnyos.setPaintLabels(true);
 		
 		tablaEstadisticas = new JTable();
+		tablaEstadisticas.setDefaultRenderer(String.class, new RendererTablaEstadisticas());
 		scrollTabla = new JScrollPane(tablaEstadisticas);
 		tablaEstadisticas.setModel(jugador.getModeloTablaTemporadas());
 		scrollTabla.getViewport().setBackground(Color.WHITE);
@@ -315,4 +318,14 @@ public class VentanaJugador extends JFrame {
 		panelTab.seleccionado();
 		super.dispose();
 	}
+}
+
+class RendererTablaEstadisticas implements TableCellRenderer {
+
+	@Override
+	public Component getTableCellRendererComponent(JTable tabla, Object value, boolean isSelected, boolean hasFocus, int row,
+			int col) {
+		return new JLabel(value+"", SwingConstants.CENTER);
+	}
+	
 }
