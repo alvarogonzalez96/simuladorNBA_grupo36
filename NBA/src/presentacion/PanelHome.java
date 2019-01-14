@@ -61,6 +61,9 @@ public class PanelHome extends PanelTab {
 						LigaManager.despedirJugadores(orden, false);
 						LigaManager.agenciaLibre(orden, false);
 						
+						//guardar en BD
+						LigaManager.guardarBD();
+						
 						botonDia.setText("Simular dia");
 						botonDia.setEnabled(true);
 						botonSem.setEnabled(true);

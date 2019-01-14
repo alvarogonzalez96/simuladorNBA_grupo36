@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import datos.BD;
 import datos.GeneradorNombres;
 
 import org.json.*;
@@ -21,9 +22,9 @@ public class Jugador {
 	protected int tiroLejos;//tp
 	protected int defensa; //diq
 	protected int asistencia;//pss
-	protected int condicionFisica;
 	protected int anyoNac;
 	protected int overall;
+	protected int id;
 	
 	//atributos variables (de cada temporada)
 	public Rol rol;
@@ -63,7 +64,6 @@ public class Jugador {
 		this.tiroLejos = 0;
 		this.defensa = 0;
 		this.asistencia = 0;
-		this.condicionFisica = 0;
 		this.minutos = 0;
 		this.tiempoJugado = 0;
 		this.anyoNac = 1992;
@@ -97,7 +97,6 @@ public class Jugador {
 		this.tiroLejos = (a.tiroLejos+b.tiroLejos)/2;
 		this.defensa = (a.defensa+b.defensa)/2;
 		this.asistencia = (a.asistencia+b.asistencia)/2;
-		this.condicionFisica = (a.condicionFisica+b.condicionFisica)/2;
 		this.hgt = (a.hgt + b.hgt)/2;
 		this.stre = (a.stre + b.stre)/2;
 		this.spd = (a.spd + b.spd)/2;
@@ -111,6 +110,8 @@ public class Jugador {
 		this.rookie = true;
 		this.overall = cargarOverallJugador();
 		statsTemporadas = new HashMap<>();
+		this.id = BD.getPrimerIdLibreJugador();
+		BD.guardarJugador(this);
 	}
 	
 	public Jugador(Jugador j) {
@@ -122,8 +123,9 @@ public class Jugador {
 		this.tiroLejos = j.tiroLejos;
 		this.defensa = j.defensa;
 		this.asistencia = j.asistencia;
-		this.condicionFisica = j.condicionFisica;
 		statsTemporadas = new HashMap<>();
+		this.id = BD.getPrimerIdLibreJugador();
+		BD.guardarJugador(this);
 	}
 	
 	public void cargarJugador(JSONObject json) { 
@@ -173,6 +175,9 @@ public class Jugador {
 		
 		anyoNac = json.getJSONObject("born").getInt("year");
 		overall = cargarOverallJugador();
+
+		this.id = BD.getPrimerIdLibreJugador();
+		BD.guardarJugador(this);
 	}
 	
 	private int cargarOverallJugador() {
@@ -323,14 +328,6 @@ public class Jugador {
 	public int getOverall() {
 		return overall;
 	}
-	
-	public int getCondicionFisica() {
-		return condicionFisica;
-	}
-
-	public void setCondicionFisica(int condicionFisica) {
-		this.condicionFisica = condicionFisica;
-	}
 
 	public int getDefensa() {
 		return defensa;
@@ -376,14 +373,22 @@ public class Jugador {
 	public int getAnyosContratoRestantes() {
 		return anyosContratoRestantes;
 	}
+	
+	public int getID() {
+		return id;
+	}
 
+	public int getAnyoNac() {
+		return anyoNac;
+	}
+	
 	@Override
 	public String toString() {
 		double min = (double) minutos/60 ;
 		
 		return "Jugador [nombre=" + nombre + ", posicion=" + posicion + ", rol=" + rol + ", tiroCerca=" + tiroCerca
 				+ ", tiroLejos=" + tiroLejos + ", asistencia=" + asistencia + ", rebote=" + rebote
-				+ ", condicionFisica=" + condicionFisica  + ", defensa="
+			    + ", defensa="
 				+ defensa +  ", segundos=" + minutos + ", minutos= "+ min + ", m="+ tiempoJugado + "]";
 	}
 	

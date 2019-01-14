@@ -5,15 +5,13 @@ import datos.BD;
 public class Usuario {
 
 	protected String username;
-	protected int id;
 	protected Equipo equipo;
 	protected int equipoID;
 
 	public Usuario() {}
 
-	public Usuario(String user, int id, int equipoID) {
+	public Usuario(String user, int equipoID) {
 		this.username = user;
-		this.id = id;
 		this.equipoID = equipoID;
 	}
 
@@ -29,9 +27,9 @@ public class Usuario {
 		}
 		return null;
 	}
-
-	public int getID() {
-		return id;
+	
+	public String getNombre() {
+		return username;
 	}
 
 }

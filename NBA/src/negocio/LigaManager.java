@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import datos.BD;
 import datos.ParseadorJSON;
 import negocio.Equipo.ModeloFinanzasEquipo;
 import negocio.Equipo.ModeloTablaEquipo;
@@ -39,7 +40,8 @@ public class LigaManager {
 	
 	/* Lista en la que se guardara un objeto temporada por
 	 * cada anyo.
-	 * Ejemplo: para la temporada 2018-2019, la clave sera 2018
+	 * Ejemplo: para la temporada
+	 *  2018-2019, la clave sera 2018
 	 */	
 	public static HashMap<Integer, Temporada> temporadasPasadas;
 	
@@ -63,6 +65,10 @@ public class LigaManager {
 	
 	public static boolean draftEnCurso = false;
 	
+	static {
+		cargarEquipos();
+	}
+	
 	public static void inicializar(boolean desdeJSON, Usuario u) {
 		usuario = u;
 		recienCreada = desdeJSON;
@@ -72,7 +78,7 @@ public class LigaManager {
 		temporadasPasadas.put(2018, new Temporada());
 		cargarJugadores();
 		cargarAgentesLibres();
-		cargarEquipos();
+		//cargarEquipos();
 		asignarJugadoresAEquipos();
 		inicializarClasificaciones();
 		//cargar fase
@@ -126,13 +132,11 @@ public class LigaManager {
 	}
 	
 	private static void cargarEquipos() {
-		if(recienCreada) { //cargar los equipos por defecto desde JSON
-			JSONObject all = ParseadorJSON.getObjetoPrimario("data/equipos.json");
-			JSONArray equiposJSON = all.getJSONArray("teams");
-			equipos = ParseadorJSON.aArrayEquipos(equiposJSON);
-		} else {
-			// cargar los equipos y sus atributos desde la BD
-		}
+		//if(recienCreada) { //cargar los equipos por defecto desde JSON
+		JSONObject all = ParseadorJSON.getObjetoPrimario("data/equipos.json");
+		JSONArray equiposJSON = all.getJSONArray("teams");
+		equipos = ParseadorJSON.aArrayEquipos(equiposJSON);
+		
 	}
 	
 	private static void asignarJugadoresAEquipos() {
@@ -288,6 +292,7 @@ public class LigaManager {
 			if(j.posicion == p) {
 				if(j.overall < peor.overall) {
 					peor = j;
+					BD.borrarJugador(j);
 				}
 			}
 		}
@@ -452,6 +457,9 @@ public class LigaManager {
 					}
 					if(retirado && e.getTid() == usuario.getEquipo().getTid()) {
 						retirados.add(j);
+					}
+					if(retirado) {
+						BD.borrarJugador(j);
 					}
 				}
 			}
@@ -1122,17 +1130,6 @@ public class LigaManager {
 			}
 		}
 		
-//		for(Equipo eq: equipos) {
-//			for(int i = eq.getJugadores().size()-1; i >= 0; i--) {
-//				if(eq.jugadores.get(i).anyosContratoRestantes < 0) {
-//					agentesLibres.add(eq.jugadores.get(i));
-//					eq.jugadores.remove(i);
-//				}
-//			}
-//		}
-		
-		//e.renovacionesPendientes.clear();
-		
 		actualizarRoles();
 		
 		recienCreada = false;
@@ -1212,14 +1209,18 @@ public class LigaManager {
 		return j;
 	}
 	
-	public static void main(String[] args) {
-		Usuario u = new Usuario("prueba", 0, 9);
-		inicializar(true, u);
-		/*for(int i = 0; i < 10; i++) {
-			reset();
-			nuevaTemporada();
-		}*/
-		System.out.println();
+	public static void guardarBD() {
+		guardarJugadores();
+	}
+	
+	private static void guardarJugadores() {
+		//cargar jugadores de la bd
+		//ArrayList<Jugador> jBD = BD.cargarJugadores();
+		
+		//comprobar si existen etc
+		for(Jugador j: jugadores) {
+			//if(jBD.)
+		}
 	}
 	
 	public static TableModel getModeloTablaAgenciaLibre() {

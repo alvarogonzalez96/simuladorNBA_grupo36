@@ -12,7 +12,8 @@ import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import datos.BD;
-
+import negocio.Equipo;
+import negocio.LigaManager;
 import negocio.Usuario;
 
 public class Inicio {	
@@ -82,7 +83,8 @@ public class Inicio {
 						//todo correcto
 						nombreUsuarioIntroducido = nombreUsuario;
 						recordarUsuario();
-						new VentanaPrincipal();
+						Usuario u = new Usuario(nombreUsuario, g);
+						new VentanaPrincipal(u);
 					} else if(g == -1) {
 						//incorrecto
 						JOptionPane.showMessageDialog(null, "Los datos introducidos no son correctos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -106,7 +108,8 @@ public class Inicio {
 					ventanaInicio();
 				} else {
 					//String de ejemplo
-					String equipos[] = {"Los Angeles Lakers", "Golden State Warrios", "Boston Celtics", "New York Knicks"};
+					//String equipos[] = {"Los Angeles Lakers", "Golden State Warrios", "Boston Celtics", "New York Knicks"};
+					String[] equipos = getNombresEquipos();
 					//Selecciona el equipo con el que va a jugar
 					String res = (String) JOptionPane.showInputDialog(null, "Selecciona tu equipo", "Simulador NBA", JOptionPane.DEFAULT_OPTION, null, equipos, equipos[0]);
 					if(res == null) {
@@ -117,8 +120,8 @@ public class Inicio {
 						int r = BD.registrar(nombreUsuario, contrasenya, teamID);
 						if(r >= 0) {
 							//todo bien
-							Usuario usuario = new Usuario(nombreUsuario, r, teamID);
-							new VentanaPrincipal();
+							Usuario usuario = new Usuario(nombreUsuario, teamID);
+							new VentanaPrincipal(usuario);
 						} else if(r == -1) {
 							//alertar de que ese nombre de usuario ya existe, y volver a empezar
 							JOptionPane.showMessageDialog(null, "Introduce un nombre de usuario que no este en uso", "Error", JOptionPane.ERROR_MESSAGE);
@@ -152,7 +155,21 @@ public class Inicio {
 		System.exit(0);
 	}
 	
+	private String[] getNombresEquipos() {
+		String[] n = new String[30];
+		for(int i = 0; i < LigaManager.equipos.length; i++) {
+			n[i] = LigaManager.equipos[i].getNombre();
+		}
+		return n;
+	}
+	
 	private int calcularIDEquipo(String equipo) {
+		for(Equipo e: LigaManager.equipos) {
+			//System.out.println(e.getNombre()+","+equipo);
+			if(e.getNombre().equalsIgnoreCase(equipo)) {
+				return e.getTid();
+			}
+		}
 		return 0;
 	}
 	
@@ -166,7 +183,6 @@ public class Inicio {
 		}
 		nombreUsuarioAnterior = nombreUsuarioIntroducido;
 	}
-	
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
