@@ -33,8 +33,8 @@ public class VentanaPrincipal extends JFrame {
 	PanelCalendario calendario;
 	PanelClasificacion clasificacion;
 	
-	public VentanaPrincipal(Usuario u) {
-		LigaManager.inicializar(true, u);
+	public VentanaPrincipal(Usuario u, boolean desdeJSON) {
+		LigaManager.inicializar(desdeJSON, u);
 		//Nimbus Look&Feel
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -141,7 +141,7 @@ public class VentanaPrincipal extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new VentanaPrincipal(new Usuario("Pepe", 1));
+				//new VentanaPrincipal(new Usuario("Pepe", 1));
 			}
 		});
 	}

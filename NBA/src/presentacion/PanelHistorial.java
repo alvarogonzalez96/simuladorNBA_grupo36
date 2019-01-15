@@ -15,10 +15,10 @@ public class PanelHistorial extends PanelTab {
 
 	private JPanel panelSeleccion, areaDatos;
 	private JPanel datosIzq;
-	private JScrollPane datosDer;
+	//private JScrollPane datosDer;
 	
 	private JLabel labelCampeon, labelMVP, labelROY, labelSextoHombre, labelDPOY;
-	private JTable clasificacion;
+	//private JTable clasificacion;
 	private JComboBox<Integer> comboAnyo;
 	
 	private int ultimoAnyo;
@@ -40,12 +40,12 @@ public class PanelHistorial extends PanelTab {
 		
 		datosIzq = new JPanel(new GridLayout(5,1));
 		
-		clasificacion = new JTable();
-		datosDer = new JScrollPane(clasificacion);
-		datosDer.getViewport().setBackground(Color.WHITE);
+		//clasificacion = new JTable();
+		//datosDer = new JScrollPane(clasificacion);
+		//datosDer.getViewport().setBackground(Color.WHITE);
 		
 		areaDatos.add(datosIzq, BorderLayout.CENTER);
-		areaDatos.add(datosDer, BorderLayout.EAST);
+		//fareaDatos.add(datosDer, BorderLayout.EAST);
 	}
 	
 	@Override
@@ -85,7 +85,7 @@ public class PanelHistorial extends PanelTab {
 			labelSextoHombre.setText("Sexto hombre: "+temp.sextoHombre);
 			labelDPOY.setText("DPOY: "+temp.dpoy);
 			
-			clasificacion.setModel(getModelo(true));
+			//clasificacion.setModel(getModelo(true));
 		} else {
 			labelCampeon.setText("Campeon:");
 			labelMVP.setText("MVP:");
@@ -93,7 +93,7 @@ public class PanelHistorial extends PanelTab {
 			labelSextoHombre.setText("Sexto Hombre:");
 			labelDPOY.setText("DPOY:");
 			
-			clasificacion.setModel(getModelo(false));
+			//clasificacion.setModel(getModelo(false));
 		}
 		
 		repaint();

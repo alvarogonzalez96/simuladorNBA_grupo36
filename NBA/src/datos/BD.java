@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import negocio.*;
 
@@ -50,28 +51,6 @@ public class BD {
 			e.printStackTrace();
 			return false;
 		}
-	}
-
-	public static ArrayList<Jugador> cargarJugadores() {
-		try {
-			String n = LigaManager.usuario.getNombre();
-			String s = "SELECT JUG.* FROM JUGADOR JUG, JUEGA"
-					+ "WHERE JUG.ID=JUEGA.ID_JUGADOR "
-					+ "AND JUEGA.NOMBRE_USUARIO="+n+";";
-			ResultSet rs = st.executeQuery(s);
-
-			ArrayList<Jugador> jugadores = new ArrayList<>();
-
-			while(rs.next()) {
-				Jugador j = new Jugador();
-				jugadores.add(j);
-			}
-
-			return jugadores;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	// Metodos de registro / login
@@ -153,6 +132,7 @@ public class BD {
 			st.executeUpdate("DROP TABLE IF EXISTS JUGADOR");
 			st.executeUpdate("CREATE TABLE JUGADOR ("
 						   + "ID INTEGER NOT NULL PRIMARY KEY,"
+						   + "NOMBRE_USUARIO STRING NOT NULL REFERENCES USUARIO(NOMBRE),"
 						   + "NOMBRE STRING,"
 						   + "ANYO_NAC INTEGER,"
 						   + "POSICION INTEGER,"
@@ -194,8 +174,7 @@ public class BD {
 			st.executeUpdate("DROP TABLE IF EXISTS JUEGA");
 			st.executeUpdate("CREATE TABLE JUEGA ("
 						   + "ID_J INTEGER NOT NULL REFERENCES JUGADOR(ID) ON DELETE CASCADE,"
-						   + "FECHA_INICIO STRING NOT NULL,"
-						   + "FECHA_FIN STRING,"
+						   + "ANYO NOT NULL REFERENCES TEMPORADA(ANYO_INICIO),"
 						   + "NOMBRE_USUARIO STRING NOT NULL REFERENCES USUARIO(NOMBRE),"
 						   + "TID INTEGER,"
 						   + "ANYOS_CON_REST INTEGER,"
@@ -204,7 +183,7 @@ public class BD {
 						   + "REBOTES INTEGER,"
 						   + "ASISTENCIAS INTEGER,"
 						   + "PARTIDOS_JUGADOS INTEGER,"
-						   + "PRIMARY KEY (ID_J,FECHA_INICIO, NOMBRE_USUARIO))");
+						   + "PRIMARY KEY (ID_J,ANYO, NOMBRE_USUARIO))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -231,18 +210,19 @@ public class BD {
 			if(j.getTid() < -1) return false;
 			
 			PreparedStatement pst = conexion.prepareStatement("INSERT INTO JUGADOR VALUES"
-															+ "(?,?,?,?,?,?,?,?,?,?,?)");
+															+ "(?,?,?,?,?,?,?,?,?,?,?,?)");
 			pst.setInt(1,j.getID());
-			pst.setString(2, j.getNombre());
-			pst.setInt(3, j.getAnyoNac());
-			pst.setInt(4, j.getPosicion().ordinal());
-			pst.setInt(5, j.getOverall());
-			pst.setInt(6, j.getRebote());
-			pst.setInt(7, j.getTiroLibre());
-			pst.setInt(8, j.getTiroCerca());
-			pst.setInt(9, j.getTiroLejos());
-			pst.setInt(10, j.getDefensa());
-			pst.setInt(11, j.getAsistencia());
+			pst.setString(2, LigaManager.usuario.getNombre());
+			pst.setString(3, j.getNombre());
+			pst.setInt(4, j.getAnyoNac());
+			pst.setInt(5, j.getPosicion().ordinal());
+			pst.setInt(6, j.getOverall());
+			pst.setInt(7, j.getRebote());
+			pst.setInt(8, j.getTiroLibre());
+			pst.setInt(9, j.getTiroCerca());
+			pst.setInt(10, j.getTiroLejos());
+			pst.setInt(11, j.getDefensa());
+			pst.setInt(12, j.getAsistencia());
 			
 			pst.executeUpdate();
 		} catch (SQLException e) {
@@ -282,60 +262,126 @@ public class BD {
 	
 	public static void guardarJuega(Jugador j) {
 		try {
-			if(j.getTid() <= -1) return;
+			if(j.getTid() < -1) return;
 			PreparedStatement pst = conexion.prepareStatement("INSERT INTO JUEGA VALUES "
-															+ "(?,?,?,?,?,?,?,?,?,?,?)");
+															+ "(?,?,?,?,?,?,?,?,?,?)");
 			System.out.println(j.getID());
 			pst.setInt(1, j.getID());
-			pst.setString(2, sdf.format(LigaManager.calendario.getDiaActual()));
-			pst.setString(3, "-");
-			pst.setString(4, LigaManager.usuario.getNombre());
-			pst.setInt(5, j.getTid());
-			pst.setInt(6, j.getAnyosContratoRestantes());
-			pst.setInt(7, j.getSalario());
-			pst.setInt(8, j.getPuntosTemporada());
-			pst.setInt(9, j.getRebotesTemporada());
-			pst.setInt(10, j.getAsistenciasTemporada());
-			pst.setInt(11, j.getPartidosJugadosTemporada());
+			pst.setInt(2, LigaManager.anyo);
+			pst.setString(3, LigaManager.usuario.getNombre());
+			pst.setInt(4, j.getTid());
+			pst.setInt(5, j.getAnyosContratoRestantes());
+			pst.setInt(6, j.getSalario());
+			pst.setInt(7, j.getPuntosTemporada());
+			pst.setInt(8, j.getRebotesTemporada());
+			pst.setInt(9, j.getAsistenciasTemporada());
+			pst.setInt(10, j.getPartidosJugadosTemporada());
 			
 			pst.executeUpdate();
 		} catch (SQLException e) {
+			System.out.println(j.getNombre()+","+j.getID());
 			e.printStackTrace();
 		}
 	}
 	
-	public static void terminarPeriodoJuega(Jugador j) {
+	public static ArrayList<Jugador> cargaJugadoresBD() {
+		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+		
 		try {
-			PreparedStatement pst = conexion.prepareStatement("UPDATE JUEGA SET FECHA_FIN=?, PUNTOS=?, REBOTES=?, ASISTENCIAS=?, PARTIDOS_JUGADOS=?"
-															+ "WHERE FECHA_FIN=? "
-															+ "AND ID_J=?");
-			System.out.println(sdf.format(LigaManager.calendario.diaActual));
-			pst.setString(1, sdf.format(LigaManager.calendario.diaActual));
-			pst.setInt(2, j.getPuntosTemporada());
-			pst.setInt(3, j.getRebotesTemporada());
-			pst.setInt(4, j.getAsistenciasTemporada());
-			pst.setInt(5, j.getPartidosJugadosTemporada());
-			pst.setString(6, "-");
-			pst.setInt(7, j.getID());
+			PreparedStatement pst = conexion.prepareStatement("SELECT * FROM JUGADOR WHERE NOMBRE_USUARIO=?");
+			pst.setString(1, LigaManager.usuario.getNombre());
+			ResultSet rs = pst.executeQuery();
 			
-			pst.executeUpdate();
+			String nombre;
+			int id, anyoNac, overall, rebote, tiroLibre, tiroCerca, tiroLejos, defensa, asistencia;
+			int pos;
+			
+			
+			PreparedStatement pst2 = conexion.prepareStatement("SELECT * FROM JUEGA WHERE NOMBRE_USUARIO=? "
+															 + "AND ID_J=? ORDER BY ANYO DESC");
+			while(rs.next()) {
+				id = rs.getInt(1);
+				nombre = rs.getString(3);
+				anyoNac = rs.getInt(4);
+				pos = rs.getInt(5);
+				overall = rs.getInt(6);
+				rebote = rs.getInt(7);
+				tiroLibre = rs.getInt(8);
+				tiroCerca = rs.getInt(9);
+				tiroLejos = rs.getInt(10);
+				defensa = rs.getInt(11);
+				asistencia = rs.getInt(12);
+				Jugador j = new Jugador(nombre, id, anyoNac, pos, overall, rebote, tiroLibre, 
+						tiroCerca, tiroLejos, defensa, asistencia);
+				
+				try {
+					pst2.setString(1, LigaManager.usuario.getNombre());
+					pst2.setInt(2, id);
+					ResultSet rs2 = pst2.executeQuery();
+					boolean primero = true;
+					while(rs2.next()) {
+						int anyo = rs2.getInt(2);
+						int tid = rs2.getInt(4);
+						int puntos = rs2.getInt(7);
+						int rebotes = rs2.getInt(8);
+						int asistencias = rs2.getInt(9);
+						int partidos = rs2.getInt(10);
+						
+						Estadistica e = new Estadistica(anyo,tid,puntos,rebotes,asistencias,partidos);
+						j.guardaEstadistica(anyo, e);
+						
+						if(primero) {
+							int anyosCont = rs2.getInt(5);
+							int salario = rs2.getInt(6);
+							System.out.println(tid+" de "+j.getNombre()+": "+tid);
+							j.setTid(tid);
+							j.salario = salario;
+							j.anyosContratoRestantes = anyosCont;
+							primero = false;
+						} 
+					}
+				} catch(SQLException e2) {
+					e2.printStackTrace();
+				}
+				jugadores.add(j);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
+		
+		return jugadores;
 	}
 	
-	public static void renovacionJuega(Jugador j) {
+	public static HashMap<Integer, Temporada> cargarTemporadasPasadas() {
+		HashMap<Integer, Temporada> temps = new HashMap<>();
+		
 		try {
-			PreparedStatement pst = conexion.prepareStatement("UPDATE JUEGA SET SALARIO=?, ANYOS_CON_REST=?"
-															+ "WHERE FECHA_FIN=? AND ID_J=?");
-			pst.setInt(1, j.getSalario());
-			pst.setInt(2, j.getAnyosContratoRestantes());
-			pst.setString(3, "-");
-			pst.setInt(4, j.getID());
-			pst.executeUpdate();
+			PreparedStatement pst = conexion.prepareStatement("SELECT * FROM TEMPORADA WHERE NOMBRE_USUARIO=?");
+			pst.setString(1, LigaManager.usuario.getNombre());
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				int anyo = rs.getInt(1);
+				int tidGana = rs.getInt(3);
+				int mvp = rs.getInt(4);
+				int roy = rs.getInt(5);
+				int dpoy = rs.getInt(6);
+				int smoy = rs.getInt(7);
+				Temporada t = new Temporada();
+				t.nombreCampeon = LigaManager.getNombreEquipoPorTid(tidGana);
+				t.mvp = LigaManager.getNombrePorID(mvp);
+				t.roy = LigaManager.getNombrePorID(roy);
+				t.dpoy = LigaManager.getNombrePorID(dpoy);
+				t.sextoHombre = LigaManager.getNombrePorID(smoy);
+				
+				temps.put(anyo, t);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		
+		return temps;
 	}
 	
 	public static void main(String[] args) {

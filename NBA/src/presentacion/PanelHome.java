@@ -7,6 +7,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 import datos.BD;
 
@@ -73,13 +75,16 @@ public class PanelHome extends PanelTab {
 						LigaManager.finTemporada = false;
 						LigaManager.reset();
 						clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
+						temporada.setText(""+LigaManager.anyo+"/"+(LigaManager.anyo+1));
 						repaint();
 					} else if(op == -1) {
 						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que la suma de los salarios de tus jugadores no sobrepase el limite salarial", "Aviso", JOptionPane.WARNING_MESSAGE);
 					} else if(op == -2) {
 						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tu plantilla no tenga mas de 15 jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
-					} else {
+					} else if(op == -3) {
 						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tengas, por lo menos, por cada posicion, dos jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
+					} else if(op == -4) {
+						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que decidir que hacer con los jugadores con 0 anyos de contrato: renovar o cortar?", "Aviso", JOptionPane.WARNING_MESSAGE);
 					}
 					return;
 				}
@@ -283,7 +288,7 @@ public class PanelHome extends PanelTab {
 			System.out.println(LigaManager.clasificaciones.get("GENERAL").get(0).getNombre());
 			//clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
 			temporada.setText("Temporada "+LigaManager.anyo+"/"+(LigaManager.anyo+1));
-			repaint();
 		}
+		repaint();
 	}
 }

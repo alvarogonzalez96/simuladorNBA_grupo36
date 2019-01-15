@@ -12,7 +12,7 @@ import datos.GeneradorNombres;
 import org.json.*;
 
 public class Jugador {
-	
+
 	//atributos fijos (nunca cambian para un mismo jugador)
 	protected String nombre;
 	protected Posicion posicion;
@@ -25,7 +25,7 @@ public class Jugador {
 	protected int anyoNac;
 	protected int overall;
 	protected int id;
-	
+
 	//atributos variables (de cada temporada)
 	public Rol rol;
 	int tid;
@@ -33,26 +33,26 @@ public class Jugador {
 	protected int asistenciasTemporada;//asistencias que lleva en la temporada actual
 	protected int rebotesTemporada;//rebotes que lleva en la temporada actual
 	public int partidosJugadosTemporada; //numero de partidos jugados en la temporada actual
-	
+
 	public int salario;
 	public int anyosContratoRestantes;
-	
+
 	protected double valoracion;
-	
+
 	protected boolean rookie; //Al crear un nuevo jugador, siempre sera rookie
-	
+
 	//Atributos para la simulacion de partidos
 	protected int minutos;
 	protected int tiempoJugado;
 	protected int puntosPartido; //puntos que anota en el partido actual
 	protected int asistenciasPartido;//asistencias en el partido actual
 	protected int rebotesPartido;//rebotes en el partido actual
-	
+
 	//Atributos para calcular la media
 	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
-	
+
 	protected HashMap<Integer, Estadistica> statsTemporadas;
-	
+
 	public Jugador() {
 		super();
 		this.nombre = "Desconocido";
@@ -71,7 +71,7 @@ public class Jugador {
 		this.rookie = true;
 		statsTemporadas = new HashMap<>();
 	}
-	
+
 	/**
 	 * Construye un jugador a partir de la combinacion 
 	 * de tributos de otros dos jugadores.
@@ -113,7 +113,7 @@ public class Jugador {
 		this.id = BD.getPrimerIdLibreJugador();
 		BD.guardarJugador(this);
 	}
-	
+
 	public Jugador(Jugador j) {
 		this.nombre = j.nombre;
 		this.posicion = j.posicion;
@@ -127,7 +127,27 @@ public class Jugador {
 		this.id = BD.getPrimerIdLibreJugador();
 		BD.guardarJugador(this);
 	}
-	
+
+	public Jugador(String nombre, int id, int anyoNac, int pos, int overall, int rebote, int tiroLibre,
+			int tiroCerca, int tiroLejos, int defensa, int asistencia) {
+		this.nombre = nombre;
+		this.id = id;
+		this.anyoNac = anyoNac;
+		this.overall = overall;
+		this.rebote = rebote;
+		this.tiroLibre = tiroLibre;
+		this.tiroCerca = tiroCerca;
+		this.tiroLejos = tiroLejos;
+		this.defensa = defensa;
+		this.asistencia = asistencia;
+		for(Posicion p: Posicion.values()) {
+			if(p.ordinal() == pos) {
+				this.posicion = p;
+				break;
+			}
+		}
+	}
+
 	public void cargarJugador(JSONObject json) { 
 		//se le pasa todo el objeto JSON correspondiente
 		//al jugador actual
@@ -138,14 +158,14 @@ public class Jugador {
 		tiroLibre = json.getJSONArray("ratings").getJSONObject(0).getInt("ft");
 		if(tid >= 0) {
 			salario = json.getJSONObject("contract").getInt("amount");
-			anyosContratoRestantes = json.getJSONObject("contract").getInt("exp")-2018;
+			anyosContratoRestantes = json.getJSONObject("contract").getInt("exp")-2017; //evitar 0 anyos de contrato
 		}
 		/*
 		 * En el json el atributo ins significa la calidad de tiro interior; por lo que,
 		 * para los pivots, utilizaremos dicho atributo, y para el resto, el tiro de
 		 * media distancia
 		 */
-		
+
 		if(posicion == Posicion.PIVOT ) {
 			tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
 			ins = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
@@ -153,7 +173,7 @@ public class Jugador {
 			tiroCerca = json.getJSONArray("ratings").getJSONObject(0).getInt("fg");
 			ins = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
 		}
-		
+
 		if(json.getJSONObject("draft").getInt("year") == 2018 ) {
 			rookie = true;
 		} else {
@@ -172,19 +192,19 @@ public class Jugador {
 		dnk = json.getJSONArray("ratings").getJSONObject(0).getInt("dnk");
 		oiq = json.getJSONArray("ratings").getJSONObject(0).getInt("oiq");
 		drb = json.getJSONArray("ratings").getJSONObject(0).getInt("drb");
-		
+
 		anyoNac = json.getJSONObject("born").getInt("year");
 		overall = cargarOverallJugador();
 
 		this.id = BD.getPrimerIdLibreJugador();
 		BD.guardarJugador(this);
 	}
-	
+
 	private int cargarOverallJugador() {
 		int ov = (int) ((((rebote + tiroLibre + tiroCerca + tiroLejos + defensa + asistencia + hgt + stre + spd + jmp + endu + ins + dnk + oiq + drb)/15) * 99)/74);
 		return ov;
 	}
-	
+
 	private Posicion seleccionarPosicion(String atJson) {
 		switch (atJson) {
 		case "FC": case "PF":
@@ -229,15 +249,15 @@ public class Jugador {
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
-	
+
 	public double getAsistenciasPartido() {
 		return asistenciasPartido;
 	}
-	
+
 	public double getRebotesPartido() {
 		return rebotesPartido;
 	}
-	
+
 	public double getPuntosPorPartido() {
 		if(partidosJugadosTemporada <= 0) {
 			return 0;
@@ -245,7 +265,7 @@ public class Jugador {
 			return (double) Math.round(100 * (double) puntosTemporada / partidosJugadosTemporada)/100;
 		}
 	}
-	
+
 	public double getAsistenciasPorPartido() {
 		if(partidosJugadosTemporada <= 0) {
 			return 0;
@@ -253,7 +273,7 @@ public class Jugador {
 			return (double) Math.round(100 * (double) asistenciasTemporada / partidosJugadosTemporada)/100;
 		}
 	}
-	
+
 	public double getRebotesPorPartido() {
 		if(partidosJugadosTemporada <= 0) {
 			return 0;
@@ -261,7 +281,7 @@ public class Jugador {
 			return (double) Math.round(100 * (double) rebotesTemporada / partidosJugadosTemporada)/100;
 		}
 	}
-	
+
 	public int getTiroLibre() {
 		return tiroLibre;
 	}
@@ -320,7 +340,7 @@ public class Jugador {
 	public void setRebote(int rebote) {
 		this.rebote = rebote;
 	}
-	
+
 	public int getEdad() {
 		return LigaManager.anyo - anyoNac;
 	}
@@ -348,32 +368,32 @@ public class Jugador {
 	public void setTiempoJugado(int tiempoJugado) {
 		this.tiempoJugado = tiempoJugado;
 	}
-	
+
 	public int getPuntosTemporada() {
 		return puntosTemporada;
 	}
-	
+
 	public int getAsistenciasTemporada() {
 		return asistenciasTemporada;
 	}
-	
+
 	public int getRebotesTemporada() {
 		return rebotesTemporada;
 	}
-	
+
 	public double getValoracion() {
 		return ((double) (Math.round((this.getPuntosTemporada() + this.getAsistenciasTemporada() + this.getRebotesTemporada())*100))/100);
-		
+
 	}
-	
+
 	public int getSalario() {
 		return salario;
 	}
-	
+
 	public int getAnyosContratoRestantes() {
 		return anyosContratoRestantes;
 	}
-	
+
 	public int getID() {
 		return id;
 	}
@@ -381,21 +401,26 @@ public class Jugador {
 	public int getAnyoNac() {
 		return anyoNac;
 	}
-	
+
 	@Override
 	public String toString() {
 		double min = (double) minutos/60 ;
-		
+
 		return "Jugador [nombre=" + nombre + ", posicion=" + posicion + ", rol=" + rol + ", tiroCerca=" + tiroCerca
 				+ ", tiroLejos=" + tiroLejos + ", asistencia=" + asistencia + ", rebote=" + rebote
-			    + ", defensa="
+				+ ", defensa="
 				+ defensa +  ", segundos=" + minutos + ", minutos= "+ min + ", m="+ tiempoJugado + "]";
 	}
-	
+
 	public void guardaStatsTemporada() {
-		this.statsTemporadas.put(LigaManager.anyo, new Estadistica());
+		this.statsTemporadas.put(LigaManager.anyo, new Estadistica(this));
 	}
 	
+	public void guardaEstadistica(int anyo, Estadistica e) {
+		if(this.statsTemporadas == null) statsTemporadas = new HashMap<>();
+		statsTemporadas.put(anyo, e);
+	}
+
 	protected String getAbrevEquipo() {
 		for(Equipo e: LigaManager.equipos) {
 			if(e.tid == this.tid) {
@@ -404,55 +429,11 @@ public class Jugador {
 		}
 		return "";
 	}
-	
+
 	public int getPartidosJugadosTemporada() {
 		return partidosJugadosTemporada;
 	}
-	
-	//Clase interna para almacenar los datos de
-	//temporadas pasadas de cada jugador
-	private class Estadistica {
-		int anyo;
-		int idEquipo; //equipo con el que comienza la temporada
-		int puntos;
-		int asistencias;
-		int rebotes;
-		int partidosJugados; 
-		
-		public Estadistica() {
-			this.anyo = LigaManager.anyo;
-			this.idEquipo = tid;
-			this.puntos = puntosTemporada;
-			this.asistencias = asistenciasTemporada;
-			this.rebotes = rebotesTemporada;
-			this.partidosJugados = partidosJugadosTemporada;
-		}
-		
-		protected String getAbrevEquipo() {
-			for(Equipo e: LigaManager.equipos) {
-				if(e.tid == idEquipo) {
-					return e.getAbrev();
-				}
-			}
-			return "";
-		}
-		
-		protected double getPuntosPorPartido() {
-			if(partidosJugados == 0) return 0;
-			return Math.round(100*puntos*1.0/partidosJugados)/100.0;
-		}
-		
-		protected double getAsistenciasPorPartido() {
-			if(partidosJugados == 0) return 0;
-			return Math.round(100*asistencias*1.0/partidosJugados)/100.0;
-		}
-		
-		protected double getRebotesPorPartido() {
-			if(partidosJugados == 0) return 0;
-			return Math.round(100*rebotes*1.0/partidosJugados)/100.0;
-		}
-	}
-	
+
 	private class ModeloTablaTemporadas implements TableModel {
 
 		@Override
@@ -528,11 +509,11 @@ public class Jugador {
 
 		@Override
 		public void setValueAt(Object arg0, int arg1, int arg2) {}
-		
+
 	}
 	
 	private ModeloTablaTemporadas modeloTablaTemporadas = null;
-	
+
 	public ModeloTablaTemporadas getModeloTablaTemporadas() {
 		if(modeloTablaTemporadas == null) modeloTablaTemporadas = new ModeloTablaTemporadas();
 		return modeloTablaTemporadas;
@@ -570,4 +551,3 @@ class OrdenadorAgenciaLibre implements Comparator<Jugador> {
 		}
 	}
 }
-

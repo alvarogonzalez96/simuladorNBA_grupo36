@@ -84,7 +84,7 @@ public class Inicio {
 						nombreUsuarioIntroducido = nombreUsuario;
 						recordarUsuario();
 						Usuario u = new Usuario(nombreUsuario, g);
-						new VentanaPrincipal(u);
+						new VentanaPrincipal(u, false);
 					} else if(g == -1) {
 						//incorrecto
 						JOptionPane.showMessageDialog(null, "Los datos introducidos no son correctos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -121,7 +121,7 @@ public class Inicio {
 						if(r >= 0) {
 							//todo bien
 							Usuario usuario = new Usuario(nombreUsuario, teamID);
-							new VentanaPrincipal(usuario);
+							new VentanaPrincipal(usuario, true);
 						} else if(r == -1) {
 							//alertar de que ese nombre de usuario ya existe, y volver a empezar
 							JOptionPane.showMessageDialog(null, "Introduce un nombre de usuario que no este en uso", "Error", JOptionPane.ERROR_MESSAGE);

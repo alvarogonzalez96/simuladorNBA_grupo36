@@ -83,7 +83,6 @@ public class VentanaDraft extends JFrame {
 	private void seleccionar(Jugador j, Equipo e) {
 		j.setTid(e.getTid());
 		e.getJugadores().add(j);
-		LigaManager.jugadores.add(j);
 		draft.remove(j);
 		seleccion.add(j);
 	}
@@ -150,6 +149,7 @@ public class VentanaDraft extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				hilo.start();
+				botonComenzar.setEnabled(false);
 			}
 		});
 	}

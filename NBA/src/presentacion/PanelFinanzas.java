@@ -91,6 +91,7 @@ public class PanelFinanzas extends PanelTab {
 	@Override
 	protected void seleccionado() {
 		labelSalarioTotal.setText("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
+		tabla.setModel(equipos[combo.getSelectedIndex()].getModeloFinanzas());
 		repaint();
 	}
 }

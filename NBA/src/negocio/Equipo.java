@@ -161,6 +161,7 @@ public class Equipo {
 		int basesTit, escTit, alerosTit, alapsTit, pivotsTit;
 		basesTit = escTit = alerosTit = alapsTit = pivotsTit = 0;
 		Jugador estrella1 = asignarEstrellaAlMejor();
+		System.out.println(estrella1.getPosicion());
 		switch(estrella1.getPosicion()) {
 		case BASE: titBase = true; basesTit++; break;
 		case ESCOLTA: titEsc = true; escTit++; break;
