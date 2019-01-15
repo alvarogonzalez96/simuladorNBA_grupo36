@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.border.EmptyBorder;
 
+import datos.BD;
+
 import java.awt.*;
 
 @SuppressWarnings("serial")

@@ -1,7 +1,16 @@
 package datos;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import negocio.*;
 
@@ -13,8 +22,11 @@ public class BD {
 	 * */
 
 	static final String DIRECTORIO = "data/database.db";
+	
+	static SimpleDateFormat sdf; 
 
 	static {
+		sdf = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
@@ -182,11 +194,11 @@ public class BD {
 			st.executeUpdate("DROP TABLE IF EXISTS JUEGA");
 			st.executeUpdate("CREATE TABLE JUEGA ("
 						   + "ID_J INTEGER NOT NULL REFERENCES JUGADOR(ID) ON DELETE CASCADE,"
-						   + "FECHA_INICIO DATE NOT NULL,"
-						   + "FECHA_FIN DATE,"
+						   + "FECHA_INICIO STRING NOT NULL,"
+						   + "FECHA_FIN STRING,"
 						   + "NOMBRE_USUARIO STRING NOT NULL REFERENCES USUARIO(NOMBRE),"
 						   + "TID INTEGER,"
-						   + "ANYOS_CON_RESET INTEGER,"
+						   + "ANYOS_CON_REST INTEGER,"
 						   + "SALARIO INTEGER,"
 						   + "PUNTOS INTEGER,"
 						   + "REBOTES INTEGER,"
@@ -216,11 +228,6 @@ public class BD {
 	
 	public static boolean guardarJugador(Jugador j) {
 		try {
-			/*st.executeUpdate("INSERT INTO JUGADOR VALUES ("
-						   + ""+j.getID()+","+j.getNombre()+","+j.getAnyoNac()+","+j.getPosicion().ordinal()+","
-						   + j.getOverall()+","+j.getRebote()+","+j.getTiroLibre()+","+j.getTiroCerca()+","
-						   + j.getTiroLejos()+","+j.getDefensa()+","+j.getAsistencia()+","+j.getCondicionFisica()+")");
-			*/
 			if(j.getTid() < -1) return false;
 			
 			PreparedStatement pst = conexion.prepareStatement("INSERT INTO JUGADOR VALUES"
@@ -256,9 +263,83 @@ public class BD {
 
 	}
 	
+	public static void guardarTemporada() {
+		try {
+			PreparedStatement pst = conexion.prepareStatement("INSERT INTO TEMPORADA VALUES "												+ "(?,?,?,?,?,?,?);");
+			pst.setInt(1, LigaManager.anyo);
+			pst.setString(2, LigaManager.usuario.getNombre());
+			pst.setInt(3, LigaManager.campeon.getTid());
+			pst.setInt(4, LigaManager.mvp.getID());
+			pst.setInt(5, LigaManager.roy.getID());
+			pst.setInt(6, LigaManager.dpoy.getID());
+			pst.setInt(7, LigaManager.sextoHombre.getID());
+			
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void guardarJuega(Jugador j) {
+		try {
+			if(j.getTid() <= -1) return;
+			PreparedStatement pst = conexion.prepareStatement("INSERT INTO JUEGA VALUES "
+															+ "(?,?,?,?,?,?,?,?,?,?,?)");
+			System.out.println(j.getID());
+			pst.setInt(1, j.getID());
+			pst.setString(2, sdf.format(LigaManager.calendario.getDiaActual()));
+			pst.setString(3, "-");
+			pst.setString(4, LigaManager.usuario.getNombre());
+			pst.setInt(5, j.getTid());
+			pst.setInt(6, j.getAnyosContratoRestantes());
+			pst.setInt(7, j.getSalario());
+			pst.setInt(8, j.getPuntosTemporada());
+			pst.setInt(9, j.getRebotesTemporada());
+			pst.setInt(10, j.getAsistenciasTemporada());
+			pst.setInt(11, j.getPartidosJugadosTemporada());
+			
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void terminarPeriodoJuega(Jugador j) {
+		try {
+			PreparedStatement pst = conexion.prepareStatement("UPDATE JUEGA SET FECHA_FIN=?, PUNTOS=?, REBOTES=?, ASISTENCIAS=?, PARTIDOS_JUGADOS=?"
+															+ "WHERE FECHA_FIN=? "
+															+ "AND ID_J=?");
+			System.out.println(sdf.format(LigaManager.calendario.diaActual));
+			pst.setString(1, sdf.format(LigaManager.calendario.diaActual));
+			pst.setInt(2, j.getPuntosTemporada());
+			pst.setInt(3, j.getRebotesTemporada());
+			pst.setInt(4, j.getAsistenciasTemporada());
+			pst.setInt(5, j.getPartidosJugadosTemporada());
+			pst.setString(6, "-");
+			pst.setInt(7, j.getID());
+			
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void renovacionJuega(Jugador j) {
+		try {
+			PreparedStatement pst = conexion.prepareStatement("UPDATE JUEGA SET SALARIO=?, ANYOS_CON_REST=?"
+															+ "WHERE FECHA_FIN=? AND ID_J=?");
+			pst.setInt(1, j.getSalario());
+			pst.setInt(2, j.getAnyosContratoRestantes());
+			pst.setString(3, "-");
+			pst.setInt(4, j.getID());
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		conectar();
 		crearTablas();
-		
 	}
 }

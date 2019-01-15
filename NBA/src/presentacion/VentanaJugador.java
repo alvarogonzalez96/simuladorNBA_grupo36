@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 
+import datos.BD;
 import negocio.Equipo;
 import negocio.Renovacion;
 import negocio.Jugador;
@@ -111,7 +112,9 @@ public class VentanaJugador extends JFrame {
 					if(of == 1) {
 						int opcion = JOptionPane.showConfirmDialog(null, jugador.getNombre()+" ha aceptado tu oferta. Deseas ficharlo?");
 						if(opcion == JOptionPane.YES_OPTION) {
+							BD.terminarPeriodoJuega(jugador);
 							fichar(jugador, cantidad, anyos);
+							BD.guardarJuega(jugador);
 							JOptionPane.showMessageDialog(null, "Has fichado a "+jugador.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 						}
@@ -148,6 +151,7 @@ public class VentanaJugador extends JFrame {
 						int opcion = JOptionPane.showConfirmDialog(null, jugador.getNombre()+" ha aceptado tu oferta. Deseas renovarlo?");
 						if(opcion == JOptionPane.YES_OPTION) {
 							renovar(jugador, cantidad, anyos);
+							BD.renovacionJuega(jugador);
 							JOptionPane.showMessageDialog(null, "Has renovado a "+jugador.getNombre()+" por "+anyos+" temporadas ("+cantidad+"/temporada)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 						}
@@ -176,6 +180,7 @@ public class VentanaJugador extends JFrame {
 					int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro de que quieres cortar a "+jugador.getNombre()+"?");
 					if(opcion == JOptionPane.YES_OPTION) {
 						//cortar y cerrar la ventana
+						BD.terminarPeriodoJuega(jugador);
 						cortar(jugador);
 						dispose();
 					}

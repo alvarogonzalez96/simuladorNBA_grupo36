@@ -87,6 +87,9 @@ public class LigaManager {
 			calendario = new Calendario(equipos, diaActual); // el calendario es el mismo para todas las temporadas
 			anyo = 2018;
 			finTemporada = false;
+			for(Jugador j: jugadores) {
+				BD.guardarJuega(j);
+			}
 		} else {
 			//de la BD
 			diaActual = null; //cargar el dia actual en la BD
@@ -472,8 +475,10 @@ public class LigaManager {
 			rand = Math.random();
 			if(j.getEdad() > 36 && rand > 0.5) {
 				j.setTid(-2);
+				BD.borrarJugador(j);
 			} else if(j.getEdad() > 38) {
 				j.setTid(-2);
+				BD.borrarJugador(j);
 			}
 		}
 		
@@ -528,75 +533,91 @@ public class LigaManager {
 								//Renueva por un anyo y 30-35
 								j.anyosContratoRestantes = 1;
 								j.salario = (30000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							} else if(j.getEdad() > 30 && rand <= 0.85) {
 								//Renueva por 3 anyos 35-40
 								j.anyosContratoRestantes = 3;
 								j.salario = (35000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							} else if(rand <= 0.9) {
 								//Renueva 5 anyos 35-40
 								j.anyosContratoRestantes = 5;
 								j.salario = (35000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							}
 						} else if(j.getValoracion() >= 2500) {
 							if(j.getEdad() > 35 && rand <= 0.7) {
 								//Renueva por 1 anyo y 15-20
 								j.anyosContratoRestantes = 1;
 								j.salario = (15000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							} else if(j.getEdad() > 30 && rand <= 0.75) {
 								//Renueva por 3 anyos y 20-25
 								j.anyosContratoRestantes = 3;
 								j.salario = (20000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							} else if(rand <= 0.8) {
 								//Renueva por 5 anyos y 25-30
 								j.anyosContratoRestantes = 5;
 								j.salario = (25000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							}
 						} else if(j.getValoracion() >= 1000) {
 							if(j.getEdad() > 35 && rand <= 0.6) {
 								//Renueva por 1 anyo y 5-10
 								j.anyosContratoRestantes = 1;
 								j.salario = (5000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							} else if(j.getEdad() > 30 && rand <= 0.65) {
 								//Renueva por 3 anyos y 6-11
 								j.anyosContratoRestantes = 3;
 								j.salario = (6000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							} else if(rand <= 0.7) {
 								//Renueva por 5 anyos y 11-16
 								j.anyosContratoRestantes = 5;
 								j.salario = (11000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							}
 						} else if(j.getValoracion() > 0){
 							if(j.getEdad() > 35 && rand <= 0.4) {
 								//Renueva por 1 anyo y 1-5
 								j.anyosContratoRestantes = 1;
 								j.salario = (1000 + ((int)(Math.random()*4001)));
+								BD.renovacionJuega(j);
 							} else if(j.getEdad() > 30 && rand <= 0.45) {
 								//Renueva por 2 anyos y 2-8
 								j.anyosContratoRestantes = 2;
 								j.salario = (2000 + ((int)(Math.random()*6001)));
+								BD.renovacionJuega(j);
 							} else if(rand <= 0.5) {
 								//Renueva por 3 anyos y 5-10
 								j.anyosContratoRestantes = 3;
 								j.salario = (5000 + ((int)(Math.random()*5001)));
+								BD.renovacionJuega(j);
 							}	
 						} else {
 							if(j.getEdad() > 35 && rand <= 0.25) {
 								//Renueva por 1 anyo y 1
 								j.anyosContratoRestantes = 1;
 								j.salario = 1000;
+								BD.renovacionJuega(j);
 							} else if(j.getEdad() > 30 && rand <= 0.3) {
 								//Renueva por 2 anyos y 1
 								j.anyosContratoRestantes = 2;
 								j.salario = 1000;
+								BD.renovacionJuega(j);
 							} else if(rand <= 0.45) {
 								//Renueva por 3 anyos y 1-2 
 								j.anyosContratoRestantes = 3;
 								j.salario = 1000 + ((int)(Math.random()*1001));
+								BD.renovacionJuega(j);
 							}	
 						}
 					}
 				}
 				if(j.anyosContratoRestantes==0) {
+					BD.terminarPeriodoJuega(j);
 					j.setTid(-1);
 					j.salario = 0;
 				}
@@ -687,12 +708,14 @@ public class LigaManager {
 			for (Jugador jugador : agentesLibres) {
 				int sal = salarioAL(jugador);
 				if(equipo.salarioTotal + sal < Equipo.limiteSalarial && jugador.getOverall() > 78) {
+					BD.terminarPeriodoJuega(jugador);
 					equipo.jugadores.add(jugador);
 					jugador.setTid(equipo.getTid());
 					jugador.salario = sal;
 					jugador.anyosContratoRestantes =  (int) (Math.random()*5)+1;
 					fichados.add(jugador);
 					actualizarSalarios();
+					BD.guardarJuega(jugador);
 				}
 			}
 		}
@@ -766,11 +789,13 @@ public class LigaManager {
 			if(j.getPosicion().equals(p)) {
 				sal = salarioAL(j);
 				if((equipo.salarioTotal + sal) < Equipo.limiteSalarial) {
+					BD.terminarPeriodoJuega(j);
 					anyosDeContrato = (int) (Math.random()*5)+1;
 					j.setTid(equipo.getTid());
 					j.salario = sal;
 					j.anyosContratoRestantes = anyosDeContrato;
 					equipo.jugadores.add(j);
+					BD.guardarJuega(j);
 					actualizarSalarios();
 					agentesLibres.clear();
 					cargarAgentesLibres();
@@ -781,11 +806,13 @@ public class LigaManager {
 		//si se llega aqui, fichar si o si
 		for(Jugador j: agentesLibres) {
 			if(j.getPosicion().equals(p) && j.overall <= 70) {
+				BD.terminarPeriodoJuega(j);
 				anyosDeContrato = (int) (Math.random()*5)+1;
 				j.setTid(equipo.getTid());
 				j.salario = 1000;
 				j.anyosContratoRestantes = 1;
 				equipo.jugadores.add(j);
+				BD.guardarJuega(j);
 				actualizarSalarios();
 				agentesLibres.clear();
 				cargarAgentesLibres();
@@ -830,10 +857,12 @@ public class LigaManager {
 			for (Jugador jugador : agentesLibres) {
 				if(jugador.getPosicion() == p) {
 					if(jugador.getOverall() <= overall+i) {
+						BD.terminarPeriodoJuega(jugador);
 						jugador.setTid(equipo.getTid());
 						jugador.salario = 1000;
 						jugador.anyosContratoRestantes = 1;
 						equipo.jugadores.add(jugador);
+						BD.guardarJuega(jugador);
 						actualizarSalarios();
 						agentesLibres.clear();
 						cargarAgentesLibres();
@@ -853,10 +882,12 @@ public class LigaManager {
 		//si se llega aqui y no se ha fichado, fichar si o si
 		if(!fichado) {
 			Jugador jugador = peor;
+			BD.terminarPeriodoJuega(jugador);
 			jugador.setTid(equipo.getTid());
 			jugador.salario = 1000;
 			jugador.anyosContratoRestantes = 1;
 			equipo.jugadores.add(jugador);
+			BD.guardarJuega(jugador);
 			actualizarSalarios();
 			agentesLibres.clear();
 			cargarAgentesLibres();
@@ -913,6 +944,7 @@ public class LigaManager {
 					j.rol = null;
 					maxJugadores--;
 					jugadoresBorrar.add(j);
+					BD.terminarPeriodoJuega(j);
 					break;
 				}
 			}
@@ -1210,17 +1242,8 @@ public class LigaManager {
 	}
 	
 	public static void guardarBD() {
-		guardarJugadores();
-	}
-	
-	private static void guardarJugadores() {
-		//cargar jugadores de la bd
-		//ArrayList<Jugador> jBD = BD.cargarJugadores();
-		
-		//comprobar si existen etc
-		for(Jugador j: jugadores) {
-			//if(jBD.)
-		}
+		//guardarJugadores();
+		BD.guardarTemporada();
 	}
 	
 	public static TableModel getModeloTablaAgenciaLibre() {
@@ -1284,7 +1307,6 @@ public class LigaManager {
 
 		@Override
 		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-			System.out.println("hey");
 		}
 		
 	}

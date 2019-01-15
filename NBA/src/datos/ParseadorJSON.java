@@ -38,7 +38,9 @@ public class ParseadorJSON {
 			if(j instanceof JSONObject) {
 				Jugador jug = new Jugador();
 				jug.cargarJugador((JSONObject) j);
-				players.add(jug);
+				if(jug.getTid() >= -1) {
+					players.add(jug);
+				}
 			}
 		}
 		return players;

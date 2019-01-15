@@ -405,6 +405,10 @@ public class Jugador {
 		return "";
 	}
 	
+	public int getPartidosJugadosTemporada() {
+		return partidosJugadosTemporada;
+	}
+	
 	//Clase interna para almacenar los datos de
 	//temporadas pasadas de cada jugador
 	private class Estadistica {

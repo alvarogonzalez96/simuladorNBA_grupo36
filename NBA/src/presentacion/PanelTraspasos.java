@@ -15,6 +15,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.swing.table.TableModel;
 
+import datos.BD;
 import negocio.*;
 import negocio.Equipo.ModeloFinanzasEquipo;
 
@@ -275,7 +276,9 @@ public class PanelTraspasos extends PanelTab{
 	private void traspasarJugadores() {
 		ArrayList<Jugador> borrar = new ArrayList<>();
 		for (Jugador j : jugadoresOfreceUsuario) {
+			BD.terminarPeriodoJuega(j);
 			j.setTid(equipoSeleccionado.getTid());
+			BD.guardarJuega(j);
 			borrar.add(j);
 		}
 
@@ -290,7 +293,9 @@ public class PanelTraspasos extends PanelTab{
 		borrar.clear();
 
 		for (Jugador j : jugadoresOfreceLiga) {
+			BD.terminarPeriodoJuega(j);
 			j.setTid(equipoUsuario.getTid());
+			BD.guardarJuega(j);
 			borrar.add(j);
 		}
 
