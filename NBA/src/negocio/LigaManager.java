@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
@@ -19,6 +20,7 @@ import negocio.Equipo.ModeloFinanzasEquipo;
 import negocio.Equipo.ModeloTablaEquipo;
 import negocio.Renovacion;
 import presentacion.PanelTraspasos;
+import presentacion.VentanaEspera;
 
 public class LigaManager {
 
@@ -1073,15 +1075,6 @@ public class LigaManager {
 		elegirROY();
 		elegirSextoHombre();
 		elegirDPOY();
-	}
-	
-	public static String getNombrePorID(int id) {
-		for(Jugador j: jugadores) {
-			if(j.getID() == id) {
-				return j.getNombre();
-			}
-		}
-		return "Sin nombre";
 	}
 	
 	public static String getNombreEquipoPorTid(int tid) {

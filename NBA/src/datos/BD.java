@@ -157,10 +157,10 @@ public class BD {
 						   + "ANYO_INICIO INTEGER NOT NULL,"
 						   + "NOMBRE_USUARIO STRING NOT NULL REFERENCES USUARIO(NOMBRE),"
 						   + "TID_GANA INTEGER,"
-						   + "ID_MVP INTEGER REFERENCES JUGADOR(ID),"
-						   + "ID_ROY INTEGER REFERENCES JUGADOR(ID),"
-						   + "ID_DPOY INTEGER REFERENCES JUGADOR(ID),"
-						   + "ID_SMOY INTEGER REFERENCES JUGADOR(ID),"
+						   + "MVP INTEGER REFERENCES JUGADOR(ID),"
+						   + "ROY INTEGER REFERENCES JUGADOR(ID),"
+						   + "DPOY INTEGER REFERENCES JUGADOR(ID),"
+						   + "SMOY INTEGER REFERENCES JUGADOR(ID),"
 						   + "PRIMARY KEY(ANYO_INICIO, NOMBRE_USUARIO))");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -249,10 +249,10 @@ public class BD {
 			pst.setInt(1, LigaManager.anyo);
 			pst.setString(2, LigaManager.usuario.getNombre());
 			pst.setInt(3, LigaManager.campeon.getTid());
-			pst.setInt(4, LigaManager.mvp.getID());
-			pst.setInt(5, LigaManager.roy.getID());
-			pst.setInt(6, LigaManager.dpoy.getID());
-			pst.setInt(7, LigaManager.sextoHombre.getID());
+			pst.setString(4, LigaManager.mvp.getNombre());
+			pst.setString(5, LigaManager.roy.getNombre());
+			pst.setString(6, LigaManager.dpoy.getNombre());
+			pst.setString(7, LigaManager.sextoHombre.getNombre());
 			
 			pst.executeUpdate();
 		} catch (SQLException e) {
@@ -363,23 +363,22 @@ public class BD {
 			while(rs.next()) {
 				int anyo = rs.getInt(1);
 				int tidGana = rs.getInt(3);
-				int mvp = rs.getInt(4);
-				int roy = rs.getInt(5);
-				int dpoy = rs.getInt(6);
-				int smoy = rs.getInt(7);
+				String mvp = rs.getString(4);
+				String roy = rs.getString(5);
+				String dpoy = rs.getString(6);
+				String smoy = rs.getString(7);
 				Temporada t = new Temporada();
 				t.nombreCampeon = LigaManager.getNombreEquipoPorTid(tidGana);
-				t.mvp = LigaManager.getNombrePorID(mvp);
-				t.roy = LigaManager.getNombrePorID(roy);
-				t.dpoy = LigaManager.getNombrePorID(dpoy);
-				t.sextoHombre = LigaManager.getNombrePorID(smoy);
+				t.mvp = mvp;
+				t.roy = roy;
+				t.dpoy = dpoy;
+				t.sextoHombre = smoy;
 				
 				temps.put(anyo, t);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		
 		return temps;
 	}

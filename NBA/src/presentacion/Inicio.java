@@ -120,8 +120,22 @@ public class Inicio {
 						int r = BD.registrar(nombreUsuario, contrasenya, teamID);
 						if(r >= 0) {
 							//todo bien
+							VentanaEspera espera = new VentanaEspera();
 							Usuario usuario = new Usuario(nombreUsuario, teamID);
-							new VentanaPrincipal(usuario, true);
+							SwingUtilities.invokeLater(new Runnable() {
+
+								@Override
+								public void run() {
+									VentanaPrincipal v = new VentanaPrincipal(usuario, true);
+									espera.setAlwaysOnTop(false);
+									espera.dispose();
+									v.setAlwaysOnTop(true);
+									v.setVisible(true);
+									v.toFront();
+								}
+								
+							});
+							//espera.dispose();
 						} else if(r == -1) {
 							//alertar de que ese nombre de usuario ya existe, y volver a empezar
 							JOptionPane.showMessageDialog(null, "Introduce un nombre de usuario que no este en uso", "Error", JOptionPane.ERROR_MESSAGE);
