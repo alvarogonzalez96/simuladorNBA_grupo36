@@ -261,7 +261,10 @@ public class VentanaJugador extends JFrame {
 	
 	private void renovar(Jugador j, int cantidad, int anyos) {
 		Equipo equipo = LigaManager.usuario.getEquipo();
-		equipo.renovacionesPendientes.add(new Renovacion(j,cantidad,anyos));
+		//equipo.renovacionesPendientes.add(new Renovacion(j,cantidad,anyos));
+		j.anyosContratoRestantes = anyos;
+		j.salario = cantidad;
+		equipo.calcSalarioTotal();
 	}
 	
 	private void cortar(Jugador j) {

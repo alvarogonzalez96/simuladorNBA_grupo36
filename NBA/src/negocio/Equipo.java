@@ -35,8 +35,6 @@ public class Equipo {
 	protected int overall;
 	int tid;
 	
-	public ArrayList<Renovacion> renovacionesPendientes; 
-	
 	public Equipo(int tid, ArrayList<Jugador> jugadores) {
 		super();
 		//this.nombre = nombre;
@@ -46,7 +44,6 @@ public class Equipo {
 		int ov = 0;
 		this.tid = tid;
 		this.jugadores = new ArrayList<>();
-		this.renovacionesPendientes = new ArrayList<>();
 		
 		for (Jugador j: jugadores) {
 			if (j.tid == tid) {
@@ -70,7 +67,6 @@ public class Equipo {
 		this.nombre = nombre;
 		this.victorias = victorias;
 		this.derrotas = derrotas;
-		this.renovacionesPendientes = new ArrayList<>();
 	}
 	
 	public Equipo(JSONObject json) {
@@ -86,7 +82,6 @@ public class Equipo {
 		int did = json.getInt("did");
 		this.division = ordinalADivision(did);
 		this.jugadores = new ArrayList<>();
-		this.renovacionesPendientes = new ArrayList<>();
 	}
 	
 	/**
@@ -104,7 +99,6 @@ public class Equipo {
 		for(Jugador j: e.jugadores) {
 			this.jugadores.add(new Jugador(j));
 		}
-		this.renovacionesPendientes = new ArrayList<>();
 	}
 	
 	private Division ordinalADivision(int ord) {

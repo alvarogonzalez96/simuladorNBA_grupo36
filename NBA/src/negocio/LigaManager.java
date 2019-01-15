@@ -1173,7 +1173,7 @@ public class LigaManager {
 		fase = 0;
 		anyo++;
 		
-		Equipo e = usuario.getEquipo();
+		/*Equipo e = usuario.getEquipo();
 		for(Renovacion reno: e.renovacionesPendientes) {
 			for(Jugador j: e.getJugadores()) {
 				if(j.getNombre().equals(reno.getNombre())) {
@@ -1181,7 +1181,7 @@ public class LigaManager {
 					j.anyosContratoRestantes = reno.getAnyos();
 				}
 			}
-		}
+		}*/
 		
 		actualizarRoles();
 		

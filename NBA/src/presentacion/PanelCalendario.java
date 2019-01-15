@@ -78,11 +78,6 @@ public class PanelCalendario extends PanelTab {
 		combo.addItem("Febrero");
 		combo.addItem("Marzo");
 		combo.addItem("Abril");
-		combo.addItem("Mayo");
-		combo.addItem("Junio");
-		combo.addItem("Julio");
-		combo.addItem("Agosto");
-		combo.addItem("Septiembre");
 	}
 	
 	@Override
