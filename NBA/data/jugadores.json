@@ -135,7 +135,7 @@
 "college":"New Mexico State",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":10,
+{"tid":-1,
 "name":"Markel Brown",
 "ratings":[{"hgt":33,"stre":32,"spd":64,"jmp":72,"endu":46,"ins":21,"dnk":64,"ft":53,"fg":61,"tp":33,"diq":47,"oiq":42,"drb":12,"pss":22,"reb":21,"skills":[]}],
 "pos":"SG","hgt":75,"weight":190,
@@ -313,7 +313,7 @@
 "college":"Maryland",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":12,
+{"tid":-1,
 "name":"Jerome Robinson",
 "ratings":[{"hgt":42,"stre":44,"spd":59,"jmp":55,"endu":56,"ins":31,"dnk":52,"ft":53,"fg":73,"tp":60,"diq":42,"oiq":49,"drb":43,"pss":38,"reb":34,"skills":["3"]}],
 "pos":"SG","hgt":77,"weight":190,
@@ -335,7 +335,7 @@
 "college":"Xavier",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":18,
+{"tid":-1,
 "name":"Larry Drew II",
 "ratings":[{"hgt":30,"stre":24,"spd":60,"jmp":32,"endu":56,"ins":31,"dnk":30,"ft":53,"fg":61,"tp":35,"diq":32,"oiq":46,"drb":71,"pss":52,"reb":21,"skills":[]}],
 "pos":"PG","hgt":74,"weight":180,
@@ -579,7 +579,7 @@
 "ratings":[{"hgt":59,"stre":78,"spd":49,"jmp":60,"endu":58,"ins":57,"dnk":57,"ft":58,"fg":57,"tp":4,"diq":56,"oiq":19,"drb":35,"pss":35,"reb":76,"skills":[]}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":23,
+{"tid":-1,
 "name":"Richaun Holmes",
 "pos":"PF","hgt":82,"weight":245,
 "born":{"year":1994,"loc":"Lockport, IL"},
@@ -877,7 +877,7 @@
 "college":"Michigan",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":22,
+{"tid":-1,
 "name":"James Young",
 "ratings":[{"hgt":44,"stre":45,"spd":65,"jmp":65,"endu":58,"ins":32,"dnk":56,"ft":67,"fg":55,"tp":57,"diq":30,"oiq":36,"drb":38,"pss":28,"reb":31,"skills":[]}],
 "pos":"GF","hgt":78,"weight":215,
@@ -1468,7 +1468,7 @@
 "awards":[{"season":2009,"type":"Sixth Man of the Year"}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":27,
+{"tid":-1,
 "name":"Chris Boucher",
 "pos":"PF","hgt":82,"weight":200,
 "born":{"year":1993,"loc":"Montreal, Canada"},
@@ -2078,7 +2078,7 @@
 "college":"Spain",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":28,
+{"tid":-1,
 "name":"David Stockton",
 "ratings":[{"hgt":18,"stre":16,"spd":55,"jmp":49,"endu":55,"ins":25,"dnk":46,"ft":64,"fg":60,"tp":67,"diq":8,"oiq":54,"drb":76,"pss":70,"reb":14,"skills":["3","Ps"]}],
 "pos":"PG","hgt":71,"weight":165,
@@ -2179,7 +2179,7 @@
 "college":"Texas",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":26,
+{"tid":-1,
 "name":"Brandon Paul",
 "ratings":[{"hgt":37,"stre":25,"spd":81,"jmp":59,"endu":36,"ins":28,"dnk":63,"ft":15,"fg":59,"tp":71,"diq":28,"oiq":42,"drb":55,"pss":42,"reb":28,"skills":["3"]}],
 "pos":"SG","hgt":76,"weight":200,
@@ -2399,7 +2399,7 @@
 "college":"Kentucky",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":20,
+{"tid":-1,
 "name":"Kyle Singler",
 "ratings":[{"hgt":52,"stre":30,"spd":51,"jmp":26,"endu":59,"ins":35,"dnk":55,"ft":13,"fg":68,"tp":68,"diq":28,"oiq":38,"drb":39,"pss":32,"reb":32,"skills":["3"]}],
 "pos":"GF","hgt":80,"weight":230,
@@ -3035,7 +3035,7 @@
 "college":"Argentina",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":22,
+{"tid":-1,
 "name":"Shake Milton",
 "ratings":[{"hgt":44,"stre":26,"spd":58,"jmp":65,"endu":44,"ins":24,"dnk":48,"ft":62,"fg":51,"tp":55,"diq":31,"oiq":47,"drb":47,"pss":42,"reb":19,"skills":[]}],
 "pos":"PG","hgt":78,"weight":205,
@@ -3057,7 +3057,7 @@
 "college":"DePaul",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":3,
+{"tid":-1,
 "name":"J.P. Macura",
 "ratings":[{"hgt":41,"stre":34,"spd":53,"jmp":48,"endu":39,"ins":26,"dnk":52,"ft":60,"fg":60,"tp":60,"diq":35,"oiq":49,"drb":41,"pss":48,"reb":21,"skills":["3"]}],
 "pos":"SG","hgt":77,"weight":203,
@@ -3225,7 +3225,7 @@
 "college":"Oklahoma State",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":22,
+{"tid":-1,
 "name":"Jonah Bolden",
 "ratings":[{"hgt":61,"stre":35,"spd":56,"jmp":60,"endu":45,"ins":33,"dnk":60,"ft":37,"fg":50,"tp":55,"diq":47,"oiq":49,"drb":50,"pss":31,"reb":56,"skills":[]}],
 "pos":"F","hgt":82,"weight":215,
@@ -3469,7 +3469,7 @@
 "college":"Southeast Missouri State",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":25,
+{"tid":-1,
 "name":"Kosta Koufos",
 "pos":"C","hgt":84,"weight":265,
 "born":{"year":1989,"loc":"Canton, OH"},
@@ -3616,10 +3616,10 @@
 "awards":[{"season":2004,"type":"Rookie of the Year"},{"season":2009,"type":"Most Valuable Player"},{"season":2010,"type":"Most Valuable Player"},{"season":2012,"type":"Most Valuable Player"},{"season":2012,"type":"Finals MVP"},{"season":2013,"type":"Most Valuable Player"},{"season":2013,"type":"Finals MVP"},{"season":2016,"type":"Finals MVP"}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":-1,
+{"tid":15,
 "name":"Dwyane Wade",
 "ratings":[{"hgt":37,"stre":73,"spd":73,"jmp":65,"endu":52,"ins":53,"dnk":73,"ft":53,"fg":61,"tp":45,"diq":50,"oiq":53,"drb":85,"pss":50,"reb":47,"skills":["A","B","Dp"]}],
-"pos":"G","hgt":76,"weight":220,
+"pos":"SG","hgt":76,"weight":220,
 "born":{"year":1982,"loc":"Chicago, IL"},
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2548.png",
 "contract":{"amount":2328,"exp":2018},
@@ -3937,7 +3937,7 @@
 "college":"Latvia",
 "ratings":[{"hgt":56,"stre":35,"spd":55,"jmp":58,"endu":51,"ins":34,"dnk":40,"ft":60,"fg":65,"tp":60,"diq":48,"oiq":58,"drb":67,"pss":51,"reb":32}],"skills":["3"]},
 
-{"tid":4,
+{"tid":-1,
 "name":"Chandler Hutchinson",
 "ratings":[{"hgt":48,"stre":36,"spd":66,"jmp":62,"endu":43,"ins":29,"dnk":59,"ft":44,"fg":48,"tp":55,"diq":26,"oiq":44,"drb":55,"pss":50,"reb":27,"skills":[]}],
 "pos":"GF","hgt":79,"weight":195,
@@ -4048,7 +4048,7 @@
 "relatives":[{"type":"brother","pid":793,"name":"Aaron Harrison"}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":3,
+{"tid":-1,
 "name":"Devonte Graham",
 "ratings":[{"hgt":30,"stre":22,"spd":70,"jmp":53,"endu":43,"ins":20,"dnk":62,"ft":55,"fg":54,"tp":57,"diq":25,"oiq":48,"drb":52,"pss":55,"reb":23,"skills":[]}],
 "pos":"SG","hgt":74,"weight":175,
@@ -4340,7 +4340,7 @@
 "college":"Slovenia",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":-1,
+{"tid":10,
 "name":"Carmelo Anthony",
 "ratings":[{"hgt":54,"stre":72,"spd":52,"jmp":64,"endu":71,"ins":66,"dnk":75,"ft":53,"fg":80,"tp":62,"diq":45,"oiq":42,"drb":79,"pss":46,"reb":64,"skills":["3"]}],
 "pos":"SF","hgt":80,"weight":240,
@@ -4361,7 +4361,7 @@
 "draft":{"round":2,"pick":26,"tid":1,"originalTid":12,"year":2017},
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":11,
+{"tid":-1,
 "name":"Edmond Sumner",
 "ratings":[{"hgt":41,"stre":26,"spd":72,"jmp":69,"endu":38,"ins":15,"dnk":55,"ft":47,"fg":50,"tp":46,"diq":29,"oiq":40,"drb":66,"pss":69,"reb":26,"skills":["B"]}],
 "pos":"G","hgt":77,"weight":185,
@@ -4461,7 +4461,7 @@
 "college":"Boston College",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":19,
+{"tid":-1,
 "name":"Mitchell Robinson",
 "ratings":[{"hgt":71,"stre":66,"spd":39,"jmp":50,"endu":55,"ins":50,"dnk":51,"ft":55,"fg":23,"tp":0,"diq":48,"oiq":40,"drb":18,"pss":14,"reb":70,"skills":["Di","Po","R"]}],
 "pos":"C","hgt":85,"weight":225,
@@ -4529,7 +4529,7 @@
 "college":"Clifton J. Ozen HS (TX)",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":26,
+{"tid":-1,
 "name":"Chimezie Metu",
 "ratings":[{"hgt":61,"stre":44,"spd":50,"jmp":55,"endu":32,"ins":55,"dnk":58,"ft":55,"fg":29,"tp":0,"diq":54,"oiq":53,"drb":20,"pss":32,"reb":68,"skills":["R"]}],
 "pos":"PF","hgt":82,"weight":219,
@@ -5123,7 +5123,7 @@
 "college":"Illinois",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":7,
+{"tid":-1,
 "name":"Thomas Welsh",
 "ratings":[{"hgt":67,"stre":65,"spd":27,"jmp":25,"endu":52,"ins":38,"dnk":27,"ft":65,"fg":61,"tp":40,"diq":51,"oiq":26,"drb":24,"pss":24,"reb":52,"skills":[]}],
 "pos":"C","hgt":84,"weight":255,
@@ -5497,7 +5497,7 @@
 "college":"Italy",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":1,
+{"tid":-1,
 "name":"Robert Williams",
 "ratings":[{"hgt":56,"stre":71,"spd":60,"jmp":70,"endu":62,"ins":70,"dnk":75,"ft":50,"fg":59,"tp":15,"diq":44,"oiq":35,"drb":30,"pss":37,"reb":60,"skills":["A"]}],
 "pos":"PF","hgt":81,"weight":235,
@@ -6052,7 +6052,7 @@
 "college":"Arizona",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":26,
+{"tid":-1,
 "name":"Darrun Hilliard",
 "ratings":[{"hgt":44,"stre":29,"spd":61,"jmp":42,"endu":46,"ins":42,"dnk":42,"ft":68,"fg":57,"tp":46,"diq":25,"oiq":55,"drb":43,"pss":32,"reb":43,"skills":[]}],
 "pos":"SG","hgt":78,"weight":205,
@@ -6315,7 +6315,7 @@
 "college":"UCLA",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":29,
+{"tid":-1,
 "name":"Thomas Bryant",
 "ratings":[{"hgt":64,"stre":75,"spd":39,"jmp":60,"endu":32,"ins":69,"dnk":66,"ft":57,"fg":13,"tp":0,"diq":51,"oiq":44,"drb":19,"pss":18,"reb":79,"skills":["Di","Po","R"]}],
 "pos":"C","hgt":83,"weight":250,
@@ -6426,7 +6426,7 @@
 "relatives":[{"type":"brother","pid":685,"name":"LiAngelo Ball"}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":19,
+{"tid":-1,
 "name":"Isaiah Hicks",
 "ratings":[{"hgt":56,"stre":52,"spd":48,"jmp":66,"endu":48,"ins":58,"dnk":55,"ft":55,"fg":52,"tp":15,"diq":49,"oiq":38,"drb":19,"pss":27,"reb":66,"skills":[]}],
 "pos":"PF","hgt":81,"weight":240,
@@ -6558,7 +6558,7 @@
 "college":"North Carolina State",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":23,
+{"tid":-1,
 "name":"George King",
 "ratings":[{"hgt":44,"stre":38,"spd":61,"jmp":67,"endu":51,"ins":43,"dnk":58,"ft":41,"fg":50,"tp":58,"diq":44,"oiq":43,"drb":38,"pss":31,"reb":48,"skills":[]}],
 "pos":"SF","hgt":78,"weight":225,
@@ -6723,7 +6723,7 @@
 "college":"Virginia",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":28,
+{"tid":-1,
 "name":"Raul Neto",
 "ratings":[{"hgt":25,"stre":12,"spd":80,"jmp":40,"endu":44,"ins":26,"dnk":70,"ft":62,"fg":40,"tp":63,"diq":26,"oiq":42,"drb":72,"pss":66,"reb":10,"skills":["3","B"]}],
 "pos":"G","hgt":73,"weight":179,
@@ -6801,7 +6801,7 @@
 "college":"Stony Brook",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":18,
+{"tid":-1,
 "name":"Tony Carr",
 "ratings":[{"hgt":41,"stre":39,"spd":58,"jmp":55,"endu":45,"ins":26,"dnk":58,"ft":31,"fg":36,"tp":45,"diq":38,"oiq":44,"drb":50,"pss":57,"reb":20,"skills":[]}],
 "pos":"G","hgt":77,"weight":200,
@@ -6856,7 +6856,7 @@
 "college":"Eastern Washington",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":19,
+{"tid":-1,
 "name":"Luke Kornet",
 "ratings":[{"hgt":67,"stre":48,"spd":50,"jmp":50,"endu":47,"ins":50,"dnk":49,"ft":61,"fg":63,"tp":50,"diq":45,"oiq":39,"drb":29,"pss":26,"reb":57,"skills":[]}],
 "pos":"PF","hgt":84,"weight":250,
@@ -6900,7 +6900,7 @@
 "college":"Dayton",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":10,
+{"tid":-1,
 "name":"Isaiah Hartenstein",
 "ratings":[{"hgt":63,"stre":50,"spd":57,"jmp":65,"endu":31,"ins":40,"dnk":50,"ft":21,"fg":40,"tp":39,"diq":40,"oiq":43,"drb":38,"pss":34,"reb":53,"skills":[]}],
 "pos":"F","hgt":83,"weight":230,
@@ -7025,7 +7025,7 @@
 {"type":"brother","pid":706,"name":"Aaron Holiday"}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":16,
+{"tid":-1,
 "name":"Sterling Brown",
 "ratings":[{"hgt":44,"stre":39,"spd":66,"jmp":59,"endu":48,"ins":23,"dnk":62,"ft":57,"fg":55,"tp":71,"diq":26,"oiq":32,"drb":52,"pss":36,"reb":15,"skills":["3"]}],
 "pos":"SG","hgt":78,"weight":230,
@@ -7256,7 +7256,7 @@
 "college":"Dayton",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":4,
+{"tid":-1,
 "name":"Ryan Arcidiacono",
 "ratings":[{"hgt":30,"stre":25,"spd":55,"jmp":42,"endu":57,"ins":33,"dnk":47,"ft":60,"fg":48,"tp":50,"diq":44,"oiq":52,"drb":66,"pss":61,"reb":19,"skills":[]}],
 "pos":"G","hgt":75,"weight":195,
@@ -7431,7 +7431,7 @@
 "college":"Marshall",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":12,
+{"tid":-1,
 "name":"Johnathan Motley",
 "ratings":[{"hgt":60,"stre":65,"spd":52,"jmp":64,"endu":47,"ins":61,"dnk":57,"ft":61,"fg":29,"tp":0,"diq":47,"oiq":42,"drb":35,"pss":29,"reb":61,"skills":[]}],
 "pos":"PF","hgt":82,"weight":230,
@@ -7442,7 +7442,7 @@
 "college":"Baylor",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":20,
+{"tid":-1,
 "name":"Kevin Hervey",
 "ratings":[{"hgt":52,"stre":46,"spd":58,"jmp":59,"endu":49,"ins":33,"dnk":57,"ft":61,"fg":37,"tp":61,"diq":32,"oiq":45,"drb":38,"pss":25,"reb":24,"skills":["3"]}],
 "pos":"SF","hgt":80,"weight":211,
@@ -7453,7 +7453,7 @@
 "college":"Marquette",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":10,
+{"tid":-1,
 "name":"Vincent Edwards",
 "ratings":[{"hgt":52,"stre":44,"spd":61,"jmp":71,"endu":36,"ins":48,"dnk":36,"ft":43,"fg":56,"tp":37,"diq":49,"oiq":32,"drb":31,"pss":27,"reb":50,"skills":[]}],
 "pos":"SF","hgt":80,"weight":225,
@@ -7575,7 +7575,7 @@
 "college":"Texas A&M",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":20,
+{"tid":-1,
 "name":"Hamidou Diallo",
 "ratings":[{"hgt":41,"stre":37,"spd":61,"jmp":60,"endu":59,"ins":36,"dnk":50,"ft":62,"fg":33,"tp":42,"diq":34,"oiq":39,"drb":33,"pss":33,"reb":42,"skills":[]}],
 "pos":"SG","hgt":77,"weight":198,
@@ -7719,7 +7719,7 @@
 "college":"France",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":16,
+{"tid":-1,
 "name":"Xavier Munford",
 "ratings":[{"hgt":27,"stre":27,"spd":60,"jmp":66,"endu":55,"ins":28,"dnk":68,"ft":38,"fg":47,"tp":40,"diq":29,"oiq":41,"drb":67,"pss":68,"reb":25,"skills":[]}],
 "pos":"PG","hgt":74,"weight":180,
@@ -8118,7 +8118,7 @@
 "ratings":[{"hgt":44,"stre":15,"spd":64,"jmp":59,"endu":50,"ins":38,"dnk":61,"ft":72,"fg":63,"tp":55,"diq":37,"oiq":48,"drb":50,"pss":50,"reb":21,"skills":[]}],
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":16,
+{"tid":-1,
 "name":"D.J. Wilson",
 "pos":"PF","hgt":82,"weight":240,
 "born":{"year":1996,"loc":"Mt. Shasta, CA"},
@@ -8315,7 +8315,7 @@
 "college":"Indiana",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":28,
+{"tid":-1,
 "name":"Grayson Allen",
 "ratings":[{"hgt":35,"stre":21,"spd":79,"jmp":77,"endu":51,"ins":21,"dnk":62,"ft":77,"fg":65,"tp":60,"diq":34,"oiq":51,"drb":49,"pss":40,"reb":29,"skills":["3"]}],
 "pos":"SG","hgt":76,"weight":198,
@@ -8470,7 +8470,7 @@
 "college":"Duke",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":12,
+{"tid":-1,
 "name":"Sindarius Thornwell",
 "ratings":[{"hgt":43,"stre":38,"spd":64,"jmp":60,"endu":31,"ins":20,"dnk":55,"ft":40,"fg":59,"tp":59,"diq":14,"oiq":45,"drb":73,"pss":75,"reb":20,"skills":["B","Ps"]}],
 "pos":"G","hgt":77,"weight":206,
@@ -8514,7 +8514,7 @@
 "college":"China",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":20,
+{"tid":-1,
 "name":"Daniel Hamilton",
 "ratings":[{"hgt":48,"stre":29,"spd":63,"jmp":61,"endu":41,"ins":38,"dnk":57,"ft":25,"fg":45,"tp":60,"diq":38,"oiq":45,"drb":37,"pss":34,"reb":25,"skills":[]}],
 "pos":"SG","hgt":79,"weight":197,
@@ -8791,7 +8791,7 @@
 "college":"Colorado",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":14,
+{"tid":-1,
 "name":"Kobi Simmons",
 "ratings":[{"hgt":37,"stre":18,"spd":74,"jmp":69,"endu":32,"ins":28,"dnk":37,"ft":50,"fg":57,"tp":52,"diq":30,"oiq":45,"drb":72,"pss":70,"reb":13,"skills":["B","Ps"]}],
 "pos":"PG","hgt":76,"weight":170,
@@ -8924,7 +8924,7 @@
 "college":"Oklahoma",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":12,
+{"tid":-1,
 "name":"Tyrone Wallace",
 "ratings":[{"hgt":38,"stre":37,"spd":64,"jmp":52,"endu":61,"ins":28,"dnk":62,"ft":66,"fg":63,"tp":66,"diq":48,"oiq":55,"drb":38,"pss":43,"reb":45,"skills":["3"]}],
 "pos":"SG","hgt":77,"weight":205,
@@ -8968,7 +8968,7 @@
 "college":"Indiana",
 "injury":{"type":"Healthy","gamesRemaining":0}},
 
-{"tid":21,
+{"tid":-1,
 "name":"Isaiah Briscoe",
 "ratings":[{"hgt":33,"stre":32,"spd":64,"jmp":32,"endu":61,"ins":28,"dnk":50,"ft":66,"fg":63,"tp":60,"diq":34,"oiq":34,"drb":58,"pss":33,"reb":35,"skills":[]}],
 "pos":"G","hgt":75,"weight":215,
@@ -9046,7 +9046,7 @@
 "college":"Kentucky",
 "ratings":[{"hgt":40,"stre":43,"spd":68,"jmp":72,"endu":88,"ins":52,"dnk":82,"ft":60,"fg":75,"tp":66,"diq":44,"oiq":55,"drb":64,"pss":66,"reb":52}],"skills":["3"]},
 
-{"tid":23,
+{"tid":-1,
 "name":"Dragan Bender",
 "ratings":[{"hgt":73,"stre":32,"spd":56,"jmp":65,"endu":40,"ins":36,"dnk":50,"ft":64,"fg":40,"tp":54,"diq":39,"oiq":45,"drb":30,"pss":42,"reb":56}],"skills":[],
 "pos":"FC","hgt":85,"weight":225,
@@ -9198,7 +9198,7 @@
 "college":"Marquette",
 "ratings":[{"hgt":66,"stre":57,"spd":45,"jmp":63,"endu":30,"ins":52,"dnk":54,"ft":66,"fg":34,"tp":44,"diq":40,"oiq":48,"drb":22,"pss":40,"reb":60}],"skills":[]},
 
-{"tid":3,
+{"tid":-1,
 "name":"Marcus Paige",
 "pos":"PG","hgt":73,"weight":175,
 "imgURL":"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627779.png",
@@ -9407,7 +9407,7 @@
 "college":"Greece",
 "ratings":[{"hgt":58,"stre":44,"spd":51,"jmp":50,"endu":42,"ins":43,"dnk":44,"ft":34,"fg":54,"tp":34,"diq":43,"oiq":55,"drb":63,"pss":34,"reb":44}],"skills":[]},
 
-{"tid":8,
+{"tid":-1,
 "name":"Reggie Hearn",
 "ratings":[{"hgt":41,"stre":28,"spd":66,"jmp":55,"endu":55,"ins":39,"dnk":29,"ft":60,"fg":63,"tp":63,"diq":28,"oiq":39,"drb":61,"pss":59,"reb":29,"skills":["3"]}],
 "pos":"G","hgt":77,"weight":210,
