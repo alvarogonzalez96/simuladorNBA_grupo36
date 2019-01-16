@@ -76,8 +76,6 @@ public class PanelHome extends PanelTab {
 							clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
 							temporada.setText(""+LigaManager.anyo+"/"+(LigaManager.anyo+1));
 							repaint();
-						} else if(op == -1) {
-							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que la suma de los salarios de tus jugadores no sobrepase el limite salarial", "Aviso", JOptionPane.WARNING_MESSAGE);
 						} else if(op == -2) {
 							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tu plantilla no tenga mas de 15 jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
 						} else if(op == -3) {

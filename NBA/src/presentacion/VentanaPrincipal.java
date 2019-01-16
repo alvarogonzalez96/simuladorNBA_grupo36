@@ -48,8 +48,6 @@ public class VentanaPrincipal extends JFrame {
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridLayout());
 		
-		setAlwaysOnTop(true);
-		
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -104,7 +102,7 @@ public class VentanaPrincipal extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("NBA");
 		this.pack();
-		//this.setVisible(true);
+		this.setVisible(true);
 	}
 	
 	private void initBarra() {

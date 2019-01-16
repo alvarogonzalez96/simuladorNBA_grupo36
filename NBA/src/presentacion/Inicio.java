@@ -130,7 +130,7 @@ public class Inicio {
 									espera.setAlwaysOnTop(false);
 									espera.dispose();
 									v.setAlwaysOnTop(true);
-									v.setVisible(true);
+									//v.setVisible(true);
 									v.toFront();
 									v.setAlwaysOnTop(false);
 								}

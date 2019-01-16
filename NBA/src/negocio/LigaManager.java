@@ -110,6 +110,7 @@ public class LigaManager {
 			finTemporada = false;
 			temporadasPasadas.put(anyo, new Temporada());
 		}
+		
 	}
 	
 	/** 
@@ -1087,7 +1088,6 @@ public class LigaManager {
 	 * de comenzar una nueva temporada:
 	 * Devuelve: 
 	 * 	-> 0 si todo esta bien
-	 * 	-> -1 si se pasa del limite salarial
 	 *  -> -2 si tiene mas de 15 jugadores
 	 *  -> -3 si no tiene como minimo 2 jugadores por posicion
 	 *  -> -4 si tiene jugadores con 0 anyos de contrato -> tiene que cambiar eso
@@ -1101,7 +1101,7 @@ public class LigaManager {
 			}
 		}
 		for(Jugador j: e.jugadores) {
-			if(j.anyosContratoRestantes >= 0) { // 0 o 1???
+			if(j.anyosContratoRestantes >= 0) { 
 				contadorJugadoresConContrato++;
 			}
 		}
@@ -1116,9 +1116,7 @@ public class LigaManager {
 				break;
 			}
 		}
-		if(e.calcSalarioTotal() > Equipo.limiteSalarial) {
-			return -1;
-		} else if(contadorJugadoresConContrato > 15) {
+		if(contadorJugadoresConContrato > 15) {
 			return -2;
 		} else if(noTiene2PorPosicion){
 			return -3;

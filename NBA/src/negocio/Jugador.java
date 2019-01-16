@@ -433,6 +433,14 @@ public class Jugador {
 	public int getPartidosJugadosTemporada() {
 		return partidosJugadosTemporada;
 	}
+	
+	public int getPrimerAnyoEstadisticas() {
+		int min = Integer.MAX_VALUE;
+		for(int n: statsTemporadas.keySet()) {
+			if(n < min) min = n;
+		}
+		return min;
+	}
 
 	private class ModeloTablaTemporadas implements TableModel {
 
@@ -486,8 +494,9 @@ public class Jugador {
 				case 5: return getRebotesPorPartido();
 				}
 			}
-			System.out.println(row);
-			Estadistica e = statsTemporadas.get(row+2018);
+			Estadistica e = statsTemporadas.get(row+getPrimerAnyoEstadisticas());
+			System.out.println("Fila: "+row+"; Primer anyo: "+getPrimerAnyoEstadisticas()+"; null? "+(e == null));
+			System.out.println(statsTemporadas.size());
 			switch(col) {
 			case 0: return e.anyo+"/"+(""+(e.anyo+1)).substring(2);
 			case 1: return e.getAbrevEquipo();

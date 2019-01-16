@@ -120,7 +120,7 @@ public class VentanaJugador extends JFrame {
 						} else if(of == -1){
 							JOptionPane.showMessageDialog(null, "No puedes realizar este fichaje porque ya tienes 15 jugadores, el maximo establecido por la liga", "Aviso", JOptionPane.WARNING_MESSAGE);
 						} else {
-							JOptionPane.showMessageDialog(null, "No puedes realizar este fichaje porque no tienes suficiente dinero disponible", "Aviso", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Como tu equipo se pasa del limite salarial, solo puedes fichar a jugadores por el minimo (1000)", "Aviso", JOptionPane.WARNING_MESSAGE);
 						}
 					} catch(NumberFormatException ex) {
 						JOptionPane.showMessageDialog(null, "Error, la cantidad introducida debe ser un numero entero", "Error", JOptionPane.ERROR_MESSAGE);
@@ -148,11 +148,9 @@ public class VentanaJugador extends JFrame {
 								JOptionPane.showMessageDialog(null, "Has renovado a "+jugador.getNombre()+" por "+anyos+" temporadas ("+cantidad+"/temporada)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 								dispose();
 							}
-						} else if(of == 0) {
-							JOptionPane.showMessageDialog(null, jugador.getNombre()+" ha rechazado tu oferta", "Oferta rechazada", JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							JOptionPane.showMessageDialog(null, "No puedes realizar esta renovacion porque no tienes suficiente dinero disponible", "Aviso", JOptionPane.WARNING_MESSAGE);
-						}
+							JOptionPane.showMessageDialog(null, jugador.getNombre()+" ha rechazado tu oferta", "Oferta rechazada", JOptionPane.INFORMATION_MESSAGE);
+						} 
 					} catch(NumberFormatException ex) {
 						JOptionPane.showMessageDialog(null, "Error, la cantidad introducida debe ser un numero entero", "Error", JOptionPane.ERROR_MESSAGE);
 					}
@@ -184,13 +182,13 @@ public class VentanaJugador extends JFrame {
 	 * 1 -> todo en orden y oferta aceptada
 	 * 0 -> oferta rechazada
 	 * -1-> ya hay 15 jugadores en el equipo
-	 * -2-> no tiene suficiente dinero disponible
+	 * -2-> se pasa del limite y no ofrece el minimo
 	 * */
 	private int aceptaOferta(Jugador j, int cantidad, int anyos) {
 		Equipo e = LigaManager.usuario.getEquipo();
 		if(e.getJugadores().size() >= 15) {
 			return -1;
-		} else if(e.calcSalarioTotal() + cantidad > Equipo.limiteSalarial){
+		} else if(e.calcSalarioTotal() + cantidad > Equipo.limiteSalarial && cantidad != 1000){
 			return -2;
 		} else {
 			double rand = Math.random();
@@ -216,27 +214,23 @@ public class VentanaJugador extends JFrame {
 	
 	private int proponerRenovacion(Jugador j, int cantidad, int anyos) {
 		Equipo e = LigaManager.usuario.getEquipo();
-		if(e.calcSalarioTotal()-j.salario+cantidad > Equipo.limiteSalarial) {
-			return -2;
-		} else {
-			double rand = Math.random();
-			double randAnyos = Math.random()*5;
-			if(j.getOverall() >= 85 && cantidad >= 30000 + rand*10001  && anyos >= randAnyos) {
-				return 1;
-			} 
-			if(j.getOverall() >= 80 && j.getOverall() < 85 && cantidad >= 20000 + rand*10001 && anyos >= randAnyos) {
-				return 1;
-			} 
-			if(j.getOverall() >= 70 && j.getOverall() < 80 && cantidad >= 10000+rand*10001 && anyos >= randAnyos-1) {
-				return 1;
-			} 
-			if(j.getOverall() >= 60 && j.getOverall() < 70 && cantidad >= 1000 + rand*12001) {
-				return 1;
-			}
-			if(j.getOverall() < 60 && cantidad >= 1000 + rand*4001) {
-				return 1;
-			} 		
+		double rand = Math.random();
+		double randAnyos = Math.random()*5;
+		if(j.getOverall() >= 85 && cantidad >= 30000 + rand*10001  && anyos >= randAnyos) {
+			return 1;
+		} 
+		if(j.getOverall() >= 80 && j.getOverall() < 85 && cantidad >= 20000 + rand*10001 && anyos >= randAnyos) {
+			return 1;
+		} 
+		if(j.getOverall() >= 70 && j.getOverall() < 80 && cantidad >= 10000+rand*10001 && anyos >= randAnyos-1) {
+			return 1;
+		} 
+		if(j.getOverall() >= 60 && j.getOverall() < 70 && cantidad >= 1000 + rand*12001) {
+			return 1;
 		}
+		if(j.getOverall() < 60 && cantidad >= 1000 + rand*4001) {
+			return 1;
+		} 		
 		return 0;
 	}
 	

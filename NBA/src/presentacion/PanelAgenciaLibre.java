@@ -70,8 +70,7 @@ private ArrayList<Jugador> jugadores;
 
 	@Override
 	protected void seleccionado() {
-		// TODO Auto-generated method stub
-		
+		repaint();
 	}
 
 	
