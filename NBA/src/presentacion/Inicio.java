@@ -58,7 +58,7 @@ public class Inicio {
 		String nombreUsuario = "*";
 		String contrasenya = null;
 
-		respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, ¿ya tienes una cuenta?");
+		respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, ï¿½ya tienes una cuenta?");
 		/*
 		 * respuesta = 0 --> si
 		 * respuesta = 1 --> no
@@ -72,7 +72,7 @@ public class Inicio {
 				ventanaInicio();
 			} else {
 				//Selecciona la contrasenya
-				contrasenya = popup("Introduce tu contraseña", false);
+				contrasenya = popup("Introduce tu contraseï¿½a", false);
 				if(contrasenya == null) {
 					//volver a la ventana inicial
 					ventanaInicio();
@@ -103,7 +103,7 @@ public class Inicio {
 				ventanaInicio();
 			} else {
 				//Selecciona la contrasenya
-				contrasenya = popup("Elige tu contraseña", false);
+				contrasenya = popup("Elige tu contraseï¿½a", false);
 				if(contrasenya == null) {
 					ventanaInicio();
 				} else {
@@ -132,6 +132,7 @@ public class Inicio {
 									v.setAlwaysOnTop(true);
 									v.setVisible(true);
 									v.toFront();
+									v.setAlwaysOnTop(false);
 								}
 								
 							});

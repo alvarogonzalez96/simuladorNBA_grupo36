@@ -117,26 +117,20 @@ public class VentanaPrincipal extends JFrame {
 		menuUsuario.addSeparator();
 		menuUsuario.add(itemLogout);
 		
-		itemInfo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//mostrar ventana con informacion del jugador y estadisticas
-			}
-		});
+		itemInfo.addActionListener(
+				(ActionEvent e) -> {
+					//mostrar ventana con informacion del jugador y estadisticas
+				});
 		
-		itemAcercaDe.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//mostrar ventana con informacion sobre el desarrollo del juego
-			}
-		});
+		itemAcercaDe.addActionListener(
+				(ActionEvent e) -> {
+					//mostrar ventana con informacion sobre el desarrollo del juego
+				});
 		
-		itemLogout.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//cerrar sesion, cerrar la ventana principal y mostrar la ventana de inicio
-			}
-		});
+		itemLogout.addActionListener(
+				(ActionEvent e) -> {
+					//cerrar sesion, cerrar la ventana principal y mostrar la ventana de inicio
+				});
 	}
 
 	public static void main(String[] args) {

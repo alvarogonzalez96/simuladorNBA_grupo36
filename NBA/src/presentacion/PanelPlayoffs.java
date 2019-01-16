@@ -24,33 +24,29 @@ public class PanelPlayoffs extends PanelTab {
 	
 	@Override
 	protected void setListeners() {
-		botonPartido.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(LigaManager.fase == 1) {
-					LigaManager.playoffs.avanzar();
-					
-					//repintar cuadro de playoffs y comprobar si ha terminado la temporada
-					repaint();
-					if(LigaManager.playoffs.getCampeon() != null) {
+		botonPartido.addActionListener(
+				(ActionEvent e) -> {
+					if(LigaManager.fase == 1) {
+						LigaManager.playoffs.avanzar();
+						
+						//repintar cuadro de playoffs y comprobar si ha terminado la temporada
+						repaint();
+						if(LigaManager.playoffs.getCampeon() != null) {
+							finPlayoffs();
+						}
+					}
+				});
+		
+		botonPlayoffs.addActionListener(
+				(ActionEvent e) -> {
+					if(LigaManager.fase == 1) {
+						while(LigaManager.playoffs.getCampeon() == null) {
+							LigaManager.playoffs.avanzar();
+							repaint();
+						}
 						finPlayoffs();
 					}
-				}
-			}
-		});
-		botonPlayoffs.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				if(LigaManager.fase == 1) {
-					while(LigaManager.playoffs.getCampeon() == null) {
-						LigaManager.playoffs.avanzar();
-						repaint();
-					}
-					finPlayoffs();
-				}
-			}
-		});
+				});
 	}
 
 	private void finPlayoffs() {
@@ -86,7 +82,7 @@ public class PanelPlayoffs extends PanelTab {
 	 * Metodo que sera llamado unicamente desde la ventana de draft,
 	 * al ser cerrada. Este metodo dara comienzo a las
 	 * renovaciones, fichajes de agencia libre y los despidos
-	 * de los equipos, así como la seleccion de los roles.
+	 * de los equipos, asï¿½ como la seleccion de los roles.
 	 * */
 	public void comenzarFaseGestiones() {
 		LigaManager.terminarDraft();

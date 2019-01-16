@@ -145,13 +145,12 @@ public class VentanaDraft extends JFrame {
 			}
 		});
 		
-		botonComenzar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				hilo.start();
-				botonComenzar.setEnabled(false);
-			}
-		});
+		botonComenzar.addActionListener(
+				(ActionEvent e) -> {
+					hilo.start();
+					botonComenzar.setEnabled(false);
+				}
+		);
 	}
 	
 	private void initHilo() {

@@ -32,12 +32,10 @@ public class PanelPlantilla extends PanelTab {
 	}
 	
 	protected void setListeners() {
-		combo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				actualizarEquipo();
-			}
-		});
+		combo.addActionListener(
+				(ActionEvent e) -> {
+					actualizarEquipo();
+				});
 		
 		tabla.addMouseListener(new MouseAdapter() {
 			@Override

@@ -100,13 +100,11 @@ public class PanelHistorial extends PanelTab {
 	}
 
 	@Override
-	protected void setListeners() {
-		comboAnyo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				seleccionado();
-			}
-		});
+	protected void setListeners() {		
+		comboAnyo.addActionListener(
+				(ActionEvent e) -> {
+					seleccionado();
+				});
 	}
 	
 	private ModeloTablaClasificacionHistorial getModelo(boolean anyoValido) {

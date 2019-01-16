@@ -28,16 +28,14 @@ public class PanelFinanzas extends PanelTab {
 	
 	@Override
 	protected void setListeners() {
-		combo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Equipo equipo = getEquipoSeleccionado(combo.getSelectedIndex());
-				
-				tabla.setModel(equipo.getModeloFinanzas());
-				tabla.getColumnModel().getColumn(0).setMinWidth(200);
-				seleccionado();
-			}
-		});
+		combo.addActionListener(
+				(ActionEvent e) -> {
+					Equipo equipo = getEquipoSeleccionado(combo.getSelectedIndex());
+					
+					tabla.setModel(equipo.getModeloFinanzas());
+					tabla.getColumnModel().getColumn(0).setMinWidth(200);
+					seleccionado();
+				});
 		
 		tabla.addMouseListener(new MouseAdapter() {
 			@Override

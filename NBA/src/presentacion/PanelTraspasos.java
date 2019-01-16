@@ -156,83 +156,72 @@ public class PanelTraspasos extends PanelTab{
 
 	@Override
 	protected void setListeners() {
-		comboJugadoresUsuario.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for (Jugador j : equipoUsuario.getJugadores()) {
-					if(j.getNombre().equals(comboJugadoresUsuario.getSelectedItem()) && !jugadoresOfreceUsuario.contains(j)) {
-						jugadoresOfreceUsuario.add(j);
+		comboJugadoresUsuario.addActionListener(
+				(ActionEvent e) -> {
+					for (Jugador j : equipoUsuario.getJugadores()) {
+						if(j.getNombre().equals(comboJugadoresUsuario.getSelectedItem()) && !jugadoresOfreceUsuario.contains(j)) {
+							jugadoresOfreceUsuario.add(j);
+						}
 					}
-				}
-				actualizarTablaUsuario();
-			}
-		});
-		
-		comboEquiposLiga.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for (Equipo equipo : equipos) {
-					if(equipo.getNombre().equals(comboEquiposLiga.getSelectedItem())) {
-						equipoSeleccionado = equipo;
-					} 
-				}
-			}
-		});	
-		
-		buscarOferta.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(LigaManager.draftEnCurso) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ningun traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				if(equipoSeleccionado.getTid() != -8) {
-					jugadoresOfreceLiga.clear();
-					calcularOferta();
-					actualizarTablaLiga();	
-				} else {
-					JOptionPane.showMessageDialog(null, "Elige un equipo al que ofrecer el traspaso");
-				}
-			}
-		});
-		
-		borrarOferta.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(LigaManager.draftEnCurso) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ningun traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				jugadoresOfreceLiga.clear();
-				jugadoresOfreceUsuario.clear();
-				actualizarTablaUsuario();
-				actualizarTablaLiga();
-			}
-		});
-		
-		aceptarOferta.addActionListener(new ActionListener() {
+					actualizarTablaUsuario();	
+				});
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//hasta que el draft no haya terminado no se puede hacer nada
-				if(LigaManager.draftEnCurso) {
-					JOptionPane.showMessageDialog(null, "No puedes realizar ninguna gestion hasta que haya concluido el draft", "Aviso", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				
-				if(jugadoresOfreceUsuario.size() > 0 && jugadoresOfreceLiga.size() > 0) {
-					recontarPosiciones();
-					if(contadorUsuario[0] >= 2 && contadorUsuario[1] >= 2 && contadorUsuario[2] >= 2 && contadorUsuario[3] >= 2 && contadorUsuario[4] >= 2) {
-						traspasarJugadores();
-					} else {
-						JOptionPane.showMessageDialog(null, "No tienes suficientes jugadores cubriendo todas las posiciones");
+		comboEquiposLiga.addActionListener(
+				(ActionEvent e) -> {
+					for (Equipo equipo : equipos) {
+						if(equipo.getNombre().equals(comboEquiposLiga.getSelectedItem())) {
+							equipoSeleccionado = equipo;
+						} 
 					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Faltan jugadores para completar el traspaso");	
-				}
-				resetearContadores();
-			}
-		});
+				});
+
+		buscarOferta.addActionListener(
+				(ActionEvent e) -> {
+					if(LigaManager.draftEnCurso) {
+						JOptionPane.showMessageDialog(null, "No puedes realizar ningun traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
+					if(equipoSeleccionado.getTid() != -8) {
+						jugadoresOfreceLiga.clear();
+						calcularOferta();
+						actualizarTablaLiga();	
+					} else {
+						JOptionPane.showMessageDialog(null, "Elige un equipo al que ofrecer el traspaso");
+					}
+				});
+		
+		borrarOferta.addActionListener(
+				(ActionEvent e) -> {
+					if(LigaManager.draftEnCurso) {
+						JOptionPane.showMessageDialog(null, "No puedes realizar ningun traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
+					jugadoresOfreceLiga.clear();
+					jugadoresOfreceUsuario.clear();
+					actualizarTablaUsuario();
+					actualizarTablaLiga();
+				});
+	
+		aceptarOferta.addActionListener(
+				(ActionEvent e) -> {
+					//hasta que el draft no haya terminado no se puede hacer nada
+					if(LigaManager.draftEnCurso) {
+						JOptionPane.showMessageDialog(null, "No puedes realizar ninguna gestion hasta que haya concluido el draft", "Aviso", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
+					
+					if(jugadoresOfreceUsuario.size() > 0 && jugadoresOfreceLiga.size() > 0) {
+						recontarPosiciones();
+						if(contadorUsuario[0] >= 2 && contadorUsuario[1] >= 2 && contadorUsuario[2] >= 2 && contadorUsuario[3] >= 2 && contadorUsuario[4] >= 2) {
+							traspasarJugadores();
+						} else {
+							JOptionPane.showMessageDialog(null, "No tienes suficientes jugadores cubriendo todas las posiciones");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Faltan jugadores para completar el traspaso");	
+					}
+					resetearContadores();
+				});
 	}
 	
 	private void resetearContadores() {

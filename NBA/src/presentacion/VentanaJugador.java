@@ -92,99 +92,92 @@ public class VentanaJugador extends JFrame {
 	}
 	
 	private void setListeners() {
-		botonFichar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//los playoffs estan en curso no se puede hacer nada
-				if(LigaManager.draftEnCurso) {
-					alertaDraft();
-					return;
-				}
-				
-				//si no es posible el fichaje -> mensaje de error
-				//si es posible -> confirmacion -> si confirma, recomendar que reasigne roles
-				int cantidad, anyos;
-				try {
-					cantidad = Integer.parseInt(inputCantidad.getText());
-					anyos = sliderAnyos.getValue();
-					int of = aceptaOferta(jugador, cantidad, anyos);
-					System.out.println(of);
-					if(of == 1) {
-						int opcion = JOptionPane.showConfirmDialog(null, jugador.getNombre()+" ha aceptado tu oferta. Deseas ficharlo?");
+		botonFichar.addActionListener(
+				(ActionEvent e) -> {
+					//los playoffs estan en curso no se puede hacer nada
+					if(LigaManager.draftEnCurso) {
+						alertaDraft();
+						return;
+					}
+					
+					//si no es posible el fichaje -> mensaje de error
+					//si es posible -> confirmacion -> si confirma, recomendar que reasigne roles
+					int cantidad, anyos;
+					try {
+						cantidad = Integer.parseInt(inputCantidad.getText());
+						anyos = sliderAnyos.getValue();
+						int of = aceptaOferta(jugador, cantidad, anyos);
+						System.out.println(of);
+						if(of == 1) {
+							int opcion = JOptionPane.showConfirmDialog(null, jugador.getNombre()+" ha aceptado tu oferta. Deseas ficharlo?");
+							if(opcion == JOptionPane.YES_OPTION) {
+								fichar(jugador, cantidad, anyos);
+								JOptionPane.showMessageDialog(null, "Has fichado a "+jugador.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+							}
+						} else if (of == 0) {
+							JOptionPane.showMessageDialog(null, jugador.getNombre()+" ha rechazado tu oferta", "Oferta rechazada", JOptionPane.INFORMATION_MESSAGE);
+						} else if(of == -1){
+							JOptionPane.showMessageDialog(null, "No puedes realizar este fichaje porque ya tienes 15 jugadores, el maximo establecido por la liga", "Aviso", JOptionPane.WARNING_MESSAGE);
+						} else {
+							JOptionPane.showMessageDialog(null, "No puedes realizar este fichaje porque no tienes suficiente dinero disponible", "Aviso", JOptionPane.WARNING_MESSAGE);
+						}
+					} catch(NumberFormatException ex) {
+						JOptionPane.showMessageDialog(null, "Error, la cantidad introducida debe ser un numero entero", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				});
+		
+		botonRenovar.addActionListener(
+				(ActionEvent e) -> {
+					//los playoffs estan en curso no se puede hacer nada
+					if(LigaManager.draftEnCurso) {
+						alertaDraft();
+						return;
+					}
+					
+					//abrir ventana para renovar -> eleccion de cantidad y anyos de contrato
+					int cantidad, anyos;
+					try {
+						cantidad = Integer.parseInt(inputCantidad.getText());
+						anyos = sliderAnyos.getValue();
+						int of = proponerRenovacion(jugador, cantidad, anyos);
+						if(of == 1) {
+							int opcion = JOptionPane.showConfirmDialog(null, jugador.getNombre()+" ha aceptado tu oferta. Deseas renovarlo?");
+							if(opcion == JOptionPane.YES_OPTION) {
+								renovar(jugador, cantidad, anyos);
+								JOptionPane.showMessageDialog(null, "Has renovado a "+jugador.getNombre()+" por "+anyos+" temporadas ("+cantidad+"/temporada)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+							}
+						} else if(of == 0) {
+							JOptionPane.showMessageDialog(null, jugador.getNombre()+" ha rechazado tu oferta", "Oferta rechazada", JOptionPane.INFORMATION_MESSAGE);
+						} else {
+							JOptionPane.showMessageDialog(null, "No puedes realizar esta renovacion porque no tienes suficiente dinero disponible", "Aviso", JOptionPane.WARNING_MESSAGE);
+						}
+					} catch(NumberFormatException ex) {
+						JOptionPane.showMessageDialog(null, "Error, la cantidad introducida debe ser un numero entero", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				});
+		
+		botonCortar.addActionListener(
+				(ActionEvent e) -> {
+					//los playoffs estan en curso no se puede hacer nada
+					if(LigaManager.draftEnCurso) {
+						alertaDraft();
+						return;
+					}
+					
+					//lanzar mensaje de confirmacion, y si confirma, cortar el contrato
+					if(esPosibleCortar(jugador)) {
+						int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro de que quieres cortar a "+jugador.getNombre()+"?");
 						if(opcion == JOptionPane.YES_OPTION) {
-							fichar(jugador, cantidad, anyos);
-							JOptionPane.showMessageDialog(null, "Has fichado a "+jugador.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							//cortar y cerrar la ventana
+							cortar(jugador);
 							dispose();
 						}
-					} else if (of == 0) {
-						JOptionPane.showMessageDialog(null, jugador.getNombre()+" ha rechazado tu oferta", "Oferta rechazada", JOptionPane.INFORMATION_MESSAGE);
-					} else if(of == -1){
-						JOptionPane.showMessageDialog(null, "No puedes realizar este fichaje porque ya tienes 15 jugadores, el maximo establecido por la liga", "Aviso", JOptionPane.WARNING_MESSAGE);
 					} else {
-						JOptionPane.showMessageDialog(null, "No puedes realizar este fichaje porque no tienes suficiente dinero disponible", "Aviso", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "No es posible cortar al jugador, te faltarian jugadores en la posicion de "+jugador.getPosicion(), "Aviso", JOptionPane.WARNING_MESSAGE);
 					}
-				} catch(NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null, "Error, la cantidad introducida debe ser un numero entero", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-			
-		});
-		
-		botonRenovar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//los playoffs estan en curso no se puede hacer nada
-				if(LigaManager.draftEnCurso) {
-					alertaDraft();
-					return;
-				}
-				
-				//abrir ventana para renovar -> eleccion de cantidad y anyos de contrato
-				int cantidad, anyos;
-				try {
-					cantidad = Integer.parseInt(inputCantidad.getText());
-					anyos = sliderAnyos.getValue();
-					int of = proponerRenovacion(jugador, cantidad, anyos);
-					if(of == 1) {
-						int opcion = JOptionPane.showConfirmDialog(null, jugador.getNombre()+" ha aceptado tu oferta. Deseas renovarlo?");
-						if(opcion == JOptionPane.YES_OPTION) {
-							renovar(jugador, cantidad, anyos);
-							JOptionPane.showMessageDialog(null, "Has renovado a "+jugador.getNombre()+" por "+anyos+" temporadas ("+cantidad+"/temporada)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-							dispose();
-						}
-					} else if(of == 0) {
-						JOptionPane.showMessageDialog(null, jugador.getNombre()+" ha rechazado tu oferta", "Oferta rechazada", JOptionPane.INFORMATION_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(null, "No puedes realizar esta renovacion porque no tienes suficiente dinero disponible", "Aviso", JOptionPane.WARNING_MESSAGE);
-					}
-				} catch(NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null, "Error, la cantidad introducida debe ser un numero entero", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		
-		botonCortar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//los playoffs estan en curso no se puede hacer nada
-				if(LigaManager.draftEnCurso) {
-					alertaDraft();
-					return;
-				}
-				
-				//lanzar mensaje de confirmacion, y si confirma, cortar el contrato
-				if(esPosibleCortar(jugador)) {
-					int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro de que quieres cortar a "+jugador.getNombre()+"?");
-					if(opcion == JOptionPane.YES_OPTION) {
-						//cortar y cerrar la ventana
-						cortar(jugador);
-						dispose();
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "No es posible cortar al jugador, te faltarian jugadores en la posicion de "+jugador.getPosicion(), "Aviso", JOptionPane.WARNING_MESSAGE);
-				}
-			}
-		});
+				});
 	}
 	
 	/**

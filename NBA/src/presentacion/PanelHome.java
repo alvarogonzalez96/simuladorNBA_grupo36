@@ -49,122 +49,116 @@ public class PanelHome extends PanelTab {
 	
 	@Override
 	protected void setListeners() {
-		botonDia.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(LigaManager.draftEnCurso) {
-					JOptionPane.showMessageDialog(null, "No puedes comenzar una nueva temporada hasta que haya terminado el draft y hayas realizado las gestiones necesarias", "Aviso", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				if(LigaManager.finTemporada) {
-					int op = LigaManager.comprobarEquipoUsuario();
-					if(op == 0) {
-						//que el resto de equipos terminen sus gestiones
-						ArrayList<Equipo> orden = LigaManager.clasificaciones.get("GENERAL").getEquipos();
-						LigaManager.renovaciones(orden, false);
-						LigaManager.despedirJugadores(orden, false);
-						LigaManager.agenciaLibre(orden, false);
-						
-						//guardar en BD
-						LigaManager.guardarBD();
-						
-						botonDia.setText("Simular dia");
-						botonDia.setEnabled(true);
-						botonSem.setEnabled(true);
-						botonMes.setEnabled(true);
-						LigaManager.finTemporada = false;
-						LigaManager.reset();
-						clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
-						temporada.setText(""+LigaManager.anyo+"/"+(LigaManager.anyo+1));
-						repaint();
-					} else if(op == -1) {
-						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que la suma de los salarios de tus jugadores no sobrepase el limite salarial", "Aviso", JOptionPane.WARNING_MESSAGE);
-					} else if(op == -2) {
-						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tu plantilla no tenga mas de 15 jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
-					} else if(op == -3) {
-						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tengas, por lo menos, por cada posicion, dos jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
-					} else if(op == -4) {
-						JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que decidir que hacer con los jugadores con 0 anyos de contrato: renovar o cortar?", "Aviso", JOptionPane.WARNING_MESSAGE);
+		botonDia.addActionListener(
+				(ActionEvent e) -> {
+					if(LigaManager.draftEnCurso) {
+						JOptionPane.showMessageDialog(null, "No puedes comenzar una nueva temporada hasta que haya terminado el draft y hayas realizado las gestiones necesarias", "Aviso", JOptionPane.WARNING_MESSAGE);
+						return;
 					}
-					return;
-				}
-				boolean fin = false;
-				switch(LigaManager.fase) {
-				case 0: //temp regular
-					botonDia.setEnabled(false);
-					LigaManager.simularDia();
-					if(LigaManager.fase == 1) {
-						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\nVe a la pesta�a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+					if(LigaManager.finTemporada) {
+						int op = LigaManager.comprobarEquipoUsuario();
+						if(op == 0) {
+							//que el resto de equipos terminen sus gestiones
+							ArrayList<Equipo> orden = LigaManager.clasificaciones.get("GENERAL").getEquipos();
+							LigaManager.renovaciones(orden, false);
+							LigaManager.despedirJugadores(orden, false);
+							LigaManager.agenciaLibre(orden, false);
+							
+							//guardar en BD
+							LigaManager.guardarBD();
+							
+							botonDia.setText("Simular dia");
+							botonDia.setEnabled(true);
+							botonSem.setEnabled(true);
+							botonMes.setEnabled(true);
+							LigaManager.finTemporada = false;
+							LigaManager.reset();
+							clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
+							temporada.setText(""+LigaManager.anyo+"/"+(LigaManager.anyo+1));
+							repaint();
+						} else if(op == -1) {
+							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que la suma de los salarios de tus jugadores no sobrepase el limite salarial", "Aviso", JOptionPane.WARNING_MESSAGE);
+						} else if(op == -2) {
+							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tu plantilla no tenga mas de 15 jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
+						} else if(op == -3) {
+							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tengas, por lo menos, por cada posicion, dos jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
+						} else if(op == -4) {
+							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que decidir que hacer con los jugadores con 0 anyos de contrato: renovar o cortar?", "Aviso", JOptionPane.WARNING_MESSAGE);
+						}
+						return;
+					}
+					boolean fin = false;
+					switch(LigaManager.fase) {
+					case 0: //temp regular
+						botonDia.setEnabled(false);
+						LigaManager.simularDia();
+						if(LigaManager.fase == 1) {
+							JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\nVe a la pesta�a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
-						botonDia.setEnabled(false);
-						botonSem.setEnabled(false);
-						botonMes.setEnabled(false);
-						LigaManager.elegirPremiosIndividuales();
-						fin = true;
+							botonDia.setEnabled(false);
+							botonSem.setEnabled(false);
+							botonMes.setEnabled(false);
+							LigaManager.elegirPremiosIndividuales();
+							fin = true;
+						}
 					}
-				}
-				if(!fin) {
-					botonDia.setEnabled(true);
-				}
-				//actualizarPanel();
-				Equipo eq = LigaManager.usuario.getEquipo();
-				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
-				repaint();
-			}
-		});
+					if(!fin) {
+						botonDia.setEnabled(true);
+					}
+					//actualizarPanel();
+					Equipo eq = LigaManager.usuario.getEquipo();
+					balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
+					repaint();
+				});
 		
-		botonSem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				botonSem.setEnabled(false);
-				boolean fin = false;;
-				for(int i = 0; i < 7; i++) {
-					LigaManager.simularDia();
-					if(LigaManager.fase == 1) {
-						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pesta�a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-						botonDia.setEnabled(false);
-						botonSem.setEnabled(false);
-						botonMes.setEnabled(false);
-						fin = true;
-						LigaManager.elegirPremiosIndividuales();
-						break;
+		botonSem.addActionListener(
+				(ActionEvent e) -> {
+					botonSem.setEnabled(false);
+					boolean fin = false;;
+					for(int i = 0; i < 7; i++) {
+						LigaManager.simularDia();
+						if(LigaManager.fase == 1) {
+							JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pesta�a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							botonDia.setEnabled(false);
+							botonSem.setEnabled(false);
+							botonMes.setEnabled(false);
+							fin = true;
+							LigaManager.elegirPremiosIndividuales();
+							break;
+						}
 					}
-				}
-				if(!fin) {
-					botonSem.setEnabled(true);
-				}
-				Equipo eq = LigaManager.usuario.getEquipo();
-				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
-				repaint();
-				System.out.println(LigaManager.clasificaciones.get("GENERAL").get(4).getAbrev());
-			}
-		});
+					if(!fin) {
+						botonSem.setEnabled(true);
+					}
+					Equipo eq = LigaManager.usuario.getEquipo();
+					balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
+					repaint();
+					System.out.println(LigaManager.clasificaciones.get("GENERAL").get(4).getAbrev());
+				});
 		
-		botonMes.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				botonMes.setEnabled(true);
-				boolean fin = false;
-				for(int i = 0; i < 30; i++) {
-					LigaManager.simularDia();
-					if(LigaManager.fase == 1) {
-						JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestanya de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-						botonDia.setEnabled(false);
-						botonSem.setEnabled(false);
-						botonMes.setEnabled(false);
-						fin = true;
-						LigaManager.elegirPremiosIndividuales();
-						break;
-					}
-				}
-				if(!fin) {
+		botonMes.addActionListener(
+				(ActionEvent e) -> {
 					botonMes.setEnabled(true);
-				}
-				Equipo eq = LigaManager.usuario.getEquipo();
-				balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
-				repaint();
-			}
-		});
+					boolean fin = false;
+					for(int i = 0; i < 30; i++) {
+						LigaManager.simularDia();
+						if(LigaManager.fase == 1) {
+							JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestanya de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							botonDia.setEnabled(false);
+							botonSem.setEnabled(false);
+							botonMes.setEnabled(false);
+							fin = true;
+							LigaManager.elegirPremiosIndividuales();
+							break;
+						}
+					}
+					if(!fin) {
+						botonMes.setEnabled(true);
+					}
+					Equipo eq = LigaManager.usuario.getEquipo();
+					balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
+					repaint();
+				} );
 		
 		tabla.addMouseListener(new MouseAdapter() {
 			@Override
