@@ -12,6 +12,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
+
+import datos.BD;
+
 import javax.swing.UIManager.*;//Importar para poder usar nimbus look&Feel
 
 public class VentanaPrincipal extends JFrame {
@@ -99,7 +102,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		initBarra();
 		
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setTitle("NBA");
 		this.pack();
 		this.setVisible(true);
@@ -129,6 +132,12 @@ public class VentanaPrincipal extends JFrame {
 				(ActionEvent e) -> {
 					//cerrar sesion, cerrar la ventana principal y mostrar la ventana de inicio
 				});
+	}
+	
+	@Override
+	public void dispose() {
+		BD.rollback();
+		super.dispose();
 	}
 
 	public static void main(String[] args) {

@@ -109,6 +109,13 @@ public class LigaManager {
 			anyo = ultimoAnyo+1;
 			finTemporada = false;
 			temporadasPasadas.put(anyo, new Temporada());
+			
+			if(ultimoAnyo == 0) {
+				//ha dejado la primera temporada a medias
+				BD.rollback();
+				System.out.println("rollback");
+				inicializar(true, usuario);
+			}
 		}
 		
 	}

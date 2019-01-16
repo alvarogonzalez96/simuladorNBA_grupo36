@@ -66,6 +66,7 @@ public class PanelHome extends PanelTab {
 							
 							//guardar en BD
 							LigaManager.guardarBD();
+							BD.commit();
 							
 							botonDia.setText("Simular dia");
 							botonDia.setEnabled(true);

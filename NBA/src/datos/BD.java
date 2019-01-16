@@ -45,11 +45,28 @@ public class BD {
 	public static boolean conectar() {
 		try {
 			conexion = DriverManager.getConnection("jdbc:sqlite:"+DIRECTORIO);
+			conexion.setAutoCommit(false);
 			st = conexion.createStatement();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public static void commit() {
+		try {
+			conexion.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void rollback() {
+		try {
+			conexion.rollback();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -75,6 +92,8 @@ public class BD {
 			pst.setString(2, pass);
 			pst.setInt(3, teamID);
 			pst.executeUpdate();
+
+			commit();
 		} catch(Exception e) {
 			e.printStackTrace();
 			return -2;
@@ -386,5 +405,6 @@ public class BD {
 	public static void main(String[] args) {
 		conectar();
 		crearTablas();
+		commit();
 	}
 }
