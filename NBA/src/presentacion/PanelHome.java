@@ -43,7 +43,7 @@ public class PanelHome extends PanelTab {
 	@Override
 	protected void initComponentes() {
 		int x = 100;
-		img = new JLabel(new ImageIcon(new ImageIcon("res\\logos_equipos\\"+LigaManager.usuario.getEquipo().getAbrev()+".png").getImage().getScaledInstance(x, x, Image.SCALE_SMOOTH)));
+		img = new JLabel(new ImageIcon(new ImageIcon("res/logos_equipos/"+LigaManager.usuario.getEquipo().getAbrev()+".png").getImage().getScaledInstance(x, x, Image.SCALE_SMOOTH)));
 		panelInfo.add(img, BorderLayout.WEST);
 		initClasificacion();
 		initBotones();

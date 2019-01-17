@@ -24,7 +24,7 @@ public class VentanaEspera extends JWindow {
 		JPanel p = new JPanel(new BorderLayout());
 		getContentPane().add(p);
 		p.add(texto, BorderLayout.SOUTH);
-		ImageIcon i = new ImageIcon(new ImageIcon("res\\logo.png").getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH));
+		ImageIcon i = new ImageIcon(new ImageIcon("res/logo.png").getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH));
 		img = new JLabel();//"res\\loader.gif"));
 		img.setIcon(i);
 		p.add(img, BorderLayout.CENTER);
