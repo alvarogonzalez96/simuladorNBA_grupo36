@@ -68,6 +68,9 @@ public class PanelHome extends PanelTab {
 							LigaManager.guardarBD();
 							BD.commit();
 							
+							//Cambian los overalls
+							cambiarOveralls();
+							
 							botonDia.setText("Simular dia");
 							botonDia.setEnabled(true);
 							botonSem.setEnabled(true);
@@ -173,6 +176,75 @@ public class PanelHome extends PanelTab {
 	
 	private void lanzaVentanaJugador(Jugador j) {
 		new VentanaJugador(this, j);
+	}
+	
+	/**
+	 * Cambia las estadisticas de todos los jugadores de la liga
+	 * teniendo en cuenta su edad
+	 * */
+	private void cambiarOveralls() {
+		for (Jugador j : LigaManager.jugadores) {
+			if(j.getEdad() > 32) {
+				//Empieza a empeorar
+				System.out.println(j.getNombre() + ", " + j.getOverall());
+				empeorarOverall(j);
+				
+				System.out.println(j.getNombre() + ", " + j.getOverall());
+			} else if(j.getEdad() <= 30) {
+				//Mejora hasta los 30
+				System.out.println(j.getNombre() + ", " + j.getOverall());
+				mejorarOverall(j);
+				System.out.println(j.getNombre() + ", " + j.getOverall());
+			} 
+		}	
+	}
+	
+	/**
+	 * Mejora las estadisticas del jugador
+	 * */
+	private void mejorarOverall(Jugador j) {
+		System.out.println(j.getAsistencia());
+		System.out.println((j.getAsistencia()+((int)(Math.random()*3))));
+		j.setAsistencia(j.getAsistencia()+((int)(Math.random()*3)));
+		j.setDefensa(j.getDefensa()+((int)(Math.random()*3)));
+		j.setRebote(j.getRebote()+((int)(Math.random()*3)));
+		j.setTiroCerca(j.getTiroCerca()+((int)Math.random()*3));
+		j.setTiroLejos(j.getTiroLejos()+((int)(Math.random()*3)));
+		j.setTiroLejos(j.getTiroLejos()+((int)(Math.random()*3)));
+		j.setTiroLibre(j.getTiroLibre()+((int)(Math.random()*3)));
+		j.setDnk(j.getDnk()+((int)(Math.random()*3)));
+		j.setDrb(j.getDrb()+((int)(Math.random()*3)));
+		j.setEndu(j.getEndu()+((int)(Math.random()*3)));
+		j.setHgt(j.getHgt()+((int)(Math.random()*3)));
+		j.setIns(j.getIns()+((int)(Math.random()*3)));
+		j.setJmp(j.getJmp()+((int)(Math.random()*3)));
+		j.setOiq(j.getOiq()+((int)(Math.random()*3)));
+		j.setSpd(j.getSpd()+((int)(Math.random()*3)));
+		j.setStre(j.getStre()+((int) (Math.random()*3)));
+		j.setOverall((int) ((((j.getRebote() + j.getTiroLibre() + j.getTiroCerca() + j.getTiroLejos() + j.getDefensa() + j.getAsistencia() + j.getHgt() + j.getStre() + j.getSpd() + j.getJmp() + j.getEndu() + j.getIns() + j.getDnk() + j.getOiq() + j.getDrb())/15) * 99)/76));
+	}
+	
+	/**
+	 * Empeora las estadisticas del jugador
+	 * */
+	private void empeorarOverall(Jugador j) {
+		j.setAsistencia(j.getAsistencia()-((int)(Math.random()*3)));
+		j.setDefensa(j.getDefensa()-((int)(Math.random()*3)));
+		j.setRebote(j.getRebote()-((int)(Math.random()*3)));
+		j.setTiroCerca(j.getTiroCerca()-((int)Math.random()*3));
+		j.setTiroLejos(j.getTiroLejos()-((int)(Math.random()*3)));
+		j.setTiroLejos(j.getTiroLejos()-((int)(Math.random()*3)));
+		j.setTiroLibre(j.getTiroLibre()-((int)(Math.random()*3)));
+		j.setDnk(j.getDnk()-((int)(Math.random()*3)));
+		j.setDrb(j.getDrb()-((int)(Math.random()*3)));
+		j.setEndu(j.getEndu()-((int)(Math.random()*3)));
+		j.setHgt(j.getHgt()-((int)(Math.random()*3)));
+		j.setIns(j.getIns()-((int)(Math.random()*3)));
+		j.setJmp(j.getJmp()-((int)(Math.random()*3)));
+		j.setOiq(j.getOiq()-((int)(Math.random()*3)));
+		j.setSpd(j.getSpd()-((int)(Math.random()*3)));
+		j.setStre(j.getStre()-((int) (Math.random()*5)));
+		j.setOverall((int) ((((j.getRebote() + j.getTiroLibre() + j.getTiroCerca() + j.getTiroLejos() + j.getDefensa() + j.getAsistencia() + j.getHgt() + j.getStre() + j.getSpd() + j.getJmp() + j.getEndu() + j.getIns() + j.getDnk() + j.getOiq() + j.getDrb())/15) * 99)/76));
 	}
 	
 	private void initPlantilla() {

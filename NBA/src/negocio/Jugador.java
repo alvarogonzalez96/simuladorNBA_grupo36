@@ -200,9 +200,85 @@ public class Jugador {
 		BD.guardarJugador(this);
 	}
 
-	private int cargarOverallJugador() {
+	public int cargarOverallJugador() {
 		int ov = (int) ((((rebote + tiroLibre + tiroCerca + tiroLejos + defensa + asistencia + hgt + stre + spd + jmp + endu + ins + dnk + oiq + drb)/15) * 99)/76);
 		return ov;
+	}
+
+	public void setOverall(int overall) {
+		this.overall = overall;
+	}
+	
+	public int getHgt() {
+		return hgt;
+	}
+
+	public void setHgt(int hgt) {
+		this.hgt = hgt;
+	}
+
+	public int getStre() {
+		return stre;
+	}
+
+	public void setStre(int stre) {
+		this.stre = stre;
+	}
+
+	public int getSpd() {
+		return spd;
+	}
+
+	public void setSpd(int spd) {
+		this.spd = spd;
+	}
+
+	public int getJmp() {
+		return jmp;
+	}
+
+	public void setJmp(int jmp) {
+		this.jmp = jmp;
+	}
+
+	public int getEndu() {
+		return endu;
+	}
+
+	public void setEndu(int endu) {
+		this.endu = endu;
+	}
+
+	public int getIns() {
+		return ins;
+	}
+
+	public void setIns(int ins) {
+		this.ins = ins;
+	}
+
+	public int getDnk() {
+		return dnk;
+	}
+
+	public void setDnk(int dnk) {
+		this.dnk = dnk;
+	}
+
+	public int getOiq() {
+		return oiq;
+	}
+
+	public void setOiq(int oiq) {
+		this.oiq = oiq;
+	}
+
+	public int getDrb() {
+		return drb;
+	}
+
+	public void setDrb(int drb) {
+		this.drb = drb;
 	}
 
 	private Posicion seleccionarPosicion(String atJson) {

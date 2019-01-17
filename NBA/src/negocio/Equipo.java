@@ -419,7 +419,7 @@ public class Equipo {
 			case 0: return j.nombre;
 			case 1: return j.posicion;
 			case 2: return j.rol;
-			case 3: return j.overall;
+			case 3: return j.getOverall();
 			case 4: return j.getPuntosPorPartido();
 			case 5: return j.getAsistenciasPorPartido();
 			case 6: return j.getRebotesPorPartido();
