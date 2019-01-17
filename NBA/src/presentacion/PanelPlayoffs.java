@@ -18,6 +18,8 @@ public class PanelPlayoffs extends PanelTab {
 	
 	private JButton botonPartido, botonPlayoffs;
 	
+	private VentanaDraft ventanaDraft;
+	
 	public PanelPlayoffs() {
 		super();
 	}
@@ -75,7 +77,11 @@ public class PanelPlayoffs extends PanelTab {
 		
 		ArrayList<Jugador> draft = LigaManager.prepararDraft();
 		LigaManager.draftEnCurso = true;
-		new VentanaDraft(this, draft); //se realiza la seleccion de los 60 jugadores (2 rondas)
+		ventanaDraft = new VentanaDraft(this, draft); //se realiza la seleccion de los 60 jugadores (2 rondas)
+	}
+	
+	public void forzarCerrarVentanaDraft() {
+		ventanaDraft.cerrarForzoso();
 	}
 	
 	/**

@@ -25,7 +25,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	JMenu menuUsuario;
 	
-	protected JMenuItem itemInfo;
+	protected JMenuItem itemAyuda;
 	protected JMenuItem itemLogout;
 	protected JMenuItem itemAcercaDe;
 	
@@ -35,6 +35,9 @@ public class VentanaPrincipal extends JFrame {
 	PanelFinanzas finanzas;
 	PanelCalendario calendario;
 	PanelClasificacion clasificacion;
+	PanelPlayoffs playoffs;
+	
+	private VentanaAyuda ventanaAyuda;
 	
 	public VentanaPrincipal(Usuario u, boolean desdeJSON) {
 		LigaManager.inicializar(desdeJSON, u);
@@ -52,6 +55,8 @@ public class VentanaPrincipal extends JFrame {
 		cp.setLayout(new GridLayout());
 		
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		
+		ventanaAyuda = new VentanaAyuda();
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
@@ -88,7 +93,7 @@ public class VentanaPrincipal extends JFrame {
 		lideres = new PanelLideres();
 		tabbedPane.addTab("Lideres de la liga", null, lideres, null);
 	
-		JPanel playoffs = new PanelPlayoffs();
+		playoffs = new PanelPlayoffs();
 		tabbedPane.addTab("Play Offs", null, playoffs, null);	
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
@@ -96,7 +101,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				if(tabbedPane.getSelectedComponent() instanceof PanelTab)
-				((PanelTab)tabbedPane.getSelectedComponent()).seleccionado();
+				((PanelTab) tabbedPane.getSelectedComponent()).seleccionado();
 			}
 		});
 		
@@ -109,18 +114,23 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	private void initBarra() {
-		itemInfo = new JMenuItem("Ayuda");
+		itemAyuda = new JMenuItem("Ayuda");
 		itemLogout = new JMenuItem("Cerrar sesion");
 		itemAcercaDe = new JMenuItem("Acerca de...");
 		
-		menuUsuario.add(itemInfo);
+		menuUsuario.add(itemAyuda);
 		menuUsuario.add(itemAcercaDe);
 		menuUsuario.addSeparator();
 		menuUsuario.add(itemLogout);
 		
-		itemInfo.addActionListener(
+		itemAyuda.addActionListener(
 				(ActionEvent e) -> {
-					//mostrar ventana con informacion del jugador y estadisticas
+					if(ventanaAyuda.isShowing()) {
+						ventanaAyuda.setState(JFrame.NORMAL);
+						ventanaAyuda.toFront();
+					} else {
+						ventanaAyuda.setVisible(true);
+					}
 				});
 		
 		itemAcercaDe.addActionListener(
@@ -131,22 +141,20 @@ public class VentanaPrincipal extends JFrame {
 		itemLogout.addActionListener(
 				(ActionEvent e) -> {
 					//cerrar sesion, cerrar la ventana principal y mostrar la ventana de inicio
+					dispose();
 				});
 	}
 	
 	@Override
 	public void dispose() {
-		BD.rollback();
-		super.dispose();
-	}
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				//new VentanaPrincipal(new Usuario("Pepe", 1));
+		int c = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres salir? Perderás todo el progreso de la temporada actual.", "Confirmar", JOptionPane.WARNING_MESSAGE);
+		if(c == JOptionPane.OK_OPTION) {
+			BD.rollback();
+			ventanaAyuda.dispose();
+			if(LigaManager.draftEnCurso) {
+				playoffs.forzarCerrarVentanaDraft();
 			}
-		});
+			super.dispose();
+		}
 	}
-
 }

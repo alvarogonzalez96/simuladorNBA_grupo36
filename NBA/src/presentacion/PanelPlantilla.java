@@ -22,8 +22,11 @@ public class PanelPlantilla extends PanelTab {
 	private JTable tabla;
 	private JComboBox<String> combo;
 	
+	private int indiceSeleccionado;
+	
 	public PanelPlantilla() {
 		super();
+		indiceSeleccionado = 0;
 	}
 	
 	protected void crearPaneles() {
@@ -55,6 +58,7 @@ public class PanelPlantilla extends PanelTab {
 	
 	private void actualizarEquipo() {
 		Equipo equipo = getEquipoSeleccionado(combo.getSelectedIndex());
+		indiceSeleccionado = combo.getSelectedIndex();
 		tabla.setModel(equipo.getTableModel());
 		tabla.getColumnModel().getColumn(0).setMinWidth(200);
 	}
@@ -94,7 +98,25 @@ public class PanelPlantilla extends PanelTab {
 	@Override
 	protected void seleccionado() {
 		//actualizar tablas para edad de rookies
-		actualizarEquipo();
+		/*actualizarEquipo();
+		repaint();*/
+		tabla.setModel(equipos[combo.getSelectedIndex()].getTableModel());
+		int n = indiceSeleccionado;
+		n++;
+		if(n >= 30) n -= 30;
+		combo.setSelectedIndex(n);
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {}
+		if(n == 0) n = 30;
+		else n--;
+		indiceSeleccionado = n;
+		combo.setSelectedIndex(indiceSeleccionado);
+		System.out.println(indiceSeleccionado);
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {}
+		tabla.repaint();
 		repaint();
 	}
 	

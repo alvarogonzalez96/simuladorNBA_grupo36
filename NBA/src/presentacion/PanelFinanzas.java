@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import negocio.*;
 
@@ -16,8 +17,11 @@ public class PanelFinanzas extends PanelTab {
 	private JComboBox<String> combo;
 	private JLabel labelSalarioTotal;
 	
+	private int indiceSeleccionado;
+	
 	public PanelFinanzas() {
 		super();
+		indiceSeleccionado = 0;
 	}
 	
 	@Override
@@ -31,10 +35,12 @@ public class PanelFinanzas extends PanelTab {
 		combo.addActionListener(
 				(ActionEvent e) -> {
 					Equipo equipo = getEquipoSeleccionado(combo.getSelectedIndex());
-					
+					indiceSeleccionado = combo.getSelectedIndex();
 					tabla.setModel(equipo.getModeloFinanzas());
 					tabla.getColumnModel().getColumn(0).setMinWidth(200);
-					seleccionado();
+					labelSalarioTotal.setText("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
+					//tabla.setModel(equipos[combo.getSelectedIndex()].getModeloFinanzas());
+					repaint();
 				});
 		
 		tabla.addMouseListener(new MouseAdapter() {
@@ -88,8 +94,24 @@ public class PanelFinanzas extends PanelTab {
 
 	@Override
 	protected void seleccionado() {
-		labelSalarioTotal.setText("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
 		tabla.setModel(equipos[combo.getSelectedIndex()].getModeloFinanzas());
+		int n = indiceSeleccionado;
+		n++;
+		if(n >= 30) n -= 30;
+		combo.setSelectedIndex(n);
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {}
+		if(n == 0) n = 30;
+		else n--;
+		indiceSeleccionado = n;
+		combo.setSelectedIndex(indiceSeleccionado);
+		System.out.println(indiceSeleccionado);
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {}
+		labelSalarioTotal.setText("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
+		tabla.repaint();
 		repaint();
 	}
 }

@@ -161,7 +161,17 @@ public class BD {
 						   + "TIRO_CERCA INTEGER,"
 						   + "TIRO_LEJOS INTEGER,"
 						   + "DEFENSA INTEGER,"
-						   + "ASISTENCIA INTEGER)");
+						   + "ASISTENCIA INTEGER,"
+						   + "DRAFT INTEGER,"
+						   + "HGT INTEGER,"
+						   + "STRE INTEGER,"
+						   + "SPD INTEGER,"
+						   + "JMP INTEGER,"
+						   + "ENDU INTEGER,"
+						   + "INS INTEGER,"
+						   + "DNK INTEGER,"
+						   + "OIQ INTEGER,"
+						   + "DRB INTEGER)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -229,7 +239,7 @@ public class BD {
 			if(j.getTid() < -1) return false;
 			
 			PreparedStatement pst = conexion.prepareStatement("INSERT INTO JUGADOR VALUES"
-															+ "(?,?,?,?,?,?,?,?,?,?,?,?)");
+															+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pst.setInt(1,j.getID());
 			pst.setString(2, LigaManager.usuario.getNombre());
 			pst.setString(3, j.getNombre());
@@ -242,6 +252,17 @@ public class BD {
 			pst.setInt(10, j.getTiroLejos());
 			pst.setInt(11, j.getDefensa());
 			pst.setInt(12, j.getAsistencia());
+			pst.setInt(13, j.anyoDraft);
+			pst.setInt(14, j.getHgt());
+			pst.setInt(15, j.getStre());
+			pst.setInt(16, j.getSpd());
+			pst.setInt(17, j.getJmp());
+			pst.setInt(18, j.getEndu());
+			pst.setInt(19, j.getIns());
+			pst.setInt(20, j.getDnk());
+			pst.setInt(21, j.getOiq());
+			pst.setInt(22, j.getDrb());
+			
 			
 			pst.executeUpdate();
 		} catch (SQLException e) {
@@ -253,6 +274,7 @@ public class BD {
 	
 	public static void borrarJugador(Jugador j) {
 		try {
+			if(j.getTid() > -2) return;
 			PreparedStatement pst = conexion.prepareStatement("DELETE FROM JUGADOR WHERE ID=?");
 			pst.setInt(1, j.getID());
 			pst.executeUpdate();
@@ -313,8 +335,8 @@ public class BD {
 			
 			String nombre;
 			int id, anyoNac, overall, rebote, tiroLibre, tiroCerca, tiroLejos, defensa, asistencia;
-			int pos;
-			
+			int pos, draft;
+			int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
 			
 			PreparedStatement pst2 = conexion.prepareStatement("SELECT * FROM JUEGA WHERE NOMBRE_USUARIO=? "
 															 + "AND ID_J=? ORDER BY ANYO DESC");
@@ -323,15 +345,27 @@ public class BD {
 				nombre = rs.getString(3);
 				anyoNac = rs.getInt(4);
 				pos = rs.getInt(5);
-				overall = rs.getInt(6);
+				overall = rs.getInt(6); //if(overall < 40) System.err.println(nombre); 
 				rebote = rs.getInt(7);
 				tiroLibre = rs.getInt(8);
 				tiroCerca = rs.getInt(9);
 				tiroLejos = rs.getInt(10);
 				defensa = rs.getInt(11);
 				asistencia = rs.getInt(12);
+				draft = rs.getInt(13);
+				hgt = rs.getInt(14);
+				stre = rs.getInt(15);
+				spd = rs.getInt(16);
+				jmp = rs.getInt(17);
+				endu = rs.getInt(18);
+				ins = rs.getInt(19);
+				dnk = rs.getInt(20);
+				oiq = rs.getInt(21);
+				drb = rs.getInt(22);
+				
 				Jugador j = new Jugador(nombre, id, anyoNac, pos, overall, rebote, tiroLibre, 
-						tiroCerca, tiroLejos, defensa, asistencia);
+						tiroCerca, tiroLejos, defensa, asistencia, draft);
+				j.cargarAtributos(hgt, stre, spd, jmp,endu,ins,dnk,oiq,drb);
 				
 				try {
 					pst2.setString(1, LigaManager.usuario.getNombre());
@@ -400,6 +434,29 @@ public class BD {
 		}
 		
 		return temps;
+	}
+
+	public static void actualizarOverallJugadores() {
+		try {
+			PreparedStatement pst = conexion.prepareStatement("UPDATE JUGADOR SET OVERALL=?,"
+					+ "HGT=?,STRE=?,SPD=?,JMP=?,ENDU=?,INS=?,DNK=?,OIQ=?,DRB=? WHERE ID=?;");
+			for(Jugador j: LigaManager.jugadores) {
+				pst.setInt(1, j.getOverall());
+				pst.setInt(2, j.getHgt());
+				pst.setInt(3, j.getStre());
+				pst.setInt(4, j.getSpd());
+				pst.setInt(5, j.getJmp());
+				pst.setInt(6, j.getEndu());
+				pst.setInt(7, j.getIns());
+				pst.setInt(8, j.getDnk());
+				pst.setInt(9, j.getOiq());
+				pst.setInt(10, j.getDrb());
+				pst.setInt(11, j.getID());
+				pst.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) {

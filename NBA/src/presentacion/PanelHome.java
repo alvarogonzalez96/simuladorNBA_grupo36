@@ -22,6 +22,8 @@ public class PanelHome extends PanelTab {
 	private JPanel panelDerAbajoDer;
 	private JScrollPane sp;
 	private JPanel panelBalance, panelBotones;
+	private JPanel panelInfo;
+	private JLabel img;
 	
 	private JButton botonDia, botonSem, botonMes;
 	
@@ -40,6 +42,9 @@ public class PanelHome extends PanelTab {
 	
 	@Override
 	protected void initComponentes() {
+		int x = 100;
+		img = new JLabel(new ImageIcon(new ImageIcon("res\\logos_equipos\\"+LigaManager.usuario.getEquipo().getAbrev()+".png").getImage().getScaledInstance(x, x, Image.SCALE_SMOOTH)));
+		panelInfo.add(img, BorderLayout.WEST);
 		initClasificacion();
 		initBotones();
 		initUltimosPartidos();
@@ -64,12 +69,12 @@ public class PanelHome extends PanelTab {
 							LigaManager.despedirJugadores(orden, false);
 							LigaManager.agenciaLibre(orden, false);
 							
+							//Cambian los overalls
+							cambiarOveralls();
+							
 							//guardar en BD
 							LigaManager.guardarBD();
 							BD.commit();
-							
-							//Cambian los overalls
-							cambiarOveralls();
 							
 							botonDia.setText("Simular dia");
 							botonDia.setEnabled(true);
@@ -328,9 +333,11 @@ public class PanelHome extends PanelTab {
 		
 		panelBalance = new JPanel(new GridLayout(3,1));
 		panelBalance.setBorder(new EmptyBorder(10,10,10,10));
+		panelInfo = new JPanel(new BorderLayout());
 		panelBotones = new JPanel(new GridLayout(3,1));
-		panelDerArriba.add(panelBalance, BorderLayout.CENTER);
+		panelDerArriba.add(panelInfo, BorderLayout.CENTER);
 		panelDerArriba.add(panelBotones, BorderLayout.EAST);
+		panelInfo.add(panelBalance, BorderLayout.CENTER);
 		
 		panelDerAbajoDer = new JPanel(new BorderLayout());
 		panelDerAbajo.add(panelDerAbajoDer, BorderLayout.EAST);

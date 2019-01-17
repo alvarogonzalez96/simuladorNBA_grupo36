@@ -1,5 +1,6 @@
 package presentacion;
 
+import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -10,6 +11,7 @@ import java.util.Properties;
 
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
+import java.awt.event.*;
 
 import datos.BD;
 import negocio.Equipo;
@@ -19,7 +21,7 @@ import negocio.Usuario;
 public class Inicio {	
 		
 	private static String nombreUsuarioAnterior;
-	private String nombreUsuarioIntroducido;
+	private static String nombreUsuarioIntroducido;
 
 	static Properties prop;
 	
@@ -58,7 +60,7 @@ public class Inicio {
 		String nombreUsuario = "*";
 		String contrasenya = null;
 
-		respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, ï¿½ya tienes una cuenta?");
+		respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, ¿ya tienes una cuenta?");
 		/*
 		 * respuesta = 0 --> si
 		 * respuesta = 1 --> no
@@ -72,7 +74,7 @@ public class Inicio {
 				ventanaInicio();
 			} else {
 				//Selecciona la contrasenya
-				contrasenya = popup("Introduce tu contraseï¿½a", false);
+				contrasenya = popupPassword("Introduce tu contraseña");
 				if(contrasenya == null) {
 					//volver a la ventana inicial
 					ventanaInicio();
@@ -103,7 +105,7 @@ public class Inicio {
 				ventanaInicio();
 			} else {
 				//Selecciona la contrasenya
-				contrasenya = popup("Elige tu contraseï¿½a", false);
+				contrasenya = popupPassword("Elige tu contraseña");
 				if(contrasenya == null) {
 					ventanaInicio();
 				} else {
@@ -120,6 +122,8 @@ public class Inicio {
 						int r = BD.registrar(nombreUsuario, contrasenya, teamID);
 						if(r >= 0) {
 							//todo bien
+							nombreUsuarioIntroducido = nombreUsuario;
+							recordarUsuario();
 							VentanaEspera espera = new VentanaEspera();
 							Usuario usuario = new Usuario(nombreUsuario, teamID);
 							SwingUtilities.invokeLater(new Runnable() {
@@ -143,7 +147,9 @@ public class Inicio {
 							ventanaInicio();
 						} else {
 							//error en la base de datos, volver a empezar
-							JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta el archivo log para mas informacion", "Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta el archivo log para mas informacion.\n"
+									+ "Es posible que otro programa esté accediendo a la BD al mismo tiempo. Si es así, cierra ese programa y vuelve a intentarlo.", 
+									"Error", JOptionPane.ERROR_MESSAGE);
 							ventanaInicio();
 						}
 					}
@@ -166,6 +172,33 @@ public class Inicio {
 		return campo;
 	}
 	
+	private String popupPassword(String mensaje) {
+		PasswordPanel p = new PasswordPanel();
+		JOptionPane op = new JOptionPane(p, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+		JDialog dlg = op.createDialog(mensaje);
+
+		dlg.addWindowFocusListener(new WindowAdapter() {
+			@Override
+			public void windowGainedFocus(WindowEvent e) {
+				p.ganaFocus();
+			}
+		});
+		String password = "";
+		do {
+			dlg.setVisible(true);
+		
+			if (op.getValue() != null && op.getValue().equals(JOptionPane.OK_OPTION)) {
+				password = new String(p.getPassword());
+			} else if(op.getValue() == null) {
+				dlg.dispose();
+				return null;
+			}
+		} while(password != null && password.isEmpty());
+		dlg.dispose();
+		return password;
+	}
+
 	private void salir() {
 		System.exit(0);
 	}
@@ -211,3 +244,25 @@ public class Inicio {
 	}
 
 }
+
+@SuppressWarnings("serial")
+class PasswordPanel extends JPanel {
+	  private final JPasswordField passwordField = new JPasswordField(20);
+	  private boolean ganaFocusAntes;
+
+	  void ganaFocus() {
+	    if (!ganaFocusAntes) {
+	      ganaFocusAntes = true;
+	      passwordField.requestFocusInWindow();
+	    }
+	  }
+
+	  public PasswordPanel() {
+	    super(new FlowLayout());
+	    add(passwordField);
+	  }
+
+	  public char[] getPassword() {
+	      return passwordField.getPassword();
+	  }
+	}

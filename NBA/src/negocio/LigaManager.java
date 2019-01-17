@@ -116,6 +116,15 @@ public class LigaManager {
 				System.out.println("rollback");
 				inicializar(true, usuario);
 			}
+			
+			//establecer los rookies
+			for(Jugador j: jugadores) {
+				if(j.anyoDraft == anyo) {
+					j.rookie = true;
+				} else {
+					j.rookie = false;
+				}
+			}
 		}
 		
 	}
@@ -318,6 +327,7 @@ public class LigaManager {
 			if(j.posicion == p) {
 				if(j.overall < peor.overall) {
 					peor = j;
+					j.setTid(-2);
 					BD.borrarJugador(j);
 				}
 			}
@@ -1046,10 +1056,12 @@ public class LigaManager {
 	 * */
 	private static Jugador elegirROY() {
 		Jugador ROY = new Jugador();
+		int cuentaRookies = 0;
 		for (Equipo equipo : equipos) {
 			for (Jugador j : equipo.jugadores) {
 				//j.valoracion = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
 				if(j.rookie) {
+					cuentaRookies++;
 					if(j.getValoracion() > ROY.getValoracion() && equipo.getVictorias() > 41) {
 						ROY = j;
 					}
@@ -1265,6 +1277,7 @@ public class LigaManager {
 		for(Jugador j: jugadores) {
 			BD.guardarJuega(j);
 		}
+		BD.actualizarOverallJugadores();
 	}
 	
 	public static TableModel getModeloTablaAgenciaLibre() {

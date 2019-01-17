@@ -36,6 +36,8 @@ public class VentanaDraft extends JFrame {
 	private int posicionUsuario; //posicion en la primera ronda del equipo del usuario
 	private boolean turnoUsuario;
 	
+	private boolean cierreForzoso = false;
+	
 	private Thread hilo;
 	
 	public VentanaDraft(PanelPlayoffs panelPlayoffs, ArrayList<Jugador> draft) {
@@ -163,19 +165,17 @@ public class VentanaDraft extends JFrame {
 						avanzar();
 					} else {
 						//elige el usuario
-						JOptionPane.showMessageDialog(null, "Es tu turno para elegir un jugador. Haz doble click en el jugador que quieras seleccionar (tabla de la derecha)", "Eleccion de draft", JOptionPane.INFORMATION_MESSAGE);
+						if(!cierreForzoso) JOptionPane.showMessageDialog(null, "Es tu turno para elegir un jugador. Haz doble click en el jugador que quieras seleccionar (tabla de la derecha)", "Eleccion de draft", JOptionPane.INFORMATION_MESSAGE);
 						turnoUsuario = true;
 						break;
 					}
 					
 					try {
 						Thread.sleep((sliderVel.getMaximum()-sliderVel.getValue()+1)*250);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+					} catch (InterruptedException e) {}
 				}
 				if(indice >= 60) {
-					JOptionPane.showMessageDialog(null, "El draft ha terminado. Ahora es tiempo de renovaciones, despidos y fichajes de la agencia libre. Cuando estes listo, haz click en comenzar temporada!", "Fin del draft", JOptionPane.INFORMATION_MESSAGE);
+					if(!cierreForzoso) JOptionPane.showMessageDialog(null, "El draft ha terminado. Ahora es tiempo de renovaciones, despidos y fichajes de la agencia libre. Cuando estes listo, haz click en comenzar temporada!", "Fin del draft", JOptionPane.INFORMATION_MESSAGE);
 					finalizado = true;
 					//dispose();
 				}
@@ -184,8 +184,22 @@ public class VentanaDraft extends JFrame {
 		});
 	}
 	
+	public void cerrarForzoso() {
+		this.cierreForzoso = true;
+		dispose();
+	}
+	
 	@Override
 	public void dispose() {
+		if(cierreForzoso) {
+			super.dispose();
+			if(hilo.isAlive()) {
+				try {
+					hilo.interrupt();
+				} catch(Exception e) {}
+			}
+			return;
+		}
 		if(!finalizado) {
 			JOptionPane.showMessageDialog(null, "No puedes cerrar esta ventana hasta que haya terminado del draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
 		} else {

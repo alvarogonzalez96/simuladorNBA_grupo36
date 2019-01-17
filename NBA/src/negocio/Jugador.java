@@ -25,6 +25,7 @@ public class Jugador {
 	protected int anyoNac;
 	protected int overall;
 	protected int id;
+	public int anyoDraft; //anyo en que que se presento al draft
 
 	//atributos variables (de cada temporada)
 	public Rol rol;
@@ -108,6 +109,7 @@ public class Jugador {
 		this.drb = (a.drb + b.drb)/2;
 		this.tid = -1;
 		this.rookie = true;
+		this.anyoDraft = LigaManager.anyo+1;
 		this.overall = cargarOverallJugador();
 		statsTemporadas = new HashMap<>();
 		this.id = BD.getPrimerIdLibreJugador();
@@ -123,13 +125,14 @@ public class Jugador {
 		this.tiroLejos = j.tiroLejos;
 		this.defensa = j.defensa;
 		this.asistencia = j.asistencia;
+		this.anyoDraft = j.anyoDraft;
 		statsTemporadas = new HashMap<>();
 		this.id = BD.getPrimerIdLibreJugador();
 		BD.guardarJugador(this);
 	}
 
 	public Jugador(String nombre, int id, int anyoNac, int pos, int overall, int rebote, int tiroLibre,
-			int tiroCerca, int tiroLejos, int defensa, int asistencia) {
+			int tiroCerca, int tiroLejos, int defensa, int asistencia, int draft) {
 		this.nombre = nombre;
 		this.id = id;
 		this.anyoNac = anyoNac;
@@ -140,6 +143,7 @@ public class Jugador {
 		this.tiroLejos = tiroLejos;
 		this.defensa = defensa;
 		this.asistencia = asistencia;
+		this.anyoDraft = draft;
 		for(Posicion p: Posicion.values()) {
 			if(p.ordinal() == pos) {
 				this.posicion = p;
@@ -174,7 +178,8 @@ public class Jugador {
 			ins = json.getJSONArray("ratings").getJSONObject(0).getInt("ins");
 		}
 
-		if(json.getJSONObject("draft").getInt("year") == 2018 ) {
+		anyoDraft = json.getJSONObject("draft").getInt("year");
+		if(anyoDraft == 2018) {
 			rookie = true;
 		} else {
 			rookie = false;
@@ -198,6 +203,18 @@ public class Jugador {
 
 		this.id = BD.getPrimerIdLibreJugador();
 		BD.guardarJugador(this);
+	}
+	
+	public void cargarAtributos(int hgt, int stre, int spd, int jmp, int endu, int ins, int dnk, int oiq, int drb) {
+		this.hgt = hgt;
+		this.stre = stre;
+		this.spd = spd;
+		this.jmp = jmp;
+		this.endu = endu;
+		this.dnk = dnk;
+		this.oiq = oiq;
+		this.drb = drb;
+		this.ins = ins;
 	}
 
 	public int cargarOverallJugador() {
