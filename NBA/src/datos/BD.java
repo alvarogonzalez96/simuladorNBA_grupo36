@@ -113,7 +113,6 @@ public class BD {
 			pst.setString(2, pass);
 			ResultSet rs = pst.executeQuery();
 			if(rs.next()) {
-				//System.out.println(rs.getString(0));
 				return rs.getInt(3);
 			}
 			return -1;
@@ -304,7 +303,6 @@ public class BD {
 			if(j.getTid() < -1) return;
 			PreparedStatement pst = conexion.prepareStatement("INSERT INTO JUEGA VALUES "
 															+ "(?,?,?,?,?,?,?,?,?,?)");
-			System.out.println(j.getID());
 			pst.setInt(1, j.getID());
 			pst.setInt(2, LigaManager.anyo);
 			pst.setString(3, LigaManager.usuario.getNombre());
