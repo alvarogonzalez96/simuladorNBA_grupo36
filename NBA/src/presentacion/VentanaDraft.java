@@ -33,7 +33,7 @@ public class VentanaDraft extends JFrame {
 	
 	private boolean finalizado;
 	private int indice;
-	private int posicionUsuario; //posicion en la primera ronda del equipo del usuario
+	private int posicionUsuario; //posición en la primera ronda del equipo del usuario
 	private boolean turnoUsuario;
 	
 	private boolean cierreForzoso = false;
@@ -67,11 +67,11 @@ public class VentanaDraft extends JFrame {
 	}
 	
 	/**
-	 * Avanza un paso mas
+	 * Avanza un paso más
 	 * Por cada paso un equipo elige, hasta que se llega al 
 	 * equipo del usuario.
 	 * Entonces todo se para hasta que el usuario elige un jugador
-	 * Y despues se sigue paso a paso. (se repite con la siguiente ronda)
+	 * Y después se sigue paso a paso. (Se repite con la siguiente ronda)
 	 * */
 	private void avanzar() {
 		int t = indice%30;
@@ -102,7 +102,7 @@ public class VentanaDraft extends JFrame {
 		panelTablas = new JPanel(new BorderLayout());
 		
 		panelTop.add(botonComenzar);
-		panelTop.add(new JLabel("Velocidad de la simulacion: "));
+		panelTop.add(new JLabel("Velocidad de la simulación: "));
 		panelTop.add(sliderVel);
 		
 		tablaEquipos = new JTable(getModeloEquipos());
@@ -165,7 +165,7 @@ public class VentanaDraft extends JFrame {
 						avanzar();
 					} else {
 						//elige el usuario
-						if(!cierreForzoso) JOptionPane.showMessageDialog(null, "Es tu turno para elegir un jugador. Haz doble click en el jugador que quieras seleccionar (tabla de la derecha)", "Eleccion de draft", JOptionPane.INFORMATION_MESSAGE);
+						if(!cierreForzoso) JOptionPane.showMessageDialog(null, "Es tu turno para elegir un jugador. Haz doble click en el jugador que quieras seleccionar (tabla de la derecha)", "Elección de draft", JOptionPane.INFORMATION_MESSAGE);
 						turnoUsuario = true;
 						break;
 					}
@@ -175,7 +175,7 @@ public class VentanaDraft extends JFrame {
 					} catch (InterruptedException e) {}
 				}
 				if(indice >= 60) {
-					if(!cierreForzoso) JOptionPane.showMessageDialog(null, "El draft ha terminado. Ahora es tiempo de renovaciones, despidos y fichajes de la agencia libre. Cuando estes listo, haz click en comenzar temporada!", "Fin del draft", JOptionPane.INFORMATION_MESSAGE);
+					if(!cierreForzoso) JOptionPane.showMessageDialog(null, "El draft ha terminado. Ahora es tiempo de renovaciones, despidos y fichajes de la agencia libre. Cuando estés listo, haz click en comenzar temporada!", "Fin del draft", JOptionPane.INFORMATION_MESSAGE);
 					finalizado = true;
 					//dispose();
 				}
@@ -237,7 +237,7 @@ public class VentanaDraft extends JFrame {
 		public String getColumnName(int c) {
 			switch(c) {
 			case 0: return "Ronda";
-			case 1: return "Posicion";
+			case 1: return "Posición";
 			case 2: return "Equipo";
 			case 3: return "Jugador seleccionado";
 			}
@@ -251,7 +251,7 @@ public class VentanaDraft extends JFrame {
 
 		@Override
 		public Object getValueAt(int row, int col) {
-			int i = 1+ (row%30); //posicion relativa dentro de una ronda
+			int i = 1+ (row%30); //posición relativa dentro de una ronda
 			int ronda;
 			if(row < 30) {
 				ronda = 1;
@@ -303,7 +303,7 @@ public class VentanaDraft extends JFrame {
 		public String getColumnName(int columnIndex) {
 			switch(columnIndex) {
 			case 0: return "Nombre";
-			case 1: return "Posicion";
+			case 1: return "Posición";
 			case 2: return "Calidad";
 			}
 			return null;

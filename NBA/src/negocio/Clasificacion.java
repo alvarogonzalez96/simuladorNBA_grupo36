@@ -37,18 +37,12 @@ public class Clasificacion {
 		this.equipos.sort(ord);
 	}
 	
-	public Equipo getGanador() { //es necesario llamar al metodo ordenar antes
+	public Equipo getGanador() { //es necesario llamar al método ordenar antes
 		return equipos.get(0);
 	}
 	
 	public ArrayList<Equipo> getEquipos(){
 		return this.equipos;
-	}
-	
-	public void imprimir() {
-		for(Equipo e: equipos) {
-			System.out.println(e.getVictorias()+"-"+e.getDerrotas()+" "+e.getNombre());
-		}
 	}
 	
 	public ModeloTablaClasificacion getTableModel() {
@@ -59,7 +53,7 @@ public class Clasificacion {
 	}
 	
 	/*
-	 * Clasificacion vista como tabla:
+	 * Clasificación vista como tabla:
 	 * 	Columnas: EQUIPO  |  VICTORIAS  |  DERROTAS
 	 * 
 	 * */

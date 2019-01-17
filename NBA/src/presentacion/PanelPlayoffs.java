@@ -56,7 +56,7 @@ public class PanelPlayoffs extends PanelTab {
 		botonPartido.setEnabled(false);
 		botonPlayoffs.setEnabled(false);
 		//la fase de LigaManager la incrementa la propia clase playoffs
-		JOptionPane.showMessageDialog(null, "Campeon: "+LigaManager.campeon.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Campeón: "+LigaManager.campeon.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
 		LigaManager.guardarDatosFinTemporada();
 		ArrayList<Jugador> retiradosUsuario = LigaManager.jubilar();
 		avisarJubilados(retiradosUsuario);
@@ -77,7 +77,7 @@ public class PanelPlayoffs extends PanelTab {
 		
 		ArrayList<Jugador> draft = LigaManager.prepararDraft();
 		LigaManager.draftEnCurso = true;
-		ventanaDraft = new VentanaDraft(this, draft); //se realiza la seleccion de los 60 jugadores (2 rondas)
+		ventanaDraft = new VentanaDraft(this, draft); //se realiza la selección de los 60 jugadores (2 rondas)
 	}
 	
 	public void forzarCerrarVentanaDraft() {
@@ -85,15 +85,15 @@ public class PanelPlayoffs extends PanelTab {
 	}
 	
 	/**
-	 * Metodo que sera llamado unicamente desde la ventana de draft,
-	 * al ser cerrada. Este metodo dara comienzo a las
+	 * Método que será llamado únicamente desde la ventana de draft,
+	 * al ser cerrada. Este método dará comienzo a las
 	 * renovaciones, fichajes de agencia libre y los despidos
-	 * de los equipos, as� como la seleccion de los roles.
+	 * de los equipos, así como la selección de los roles.
 	 * */
 	public void comenzarFaseGestiones() {
 		LigaManager.terminarDraft();
 		
-		//el orden en el que se realizaran las gestiones sera el de la clasificacion
+		//El orden en el que se realizarán las gestiones será el de la clasificación
 		ArrayList<Equipo> orden = LigaManager.clasificaciones.get("GENERAL").getEquipos();
 		
 		LigaManager.renovaciones(orden, true);
@@ -247,9 +247,9 @@ public class PanelPlayoffs extends PanelTab {
 			}
 		}
 		if(plural) {
-			JOptionPane.showMessageDialog(null, msg+" se han jubilado, por lo que ya no podras contar con ellos de cara a la siguiente temporada", "Jugadores retirados", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, msg+" se han jubilado, por lo que ya no podrás contar con ellos de cara a la siguiente temporada", "Jugadores retirados", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(null, msg+" se ha jubilado, por lo que ya no podras contar con el de cara a la siguiente temporada", "Jugador retirado", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, msg+" se ha jubilado, por lo que ya no podrás contar con él de cara a la siguiente temporada", "Jugador retirado", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	 

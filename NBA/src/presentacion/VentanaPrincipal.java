@@ -88,10 +88,10 @@ public class VentanaPrincipal extends JFrame {
 		tabbedPane.addTab("Historial Liga", null, historialLiga, null);
 		
 		clasificacion = new PanelClasificacion();
-		tabbedPane.addTab("Clasificacion", null, clasificacion, null);
+		tabbedPane.addTab("Clasificaci贸n", null, clasificacion, null);
 
 		lideres = new PanelLideres();
-		tabbedPane.addTab("Lideres de la liga", null, lideres, null);
+		tabbedPane.addTab("L铆deres de la liga", null, lideres, null);
 	
 		playoffs = new PanelPlayoffs();
 		tabbedPane.addTab("Play Offs", null, playoffs, null);	
@@ -115,7 +115,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	private void initBarra() {
 		itemAyuda = new JMenuItem("Ayuda");
-		itemLogout = new JMenuItem("Cerrar sesion");
+		itemLogout = new JMenuItem("Cerrar sesi贸n");
 		itemAcercaDe = new JMenuItem("Acerca de...");
 		
 		menuUsuario.add(itemAyuda);
@@ -135,19 +135,19 @@ public class VentanaPrincipal extends JFrame {
 		
 		itemAcercaDe.addActionListener(
 				(ActionEvent e) -> {
-					//mostrar ventana con informacion sobre el desarrollo del juego
+					//mostrar ventana con informaci贸n sobre el desarrollo del juego
 				});
 		
 		itemLogout.addActionListener(
 				(ActionEvent e) -> {
-					//cerrar sesion, cerrar la ventana principal y mostrar la ventana de inicio
+					//cerrar sesi贸n, cerrar la ventana principal y mostrar la ventana de inicio
 					dispose();
 				});
 	}
 	
 	@Override
 	public void dispose() {
-		int c = JOptionPane.showConfirmDialog(this, "縀st醩 seguro de que quieres salir? Perder醩 todo el progreso de la temporada actual.", "Confirmar", JOptionPane.WARNING_MESSAGE);
+		int c = JOptionPane.showConfirmDialog(this, "驴Est谩s seguro de que quieres salir? Perder谩s todo el progreso de la temporada actual.", "Confirmar", JOptionPane.WARNING_MESSAGE);
 		if(c == JOptionPane.OK_OPTION) {
 			BD.rollback();
 			ventanaAyuda.dispose();

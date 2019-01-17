@@ -15,10 +15,8 @@ public class PanelHistorial extends PanelTab {
 
 	private JPanel panelSeleccion, areaDatos;
 	private JPanel datosIzq;
-	//private JScrollPane datosDer;
 	
 	private JLabel labelCampeon, labelMVP, labelROY, labelSextoHombre, labelDPOY;
-	//private JTable clasificacion;
 	private JComboBox<Integer> comboAnyo;
 	
 	private int ultimoAnyo;
@@ -40,12 +38,7 @@ public class PanelHistorial extends PanelTab {
 		
 		datosIzq = new JPanel(new GridLayout(5,1));
 		
-		//clasificacion = new JTable();
-		//datosDer = new JScrollPane(clasificacion);
-		//datosDer.getViewport().setBackground(Color.WHITE);
-		
 		areaDatos.add(datosIzq, BorderLayout.CENTER);
-		//fareaDatos.add(datosDer, BorderLayout.EAST);
 	}
 	
 	@Override
@@ -79,21 +72,17 @@ public class PanelHistorial extends PanelTab {
 		
 		if(sel >= 2018 && (sel < LigaManager.anyo || (sel == LigaManager.anyo && LigaManager.fase > 1))) {
 			Temporada temp = LigaManager.temporadasPasadas.get(sel);
-			labelCampeon.setText("Campeon: "+temp.nombreCampeon);
+			labelCampeon.setText("Campeón: "+temp.nombreCampeon);
 			labelMVP.setText("MVP: "+temp.mvp);
 			labelROY.setText("ROY: "+temp.roy);
 			labelSextoHombre.setText("Sexto hombre: "+temp.sextoHombre);
 			labelDPOY.setText("DPOY: "+temp.dpoy);
-			
-			//clasificacion.setModel(getModelo(true));
 		} else {
-			labelCampeon.setText("Campeon:");
+			labelCampeon.setText("Campeón:");
 			labelMVP.setText("MVP:");
 			labelROY.setText("ROY:");
 			labelSextoHombre.setText("Sexto Hombre:");
 			labelDPOY.setText("DPOY:");
-			
-			//clasificacion.setModel(getModelo(false));
 		}
 		
 		repaint();

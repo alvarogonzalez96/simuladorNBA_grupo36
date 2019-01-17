@@ -76,7 +76,7 @@ public class PanelHome extends PanelTab {
 							LigaManager.guardarBD();
 							BD.commit();
 							
-							botonDia.setText("Simular dia");
+							botonDia.setText("Simular día");
 							botonDia.setEnabled(true);
 							botonSem.setEnabled(true);
 							botonMes.setEnabled(true);
@@ -86,11 +86,11 @@ public class PanelHome extends PanelTab {
 							temporada.setText(""+LigaManager.anyo+"/"+(LigaManager.anyo+1));
 							repaint();
 						} else if(op == -2) {
-							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tu plantilla no tenga mas de 15 jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tu plantilla no tenga más de 15 jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
 						} else if(op == -3) {
-							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tengas, por lo menos, por cada posicion, dos jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tengas, por lo menos, por cada posición, dos jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);
 						} else if(op == -4) {
-							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que decidir que hacer con los jugadores con 0 anyos de contrato: renovar o cortar?", "Aviso", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que decidir qué hacer con los jugadores con 0 años de contrato: ¿renovar o cortar?", "Aviso", JOptionPane.WARNING_MESSAGE);
 						}
 						return;
 					}
@@ -100,7 +100,7 @@ public class PanelHome extends PanelTab {
 						botonDia.setEnabled(false);
 						LigaManager.simularDia();
 						if(LigaManager.fase == 1) {
-							JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\nVe a la pesta�a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\nVe a la pestaña de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
 							botonDia.setEnabled(false);
 							botonSem.setEnabled(false);
@@ -125,7 +125,7 @@ public class PanelHome extends PanelTab {
 					for(int i = 0; i < 7; i++) {
 						LigaManager.simularDia();
 						if(LigaManager.fase == 1) {
-							JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pesta�a de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaña de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							botonDia.setEnabled(false);
 							botonSem.setEnabled(false);
 							botonMes.setEnabled(false);
@@ -140,7 +140,6 @@ public class PanelHome extends PanelTab {
 					Equipo eq = LigaManager.usuario.getEquipo();
 					balance.setText("Balance: "+eq.getVictorias()+"-"+eq.getDerrotas());
 					repaint();
-					System.out.println(LigaManager.clasificaciones.get("GENERAL").get(4).getAbrev());
 				});
 		
 		botonMes.addActionListener(
@@ -150,7 +149,7 @@ public class PanelHome extends PanelTab {
 					for(int i = 0; i < 30; i++) {
 						LigaManager.simularDia();
 						if(LigaManager.fase == 1) {
-							JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestanya de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Fin de la temporada regular.\n Ve a la pestaña de playoffs.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							botonDia.setEnabled(false);
 							botonSem.setEnabled(false);
 							botonMes.setEnabled(false);
@@ -184,32 +183,25 @@ public class PanelHome extends PanelTab {
 	}
 	
 	/**
-	 * Cambia las estadisticas de todos los jugadores de la liga
+	 * Cambia las estadísticas de todos los jugadores de la liga
 	 * teniendo en cuenta su edad
 	 * */
 	private void cambiarOveralls() {
 		for (Jugador j : LigaManager.jugadores) {
 			if(j.getEdad() > 32) {
 				//Empieza a empeorar
-				System.out.println(j.getNombre() + ", " + j.getOverall());
 				empeorarOverall(j);
-				
-				System.out.println(j.getNombre() + ", " + j.getOverall());
 			} else if(j.getEdad() <= 30) {
 				//Mejora hasta los 30
-				System.out.println(j.getNombre() + ", " + j.getOverall());
 				mejorarOverall(j);
-				System.out.println(j.getNombre() + ", " + j.getOverall());
 			} 
 		}	
 	}
 	
 	/**
-	 * Mejora las estadisticas del jugador
+	 * Método para mejorar las estadísticas del jugador
 	 * */
 	private void mejorarOverall(Jugador j) {
-		System.out.println(j.getAsistencia());
-		System.out.println((j.getAsistencia()+((int)(Math.random()*3))));
 		j.setAsistencia(j.getAsistencia()+((int)(Math.random()*3)));
 		j.setDefensa(j.getDefensa()+((int)(Math.random()*3)));
 		j.setRebote(j.getRebote()+((int)(Math.random()*3)));
@@ -230,7 +222,7 @@ public class PanelHome extends PanelTab {
 	}
 	
 	/**
-	 * Empeora las estadisticas del jugador
+	 * Método para empeorar las estadisticas del jugador
 	 * */
 	private void empeorarOverall(Jugador j) {
 		j.setAsistencia(j.getAsistencia()-((int)(Math.random()*3)));
@@ -284,7 +276,6 @@ public class PanelHome extends PanelTab {
 		ultimosPartidos = new JTable(LigaManager.calendario.getModelo());
 		ultimosPartidos.setFont(new Font("Arial", Font.PLAIN, 15));
 		ultimosPartidos.setRowHeight(25);
-		//panelDerAbajoDer.add(new JScrollPane(ultimosPartidos));
 		JScrollPane s = new JScrollPane(ultimosPartidos);
 		s.setPreferredSize(new Dimension(200, getHeight()));
 		s.getViewport().setBackground(Color.WHITE);
@@ -357,8 +348,6 @@ public class PanelHome extends PanelTab {
 				botonSem.setEnabled(true);
 				botonMes.setEnabled(true);
 			}
-			System.out.println(LigaManager.clasificaciones.get("GENERAL").get(0).getNombre());
-			//clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
 			temporada.setText("Temporada "+LigaManager.anyo+"/"+(LigaManager.anyo+1));
 		}
 		repaint();

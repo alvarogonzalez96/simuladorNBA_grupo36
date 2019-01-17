@@ -55,8 +55,7 @@ public class PanelLideres extends PanelTab {
 
 	@Override
 	protected void setListeners() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override

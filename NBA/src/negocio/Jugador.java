@@ -13,44 +13,45 @@ import org.json.*;
 
 public class Jugador {
 
-	//atributos fijos (nunca cambian para un mismo jugador)
+	//Atributos fijos
 	protected String nombre;
 	protected Posicion posicion;
+	public int anyoDraft; //año en que se presentó al draft
+	protected int id;
+	protected int anyoNac;
+	public int salario;
+	public int anyosContratoRestantes;
+	
+	//Atributos que solo cambian al final de la temporada
 	protected int rebote;//reb
 	protected int tiroLibre;//ft
 	protected int tiroCerca;//fg
 	protected int tiroLejos;//tp
 	protected int defensa; //diq
 	protected int asistencia;//pss
-	protected int anyoNac;
 	protected int overall;
-	protected int id;
-	public int anyoDraft; //anyo en que que se presento al draft
-
-	//atributos variables (de cada temporada)
+	//Atributos que solo se utilizan para calcular el overall de un jugador
+	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
+	
+	//Atributos variables (de cada temporada, según el equipo en el que juegue)
 	public Rol rol;
 	int tid;
+	
+	//Atributos variables (según su rendimiento en los partidos, totales de la temporada)
 	protected int puntosTemporada; //puntos anotados en la temporada actual
 	protected int asistenciasTemporada;//asistencias que lleva en la temporada actual
 	protected int rebotesTemporada;//rebotes que lleva en la temporada actual
 	public int partidosJugadosTemporada; //numero de partidos jugados en la temporada actual
-
-	public int salario;
-	public int anyosContratoRestantes;
-
 	protected double valoracion;
-
-	protected boolean rookie; //Al crear un nuevo jugador, siempre sera rookie
-
-	//Atributos para la simulacion de partidos
+	
+	//Atributos de cada partido
 	protected int minutos;
 	protected int tiempoJugado;
 	protected int puntosPartido; //puntos que anota en el partido actual
 	protected int asistenciasPartido;//asistencias en el partido actual
 	protected int rebotesPartido;//rebotes en el partido actual
 
-	//Atributos para calcular la media
-	protected int hgt, stre, spd, jmp, endu, ins, dnk, oiq, drb;
+	protected boolean rookie; //Al crear un nuevo jugador, siempre sera rookie
 
 	protected HashMap<Integer, Estadistica> statsTemporadas;
 
@@ -74,13 +75,13 @@ public class Jugador {
 	}
 
 	/**
-	 * Construye un jugador a partir de la combinacion 
-	 * de tributos de otros dos jugadores.
-	 * Se usa para la creacion de nuevos jugadores 
+	 * Construye un jugador a partir de la combinación 
+	 * de atributos de otros dos jugadores.
+	 * Se usa para la creación de nuevos jugadores 
 	 * para el draft.
 	 * 
-	 * Los dos jugadores pasados como parametro 
-	 * deben jugar en la misma posicion.
+	 * Los dos jugadores pasados como parámetro 
+	 * deben jugar en la misma posición.
 	 * */
 	public Jugador(Jugador a, Jugador b) {
 		if(a.posicion != b.posicion) {
@@ -499,7 +500,7 @@ public class Jugador {
 	public String toString() {
 		double min = (double) minutos/60 ;
 
-		return "Jugador [nombre=" + nombre + ", posicion=" + posicion + ", rol=" + rol + ", tiroCerca=" + tiroCerca
+		return "Jugador [nombre=" + nombre + ", posición=" + posicion + ", rol=" + rol + ", tiroCerca=" + tiroCerca
 				+ ", tiroLejos=" + tiroLejos + ", asistencia=" + asistencia + ", rebote=" + rebote
 				+ ", defensa="
 				+ defensa +  ", segundos=" + minutos + ", minutos= "+ min + ", m="+ tiempoJugado + "]";
@@ -549,7 +550,12 @@ public class Jugador {
 		public int getColumnCount() {
 			return 6;
 		}
-
+	
+		/*
+		 * PPP -> Puntos Por Partido
+		 * APP -> Asistencias Por Partido
+		 * RPP -> Rebotes Por Partido 
+		 * */
 		@Override
 		public String getColumnName(int col) {
 			switch(col) {
@@ -577,7 +583,7 @@ public class Jugador {
 		@Override
 		public Object getValueAt(int row, int col) {
 			if(row == statsTemporadas.size()) {
-				//esta pidiendo informacion sobre la temporada actual
+				//está pidiendo información sobre la temporada actual
 				switch(col) {
 				case 0: return LigaManager.anyo+"/"+(""+(LigaManager.anyo+1)).substring(2);
 				case 1: return getAbrevEquipo();
@@ -588,8 +594,6 @@ public class Jugador {
 				}
 			}
 			Estadistica e = statsTemporadas.get(row+getPrimerAnyoEstadisticas());
-			System.out.println("Fila: "+row+"; Primer anyo: "+getPrimerAnyoEstadisticas()+"; null? "+(e == null));
-			System.out.println(statsTemporadas.size());
 			switch(col) {
 			case 0: return e.anyo+"/"+(""+(e.anyo+1)).substring(2);
 			case 1: return e.getAbrevEquipo();

@@ -56,7 +56,7 @@ public class PanelCalendario extends PanelTab {
 	private void seleccionarMes() {
 		int m = getMes(LigaManager.calendario.diaActual);
 		int selec = 0;
-		if(m < 9) { //de septiembre hacia atras
+		if(m < 9) { //de septiembre hacia atrás
 			selec = m + 3;
 		} else {
 			selec = m - 9;
@@ -126,7 +126,7 @@ public class PanelCalendario extends PanelTab {
 			
 			int diaSemanaInicio = getDiaSemana(dia);
 			
-			//dibujar cabecera (dias de la semana)
+			//dibujar cabecera (días de la semana)
 			g.setFont(new Font("Arial", Font.PLAIN, 20));
 			for(int i = 0; i < 7; i++) {
 				String d;

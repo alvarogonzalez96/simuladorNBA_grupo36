@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import negocio.*;
@@ -18,8 +17,8 @@ import negocio.*;
 public class BD {
 
 	/**
-	 * Clase desde la que se manejara la base de datos,
-	 * todas las consultas y conexiones se realizaran desde esta clase.
+	 * Clase desde la que se manejará la base de datos,
+	 * todas las consultas y conexiones se realizarán desde esta clase.
 	 * */
 
 	static final String DIRECTORIO = "data/database.db";
@@ -39,8 +38,8 @@ public class BD {
 	static Statement st;
 
 	/**
-	 * Metodo que se conecta con la base de datos.
-	 * @return true si la conexion se establece correctamente | false si hay algun problema
+	 * Método que se conecta con la base de datos.
+	 * @return true si la conexión se establece correctamente | false si hay algún problema
 	 * */
 	public static boolean conectar() {
 		try {
@@ -73,10 +72,10 @@ public class BD {
 	// Metodos de registro / login
 
 	/**
-	 * Metodo que registra un usuario nuevo en la BD.
-	 * @return int >= 0 si todo va bien (ese numero sera el id de usuario) |
+	 * Método que registra un usuario nuevo en la BD.
+	 * @return int >= 0 si todo va bien (ese número será el id de usuario) |
 	 * -1 si el nombre de usuario elegido ya existe |
-	 * -2 si ha habido algun otro tipo de error
+	 * -2 si ha habido algún otro tipo de error
 	 * */
 	public static int registrar(String username, String pass, int teamID) {
 		try {
@@ -102,7 +101,7 @@ public class BD {
 	}
 
 	/**
-	 * Metodo para verificar la identidad del usuario.
+	 * Método para verificar la identidad del usuario.
 	 * @return tid si los valores introducidos son correctos |
 	 * -1 si los valores introductidos son incorrectos |
 	 * -2 si se da algun error interno
@@ -228,7 +227,6 @@ public class BD {
 			}
 			return 0;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;
@@ -320,7 +318,6 @@ public class BD {
 			
 			pst.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println(j.getNombre()+","+j.getID());
 			e.printStackTrace();
 		}
 	}
@@ -386,7 +383,6 @@ public class BD {
 						if(primero) {
 							int anyosCont = rs2.getInt(5);
 							int salario = rs2.getInt(6);
-							System.out.println(tid+" de "+j.getNombre()+": "+tid);
 							j.setTid(tid);
 							j.salario = salario;
 							j.anyosContratoRestantes = anyosCont;

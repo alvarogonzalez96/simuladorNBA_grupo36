@@ -25,7 +25,6 @@ public class Quinteto {
 	}
 	
 	private Jugador elegir(int tiempo, int pos) {
-		Jugador j = new Jugador();
 		Posicion p = elegirPosicion(pos);
 		for (int i = 0; i < equipo.jugadores.size(); i++) {
 			if(equipo.jugadores.get(i).getPosicion() == p && equipo.jugadores.get(i).getTiempoJugado() > 0) {
@@ -59,11 +58,6 @@ public class Quinteto {
 				break;
 			}
 		}
-		System.out.println("BASES: "+pos[0]);
-		System.out.println("ESCOLTAS: "+pos[1]);
-		System.out.println("ALEROS: "+pos[2]);
-		System.out.println("ALAPIVOTS: "+pos[3]);
-		System.out.println("PIVOTS: "+pos[4]);
 	}
 	
 	protected static Posicion elegirPosicion(int pos) {
@@ -78,7 +72,7 @@ public class Quinteto {
 		} else if(pos == 4) {
 			return Posicion.PIVOT;
 		}
-		System.err.println("Error, posicion incorrecta");
+		System.err.println("Error, posición incorrecta");
 		return null;
 	}
 	

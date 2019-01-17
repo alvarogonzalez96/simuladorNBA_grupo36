@@ -11,7 +11,7 @@ import java.awt.event.*;
 public class PanelPlantilla extends PanelTab {
 
 	/**
-	 * En este panel (pestanya) se mostrara una tabla con la
+	 * En este panel (pestaña) se mostrará una tabla con la
 	 * plantilla (jugadores) del equipo seleccionado.
 	 **/
 	
@@ -97,9 +97,6 @@ public class PanelPlantilla extends PanelTab {
 
 	@Override
 	protected void seleccionado() {
-		//actualizar tablas para edad de rookies
-		/*actualizarEquipo();
-		repaint();*/
 		tabla.setModel(equipos[combo.getSelectedIndex()].getTableModel());
 		int n = indiceSeleccionado;
 		n++;
@@ -112,7 +109,6 @@ public class PanelPlantilla extends PanelTab {
 		else n--;
 		indiceSeleccionado = n;
 		combo.setSelectedIndex(indiceSeleccionado);
-		System.out.println(indiceSeleccionado);
 		try {
 			Thread.sleep(5);
 		} catch (InterruptedException e) {}

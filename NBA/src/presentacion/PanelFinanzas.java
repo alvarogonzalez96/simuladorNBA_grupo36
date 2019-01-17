@@ -39,7 +39,6 @@ public class PanelFinanzas extends PanelTab {
 					tabla.setModel(equipo.getModeloFinanzas());
 					tabla.getColumnModel().getColumn(0).setMinWidth(200);
 					labelSalarioTotal.setText("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
-					//tabla.setModel(equipos[combo.getSelectedIndex()].getModeloFinanzas());
 					repaint();
 				});
 		
@@ -82,7 +81,7 @@ public class PanelFinanzas extends PanelTab {
 		scrollTabla.getViewport().setBackground(Color.WHITE);
 		
 		labelSalarioTotal = new JLabel("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
-		JLabel labelLimite = new JLabel("Limite salarial: "+Equipo.limiteSalarial);
+		JLabel labelLimite = new JLabel("Límite salarial: "+Equipo.limiteSalarial);
 		panelSeleccion.add(labelLimite);
 		panelSeleccion.add(labelSalarioTotal);
 		
@@ -106,7 +105,6 @@ public class PanelFinanzas extends PanelTab {
 		else n--;
 		indiceSeleccionado = n;
 		combo.setSelectedIndex(indiceSeleccionado);
-		System.out.println(indiceSeleccionado);
 		try {
 			Thread.sleep(5);
 		} catch (InterruptedException e) {}

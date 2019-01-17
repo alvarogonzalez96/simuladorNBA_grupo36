@@ -91,9 +91,9 @@ public class LigaManager {
 			temporadasPasadas.put(2018, new Temporada());
 		} else {
 			//de la BD
-			//cargar temporadas -> conseguir anyo actual + datos de historial liga (temporadas pasadas)
+			//cargar temporadas -> conseguir año actual + datos de historial liga (temporadas pasadas)
 			//*cargar jugadores
-			//*cargar juega -> modificar tid etc y anyadir jugadores a equipos
+			//*cargar juega -> modificar tid etc y añadir jugadores a equipos
 			
 			temporadasPasadas = BD.cargarTemporadasPasadas();
 			
@@ -113,7 +113,6 @@ public class LigaManager {
 			if(ultimoAnyo == 0) {
 				//ha dejado la primera temporada a medias
 				BD.rollback();
-				System.out.println("rollback");
 				inicializar(true, usuario);
 			}
 			
@@ -125,8 +124,7 @@ public class LigaManager {
 					j.rookie = false;
 				}
 			}
-		}
-		
+		}		
 	}
 	
 	/** 
@@ -135,7 +133,7 @@ public class LigaManager {
 	 * */
 	public static boolean simularDia() {
 		if(!calendario.getDiaActual().after(Calendario.ULTIMO_DIA_TEMP_REGULAR)) { //fase = 0
-			// simular dia de temporada regular
+			// simular día de temporada regular
 			if(calendario.calendario.keySet().contains(calendario.getDiaActual())) {
 				for(Partido p: calendario.calendario.get(calendario.getDiaActual())) {
 					p.jugar(false);
@@ -156,24 +154,34 @@ public class LigaManager {
 		}
 	}  
 	
+	/**
+	 * Método para cargar los jugadores:
+	 * recienCreada -> carga los jugadores desde el JSON
+	 * !recienCreada -> carga los jugadores desde la BD
+	 * */
 	private static void cargarJugadores() {
-		if(recienCreada) { // cargar los jugadores por defecto desde el JSON
+		if(recienCreada) { 
 			JSONObject all = ParseadorJSON.getObjetoPrimario("data/jugadores.json");
 			JSONArray jugadoresJSON = all.getJSONArray("players");
 			jugadores = ParseadorJSON.aArrayListJugador(jugadoresJSON);
 		} else {
-			// cargar los jugadores y sus atributos desde la BD
 			jugadores = BD.cargaJugadoresBD();
 		}
 	}
 	
+	/**
+	 * Método que carga los equipos desde el JSON
+	 * */
 	private static void cargarEquipos() {
-		//if(recienCreada) { //cargar los equipos por defecto desde JSON
 		JSONObject all = ParseadorJSON.getObjetoPrimario("data/equipos.json");
 		JSONArray equiposJSON = all.getJSONArray("teams");
 		equipos = ParseadorJSON.aArrayEquipos(equiposJSON);
 	}
 	
+	/**
+	 * Método que asigna a cada jugador un equipo
+	 * según su tid 
+	 * */
 	private static void asignarJugadoresAEquipos() {
 		for(Equipo e: equipos) {
 			for(Jugador j: jugadores) {
@@ -195,8 +203,11 @@ public class LigaManager {
 	}
 	
 
+	/**
+	 * Método que añade a la agencia libre a todos 
+	 * los jugadores con tid = -1
+	 * */
 	private static void cargarAgentesLibres() {
-		//con la lista jugadores seleccionar los de tid = -1
 		for(Jugador j: jugadores) {
 			if(j.getTid() == -1) {
 				agentesLibres.add(j);
@@ -252,7 +263,7 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo para seleccionar el orden del draft de cada equipo y su respectiva eleccion 
+	 * Método para seleccionar el orden del draft de cada equipo y su respectiva elección 
 	 * */
 	public static ArrayList<Jugador> prepararDraft() {
 		resetearRookies();
@@ -262,12 +273,11 @@ public class LigaManager {
 		
 		for (int i = 0; i < ordenDraft.length; i++) {
 			ordenDraft[i] = general.get(i);
-			System.out.println("Puesto numero: " + (30-i) + ", " + ordenDraft[i].nombre);
 		}	
 		
 		draft = new ArrayList<>();
 		
-		ajustarAgenciaLibre(); //en este metodo se crean los jugadores del draft
+		ajustarAgenciaLibre(); //en este método se crean los jugadores del draft
 		jugadores.addAll(draft);
 		
 		asignarSalariosYContratosDraft();
@@ -277,8 +287,8 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Una vez terminada la seleccion de los 60 mejores jugadores
-	 * del draft, los demas se mandan a la agencia libre, y se cambia de fase
+	 * Una vez terminada la selección de los 60 mejores jugadores
+	 * del draft, los demás se mandan a la agencia libre, y se cambia de fase
 	 * */
 	public static void terminarDraft() {
 		mandarAgenciaLibre();
@@ -286,13 +296,13 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Para evitar la descompensacion entre las diferentes
+	 * Para evitar la descompensación entre las diferentes
 	 * posiciones a lo largo de las temporadas, hay que ajustar la agencia libre 
 	 * al final de cada temporada.
 	 * 
-	 * Ajustar la agencia libre significa hacer que de cada posicion haya un numero fijo de jugadores:
-	 *   - Si hay de mas: eliminando los peores
-	 *   - Si hay de menos: creando mas en el draft 
+	 * Ajustar la agencia libre significa hacer que de cada posición haya un numero fijo de jugadores:
+	 *   - Si hay de más: eliminando los peores
+	 *   - Si hay de menos: creando más en el draft 
 	 * */
 	private static void ajustarAgenciaLibre() {
 		int[] contPos = contarPosicionesAgenciaLibre();
@@ -305,7 +315,7 @@ public class LigaManager {
 			}
 		}
 		
-		//crear jugadores nuevos de cada posicion para llegar al limite (draft)
+		//crear jugadores nuevos de cada posición para llegar al limite (draft)
 		int nuevos = 0;
 		for(int i = 0; i < 5; i++) {
 			for(int j = 0; j < limiteJugadoresPorPosicionAgenciaLibre - contPos[i]; j++) {
@@ -320,6 +330,10 @@ public class LigaManager {
 		}
 	}
 	
+	/**
+	 * Método que elimina el peor jugador para una posición
+	 * determinada de la agencia libre
+	 * */
 	private static void borrarPeorAgenciaLibre(Posicion p) {
 		Jugador peor = new Jugador();
 		peor.overall = 10000;
@@ -335,6 +349,10 @@ public class LigaManager {
 		agentesLibres.remove(peor);
 	}
 	
+	/**
+	 * @return int[] de número de jugadores por posición en la 
+	 * agencia libre
+	 * */
 	private static int[] contarPosicionesAgenciaLibre() {
 		int[] c = new int[5];
 		for(Jugador j: agentesLibres) {
@@ -390,7 +408,7 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Asigna un salario y un contrato en funcion de la calidad del jugador del draft
+	 * Asigna un salario y un contrato en función de la calidad del jugador del draft
 	 * */
 	private static void asignarSalariosYContratosDraft() {
 		int salario = 8000;
@@ -426,8 +444,6 @@ public class LigaManager {
 			for (int i = 29; i >= 0; i--) {
 				Jugador jug = elegirMejorDisponible(draft);
 				jugs.add(jug);
-				//jug.setTid(orden[i].getTid());
-				//orden[i].jugadores.add(jug);
 			}
 			j++;
 		} while(j <= 2);
@@ -461,7 +477,7 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Selecciona que jugadores se jubilan este anyo
+	 * Selecciona qué jugadores se jubilan este año
 	 * tid = -2 -> jugadores jubilados
 	 * 
 	 * Devuelve un array de los jugadores retirados
@@ -532,6 +548,9 @@ public class LigaManager {
 		return retirados;
 	}
 	
+	/**
+	 * Método que actualiza los salarios de cada equipo
+	 * */
 	public static void actualizarSalarios() {
 		for (Equipo e : equipos) {
 			e.salarioTotal = 0;
@@ -552,7 +571,7 @@ public class LigaManager {
 			inicio = 0;
 			fin = posUsuario;
 		} else {
-			//que procese todos los que estan detras del usuario
+			//que procese todos los que están detrás del usuario
 			inicio = posUsuario+1;
 			fin = orden.size();
 		}
@@ -565,71 +584,71 @@ public class LigaManager {
 					if(j.anyosContratoRestantes == 0) {
 						if(j.getValoracion() >= 3500 && rand <= 0.8) {
 							if(j.getEdad() > 35) {
-								//Renueva por un anyo y 30-35
+								//Renueva por un año y 30-35
 								j.anyosContratoRestantes = 1;
 								j.salario = (30000 + ((int)(Math.random()*5001)));
 							} else if(j.getEdad() > 30 && rand <= 0.85) {
-								//Renueva por 3 anyos 35-40
+								//Renueva por 3 años 35-40
 								j.anyosContratoRestantes = 3;
 								j.salario = (35000 + ((int)(Math.random()*5001)));
 							} else if(rand <= 0.9) {
-								//Renueva 5 anyos 35-40
+								//Renueva 5 años 35-40
 								j.anyosContratoRestantes = 5;
 								j.salario = (35000 + ((int)(Math.random()*5001)));
 							}
 						} else if(j.getValoracion() >= 2500) {
 							if(j.getEdad() > 35 && rand <= 0.7) {
-								//Renueva por 1 anyo y 15-20
+								//Renueva por 1 año y 15-20
 								j.anyosContratoRestantes = 1;
 								j.salario = (15000 + ((int)(Math.random()*5001)));
 							} else if(j.getEdad() > 30 && rand <= 0.75) {
-								//Renueva por 3 anyos y 20-25
+								//Renueva por 3 años y 20-25
 								j.anyosContratoRestantes = 3;
 								j.salario = (20000 + ((int)(Math.random()*5001)));
 							} else if(rand <= 0.8) {
-								//Renueva por 5 anyos y 25-30
+								//Renueva por 5 años y 25-30
 								j.anyosContratoRestantes = 5;
 								j.salario = (25000 + ((int)(Math.random()*5001)));
 							}
 						} else if(j.getValoracion() >= 1000) {
 							if(j.getEdad() > 35 && rand <= 0.6) {
-								//Renueva por 1 anyo y 5-10
+								//Renueva por 1 año y 5-10
 								j.anyosContratoRestantes = 1;
 								j.salario = (5000 + ((int)(Math.random()*5001)));
 							} else if(j.getEdad() > 30 && rand <= 0.65) {
-								//Renueva por 3 anyos y 6-11
+								//Renueva por 3 años y 6-11
 								j.anyosContratoRestantes = 3;
 								j.salario = (6000 + ((int)(Math.random()*5001)));
 							} else if(rand <= 0.7) {
-								//Renueva por 5 anyos y 11-16
+								//Renueva por 5 años y 11-16
 								j.anyosContratoRestantes = 5;
 								j.salario = (11000 + ((int)(Math.random()*5001)));
 							}
 						} else if(j.getValoracion() > 0){
 							if(j.getEdad() > 35 && rand <= 0.4) {
-								//Renueva por 1 anyo y 1-5
+								//Renueva por 1 año y 1-5
 								j.anyosContratoRestantes = 1;
 								j.salario = (1000 + ((int)(Math.random()*4001)));
 							} else if(j.getEdad() > 30 && rand <= 0.45) {
-								//Renueva por 2 anyos y 2-8
+								//Renueva por 2 años y 2-8
 								j.anyosContratoRestantes = 2;
 								j.salario = (2000 + ((int)(Math.random()*6001)));
 							} else if(rand <= 0.5) {
-								//Renueva por 3 anyos y 5-10
+								//Renueva por 3 años y 5-10
 								j.anyosContratoRestantes = 3;
 								j.salario = (5000 + ((int)(Math.random()*5001)));
 							}	
 						} else {
 							if(j.getEdad() > 35 && rand <= 0.25) {
-								//Renueva por 1 anyo y 1
+								//Renueva por 1 año y 1
 								j.anyosContratoRestantes = 1;
 								j.salario = 1000;
 							} else if(j.getEdad() > 30 && rand <= 0.3) {
-								//Renueva por 2 anyos y 1
+								//Renueva por 2 años y 1
 								j.anyosContratoRestantes = 2;
 								j.salario = 1000;
 							} else if(rand <= 0.45) {
-								//Renueva por 3 anyos y 1-2 
+								//Renueva por 3 años y 1-2 
 								j.anyosContratoRestantes = 3;
 								j.salario = 1000 + ((int)(Math.random()*1001));
 							}	
@@ -675,7 +694,7 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo que simula la agencia libre
+	 * Método que simula la agencia libre
 	 * */
 	public static void agenciaLibre(ArrayList<Equipo> orden, boolean antesQueUsuario) {
 		agentesLibres.clear();
@@ -701,7 +720,7 @@ public class LigaManager {
 	
 	/**
 	 * Busca las posiciones que necesita reforzar el equipo
-	 * y a continuacion ficha a jugadores de esa posicion
+	 * y a continuación ficha a jugadores de esa posición
 	 * */
 	private static void eleccionAgenciaLibre(Equipo equipo) {
 		int contBase, contEscolta, contAlero, contAP, contPivot;
@@ -770,8 +789,8 @@ public class LigaManager {
 	
 	/**
 	 * Si un equipo no tiene dinero, pero necesita fichar jugadores para su plantilla,
-	 * fichara a jugadores de "baja" calidad (overall < 60) por el minimo salarial 
-	 * establecido en 1M $ por un unico anyo de contrato
+	 * fichará a jugadores de "baja" calidad (overall < 60) por el minimo salarial 
+	 * establecido en 1M $ por un único año de contrato
 	 * */
 	private static void ajustarPlantilla(int contBase, int contEscolta, int contAlero, int contAP, int contPivot, Equipo equipo) {
 		while(contBase < 2 || contEscolta < 2 || contAlero < 2 || contAP < 2 || contPivot < 2) {
@@ -795,7 +814,7 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo para fichar jugadores
+	 * Método para fichar jugadores
 	 * */
 	private static void ficharAgenteLibre (Equipo equipo, Posicion p) {
 		agentesLibres.sort(new OrdenadorJugadores());
@@ -817,7 +836,7 @@ public class LigaManager {
 				}
 			}
 		}
-		//si se llega aqui, fichar si o si
+		//Si se llega aquí, fichar sí o sí
 		for(Jugador j: agentesLibres) {
 			if(j.getPosicion().equals(p) && j.overall <= 70) {
 				anyosDeContrato = (int) (Math.random()*5)+1;
@@ -889,7 +908,7 @@ public class LigaManager {
 			}
 		}
 		
-		//si se llega aqui y no se ha fichado, fichar si o si
+		//Si se llega aquí y no se ha fichado, fichar sí o sí
 		if(!fichado) {
 			Jugador jugador = peor;
 			jugador.setTid(equipo.getTid());
@@ -904,8 +923,8 @@ public class LigaManager {
 	
 	
 	/**
-	 * Metodo para que ningun equipo de la liga
-	 * supere el maximo de 15 jugadores
+	 * Método para que ningún equipo de la liga
+	 * supere el máximo de 15 jugadores
 	 * */
 	public static void despedirJugadores(ArrayList<Equipo> orden, boolean antesQueUsuario) {
 		Integer[] contPos = new Integer[5];
@@ -937,7 +956,7 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo para mandar los jugadores sobrantes a la 
+	 * Método para mandar los jugadores sobrantes a la 
 	 * agencia libre
 	 * */
 	private static void cortarJugador(Equipo e, int maxJugadores) {
@@ -966,7 +985,7 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo para contar el numero de jugadores por
+	 * Método para contar el numero de jugadores por
 	 * posicion de un equipo
 	 * contPos[0] -> bases
 	 * contPos[1] -> escoltas
@@ -1008,13 +1027,13 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo que elige el MVP segun el rendimiento del jugador
+	 * Método que elige el MVP según el rendimiento del jugador
+	 * @return Jugador MVP
 	 * */
 	private static Jugador elegirMVP() {
 		Jugador mvp = new Jugador();
 		for (Equipo equipo : equipos) {
 			for (Jugador j : equipo.jugadores) {
-				//j.getValoracion() = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
 				if(j.getRol().equals(Rol.ESTRELLA) || j.getRol().equals(Rol.TITULAR)) {
 					if(j.getValoracion() > mvp.getValoracion() && equipo.getVictorias() > 41) {
 						mvp = j;
@@ -1023,22 +1042,18 @@ public class LigaManager {
 			}
 		}
 		LigaManager.mvp = mvp;
-		for(Temporada t: temporadasPasadas.values()) {
-			System.out.println(t.mvp);
-		}
-		System.out.println("real:"+mvp.getNombre());
 		temporadasPasadas.get(anyo).setMVP(mvp.getNombre());
 		return mvp;
 	}
 	
 	/**
-	 * Metodo que elige al mejor sexto hombre de la temporada
+	 * Método que elige al mejor sexto hombre de la temporada
+	 * @return Jugador SMOY
 	 */
 	private static Jugador elegirSextoHombre() {
 		Jugador sextoHombre = new Jugador();
 		for (Equipo equipo : equipos) {
 			for (Jugador j : equipo.jugadores) {
-				//j.getValoracion() = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
 				if(j.getRol().equals(Rol.SUPLENTE)) {
 					if(j.getValoracion() > sextoHombre.getValoracion() && equipo.getVictorias() > 41) {
 						sextoHombre = j;
@@ -1052,16 +1067,14 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo que elige al novato del anyo
+	 * Método que elige al novato del año
+	 * @return ROY
 	 * */
 	private static Jugador elegirROY() {
 		Jugador ROY = new Jugador();
-		int cuentaRookies = 0;
 		for (Equipo equipo : equipos) {
 			for (Jugador j : equipo.jugadores) {
-				//j.valoracion = (j.getPuntosPartido() + j.getAsistenciasPartido() + j.getRebotesPartido());
 				if(j.rookie) {
-					cuentaRookies++;
 					if(j.getValoracion() > ROY.getValoracion() && equipo.getVictorias() > 41) {
 						ROY = j;
 					}
@@ -1074,7 +1087,8 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo que elige al defensor del anyo
+	 * Método que elige al defensor del año
+	 * @return Jugador DPOY
 	 * */
 	private static Jugador elegirDPOY() {
 		Jugador DPOY = new Jugador();
@@ -1090,6 +1104,9 @@ public class LigaManager {
 		return DPOY;
 	}
 	
+	/**
+	 * Método para otorgar los premios individuales a final de temporada
+	 * */
 	public static void elegirPremiosIndividuales() {
 		elegirMVP();
 		elegirROY();
@@ -1103,13 +1120,13 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo que comprueba que el equipo del usuario esta en condiciones
+	 * Método que comprueba que el equipo del usuario está en condiciones
 	 * de comenzar una nueva temporada:
 	 * Devuelve: 
-	 * 	-> 0 si todo esta bien
-	 *  -> -2 si tiene mas de 15 jugadores
-	 *  -> -3 si no tiene como minimo 2 jugadores por posicion
-	 *  -> -4 si tiene jugadores con 0 anyos de contrato -> tiene que cambiar eso
+	 * 	-> 0 si todo está bien
+	 *  -> -2 si tiene más de 15 jugadores
+	 *  -> -3 si no tiene como mínimo 2 jugadores por posición
+	 *  -> -4 si tiene jugadores con 0 años de contrato -> tiene que cambiar eso
 	 * */
 	public static int comprobarEquipoUsuario() {
 		Equipo e = usuario.getEquipo();
@@ -1151,8 +1168,8 @@ public class LigaManager {
 	}
 	
 	/**
-	 * Metodo que resetea todos los datos correspondientes a la temporada actual, 
-	 * que se ejecutara cada vez que termine una temporada, para empezar una nueva.
+	 * Método que resetea todos los datos correspondientes a la temporada actual, 
+	 * que se ejecutará cada vez que termine una temporada, para empezar una nueva.
 	 * */
 	public static void reset() {		
 		for(Jugador j: jugadores) {
@@ -1183,16 +1200,6 @@ public class LigaManager {
 		fase = 0;
 		anyo++;
 		
-		/*Equipo e = usuario.getEquipo();
-		for(Renovacion reno: e.renovacionesPendientes) {
-			for(Jugador j: e.getJugadores()) {
-				if(j.getNombre().equals(reno.getNombre())) {
-					j.salario = reno.getCantidad();
-					j.anyosContratoRestantes = reno.getAnyos();
-				}
-			}
-		}*/
-		
 		actualizarRoles();
 		
 		recienCreada = false;
@@ -1204,6 +1211,10 @@ public class LigaManager {
 		temporadasPasadas.put(anyo, new Temporada());
 	}
 	
+	/**
+	 * Método para resetear las estadísticas de la última
+	 * temporada del jugador
+	 * */
 	private static void resetearJugadores() {
 		for(Jugador j: jugadores) {
 			j.puntosPartido = 0;
@@ -1243,7 +1254,7 @@ public class LigaManager {
 		for(int i = 0; i < 5; i++) {
 			Jugador max = new Jugador();
 			for(Jugador j: jugadores) {
-				if(j.tid >= 0 && !jugs.contains(j)) { //esta jugando
+				if(j.tid >= 0 && !jugs.contains(j)) { //está jugando
 					if(c == 0) {
 						//puntos
 						if(j.puntosTemporada > max.puntosTemporada) {
@@ -1307,7 +1318,7 @@ public class LigaManager {
 			switch(columnIndex) {
 			case 0: return "Nombre";
 			case 1: return "Edad";
-			case 2: return "Posicion";
+			case 2: return "Posición";
 			case 3: return "Overall";
 			}
 			return null;

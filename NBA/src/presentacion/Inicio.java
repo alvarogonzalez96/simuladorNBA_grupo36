@@ -60,9 +60,9 @@ public class Inicio {
 		String nombreUsuario = "*";
 		String contrasenya = null;
 
-		respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, �ya tienes una cuenta?");
+		respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, ¿ya tienes una cuenta?");
 		/*
-		 * respuesta = 0 --> si
+		 * respuesta = 0 --> sí
 		 * respuesta = 1 --> no
 		 * respuesta = 2 --> cancelar
 		 */
@@ -70,13 +70,13 @@ public class Inicio {
 			//Introduce su nombre de usuario
 			nombreUsuario = popup("Introduce tu nombre de usuario", true);
 			if(nombreUsuario == null) {
-				// volver a la ventana inicial
+				//Volver a la ventana inicial
 				ventanaInicio();
 			} else {
-				//Selecciona la contrasenya
-				contrasenya = popupPassword("Introduce tu contrase�a");
+				//Selecciona la contraseña
+				contrasenya = popupPassword("Introduce tu contraseña");
 				if(contrasenya == null) {
-					//volver a la ventana inicial
+					//Volver a la ventana inicial
 					ventanaInicio();
 				} else {
 					//Hacer un if para comprobar con la BD
@@ -93,7 +93,7 @@ public class Inicio {
 						ventanaInicio();
 					} else {
 						//error interno
-						JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta el archivo log para mas informacion", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta el archivo log para más informacion", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
@@ -105,19 +105,16 @@ public class Inicio {
 				ventanaInicio();
 			} else {
 				//Selecciona la contrasenya
-				contrasenya = popupPassword("Elige tu contrase�a");
+				contrasenya = popupPassword("Elige tu contraseña");
 				if(contrasenya == null) {
 					ventanaInicio();
 				} else {
-					//String de ejemplo
-					//String equipos[] = {"Los Angeles Lakers", "Golden State Warrios", "Boston Celtics", "New York Knicks"};
 					String[] equipos = getNombresEquipos();
 					//Selecciona el equipo con el que va a jugar
 					String res = (String) JOptionPane.showInputDialog(null, "Selecciona tu equipo", "Simulador NBA", JOptionPane.DEFAULT_OPTION, null, equipos, equipos[0]);
 					if(res == null) {
 						ventanaInicio();
 					} else {
-						//new VentanaPrincipal();	
 						int teamID = calcularIDEquipo(res);
 						int r = BD.registrar(nombreUsuario, contrasenya, teamID);
 						if(r >= 0) {
@@ -143,12 +140,12 @@ public class Inicio {
 							//espera.dispose();
 						} else if(r == -1) {
 							//alertar de que ese nombre de usuario ya existe, y volver a empezar
-							JOptionPane.showMessageDialog(null, "Introduce un nombre de usuario que no este en uso", "Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Introduce un nombre de usuario que no esté en uso", "Error", JOptionPane.ERROR_MESSAGE);
 							ventanaInicio();
 						} else {
 							//error en la base de datos, volver a empezar
-							JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta el archivo log para mas informacion.\n"
-									+ "Es posible que otro programa est� accediendo a la BD al mismo tiempo. Si es as�, cierra ese programa y vuelve a intentarlo.", 
+							JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta el archivo log para más información.\n"
+									+ "Es posible que otro programa esté accediendo a la BD al mismo tiempo. Si es así, cierra ese programa y vuelve a intentarlo.", 
 									"Error", JOptionPane.ERROR_MESSAGE);
 							ventanaInicio();
 						}
@@ -213,7 +210,6 @@ public class Inicio {
 	
 	private int calcularIDEquipo(String equipo) {
 		for(Equipo e: LigaManager.equipos) {
-			//System.out.println(e.getNombre()+","+equipo);
 			if(e.getNombre().equalsIgnoreCase(equipo)) {
 				return e.getTid();
 			}

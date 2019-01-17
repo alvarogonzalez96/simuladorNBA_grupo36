@@ -27,7 +27,7 @@ public class PanelClasificacion extends PanelTab {
 	}
 	
 	/**
-	 * Metodo para crear las tablas a partir de las clasificaciones de la clase Liga.
+	 * Método para crear las tablas a partir de las clasificaciones de la clase Liga.
 	 * La clase Clasificacion permite ser convertido en tabla (getTableModel).
 	 * */
 	private void crearTablas() {
@@ -93,11 +93,11 @@ public class PanelClasificacion extends PanelTab {
 		panelDerechaAbajo.add(panelCentral);
 		panelDerechaAbajo.add(panelSureste);
 		
-		panelPacifico.add(new JLabel("PACIFICIO"), BorderLayout.NORTH);
+		panelPacifico.add(new JLabel("PACÍFICIO"), BorderLayout.NORTH);
 		panelSuroeste.add(new JLabel("SUROESTE"), BorderLayout.NORTH);
 		panelNoroeste.add(new JLabel("NOROESTE"), BorderLayout.NORTH);
 		
-		panelAtlantico.add(new JLabel("ATLANTICO"), BorderLayout.NORTH);
+		panelAtlantico.add(new JLabel("ATLÁNTICO"), BorderLayout.NORTH);
 		panelCentral.add(new JLabel("CENTRAL"), BorderLayout.NORTH);
 		panelSureste.add(new JLabel("SURESTE"), BorderLayout.NORTH);
 		

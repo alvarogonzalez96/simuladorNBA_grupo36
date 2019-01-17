@@ -5,18 +5,18 @@ import java.util.*;
 public class Temporada {
 
 	/**
-	 * Clase en la que se guardaran los datos necesarios
+	 * Clase en la que se guardarán los datos necesarios
 	 * sobre las temporadas pasadas:
 	 * 	-Plantillas de los equipos
-	 * 	-Estadisticas de cada jugador (esta y la anterior se guardaran en un array de equipos)
-	 * 	-Campeon
+	 * 	-Estadísticas de cada jugador (ésta y la anterior se guardarán en un array de equipos)
+	 * 	-Campeón
 	 * 	-Victorias-derrotas del equipo del usuario
 	 * */
 	
 	/*
-	 * En la lista de equipos se guardaran objetos copia
+	 * En la lista de equipos se guardarán objetos copia
 	 * de los equipos, y dentro de cada equipo una lista de jugadores,
-	 * para que sus estadisticas de esa temporada permanezcan
+	 * para que sus estadísticas de esa temporada permanezcan
 	 * intactas.
 	 * */
 	public String[] nombresEquipos;

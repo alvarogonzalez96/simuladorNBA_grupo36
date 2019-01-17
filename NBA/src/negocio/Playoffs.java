@@ -6,7 +6,7 @@ public class Playoffs {
 
 	public HashMap<Series, SeriePlayoffs> series;
 	public int fase; //0: cuartos, 1: semis, 2: finales conf, 3: finales
-	public Equipo campeon; //campeon de la NBA
+	public Equipo campeon; //campeón de la NBA
 	
 	public Playoffs() {
 		fase = 0;
@@ -15,8 +15,8 @@ public class Playoffs {
 	}
 	
 	/**
-	 * Metodo que inicializa la lista de series.
-	 * Solo se cargaran las series de cuartos.
+	 * Método que inicializa la lista de series.
+	 * Solo se cargarán las series de cuartos.
 	 * */
 	private void inicializar() {
 		Clasificacion e = LigaManager.clasificaciones.get("ESTE");
@@ -36,7 +36,7 @@ public class Playoffs {
 	}
 	
 	/**
-	 * Metodo que se usa para avanzar un partido en cada serie.
+	 * Método que se usa para avanzar un partido en cada serie.
 	 * Si todas las series terminan, se crean las series correspondientes 
 	 * a la siguiente ronda (fase).
 	 * */
@@ -116,7 +116,7 @@ public class Playoffs {
 	}
 	
 	/**
-	 * Metodo que indica si una fase ha terminado.
+	 * Método que indica si una fase ha terminado.
 	 * @return si todas las series de la ronda(fase) han terminado
 	 * */
 	private boolean finDeFase() {
@@ -133,7 +133,7 @@ public class Playoffs {
 	}
 	
 	/**
-	 * Clase utilizada para guardar la informacion de 
+	 * Clase utilizada para guardar la información de 
 	 * cada serie de playoffs.
 	 * */
 	public class SeriePlayoffs {
@@ -156,7 +156,7 @@ public class Playoffs {
 		}
 		
 		/**
-		 * Metodo que simula un partido de playoffs
+		 * Método que simula un partido de playoffs
 		 * @return si la serie ha terminado o no
 		 * */
 		public void jugarPartido() {
@@ -191,7 +191,7 @@ public class Playoffs {
 		}
 		
 		/**
-		 * Metodo que devuelve el equipo ganador de la serie una vez terminada
+		 * Método que devuelve el equipo ganador de la serie una vez terminada
 		 * */
 		public Equipo getGanador() {
 			if(terminada) {

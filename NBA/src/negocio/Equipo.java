@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class Equipo {
 	
 	/**
-	 * Nota: todas las unidades monetarias estan en miles de dolares.
+	 * Nota: todas las unidades monetarias están en miles de dólares.
 	 * */	
 	public static final int limiteSalarial = 108000; 
 	
@@ -86,10 +86,10 @@ public class Equipo {
 	
 	/**
 	 * Constructor copia
-	 * Aparte de devolver un objeto identico al que se 
+	 * Aparte de devolver un objeto idéntico al que se 
 	 * le pasa como argumento, la lista de jugadores es 
-	 * otra copia identica (no es el mismo objeto, son 
-	 * jugadores "nuevos" pero identicos)
+	 * otra copia idéntica (no es el mismo objeto, son 
+	 * jugadores "nuevos" pero idénticos)
 	 * */
 	public Equipo(Equipo e) {
 		this.tid = e.tid;
@@ -155,7 +155,6 @@ public class Equipo {
 		int basesTit, escTit, alerosTit, alapsTit, pivotsTit;
 		basesTit = escTit = alerosTit = alapsTit = pivotsTit = 0;
 		Jugador estrella1 = asignarEstrellaAlMejor();
-		System.out.println(estrella1.getPosicion());
 		switch(estrella1.getPosicion()) {
 		case BASE: titBase = true; basesTit++; break;
 		case ESCOLTA: titEsc = true; escTit++; break;
@@ -335,9 +334,9 @@ public class Equipo {
 		public String getColumnName(int columnIndex) {
 			switch(columnIndex) {
 			case 0: return "Nombre";
-			case 1: return "Posicion";
+			case 1: return "Posición";
 			case 2: return "Edad";
-			case 3: return "Anyos de contrato";
+			case 3: return "Años de contrato";
 			case 4: return "Salario";
 			}
 			return null;
@@ -393,7 +392,7 @@ public class Equipo {
 		public String getColumnName(int columnIndex) {
 			switch(columnIndex) {
 			case 0: return "Nombre";
-			case 1: return "Posicion";
+			case 1: return "Posición";
 			case 2: return "Rol";
 			case 3: return "Overall";
 			case 4: return "PPP";

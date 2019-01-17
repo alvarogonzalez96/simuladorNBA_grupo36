@@ -89,7 +89,7 @@ public class Partido {
 	}
 	
 	public void simularJugada(Quinteto atacando, Quinteto defendiendo) {		
-		double random = Math.random();//N�mero que decide la jugada
+		double random = Math.random();//Número que decide la jugada
 		double pTiro = 0.773;//Probabilidad de que la jugada acabe en un tiro de 2
 		double pTiroLibre = 0.098;//Probabilidad de que la jugada acabe con un tiro libre
 
@@ -100,7 +100,7 @@ public class Partido {
 			//Tiros libres
 			tirosLibres(atacando, defendiendo);
 		} else {
-			//P�rdida
+			//Pérdida
 			//Termina la jugada
 		}
 	}
@@ -108,8 +108,6 @@ public class Partido {
 	public void tirar(Quinteto atacando, Quinteto defendiendo) {
 		double tiroDeDos = 0.6572;
 		double random = Math.random();
-		double meterDos = 0.55;
-		double meterTres = 0.36;
 		double variacionJugador = 0;
 		
 		Jugador j = new Jugador();
@@ -239,6 +237,9 @@ public class Partido {
 		}
 	}
 	
+	/**
+	 * Método que elige al reboteador 
+	 * */
 	public void elegirReboteador(Quinteto q) {
 		Jugador jugador = new Jugador();
 		for (Jugador j : q.jugadores) {
@@ -272,6 +273,9 @@ public class Partido {
 		jugador.rebotesTemporada += 1;
 	}
 	
+	/**
+	 * Método que elige al asistente
+	 * */
 	public void elegirAsistente(Quinteto q, Jugador jug) {
 		Jugador jugador = q.jugadores[0];
 		for (Jugador j : q.jugadores) {
@@ -286,6 +290,9 @@ public class Partido {
 		}
 	}
 	
+	/**
+	 * @return Jugador que realiza el tiro libre
+	 * */
 	public Jugador elegirTiradorLibre(Quinteto q) {
 		Jugador jugador = q.jugadores[0];
 		for (Jugador j : q.jugadores) {
@@ -296,6 +303,9 @@ public class Partido {
 		return jugador;
 	}
 	
+	/**
+	 * @return Jugador que realiza el tiro de tres
+	 * */
 	public Jugador elegirTiradorTres(Quinteto q) {
 		Jugador jugador = q.jugadores[0];
 		for (Jugador j : q.jugadores) {
@@ -306,6 +316,9 @@ public class Partido {
 		return jugador;
 	}
 	
+	/**
+	 * @return Jugador que realiza el lanzamiento de dos
+	 * */
 	public Jugador elegirTiradorDos(Quinteto q) {
 		Jugador jugador = q.jugadores[0];
 		for (Jugador j : q.jugadores) {
@@ -322,6 +335,10 @@ public class Partido {
 		return jugador;
 	}
 	
+	/**
+	 * Método para asignar los minutos que jugará
+	 * cada jugador de un equipo durante un partido
+	 * */
 	public void asignarMinutos(Equipo equipo) {
 		int min = 2880;
 		int minBase = 0;

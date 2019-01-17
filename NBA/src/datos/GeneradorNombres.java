@@ -14,7 +14,7 @@ public class GeneradorNombres {
 	}
 	
 	/**
-	 * Metodo que devuelve un nombre completo aleatorio (nombre + apellido).
+	 * Método que devuelve un nombre completo aleatorio (nombre + apellido).
 	 * @return un String con un nombre completo.
 	 * */
 	public static String getNombreCompleto() {
@@ -22,7 +22,7 @@ public class GeneradorNombres {
 	}
 	
 	/**
-	 * Metodo para conseguir un apellido aleatorio.
+	 * Método para conseguir un apellido aleatorio.
 	 * @return un String con un apellido de la lista de apellidos
 	 * */
 	private static String getApellido() {
@@ -30,7 +30,7 @@ public class GeneradorNombres {
 	}
 	
 	/**
-	 * Metodo para conseguir un nombre aleatorio.
+	 * Método para conseguir un nombre aleatorio.
 	 * @return un String con un nombre de la lista de nombres
 	 * */
 	private static String getNombre() {
@@ -38,10 +38,10 @@ public class GeneradorNombres {
 	}
 	
 	/**
-	 * Metodo que carga todas las lineas (String) del fichero
+	 * Método que carga todas las líneas (String) del fichero
 	 * indicado en el ArrayList indicado
-	 * @param fich, String con la direccion al fichero a leer
-	 * @param lista, ArrayList<String> en el que se cargan las lineas del fichero.
+	 * @param fich, String con la dirección al fichero a leer
+	 * @param lista, ArrayList<String> en el que se cargan las líneas del fichero.
 	 * */
 	private static void cargarLineas(String fich, ArrayList<String> lista) {
 		try {
@@ -57,9 +57,9 @@ public class GeneradorNombres {
 	}
 	
 	/**
-	 * Metodo que devuelve un elemento aleatorio (String) de un ArrayList<String>
+	 * Método que devuelve un elemento aleatorio (String) de un ArrayList<String>
 	 * @return un String conseguido de manera aleatorio de la lista indicada
-	 * @param lineas, ArrayList<String> del que se cogera un elemento aleatorio
+	 * @param lineas, ArrayList<String> del que se cogerá un elemento aleatorio
 	 * */
 	private static String getRandom(ArrayList<String> lineas) {
 		return lineas.get((int)(Math.random()*lineas.size()));

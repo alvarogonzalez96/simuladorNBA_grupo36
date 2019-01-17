@@ -178,7 +178,7 @@ public class PanelTraspasos extends PanelTab{
 		buscarOferta.addActionListener(
 				(ActionEvent e) -> {
 					if(LigaManager.draftEnCurso) {
-						JOptionPane.showMessageDialog(null, "No puedes realizar ningun traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "No puedes realizar ningún traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 					if(equipoSeleccionado.getTid() != -8) {
@@ -193,7 +193,7 @@ public class PanelTraspasos extends PanelTab{
 		borrarOferta.addActionListener(
 				(ActionEvent e) -> {
 					if(LigaManager.draftEnCurso) {
-						JOptionPane.showMessageDialog(null, "No puedes realizar ningun traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "No puedes realizar ningún traspaso hasta que haya terminado el draft.", "Aviso", JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 					jugadoresOfreceLiga.clear();
@@ -206,7 +206,7 @@ public class PanelTraspasos extends PanelTab{
 				(ActionEvent e) -> {
 					//hasta que el draft no haya terminado no se puede hacer nada
 					if(LigaManager.draftEnCurso) {
-						JOptionPane.showMessageDialog(null, "No puedes realizar ninguna gestion hasta que haya concluido el draft", "Aviso", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "No puedes realizar ninguna gestión hasta que haya concluido el draft", "Aviso", JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 					
@@ -227,8 +227,7 @@ public class PanelTraspasos extends PanelTab{
 	private void resetearContadores() {
 		for (int i = 0; i < contadorLiga.length; i++) {
 			contadorUsuario[i] = 0;
-		}
-		
+		}	
 		contadorUsuario = LigaManager.contarPosiciones(equipoUsuario, contadorUsuario);
 	}
 	
@@ -330,7 +329,7 @@ public class PanelTraspasos extends PanelTab{
 		int dineroDisponibleUsuario, dineroDisponibleLiga, numero, jugOfrecido;
 		
 		if(jugadoresOfreceUsuario.size() == 0) {
-			JOptionPane.showMessageDialog(null, "Selecciona algun jugador para recibir ofertas");
+			JOptionPane.showMessageDialog(null, "Selecciona algún jugador para recibir ofertas");
 		} else if(jugadoresOfreceUsuario.size() > 0) {
 			numero = jugadoresOfreceUsuario.size();
 			jugOfrecido = 0;
@@ -356,31 +355,25 @@ public class PanelTraspasos extends PanelTab{
 						if((j.getSalario() > jugadoresOfreceUsuario.get(jugOfrecido).getSalario() - 3000 && j.getSalario() < jugadoresOfreceUsuario.get(jugOfrecido).getSalario() + 3000)) {
 							if((dineroDisponibleLiga + jugadoresOfreceUsuario.get(jugOfrecido).getSalario() >= 0 && (dineroDisponibleUsuario + j.getSalario()) >= 0)) {
 								if(((j.getOverall() > jugadoresOfreceUsuario.get(jugOfrecido).getOverall() - 3) && (j.getOverall() < jugadoresOfreceUsuario.get(jugOfrecido).getOverall() + 3))) {
-									System.out.println(jugadoresOfreceUsuario.get(jugOfrecido).getNombre() + " -> " + j.getNombre());
 									//El jugador elegido tiene un overall en torno al overall ofrecido
 									if(j.getPosicion().equals(Posicion.BASE) && contadorLiga[0] >= 2) {
 										//Es base y no hay carencia de bases
-										System.out.println(jugadoresOfreceUsuario.get(jugOfrecido).getNombre() + " -> " + j.getNombre() );
 										jugadoresOfreceLiga.add(j);	
 										break;
 									} else if(j.getPosicion().equals(Posicion.ESCOLTA) && contadorLiga[1] >= 2) {
 										//Es escolta y no hay carencia de escoltas
-										System.out.println(jugadoresOfreceUsuario.get(jugOfrecido).getNombre() + " -> " + j.getNombre() );
 										jugadoresOfreceLiga.add(j);
 										break;
 									} else if(j.getPosicion().equals(Posicion.ALERO) && contadorLiga[2] >= 2) {
 										//Es alero y no hay carencia de aleros
-										System.out.println(jugadoresOfreceUsuario.get(jugOfrecido).getNombre() + " -> " + j.getNombre() );
 										jugadoresOfreceLiga.add(j);
 										break;
 									} else if(j.getPosicion().equals(Posicion.ALAPIVOT) && contadorLiga[3] >= 2) {
 										//Es alapivot y no hay carencia de alapivots
-										System.out.println(jugadoresOfreceUsuario.get(jugOfrecido).getNombre() + " -> " + j.getNombre() );
 										jugadoresOfreceLiga.add(j);
 										break;
 									} else if(j.getPosicion().equals(Posicion.PIVOT) && contadorLiga[4] >= 2) {
 										//Es pivot y no hay carencia de pivots
-										System.out.println(jugadoresOfreceUsuario.get(jugOfrecido).getNombre() + " -> " + j.getNombre() );
 										jugadoresOfreceLiga.add(j);
 										break;
 									} 
@@ -415,6 +408,9 @@ public class PanelTraspasos extends PanelTab{
 		}
 	}
 	
+	/**
+	 * @return int del dinero disponible del equipo
+	 * */
 	private int calcularDineroDisponible(Equipo e, ArrayList<Jugador> jugadores) {
 		int disponible = 0;
 		int salarioTotal = 0;
@@ -469,8 +465,8 @@ public class PanelTraspasos extends PanelTab{
 			case 2: return "Edad";
 			case 3: return "Overall";
 			case 4: return "Salario";
-			case 5: return "Anyos de Contrato";
-			case 6: return "Valoracion";
+			case 5: return "Años de Contrato";
+			case 6: return "Valoración";
 			}
 			return null;
 		}
@@ -529,8 +525,8 @@ public class PanelTraspasos extends PanelTab{
 			case 2: return "Edad";
 			case 3: return "Overall";
 			case 4: return "Salario";
-			case 5: return "Anyos de Contrato";
-			case 6: return "Valoracion";
+			case 5: return "Años de Contrato";
+			case 6: return "Valoración";
 			}
 			return null;
 		}
