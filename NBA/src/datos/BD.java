@@ -53,6 +53,15 @@ public class BD {
 		}
 	}
 	
+	public static void desconectar() {
+		try {
+			st.close();
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void commit() {
 		try {
 			conexion.commit();

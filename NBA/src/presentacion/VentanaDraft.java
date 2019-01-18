@@ -205,6 +205,7 @@ public class VentanaDraft extends JFrame {
 		} else {
 			LigaManager.draftEnCurso = false;
 			super.dispose();
+			VentanaJugador.cerrarVentanasAbiertas();
 			panelPlayoffs.comenzarFaseGestiones();
 		}
 		
@@ -316,11 +317,13 @@ public class VentanaDraft extends JFrame {
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			Jugador j = draft.get(rowIndex);
-			switch(columnIndex) {
-			case 0: return j.getNombre();
-			case 1: return j.getPosicion();
-			case 2: return j.getOverall();
+			if(rowIndex >= 0 && rowIndex < draft.size()) {
+				Jugador j = draft.get(rowIndex);
+				switch(columnIndex) {
+				case 0: return j.getNombre();
+				case 1: return j.getPosicion();
+				case 2: return j.getOverall();
+				}
 			}
 			return null;
 		}

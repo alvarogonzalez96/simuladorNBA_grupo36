@@ -99,7 +99,6 @@ public class PanelPlayoffs extends PanelTab {
 		LigaManager.renovaciones(orden, true);
 		LigaManager.agenciaLibre(orden, true);
 		LigaManager.despedirJugadores(orden, true);
-		//roles
 	}
 	
 	@Override

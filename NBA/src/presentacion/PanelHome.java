@@ -75,6 +75,8 @@ public class PanelHome extends PanelTab {
 							LigaManager.despedirJugadores(orden, false);
 							LigaManager.agenciaLibre(orden, false);
 							
+							VentanaJugador.cerrarVentanasAbiertas();
+							
 							//Cambian los overalls
 							cambiarOveralls();
 							
@@ -90,6 +92,7 @@ public class PanelHome extends PanelTab {
 							LigaManager.reset();
 							clasificacion.setModel(LigaManager.clasificaciones.get("GENERAL").getTableModel());
 							temporada.setText(""+LigaManager.anyo+"/"+(LigaManager.anyo+1));
+							balance.setText("Balance: 0-0");
 							repaint();
 						} else if(op == -2) {
 							JOptionPane.showMessageDialog(null, "Antes de continuar, tienes que asegurarte de que tu plantilla no tenga más de 15 jugadores", "Aviso", JOptionPane.WARNING_MESSAGE);

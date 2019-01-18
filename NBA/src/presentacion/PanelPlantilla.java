@@ -21,17 +21,18 @@ public class PanelPlantilla extends PanelTab {
 	private JScrollPane scrollTabla;
 	private JTable tabla;
 	private JComboBox<String> combo;
+	private JButton botonMiEquipo;
 	
 	private int indiceSeleccionado;
 	
 	public PanelPlantilla() {
 		super();
-		indiceSeleccionado = 0;
+		indiceSeleccionado = LigaManager.usuario.getEquipo().getTid();
 	}
 	
 	protected void crearPaneles() {
 		equipos = LigaManager.equipos;
-		panelSeleccion = new JPanel();
+		panelSeleccion = new JPanel(new FlowLayout());
 	}
 	
 	protected void setListeners() {
@@ -50,6 +51,11 @@ public class PanelPlantilla extends PanelTab {
 				}
 			}
 		});
+		botonMiEquipo.addActionListener(
+				(ActionEvent e) -> {
+					combo.setSelectedIndex(LigaManager.usuario.getEquipo().getTid());
+					actualizarEquipo();
+				});
 	}
 	
 	private void lanzaVentanaJugador(Jugador j) {
@@ -79,6 +85,8 @@ public class PanelPlantilla extends PanelTab {
 		addEquipos();
 		JLabel label = new JLabel("Equipo: ");
 		
+		botonMiEquipo = new JButton("Mi equipo");
+		
 		tabla = new JTable();
 		tabla.setRowHeight(50);
 		tabla.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -91,6 +99,7 @@ public class PanelPlantilla extends PanelTab {
 		
 		panelSeleccion.add(label);
 		panelSeleccion.add(combo);
+		panelSeleccion.add(botonMiEquipo);
 		add(panelSeleccion, BorderLayout.NORTH);
 		add(scrollTabla, BorderLayout.CENTER);
 	}
@@ -116,4 +125,7 @@ public class PanelPlantilla extends PanelTab {
 		repaint();
 	}
 	
+	public void seleccionarEquipo(int n) {
+		combo.setSelectedIndex(n);
+	}
 }

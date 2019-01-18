@@ -36,6 +36,7 @@ public class VentanaPrincipal extends JFrame {
 	PanelCalendario calendario;
 	PanelClasificacion clasificacion;
 	PanelPlayoffs playoffs;
+	PanelPlantilla plantilla;
 	
 	private VentanaAyuda ventanaAyuda;
 	
@@ -72,7 +73,7 @@ public class VentanaPrincipal extends JFrame {
 		calendario = new PanelCalendario();
 		tabbedPane.addTab("Calendario", null, calendario, null);
 		
-		JPanel plantilla = new PanelPlantilla();
+		plantilla = new PanelPlantilla();
 		tabbedPane.addTab("Plantilla", null, plantilla, null);
 		
 		finanzas = new PanelFinanzas();
@@ -107,6 +108,9 @@ public class VentanaPrincipal extends JFrame {
 		
 		initBarra();
 		
+		finanzas.seleccionarEquipo(LigaManager.usuario.getEquipo().getTid());
+		plantilla.seleccionarEquipo(LigaManager.usuario.getEquipo().getTid());
+		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setTitle("NBA");
 		this.pack();
@@ -115,7 +119,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	private void initBarra() {
 		itemAyuda = new JMenuItem("Ayuda");
-		itemLogout = new JMenuItem("Cerrar sesión");
+		itemLogout = new JMenuItem("Salir");
 		itemAcercaDe = new JMenuItem("Acerca de...");
 		
 		menuUsuario.add(itemAyuda);
@@ -140,7 +144,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		itemLogout.addActionListener(
 				(ActionEvent e) -> {
-					//cerrar sesión, cerrar la ventana principal y mostrar la ventana de inicio
+					//cerrar sesión, cerrar la ventana principal
 					dispose();
 				});
 	}
@@ -150,10 +154,12 @@ public class VentanaPrincipal extends JFrame {
 		int c = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres salir? Perderás todo el progreso de la temporada actual.", "Confirmar", JOptionPane.WARNING_MESSAGE);
 		if(c == JOptionPane.OK_OPTION) {
 			BD.rollback();
+			BD.desconectar();
 			ventanaAyuda.dispose();
 			if(LigaManager.draftEnCurso) {
 				playoffs.forzarCerrarVentanaDraft();
 			}
+			VentanaJugador.cerrarVentanasAbiertas();
 			super.dispose();
 		}
 	}

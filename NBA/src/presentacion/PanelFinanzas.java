@@ -16,12 +16,13 @@ public class PanelFinanzas extends PanelTab {
 	private JTable tabla;
 	private JComboBox<String> combo;
 	private JLabel labelSalarioTotal;
+	private JButton botonMiEquipo;
 	
 	private int indiceSeleccionado;
 	
 	public PanelFinanzas() {
 		super();
-		indiceSeleccionado = 0;
+		indiceSeleccionado = LigaManager.usuario.getEquipo().getTid();
 	}
 	
 	@Override
@@ -52,6 +53,10 @@ public class PanelFinanzas extends PanelTab {
 				}
 			}
 		});
+		botonMiEquipo.addActionListener( 
+				(ActionEvent e) -> {
+					seleccionarEquipo(LigaManager.usuario.getEquipo().getTid());
+				});
 	}
 	
 	private void lanzaVentanaJugador(Jugador j) {
@@ -70,6 +75,8 @@ public class PanelFinanzas extends PanelTab {
 		}
 		JLabel label = new JLabel("Equipo: ");
 		
+		botonMiEquipo = new JButton("Mi equipo");
+		
 		tabla = new JTable();
 		tabla.setRowHeight(50);
 		tabla.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -87,6 +94,7 @@ public class PanelFinanzas extends PanelTab {
 		
 		panelSeleccion.add(label);
 		panelSeleccion.add(combo);
+		panelSeleccion.add(botonMiEquipo);
 		add(panelSeleccion, BorderLayout.NORTH);
 		add(scrollTabla, BorderLayout.CENTER);	
 	}
@@ -111,5 +119,9 @@ public class PanelFinanzas extends PanelTab {
 		labelSalarioTotal.setText("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
 		tabla.repaint();
 		repaint();
+	}
+	
+	public void seleccionarEquipo(int n) {
+		combo.setSelectedIndex(n);
 	}
 }

@@ -3,6 +3,7 @@ package presentacion;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
@@ -14,7 +15,7 @@ import negocio.Jugador;
 import negocio.LigaManager;
 
 public class VentanaJugador extends JFrame {
-
+	
 	Jugador jugador;
 	
 	JLabel nombre;
@@ -31,6 +32,11 @@ public class VentanaJugador extends JFrame {
 	
 	PanelTab panelTab;
 	
+	private static ArrayList<VentanaJugador> ventanasAbiertas;
+	static {
+		ventanasAbiertas = new ArrayList<>();
+	}
+	
 	public VentanaJugador(PanelTab panelTab, Jugador j) {
 		this.panelTab = panelTab;
 		Container cp = getContentPane();
@@ -38,6 +44,8 @@ public class VentanaJugador extends JFrame {
 		cp.setLayout(new BorderLayout());
 		
 		initComponentes();
+		
+		ventanasAbiertas.add(this);
 		
 		panelTitulo = new JPanel();
 		panelInferior = new JPanel(new BorderLayout());
@@ -60,6 +68,24 @@ public class VentanaJugador extends JFrame {
 		this.setTitle(jugador.getNombre());
 	}
 	
+	/**
+	 * Metodo que cierra todas las ventanas de jugador abiertas.
+	 * Esto es necesario para evitar que el usuario realice
+	 * acciones 'ilegales' con respecto a las renovaciones/despidos/etc.
+	 * 
+	 * Ejemplo: dejar una ventana de jugador abierta indefinidamente. En un
+	 * momento dado, ese jugador puede que se vaya a otro equipo. Como
+	 * la ventana de jugador se abrió cuando dicho jugador seguía en el equipo
+	 * del usuario, el botón de renovar seguirá mostrándose, por lo que el usuario
+	 * podría hacer que el juego no funcionara de forma correcta.
+	 * */
+	public static void cerrarVentanasAbiertas() {
+		for(VentanaJugador v: ventanasAbiertas) {
+			v.dispose();
+		}
+		ventanasAbiertas.clear();
+	}
+	
 	private void addBotones() {
 		if(jugador.getTid() == -1) {
 			//agente libre
@@ -79,10 +105,6 @@ public class VentanaJugador extends JFrame {
 					panelBotones.add(new JLabel("Años: "));
 					panelBotones.add(sliderAnyos);
 				}
-			} else {
-				//jugador de otro equipo
-				
-				//botón para proponer traspaso/que debería ofrecer para traspasarlo a mi equipo? (idea)
 			}
 		}
 	}
@@ -173,7 +195,17 @@ public class VentanaJugador extends JFrame {
 							dispose();
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "No es posible cortar al jugador, te faltarían jugadores en la posición de "+jugador.getPosicion(), "Aviso", JOptionPane.WARNING_MESSAGE);
+						if(LigaManager.fase <= 1) { // no han pasado los playoffs
+							JOptionPane.showConfirmDialog(null, "No puedes cortar a "+jugador.getNombre()+", te faltarían jugadores en la posición de "+jugador.getPosicion(), "Aviso", JOptionPane.WARNING_MESSAGE);
+							return;
+						}
+						// han pasado los playoffs
+						int res = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres cortar a "+jugador.getNombre()+"?"
+								+ " Te faltarían jugadores en la posición de "+jugador.getPosicion(), "Aviso", JOptionPane.WARNING_MESSAGE);
+						if(res == JOptionPane.YES_OPTION) {
+							cortar(jugador);
+							dispose();
+						}
 					}
 				});
 	}
