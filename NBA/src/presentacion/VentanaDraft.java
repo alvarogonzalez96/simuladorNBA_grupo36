@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import negocio.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
 
 public class VentanaDraft extends JFrame {
 	
@@ -149,6 +150,7 @@ public class VentanaDraft extends JFrame {
 		
 		botonComenzar.addActionListener(
 				(ActionEvent e) -> {
+					LigaManager.logger.log(Level.INFO, "Inicio de draft "+LigaManager.anyo);
 					hilo.start();
 					botonComenzar.setEnabled(false);
 				}
@@ -177,7 +179,7 @@ public class VentanaDraft extends JFrame {
 				if(indice >= 60) {
 					if(!cierreForzoso) JOptionPane.showMessageDialog(null, "El draft ha terminado. Ahora es tiempo de renovaciones, despidos y fichajes de la agencia libre. Cuando estés listo, haz click en comenzar temporada!", "Fin del draft", JOptionPane.INFORMATION_MESSAGE);
 					finalizado = true;
-					//dispose();
+					LigaManager.logger.log(Level.INFO, "Fin del draft "+LigaManager.anyo);
 				}
 			}
 			

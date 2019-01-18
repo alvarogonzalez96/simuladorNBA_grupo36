@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class Playoffs {
 
@@ -61,9 +62,7 @@ public class Playoffs {
 				campeon = series.get(Series.FINAL).getGanador();
 				LigaManager.campeon = campeon;
 				LigaManager.fase++;
-				
-				//
-				
+				LigaManager.logger.log(Level.INFO, "Fin de playoffs "+LigaManager.anyo);				
 				break;
 			}
 		}

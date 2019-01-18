@@ -5,6 +5,7 @@ import negocio.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -69,6 +70,7 @@ public class PanelHome extends PanelTab {
 					if(LigaManager.finTemporada) {
 						int op = LigaManager.comprobarEquipoUsuario();
 						if(op == 0) {
+							LigaManager.logger.log(Level.INFO, "Fin temporada "+LigaManager.anyo);
 							//que el resto de equipos terminen sus gestiones
 							ArrayList<Equipo> orden = LigaManager.clasificaciones.get("GENERAL").getEquipos();
 							LigaManager.renovaciones(orden, false);

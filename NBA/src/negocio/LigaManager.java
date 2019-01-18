@@ -6,6 +6,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
 import javax.swing.event.TableModelListener;
@@ -24,6 +27,20 @@ import presentacion.VentanaEspera;
 
 public class LigaManager {
 
+	public static Logger logger;
+	static {
+		logger = Logger.getLogger("logger-LigaManager");
+		try {
+			FileHandler f = new FileHandler("log/logLM.log", true);
+			logger.setUseParentHandlers(false);
+			logger.setLevel(Level.ALL);
+			f.setLevel(Level.ALL);
+			logger.addHandler(f);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "No se ha podido cargar el logger.", e);
+		}
+	}
+	
 	public static int fase; 
 	
 	/*
@@ -124,7 +141,8 @@ public class LigaManager {
 					j.rookie = false;
 				}
 			}
-		}		
+		}
+		logger.log(Level.INFO, "LigaManager inicializado correctamente");
 	}
 	
 	/** 
@@ -146,6 +164,7 @@ public class LigaManager {
 				//fin de la temporada regular
 				fase++;
 				playoffs = new Playoffs();
+				logger.log(Level.INFO, "Fin de la temporada regular "+anyo);
 				return true;
 			}
 			return false;
@@ -176,6 +195,7 @@ public class LigaManager {
 		JSONObject all = ParseadorJSON.getObjetoPrimario("data/equipos.json");
 		JSONArray equiposJSON = all.getJSONArray("teams");
 		equipos = ParseadorJSON.aArrayEquipos(equiposJSON);
+		logger.log(Level.INFO, "Equipos cargados correctamente");
 	}
 	
 	/**
@@ -1209,6 +1229,8 @@ public class LigaManager {
 		PanelTraspasos.actualizarCombo();
 		
 		temporadasPasadas.put(anyo, new Temporada());
+		
+		logger.log(Level.INFO, "Reseteo de LigaManager");
 	}
 	
 	/**

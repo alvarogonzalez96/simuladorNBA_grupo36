@@ -1,5 +1,6 @@
 package datos;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
@@ -11,6 +12,9 @@ import java.sql.DriverManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import negocio.*;
 
@@ -20,17 +24,31 @@ public class BD {
 	 * Clase desde la que se manejará la base de datos,
 	 * todas las consultas y conexiones se realizarán desde esta clase.
 	 * */
+	
+	private static Logger logger;
 
 	static final String DIRECTORIO = "data/database.db";
 	
 	static SimpleDateFormat sdf; 
 
 	static {
+		logger = Logger.getLogger("logger-BD");
+		try {
+			FileHandler f = new FileHandler("log/logBD.log", true);
+			logger.setUseParentHandlers(false);
+			logger.setLevel(Level.ALL);
+			f.setLevel(Level.ALL);
+			logger.addHandler(f);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "No se ha podido cargar el logger.", e);
+		}
 		sdf = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			Class.forName("org.sqlite.JDBC");
+			logger.log(Level.INFO, "Driver cargado correctamente");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al cargar el driver", e);
 		}
 	}
 
@@ -46,9 +64,11 @@ public class BD {
 			conexion = DriverManager.getConnection("jdbc:sqlite:"+DIRECTORIO);
 			conexion.setAutoCommit(false);
 			st = conexion.createStatement();
+			logger.log(Level.INFO, "Conexion a la BD exitosa");
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al conectar con la BD", e);
 			return false;
 		}
 	}
@@ -57,24 +77,30 @@ public class BD {
 		try {
 			st.close();
 			conexion.close();
+			logger.log(Level.INFO, "Desconexion de la BD exitosa");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al desconectarse de la BD", e);
 		}
 	}
 	
 	public static void commit() {
 		try {
 			conexion.commit();
+			logger.log(Level.INFO, "Commit realizado correctamente");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al realizar commit", e);
 		}
 	}
 	
 	public static void rollback() {
 		try {
 			conexion.rollback();
+			logger.log(Level.INFO, "Rollback ejecutado correctamente");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al ejecutar rollback", e);
 		}
 	}
 
@@ -148,6 +174,7 @@ public class BD {
 						   + "ID_EQUIPO INTEGER)");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al crear la tabla USUARIO", e);
 			return false;
 		}
 		return true;
@@ -181,6 +208,7 @@ public class BD {
 						   + "DRB INTEGER)");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al crear la tabla JUGADOR", e);
 			return false;
 		}
 		return true;
@@ -200,6 +228,7 @@ public class BD {
 						   + "PRIMARY KEY(ANYO_INICIO, NOMBRE_USUARIO))");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al crear la tabla TEMPORADA", e);
 			return false;
 		}
 		return true;
@@ -222,6 +251,7 @@ public class BD {
 						   + "PRIMARY KEY (ID_J,ANYO, NOMBRE_USUARIO))");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al crear la tabla JUEGA", e);
 			return false;
 		}
 		return true;
@@ -236,6 +266,7 @@ public class BD {
 			return 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al averiguar el primer ID libre de JUGADOR", e);
 		}
 		return -1;
 	}
@@ -273,6 +304,7 @@ public class BD {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al guardar jugador", e);
 			return false;
 		}
 		return true;
@@ -286,6 +318,7 @@ public class BD {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al borrar jugador", e);
 		}
 
 	}
@@ -304,6 +337,7 @@ public class BD {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al guardar temporada", e);
 		}
 	}
 	
@@ -326,6 +360,7 @@ public class BD {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al guardar juega", e);
 		}
 	}
 	
@@ -398,11 +433,13 @@ public class BD {
 					}
 				} catch(SQLException e2) {
 					e2.printStackTrace();
+					logger.log(Level.SEVERE, "Error al cargar JUEGA de jugador con ID="+j.getID(), e2);
 				}
 				jugadores.add(j);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al cargar jugadores", e);
 			return null;
 		}
 		
@@ -434,6 +471,7 @@ public class BD {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al cargar temporadas pasadas", e);
 		}
 		
 		return temps;
@@ -459,6 +497,7 @@ public class BD {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "Error al actualizar overall de jugadores", e);
 		}
 	}
 	

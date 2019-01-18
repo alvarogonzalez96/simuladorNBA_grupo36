@@ -51,11 +51,11 @@ public class Inicio {
 			}
 		} catch (Exception e) {}
 		
+		BD.conectar();
 		ventanaInicio();
 	}
 	
 	protected void ventanaInicio() {
-		BD.conectar();
 		int respuesta = 2;
 		String nombreUsuario = "*";
 		String contrasenya = null;
@@ -197,7 +197,7 @@ public class Inicio {
 	}
 
 	private void salir() {
-		System.exit(0);
+		BD.desconectar();
 	}
 	
 	private String[] getNombresEquipos() {
