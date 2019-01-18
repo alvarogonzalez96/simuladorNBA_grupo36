@@ -4,6 +4,8 @@ import negocio.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.TitledBorder;
@@ -160,6 +162,7 @@ public class VentanaPrincipal extends JFrame {
 				playoffs.forzarCerrarVentanaDraft();
 			}
 			VentanaJugador.cerrarVentanasAbiertas();
+			LigaManager.logger.log(Level.INFO, "Cierre de programa desde ventana principal");
 			super.dispose();
 		}
 	}

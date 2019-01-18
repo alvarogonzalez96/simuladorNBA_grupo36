@@ -1,5 +1,6 @@
 package datos;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -26,6 +27,8 @@ public class BD {
 	 * */
 	
 	private static Logger logger;
+	
+	private static boolean existeBD;
 
 	static final String DIRECTORIO = "data/database.db";
 	
@@ -60,11 +63,14 @@ public class BD {
 	 * @return true si la conexión se establece correctamente | false si hay algún problema
 	 * */
 	public static boolean conectar() {
+		File f = new File(DIRECTORIO);
+		existeBD = f.exists();
 		try {
 			conexion = DriverManager.getConnection("jdbc:sqlite:"+DIRECTORIO);
 			conexion.setAutoCommit(false);
 			st = conexion.createStatement();
 			logger.log(Level.INFO, "Conexion a la BD exitosa");
+			if(!existeBD) crearTablas();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -162,6 +168,7 @@ public class BD {
 		crearTablaJugador();
 		crearTablaTemporada();
 		crearTablaJuega();
+		commit();
 		return true;
 	}
 	
@@ -504,6 +511,5 @@ public class BD {
 	public static void main(String[] args) {
 		conectar();
 		crearTablas();
-		commit();
 	}
 }

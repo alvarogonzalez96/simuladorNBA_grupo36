@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
