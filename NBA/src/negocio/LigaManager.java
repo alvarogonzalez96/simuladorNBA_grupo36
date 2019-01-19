@@ -1,5 +1,6 @@
 package negocio;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,6 +31,10 @@ public class LigaManager {
 	public static Logger logger;
 	static {
 		logger = Logger.getLogger("logger-LigaManager");
+		File file = new File("log");
+		if(!file.exists()) {
+			file.mkdir();
+		}
 		try {
 			FileHandler f = new FileHandler("log/logLM.log", true);
 			logger.setUseParentHandlers(false);

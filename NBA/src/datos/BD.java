@@ -36,6 +36,10 @@ public class BD {
 
 	static {
 		logger = Logger.getLogger("logger-BD");
+		File file = new File("log");
+		if(!file.exists()) {
+			file.mkdir();
+		}
 		try {
 			FileHandler f = new FileHandler("log/logBD.log", true);
 			logger.setUseParentHandlers(false);
@@ -69,7 +73,7 @@ public class BD {
 			conexion = DriverManager.getConnection("jdbc:sqlite:"+DIRECTORIO);
 			conexion.setAutoCommit(false);
 			st = conexion.createStatement();
-			logger.log(Level.INFO, "Conexion a la BD exitosa");
+			logger.log(Level.INFO, "Conexión a la BD exitosa");
 			if(!existeBD || !comprobarBDEsCorrecta()) crearTablas();
 			return true;
 		} catch (SQLException e) {
@@ -83,7 +87,7 @@ public class BD {
 		try {
 			st.close();
 			conexion.close();
-			logger.log(Level.INFO, "Desconexion de la BD exitosa");
+			logger.log(Level.INFO, "Desconexión de la BD exitosa");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Error al desconectarse de la BD", e);
@@ -147,7 +151,6 @@ public class BD {
 		try {
 			ResultSet rs = st.executeQuery("SELECT NOMBRE FROM USUARIO");
 			while(rs.next()) {
-				String n = rs.getString("NOMBRE");
 				if(rs.getString("NOMBRE").equalsIgnoreCase(username)) {
 					rs.close();
 					return -1;
