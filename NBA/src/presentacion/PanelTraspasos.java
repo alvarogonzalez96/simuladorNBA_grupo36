@@ -215,7 +215,11 @@ public class PanelTraspasos extends PanelTab{
 						if(contadorUsuario[0] >= 2 && contadorUsuario[1] >= 2 && contadorUsuario[2] >= 2 && contadorUsuario[3] >= 2 && contadorUsuario[4] >= 2) {
 							traspasarJugadores();
 						} else {
-							JOptionPane.showMessageDialog(null, "No tienes suficientes jugadores cubriendo todas las posiciones");
+							if(LigaManager.fase <= 1) {
+								JOptionPane.showMessageDialog(null, "No tienes suficientes jugadores cubriendo todas las posiciones");
+							} else {
+								traspasarJugadores();
+							}
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Faltan jugadores para completar el traspaso");	
@@ -380,21 +384,21 @@ public class PanelTraspasos extends PanelTab{
 								} else {
 									JOptionPane.showMessageDialog(null, "Los " + equipoSeleccionado.getNombre() + " no encuentran un jugador para intercambiar por " + jugadoresOfreceUsuario.get(jugOfrecido).getNombre());
 									jugadoresOfreceLiga.clear();
-									jugadoresOfreceUsuario.clear();
+									//jugadoresOfreceUsuario.clear();
 									numero = 0;
 									break;
 								}
 							} else {
 								JOptionPane.showMessageDialog(null, "Los " + equipoSeleccionado.getNombre() + " no encuentran un jugador para intercambiar por " + jugadoresOfreceUsuario.get(jugOfrecido).getNombre());
 								jugadoresOfreceLiga.clear();
-								jugadoresOfreceUsuario.clear();
+								//jugadoresOfreceUsuario.clear();
 								numero = 0;
 								break;
 							}
 						} else {
 							JOptionPane.showMessageDialog(null, "Los " + equipoSeleccionado.getNombre() + " no encuentran un jugador para intercambiar por " + jugadoresOfreceUsuario.get(jugOfrecido).getNombre());
 							jugadoresOfreceLiga.clear();
-							jugadoresOfreceUsuario.clear();
+							//jugadoresOfreceUsuario.clear();
 							numero = 0;
 							break;
 						}

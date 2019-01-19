@@ -8,17 +8,12 @@ import java.util.logging.Level;
 
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeSelectionModel;
 
 import datos.BD;
 
-import javax.swing.UIManager.*;//Importar para poder usar nimbus look&Feel
-
+@SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
 	
 	protected JMenuBar barra;
@@ -40,7 +35,7 @@ public class VentanaPrincipal extends JFrame {
 	PanelPlayoffs playoffs;
 	PanelPlantilla plantilla;
 	
-	private VentanaAyuda ventanaAyuda;
+	private VentanaHTML ventanaAyuda, ventanaAcercaDe;
 	
 	public VentanaPrincipal(Usuario u, boolean desdeJSON) {
 		LigaManager.inicializar(desdeJSON, u);
@@ -59,7 +54,8 @@ public class VentanaPrincipal extends JFrame {
 		
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		
-		ventanaAyuda = new VentanaAyuda();
+		ventanaAyuda = new VentanaHTML(VentanaHTML.AYUDA);
+		ventanaAcercaDe = new VentanaHTML(VentanaHTML.ACERCA_DE);
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
@@ -141,7 +137,12 @@ public class VentanaPrincipal extends JFrame {
 		
 		itemAcercaDe.addActionListener(
 				(ActionEvent e) -> {
-					//mostrar ventana con información sobre el desarrollo del juego
+					if(ventanaAcercaDe.isShowing()) {
+						ventanaAcercaDe.setState(JFrame.NORMAL);
+						ventanaAcercaDe.toFront();
+					} else {
+						ventanaAcercaDe.setVisible(true);
+					}
 				});
 		
 		itemLogout.addActionListener(
@@ -158,6 +159,7 @@ public class VentanaPrincipal extends JFrame {
 			BD.rollback();
 			BD.desconectar();
 			ventanaAyuda.dispose();
+			ventanaAcercaDe.dispose();
 			if(LigaManager.draftEnCurso) {
 				playoffs.forzarCerrarVentanaDraft();
 			}

@@ -8,23 +8,33 @@ import java.nio.file.Paths;
 
 import javax.swing.*;
 
-public class VentanaAyuda extends JFrame {
+@SuppressWarnings("serial")
+public class VentanaHTML extends JFrame {
 
+	public static final int AYUDA = 0, ACERCA_DE = 1;
+	
 	private JEditorPane pane;
 	private JScrollPane scroll;
 	
-	public VentanaAyuda() {
+	public VentanaHTML(int tipo) {
 		super();
+		
+		String dir;
+		if(tipo == AYUDA) {
+			dir = "data/ayuda.html";
+		} else {
+			dir = "data/acercaDe.html";
+		}
 		
 		pane = new JEditorPane();
 		pane.setContentType("text/html");
 		
 		scroll = new JScrollPane(pane);
-		scroll.setPreferredSize(new Dimension(500,500));
+		scroll.setPreferredSize(new Dimension(700,700));
 		getContentPane().add(scroll, BorderLayout.CENTER);
 		
 		try {
-			String html = archivoAString("data/ayuda.html");
+			String html = archivoAString(dir);
 			pane.setText(html);
 			pane.setEditable(false);
 		} catch (IOException e) {
@@ -48,10 +58,6 @@ public class VentanaAyuda extends JFrame {
 	
 	public static String archivoAString(String dir) throws IOException {
 		return new String(Files.readAllBytes(Paths.get(dir)));
-	}
-	
-	public static void main(String[] args) {
-		new VentanaAyuda();
 	}
 
 }

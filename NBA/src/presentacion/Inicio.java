@@ -23,7 +23,7 @@ public class Inicio {
 		
 	private static String nombreUsuarioAnterior;
 	private static String nombreUsuarioIntroducido;
-
+	
 	static Properties prop;
 	
 	static void cargaUltimoNombreUsuario() {

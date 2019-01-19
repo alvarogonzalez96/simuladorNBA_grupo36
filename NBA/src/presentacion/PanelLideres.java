@@ -13,6 +13,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import negocio.Calendario;
 import negocio.Jugador;
 import negocio.LigaManager;
 
@@ -73,11 +74,13 @@ public class PanelLideres extends PanelTab {
 		BarRenderer rendererPuntos = ((BarRenderer) plotPuntos.getRenderer());
 		BarRenderer rendererRebotes = ((BarRenderer) plotRebotes.getRenderer());
 		BarRenderer rendererAsistencias = ((BarRenderer) plotAsistencias.getRenderer());
-		for(int i = 0; i < 5; i++) {
-			rendererPuntos.setSeriesPaint(i, LigaManager.equipos[puntos[i].getTid()].getColorPrimario());
-			rendererRebotes.setSeriesPaint(i, LigaManager.equipos[rebotes[i].getTid()].getColorPrimario());
-			rendererAsistencias.setSeriesPaint(i, LigaManager.equipos[asistencias[i].getTid()].getColorPrimario());
-			
+		
+		if(LigaManager.calendario.getDiaActual().after(Calendario.PRIMER_DIA)) {
+			for(int i = 0; i < 5; i++) {
+				rendererPuntos.setSeriesPaint(i, LigaManager.equipos[puntos[i].getTid()].getColorPrimario());
+				rendererRebotes.setSeriesPaint(i, LigaManager.equipos[rebotes[i].getTid()].getColorPrimario());
+				rendererAsistencias.setSeriesPaint(i, LigaManager.equipos[asistencias[i].getTid()].getColorPrimario());	
+			}
 		}
 		
 		repaint();
