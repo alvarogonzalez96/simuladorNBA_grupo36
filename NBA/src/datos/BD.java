@@ -119,8 +119,13 @@ public class BD {
 			for(int i = 0; i < noms.length; i++) {
 				pst.setString(2, noms[i]);
 				rs = pst.executeQuery();
-				if(!rs.next()) return false;
+				if(!rs.next()) {
+					rs.close();
+					return false;
+				}
+				rs.close();
 			}
+			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.WARNING, "Error al comprobar BD existente", e);
@@ -144,15 +149,18 @@ public class BD {
 			while(rs.next()) {
 				String n = rs.getString("NOMBRE");
 				if(rs.getString("NOMBRE").equalsIgnoreCase(username)) {
+					rs.close();
 					return -1;
 				}
 			}
+			rs.close();
 			PreparedStatement pst = conexion.prepareStatement("INSERT INTO USUARIO VALUES (?,?,?);");
 			pst.setString(1, username);
 			pst.setString(2, pass);
 			pst.setInt(3, teamID);
 			pst.executeUpdate();
-
+			pst.close();
+			
 			commit();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -173,9 +181,15 @@ public class BD {
 			pst.setString(1, username);
 			pst.setString(2, pass);
 			ResultSet rs = pst.executeQuery();
+			int ret = -1;
 			if(rs.next()) {
-				return rs.getInt(3);
+				ret = rs.getInt(3);
+				rs.close();
+				pst.close();
+				return ret;
 			}
+			rs.close();
+			pst.close();
 			return -1;
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -287,9 +301,13 @@ public class BD {
 	public static int getPrimerIdLibreJugador() {
 		try {
 			ResultSet rs = st.executeQuery("SELECT MAX(ID) FROM JUGADOR");
+			int u = 0;
 			while(rs.next()) {
-				return rs.getInt(1)+1;
+				u = rs.getInt(1)+1;
+				rs.close();
+				return u;
 			}
+			rs.close();
 			return 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -329,6 +347,7 @@ public class BD {
 			
 			
 			pst.executeUpdate();
+			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Error al guardar jugador", e);
@@ -343,6 +362,7 @@ public class BD {
 			PreparedStatement pst = conexion.prepareStatement("DELETE FROM JUGADOR WHERE ID=?");
 			pst.setInt(1, j.getID());
 			pst.executeUpdate();
+			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Error al borrar jugador", e);
@@ -362,6 +382,7 @@ public class BD {
 			pst.setString(7, LigaManager.sextoHombre.getNombre());
 			
 			pst.executeUpdate();
+			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Error al guardar temporada", e);
@@ -385,6 +406,7 @@ public class BD {
 			pst.setInt(10, j.getPartidosJugadosTemporada());
 			
 			pst.executeUpdate();
+			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Error al guardar juega", e);
@@ -458,12 +480,15 @@ public class BD {
 							primero = false;
 						} 
 					}
+					rs2.close();
 				} catch(SQLException e2) {
 					e2.printStackTrace();
 					logger.log(Level.SEVERE, "Error al cargar JUEGA de jugador con ID="+j.getID(), e2);
 				}
 				jugadores.add(j);
 			}
+			rs.close();
+			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Error al cargar jugadores", e);
@@ -496,6 +521,8 @@ public class BD {
 				
 				temps.put(anyo, t);
 			}
+			rs.close();
+			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Error al cargar temporadas pasadas", e);
@@ -522,6 +549,7 @@ public class BD {
 				pst.setInt(11, j.getID());
 				pst.executeUpdate();
 			}
+			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Error al actualizar overall de jugadores", e);

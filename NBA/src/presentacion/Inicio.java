@@ -86,8 +86,22 @@ public class Inicio {
 						//todo correcto
 						nombreUsuarioIntroducido = nombreUsuario;
 						recordarUsuario();
-						Usuario u = new Usuario(nombreUsuario, g);
-						new VentanaPrincipal(u, false);
+						VentanaEspera espera = new VentanaEspera();
+						Usuario usuario = new Usuario(nombreUsuario, g);
+						SwingUtilities.invokeLater(new Runnable() {
+
+							@Override
+							public void run() {
+								VentanaPrincipal v = new VentanaPrincipal(usuario, false);
+								espera.setAlwaysOnTop(false);
+								espera.dispose();
+								v.setAlwaysOnTop(true);
+								//v.setVisible(true);
+								v.toFront();
+								v.setAlwaysOnTop(false);
+							}
+							
+						});
 					} else if(g == -1) {
 						//incorrecto
 						JOptionPane.showMessageDialog(null, "Los datos introducidos no son correctos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -138,7 +152,6 @@ public class Inicio {
 								}
 								
 							});
-							//espera.dispose();
 						} else if(r == -1) {
 							//alertar de que ese nombre de usuario ya existe, y volver a empezar
 							JOptionPane.showMessageDialog(null, "Introduce un nombre de usuario que no esté en uso", "Error", JOptionPane.ERROR_MESSAGE);

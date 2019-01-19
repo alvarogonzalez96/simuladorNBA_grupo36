@@ -145,7 +145,7 @@ public class PanelPlayoffs extends PanelTab {
 			espacioX = ancho/3;
 			tam_letra = (int) (alto*0.8);
 			
-			g.setFont(new Font("Impact", Font.BOLD, tam_letra));
+			g.setFont(new Font("Impact", Font.PLAIN, tam_letra));
 			
 			for(Series s: Series.values()) {
 				dibujarSerie(s, g);

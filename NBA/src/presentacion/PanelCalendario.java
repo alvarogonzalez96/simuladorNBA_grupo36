@@ -101,7 +101,7 @@ public class PanelCalendario extends PanelTab {
 	
 	private class AreaCalendario extends JPanel {
 		
-		private int size, tam_letra;
+		private int size, tamLetra;
 		
 		@Override
 		public void paint(Graphics gr) {
@@ -113,7 +113,8 @@ public class PanelCalendario extends PanelTab {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			
 			g.setColor(Color.BLACK);
-			size = (int) (getHeight()*.8/6);
+			size = (int) (Math.min(getWidth(), getHeight())*.8/6);
+			tamLetra = size/5;
 			int marginX = (getWidth()-7*size)/2;
 			int marginY = (getHeight()-6*size)/2;
 			
@@ -130,7 +131,7 @@ public class PanelCalendario extends PanelTab {
 			int diaSemanaInicio = getDiaSemana(dia);
 			
 			//dibujar cabecera (días de la semana)
-			g.setFont(new Font("Arial", Font.PLAIN, 20));
+			g.setFont(new Font("Arial", Font.PLAIN, tamLetra));
 			for(int i = 0; i < 7; i++) {
 				String d;
 				switch(i) {

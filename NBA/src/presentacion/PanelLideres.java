@@ -1,11 +1,13 @@
 package presentacion;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.*;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.CategoryDataset;
@@ -22,6 +24,7 @@ public class PanelLideres extends PanelTab {
 	private JFreeChart chartPuntos, chartRebotes, chartAsistencias;
 	private CategoryDataset datasetPuntos, datasetRebotes, datasetAsistencias;
 	
+	private Jugador[] puntos, rebotes, asistencias;
 	
 	public PanelLideres() {
 		super();
@@ -54,9 +57,7 @@ public class PanelLideres extends PanelTab {
 	}
 
 	@Override
-	protected void setListeners() {
-		// TODO Auto-generated method stub	
-	}
+	protected void setListeners() {}
 
 	@Override
 	protected void seleccionado() {
@@ -69,17 +70,26 @@ public class PanelLideres extends PanelTab {
 		CategoryPlot plotAsistencias = (CategoryPlot) chartAsistencias.getPlot();
 		plotAsistencias.setDataset(datasetAsistencias);
 		
+		BarRenderer rendererPuntos = ((BarRenderer) plotPuntos.getRenderer());
+		BarRenderer rendererRebotes = ((BarRenderer) plotRebotes.getRenderer());
+		BarRenderer rendererAsistencias = ((BarRenderer) plotAsistencias.getRenderer());
+		for(int i = 0; i < 5; i++) {
+			rendererPuntos.setSeriesPaint(i, LigaManager.equipos[puntos[i].getTid()].getColorPrimario());
+			rendererRebotes.setSeriesPaint(i, LigaManager.equipos[rebotes[i].getTid()].getColorPrimario());
+			rendererAsistencias.setSeriesPaint(i, LigaManager.equipos[asistencias[i].getTid()].getColorPrimario());
+			
+		}
+		
 		repaint();
 	}
 	
 	private void cargarDatasets() {
-		Jugador[] puntos, rebotes, asistencias;
 		puntos = LigaManager.getMejoresEn(0);
 		rebotes = LigaManager.getMejoresEn(1);
 		asistencias = LigaManager.getMejoresEn(2);
 		
 		DefaultCategoryDataset dataP, dataR, dataA;
-		dataP= new DefaultCategoryDataset();
+		dataP = new DefaultCategoryDataset();
 		dataR = new DefaultCategoryDataset();
 		dataA = new DefaultCategoryDataset();
 		
