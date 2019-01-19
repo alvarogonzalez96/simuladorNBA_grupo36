@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class PanelPlayoffs extends PanelTab {
-
+	
 	private JPanel panelBotones;
 	private AreaCuadroPlayoffs cuadro;
 	
@@ -129,6 +129,7 @@ public class PanelPlayoffs extends PanelTab {
 
 		private int alto, ancho, marginX, marginY, separacion;
 		private int espacioX;
+		private int tam_letra;
 		
 		@Override
 		public void paint(Graphics gr) {
@@ -142,6 +143,9 @@ public class PanelPlayoffs extends PanelTab {
 			alto = (getHeight()-marginY)/15;
 			separacion = 20;
 			espacioX = ancho/3;
+			tam_letra = (int) (alto*0.8);
+			
+			g.setFont(new Font("Impact", Font.BOLD, tam_letra));
 			
 			for(Series s: Series.values()) {
 				dibujarSerie(s, g);
@@ -172,28 +176,39 @@ public class PanelPlayoffs extends PanelTab {
 		}
 		
 		private void rellenarSerie(Series s, Point a, Point b, Graphics2D g) {
-			//if(LigaManager.fase > 0) {
 			if(LigaManager.playoffs == null) return;
 			if(LigaManager.playoffs.series == null) return;
+
+			Equipo e1, e2;
+			SeriePlayoffs sp = LigaManager.playoffs.series.get(s);
+			if(sp != null) { //comprobar que se existe esa serie
+				e1 = sp.getA();
+				e2 = sp.getB();
 				
-				Equipo e1, e2;
-				SeriePlayoffs sp = LigaManager.playoffs.series.get(s);
-				if(sp != null) { //comprobar que se existe esa serie
-					e1 = sp.getA();
-					e2 = sp.getB();
-					
-					//pintarlos en el cuadro
-					if(s != Series.SEMIS_2_OESTE && s != Series.SEMIS_2_ESTE) {
-						g.drawString(sp.getVictoriasA()+" "+e1.getAbrev(), a.x+5, a.y+20);
-						g.drawString(sp.getVictoriasB()+" "+e2.getAbrev(), b.x+5, b.y+20);
-					} else {
-						g.drawString(sp.getVictoriasA()+" "+e1.getAbrev(), b.x+5, b.y+20);
-						g.drawString(sp.getVictoriasB()+" "+e2.getAbrev(), a.x+5, a.y+20);
-					}
+				//pintarlos en el cuadro
+				if(s != Series.SEMIS_2_OESTE && s != Series.SEMIS_2_ESTE) {
+					g.setColor(e1.getColorPrimario());
+					g.fillRect(a.x+1, a.y+1, ancho-1, alto-1);
+					g.setColor(e2.getColorPrimario());
+					g.fillRect(b.x+1, b.y+1, ancho-1, alto-1);
+					g.setColor(e1.getColorSecundario());
+					g.drawString(sp.getVictoriasA()+" "+e1.getAbrev(), a.x+5, a.y+(int)(alto*0.8));
+					g.setColor(e2.getColorSecundario());
+					g.drawString(sp.getVictoriasB()+" "+e2.getAbrev(), b.x+5, b.y+(int)(alto*0.8));
+				} else {
+					g.setColor(e2.getColorPrimario());
+					g.fillRect(a.x+1, a.y+1, ancho-1, alto-1);
+					g.setColor(e1.getColorPrimario());
+					g.fillRect(b.x+1, b.y+1, ancho-1, alto-1);
+					g.setColor(e1.getColorSecundario());
+					g.drawString(sp.getVictoriasA()+" "+e1.getAbrev(), b.x+5, b.y+(int)(alto*0.8));
+					g.setColor(e2.getColorSecundario());
+					g.drawString(sp.getVictoriasB()+" "+e2.getAbrev(), a.x+5, a.y+(int)(alto*0.8));
 				}
-			//}
+				g.setColor(Color.BLACK);
+			}
 		}
-		
+
 		private int calcularOffset(Series s) {
 			if(s.ordinal() <= 7 ) {
 				//cuartos

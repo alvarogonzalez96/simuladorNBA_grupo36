@@ -82,8 +82,10 @@ public class PanelPlantilla extends PanelTab {
 	@Override
 	protected void initComponentes() {
 		combo = new JComboBox<>();
+		combo.setFont(new Font("Arial", Font.PLAIN, 15));
 		addEquipos();
 		JLabel label = new JLabel("Equipo: ");
+		label.setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		botonMiEquipo = new JButton("Mi equipo");
 		

@@ -70,7 +70,7 @@ public class BD {
 			conexion.setAutoCommit(false);
 			st = conexion.createStatement();
 			logger.log(Level.INFO, "Conexion a la BD exitosa");
-			if(!existeBD) crearTablas();
+			if(!existeBD || !comprobarBDEsCorrecta()) crearTablas();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,6 +108,26 @@ public class BD {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Error al ejecutar rollback", e);
 		}
+	}
+	
+	private static boolean comprobarBDEsCorrecta() {
+		try {
+			PreparedStatement pst = conexion.prepareStatement("SELECT name FROM sqlite_master WHERE type=? AND name=?;");
+			pst.setString(1, "table");
+			String[] noms = new String[] {"USUARIO", "TEMPORADA", "JUGADOR", "JUEGA"};
+			ResultSet rs;
+			for(int i = 0; i < noms.length; i++) {
+				pst.setString(2, noms[i]);
+				rs = pst.executeQuery();
+				if(!rs.next()) return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.WARNING, "Error al comprobar BD existente", e);
+			return false;
+		}
+		
+		return true;
 	}
 
 	// Metodos de registro / login

@@ -12,12 +12,13 @@ import javax.swing.*;
 
 import negocio.*;
 
+@SuppressWarnings("serial")
 public class PanelAgenciaLibre extends PanelTab {
-private ArrayList<Jugador> jugadores;
 	
 	private JPanel panelSeleccion;
 	private JScrollPane scrollTabla;
 	private JTable tabla;
+	private JLabel labelSalarioTotal;
 	
 	public PanelAgenciaLibre() {
 		super();
@@ -26,8 +27,9 @@ private ArrayList<Jugador> jugadores;
 	@Override
 	protected void crearPaneles() {
 		panelSeleccion = new JPanel();
-
-		jugadores = LigaManager.agentesLibres;
+		labelSalarioTotal = new JLabel("Salario total de mi equipo: "+LigaManager.usuario.getEquipo().calcSalarioTotal());
+		labelSalarioTotal.setFont(new Font("Arial", Font.PLAIN, 20));
+		
 		tabla = new JTable();
 		tabla.setRowHeight(50);
 		tabla.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -38,6 +40,7 @@ private ArrayList<Jugador> jugadores;
 		tabla.getColumnModel().getColumn(0).setMinWidth(200);
 		scrollTabla.getViewport().setBackground(Color.WHITE);
 		
+		panelSeleccion.add(labelSalarioTotal);
 		add(panelSeleccion, BorderLayout.NORTH);
 		add(scrollTabla, BorderLayout.CENTER);
 	}
@@ -67,6 +70,8 @@ private ArrayList<Jugador> jugadores;
 
 	@Override
 	protected void seleccionado() {
+		labelSalarioTotal.setText("Salario total de mi equipo: "+LigaManager.usuario.getEquipo().calcSalarioTotal());
+		tabla.repaint();
 		repaint();
 	}
 }

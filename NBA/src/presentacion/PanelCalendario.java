@@ -100,6 +100,9 @@ public class PanelCalendario extends PanelTab {
 	}
 	
 	private class AreaCalendario extends JPanel {
+		
+		private int size, tam_letra;
+		
 		@Override
 		public void paint(Graphics gr) {
 			Graphics2D g = (Graphics2D) gr;
@@ -110,7 +113,7 @@ public class PanelCalendario extends PanelTab {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			
 			g.setColor(Color.BLACK);
-			int size = (int) (getHeight()*.8/6);
+			size = (int) (getHeight()*.8/6);
 			int marginX = (getWidth()-7*size)/2;
 			int marginY = (getHeight()-6*size)/2;
 			
@@ -193,9 +196,9 @@ public class PanelCalendario extends PanelTab {
 						if(jugado && LigaManager.calendario.diaActual.after(dia)) {
 							if(ganado) {
 								//pintar de verde
-								g.setColor(Color.GREEN);
+								g.setColor(new Color(81, 247, 134)); // verde
 							} else {
-								g.setColor(Color.RED);
+								g.setColor(new Color(249, 64, 98)); //rojo
 							}
 							g.fillRect(marginX+d*size + 1, marginY+w*size+1, size-1, size-1);
 							g.setColor(Color.BLACK);

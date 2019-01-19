@@ -70,10 +70,12 @@ public class PanelFinanzas extends PanelTab {
 	@Override
 	protected void initComponentes() {
 		combo = new JComboBox<>();
+		combo.setFont(new Font("Arial", Font.PLAIN, 15));
 		for(Equipo e: equipos) {
 			combo.addItem(e.getNombre());
 		}
 		JLabel label = new JLabel("Equipo: ");
+		label.setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		botonMiEquipo = new JButton("Mi equipo");
 		
@@ -89,6 +91,8 @@ public class PanelFinanzas extends PanelTab {
 		
 		labelSalarioTotal = new JLabel("Salario total: "+getEquipoSeleccionado(combo.getSelectedIndex()).calcSalarioTotal());
 		JLabel labelLimite = new JLabel("Límite salarial: "+Equipo.limiteSalarial);
+		labelSalarioTotal.setFont(new Font("Arial", Font.PLAIN, 20));
+		labelLimite.setFont(new Font("Arial", Font.PLAIN, 20));
 		panelSeleccion.add(labelLimite);
 		panelSeleccion.add(labelSalarioTotal);
 		

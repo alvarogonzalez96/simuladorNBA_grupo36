@@ -1,5 +1,6 @@
 package negocio;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.event.TableModelListener;
@@ -34,6 +35,8 @@ public class Equipo {
 	protected int defensa;
 	protected int overall;
 	int tid;
+	
+	protected Color colorPrimario, colorSecundario;
 	
 	public Equipo(int tid, ArrayList<Jugador> jugadores) {
 		super();
@@ -82,6 +85,8 @@ public class Equipo {
 		int did = json.getInt("did");
 		this.division = ordinalADivision(did);
 		this.jugadores = new ArrayList<>();
+		this.colorPrimario = parseaColor(json.getString("prim_col"));
+		this.colorSecundario = parseaColor(json.getString("sec_col"));
 	}
 	
 	/**
@@ -314,6 +319,29 @@ public class Equipo {
 			modeloFinanzas = new ModeloFinanzasEquipo();
 		}
 		return modeloFinanzas;
+	}
+	
+	public Color getColorPrimario() {
+		return this.colorPrimario;
+	}
+	
+	public Color getColorSecundario() {
+		return this.colorSecundario;
+	}
+	
+	private Color parseaColor(String s) {
+		int r, g, b;
+		
+		String[] rgb = s.split(",");
+		try {
+			r = Integer.parseInt(rgb[0]);
+			g = Integer.parseInt(rgb[1]);
+			b = Integer.parseInt(rgb[2]);
+		} catch(Exception e) {
+			return Color.BLACK;
+		}
+		
+		return new Color(r,g,b);
 	}
 	
 	public class ModeloFinanzasEquipo implements TableModel{
