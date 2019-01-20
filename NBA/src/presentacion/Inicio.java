@@ -107,7 +107,7 @@ public class Inicio {
 						ventanaInicio();
 					} else {
 						//error interno
-						JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta el archivo log para más informacion", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Ha habido un error interno. Consulta los ficheros log para más informacion", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}

@@ -40,7 +40,7 @@ public class PanelTraspasos extends PanelTab{
 	private JPanel izq, dcha;
 	private JPanel auxArribaNorte, auxArribaSur, auxAbajo;
 	
-	private 	Integer[] contadorLiga, contadorUsuario;
+	private Integer[] contadorLiga, contadorUsuario;
 	
 	private TableModel modeloJugadoresUsuario, modeloJugadoresLiga;
 	
@@ -226,6 +226,8 @@ public class PanelTraspasos extends PanelTab{
 	}
 	
 	private void resetearContadores() {
+		//contadorLiga = new Integer[5];
+		//contadorUsuario = new Integer[5];
 		for (int i = 0; i < contadorLiga.length; i++) {
 			contadorUsuario[i] = 0;
 		}	
@@ -334,19 +336,30 @@ public class PanelTraspasos extends PanelTab{
 		} else if(jugadoresOfreceUsuario.size() > 0) {
 			numero = jugadoresOfreceUsuario.size();
 			jugOfrecido = 0;
+			
+			
+			contadorLiga = new Integer[5];
+			contadorUsuario = new Integer[5];
+			for (int i = 0; i < contadorUsuario.length; i++) {
+				contadorLiga[i] = 0;
+				contadorUsuario[i] = 0;
+			}
+			contadorUsuario = LigaManager.contarPosiciones(equipoUsuario, contadorUsuario);
+			contadorLiga = LigaManager.contarPosiciones(equipoSeleccionado, contadorLiga);
+			
 			while(numero > 0) {
 
-				contadorLiga = new Integer[5];
-				contadorUsuario = new Integer[5];
-
-				for (int i = 0; i < contadorUsuario.length; i++) {
-					contadorLiga[i] = 0;
-					contadorUsuario[i] = 0;
-				}
-				contadorUsuario = LigaManager.contarPosiciones(equipoUsuario, contadorUsuario);
-				contadorLiga = LigaManager.contarPosiciones(equipoSeleccionado, contadorLiga);
 				dineroDisponibleUsuario = calcularDineroDisponible(equipoUsuario, jugadoresOfreceUsuario);
 
+//				contadorLiga = new Integer[5];
+//				contadorUsuario = new Integer[5];
+//				for (int i = 0; i < contadorUsuario.length; i++) {
+//					contadorLiga[i] = 0;
+//					contadorUsuario[i] = 0;
+//				}
+//				contadorUsuario = LigaManager.contarPosiciones(equipoUsuario, contadorUsuario);
+//				contadorLiga = LigaManager.contarPosiciones(equipoSeleccionado, contadorLiga);
+				
 				for (Jugador j : equipoSeleccionado.getJugadores()) {
 					ArrayList<Jugador> jug = new ArrayList<>();
 					jug.add(j);
@@ -357,25 +370,30 @@ public class PanelTraspasos extends PanelTab{
 							if((dineroDisponibleLiga + jugadoresOfreceUsuario.get(jugOfrecido).getSalario() >= 0 && (dineroDisponibleUsuario + j.getSalario()) >= 0)) {
 								if(((j.getOverall() > jugadoresOfreceUsuario.get(jugOfrecido).getOverall() - 3) && (j.getOverall() < jugadoresOfreceUsuario.get(jugOfrecido).getOverall() + 3))) {
 									//El jugador elegido tiene un overall en torno al overall ofrecido
-									if(j.getPosicion().equals(Posicion.BASE) && contadorLiga[0] >= 2) {
+									if(j.getPosicion().equals(Posicion.BASE) && (contadorLiga[0] > 2 || j.getPosicion().equals(jugadoresOfreceUsuario.get(jugOfrecido).getPosicion()))) {
 										//Es base y no hay carencia de bases
 										jugadoresOfreceLiga.add(j);	
+										contadorLiga[0]--;
 										break;
-									} else if(j.getPosicion().equals(Posicion.ESCOLTA) && contadorLiga[1] >= 2) {
+									} else if(j.getPosicion().equals(Posicion.ESCOLTA) && (contadorLiga[1] > 2 || j.getPosicion().equals(jugadoresOfreceUsuario.get(jugOfrecido).getPosicion()))) {
 										//Es escolta y no hay carencia de escoltas
 										jugadoresOfreceLiga.add(j);
+										contadorLiga[1]--;
 										break;
-									} else if(j.getPosicion().equals(Posicion.ALERO) && contadorLiga[2] >= 2) {
+									} else if(j.getPosicion().equals(Posicion.ALERO) && (contadorLiga[2] > 2 || j.getPosicion().equals(jugadoresOfreceUsuario.get(jugOfrecido).getPosicion()))) {
 										//Es alero y no hay carencia de aleros
 										jugadoresOfreceLiga.add(j);
+										contadorLiga[2]--;
 										break;
-									} else if(j.getPosicion().equals(Posicion.ALAPIVOT) && contadorLiga[3] >= 2) {
+									} else if(j.getPosicion().equals(Posicion.ALAPIVOT) && (contadorLiga[3] > 2 || j.getPosicion().equals(jugadoresOfreceUsuario.get(jugOfrecido).getPosicion()))) {
 										//Es alapivot y no hay carencia de alapivots
 										jugadoresOfreceLiga.add(j);
+										contadorLiga[3]--;
 										break;
-									} else if(j.getPosicion().equals(Posicion.PIVOT) && contadorLiga[4] >= 2) {
+									} else if(j.getPosicion().equals(Posicion.PIVOT) && (contadorLiga[4] > 2 || j.getPosicion().equals(jugadoresOfreceUsuario.get(jugOfrecido).getPosicion()))) {
 										//Es pivot y no hay carencia de pivots
 										jugadoresOfreceLiga.add(j);
+										contadorLiga[4]--;
 										break;
 									} 
 								} else {
@@ -426,8 +444,10 @@ public class PanelTraspasos extends PanelTab{
 	
 	@Override
 	protected void seleccionado() {
-		// TODO Auto-generated method stub
-		
+		jugadoresOfreceUsuario.clear();
+		jugadoresOfreceLiga.clear();
+		actualizarCombo();
+		repaint();
 	}
 	
 	public TableModel getModeloLiga() {
