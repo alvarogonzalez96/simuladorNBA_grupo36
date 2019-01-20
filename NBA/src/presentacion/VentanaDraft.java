@@ -132,16 +132,18 @@ public class VentanaDraft extends JFrame {
 					Point p = e.getPoint();
 					int row = tablaJugadores.rowAtPoint(p);
 					if(tablaJugadores.getSelectedRow() != -1 && e.getClickCount() >= 2) {
-						Jugador j = draft.get(row);
-						int opcion = JOptionPane.showConfirmDialog(null,  "Deseas seleccionar a "+j.getNombre()+"?");
-						if(opcion == JOptionPane.YES_OPTION) {
-							seleccionar(j, LigaManager.usuario.getEquipo());
-							repaint();
-							indice++;
-							turnoUsuario = false;
-							hilo.interrupt();
-							initHilo();
-							hilo.start();
+						if(row >= 0 && row < draft.size()) {
+							Jugador j = draft.get(row);
+							int opcion = JOptionPane.showConfirmDialog(null,  "Deseas seleccionar a "+j.getNombre()+"?");
+							if(opcion == JOptionPane.YES_OPTION) {
+								seleccionar(j, LigaManager.usuario.getEquipo());
+								repaint();
+								indice++;
+								turnoUsuario = false;
+								hilo.interrupt();
+								initHilo();
+								hilo.start();
+							}
 						}
 					}
 				}
