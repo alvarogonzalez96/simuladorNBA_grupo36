@@ -110,7 +110,7 @@ public class VentanaPrincipal extends JFrame {
 		plantilla.seleccionarEquipo(LigaManager.usuario.getEquipo().getTid());
 		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setTitle("NBA");
+		this.setTitle("Simulador NBA");
 		this.pack();
 		this.setVisible(true);
 	}

@@ -267,7 +267,7 @@ public class PanelHome extends PanelTab {
 	}
 	
 	private void initBotones() {
-		botonDia = new JButton("Simular partido");
+		botonDia = new JButton("Simular día");
 		botonSem = new JButton("Simular semana");
 		botonMes = new JButton("Simular mes");
 		botonDia.setFont(new Font("Arial", Font.PLAIN, 15));

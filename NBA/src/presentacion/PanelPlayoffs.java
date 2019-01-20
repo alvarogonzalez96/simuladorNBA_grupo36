@@ -56,7 +56,7 @@ public class PanelPlayoffs extends PanelTab {
 		botonPartido.setEnabled(false);
 		botonPlayoffs.setEnabled(false);
 		//la fase de LigaManager la incrementa la propia clase playoffs
-		JOptionPane.showMessageDialog(null, "Campeón: "+LigaManager.campeon.getNombre(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Campeón: "+LigaManager.campeon.getNombre(), "Fin de Play Offs", JOptionPane.INFORMATION_MESSAGE);
 		LigaManager.guardarDatosFinTemporada();
 		ArrayList<Jugador> retiradosUsuario = LigaManager.jubilar();
 		avisarJubilados(retiradosUsuario);

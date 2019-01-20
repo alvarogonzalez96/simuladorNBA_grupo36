@@ -22,8 +22,10 @@ public class VentanaHTML extends JFrame {
 		String dir;
 		if(tipo == AYUDA) {
 			dir = "data/ayuda.html";
+			setTitle("Ayuda");
 		} else {
 			dir = "data/acercaDe.html";
+			setTitle("Acerca de");
 		}
 		
 		pane = new JEditorPane();
