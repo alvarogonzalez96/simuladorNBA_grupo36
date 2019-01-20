@@ -101,8 +101,8 @@ public class PanelClasificacion extends PanelTab {
 		panelCentral.add(new JLabel("CENTRAL"), BorderLayout.NORTH);
 		panelSureste.add(new JLabel("SURESTE"), BorderLayout.NORTH);
 		
-		panelDerechaArriba.add(new JLabel("OESTE"), BorderLayout.NORTH);
-		panelIzquierdaArriba.add(new JLabel("ESTE"), BorderLayout.NORTH);
+		panelDerechaArriba.add(new JLabel("ESTE"), BorderLayout.NORTH);
+		panelIzquierdaArriba.add(new JLabel("OESTE"), BorderLayout.NORTH);
 		
 		panelIzquierda.add(panelIzquierdaArriba);
 		panelIzquierda.add(panelIzquierdaAbajo);
@@ -116,10 +116,7 @@ public class PanelClasificacion extends PanelTab {
 	}
 
 	@Override
-	protected void setListeners() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void setListeners() {}
 
 	@Override
 	protected void seleccionado() {
