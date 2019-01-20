@@ -1,7 +1,6 @@
 package presentacion;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.text.ParseException;
@@ -228,13 +227,6 @@ public class PanelCalendario extends PanelTab {
 		private int getDia(Date d) {
 			Calendar c = Calendar.getInstance();
 			c.setTime(d);
-			return c.get(Calendar.DAY_OF_MONTH);
-		}
-		
-		private int getDiaAnterior(Date d) {	
-			Calendar c = Calendar.getInstance();
-			c.setTime(d);
-			c.add(Calendar.DATE, -1);
 			return c.get(Calendar.DAY_OF_MONTH);
 		}
 		

@@ -1,7 +1,5 @@
 package negocio;
 
-import java.util.*;
-
 public class Temporada {
 
 	/**

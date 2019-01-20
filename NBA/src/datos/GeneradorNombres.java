@@ -51,6 +51,7 @@ public class GeneradorNombres {
 				lista.add(linea.substring(0, 1).toUpperCase() + linea.substring(1).toLowerCase());
 				linea = br.readLine();
 			}
+			br.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

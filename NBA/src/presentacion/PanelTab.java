@@ -5,8 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import negocio.LigaManager;
-
+@SuppressWarnings("serial")
 public abstract class PanelTab extends JPanel {
 
 	public PanelTab() {

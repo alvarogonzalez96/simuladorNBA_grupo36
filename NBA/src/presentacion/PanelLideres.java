@@ -1,6 +1,5 @@
 package presentacion;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -17,6 +16,7 @@ import negocio.Calendario;
 import negocio.Jugador;
 import negocio.LigaManager;
 
+@SuppressWarnings("serial")
 public class PanelLideres extends PanelTab {
 
 	private JPanel panelPrincipal;

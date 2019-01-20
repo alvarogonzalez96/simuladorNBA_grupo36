@@ -2,18 +2,16 @@ package presentacion;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 
-import datos.BD;
 import negocio.Equipo;
-import negocio.Renovacion;
 import negocio.Jugador;
 import negocio.LigaManager;
 
+@SuppressWarnings("serial")
 public class VentanaJugador extends JFrame {
 	
 	Jugador jugador;

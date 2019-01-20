@@ -4,13 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 
 import javax.swing.*;
 
-import negocio.LigaManager;
-
+@SuppressWarnings("serial")
 public class VentanaEspera extends JWindow {
 
 	JLabel texto;

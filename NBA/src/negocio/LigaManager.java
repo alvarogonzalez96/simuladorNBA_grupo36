@@ -2,16 +2,12 @@ package negocio;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.SwingUtilities;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
@@ -20,11 +16,7 @@ import org.json.JSONObject;
 
 import datos.BD;
 import datos.ParseadorJSON;
-import negocio.Equipo.ModeloFinanzasEquipo;
-import negocio.Equipo.ModeloTablaEquipo;
-import negocio.Renovacion;
 import presentacion.PanelTraspasos;
-import presentacion.VentanaEspera;
 
 public class LigaManager {
 
@@ -51,11 +43,7 @@ public class LigaManager {
 	/*
 	 * 	fase 0: temporada regular
 		fase 1: playoffs
-		fase 2: draft
-		fase 3: jubilar
-		fase 4: renovaciones
-		fase 5: agencia libre
-		volver a empezar
+		fase > 1: postemporada
 	 */
 	
 	static final int limiteJugadoresPorPosicionAgenciaLibre = 150;

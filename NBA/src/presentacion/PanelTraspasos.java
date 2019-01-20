@@ -7,18 +7,15 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.swing.table.TableModel;
 
-import datos.BD;
 import negocio.*;
-import negocio.Equipo.ModeloFinanzasEquipo;
 
+@SuppressWarnings("serial")
 public class PanelTraspasos extends PanelTab{
 	
 	private Equipo[] equipos;

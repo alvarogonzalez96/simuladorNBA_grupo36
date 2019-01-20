@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
 import datos.BD;
 

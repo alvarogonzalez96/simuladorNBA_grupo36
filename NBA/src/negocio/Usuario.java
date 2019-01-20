@@ -1,7 +1,5 @@
 package negocio;
 
-import datos.BD;
-
 public class Usuario {
 
 	protected String username;
