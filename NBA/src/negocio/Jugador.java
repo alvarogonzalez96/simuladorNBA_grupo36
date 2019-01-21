@@ -86,6 +86,7 @@ public class Jugador {
 	public Jugador(Jugador a, Jugador b) {
 		if(a.posicion != b.posicion) {
 			System.err.println("Error en el constructor de jugador.");
+			return;
 		}
 		do { //evitar que haya dos jugadores con el mismo nombre
 			this.nombre = GeneradorNombres.getNombreCompleto();

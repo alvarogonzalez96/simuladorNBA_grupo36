@@ -127,7 +127,6 @@ public class VentanaJugador extends JFrame {
 						cantidad = Integer.parseInt(inputCantidad.getText());
 						anyos = sliderAnyos.getValue();
 						int of = aceptaOferta(jugador, cantidad, anyos);
-						System.out.println(of);
 						if(of == 1) {
 							int opcion = JOptionPane.showConfirmDialog(null, jugador.getNombre()+" ha aceptado tu oferta. ¿Deseas ficharlo?");
 							if(opcion == JOptionPane.YES_OPTION) {
