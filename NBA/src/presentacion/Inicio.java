@@ -60,7 +60,7 @@ public class Inicio {
 		String nombreUsuario = "*";
 		String contrasenya = null;
 
-		respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, ¿ya tienes una cuenta?");
+		respuesta = JOptionPane.showConfirmDialog(null, "Bienvenido a Simulador NBA, ¿ya tienes una cuenta?", "Bienvenido", JOptionPane.YES_NO_CANCEL_OPTION);
 		/*
 		 * respuesta = 0 --> sí
 		 * respuesta = 1 --> no

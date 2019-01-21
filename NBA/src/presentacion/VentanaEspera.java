@@ -34,10 +34,6 @@ public class VentanaEspera extends JWindow {
 		setAlwaysOnTop(true);
 		p.setBackground(Color.WHITE);
 		setVisible(true);
-	}	
-	
-	public static void main(String[] args) {
-		new VentanaEspera();
 	}
 	
 }

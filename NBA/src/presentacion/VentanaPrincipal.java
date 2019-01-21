@@ -34,6 +34,8 @@ public class VentanaPrincipal extends JFrame {
 	PanelClasificacion clasificacion;
 	PanelPlayoffs playoffs;
 	PanelPlantilla plantilla;
+	PanelTraspasos traspasos;
+	PanelAgenciaLibre agencialibre;
 	
 	private VentanaHTML ventanaAyuda, ventanaAcercaDe;
 	
@@ -77,10 +79,10 @@ public class VentanaPrincipal extends JFrame {
 		finanzas = new PanelFinanzas();
 		tabbedPane.addTab("Finanzas", null, finanzas, null);
 		
-		JPanel traspasos = new PanelTraspasos();
+		traspasos = new PanelTraspasos();
 		tabbedPane.addTab("Traspasos", null, traspasos, null);
 		
-		JPanel agencialibre = new PanelAgenciaLibre();
+		agencialibre = new PanelAgenciaLibre();
 		tabbedPane.addTab("Agencia libre", null, agencialibre, null);
 		
 		historialLiga = new PanelHistorial();
@@ -147,7 +149,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		itemLogout.addActionListener(
 				(ActionEvent e) -> {
-					//cerrar sesión, cerrar la ventana principal
 					dispose();
 				});
 	}

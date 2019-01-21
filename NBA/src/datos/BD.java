@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -559,7 +560,17 @@ public class BD {
 	}
 	
 	public static void main(String[] args) {
-		conectar();
-		crearTablas();
+		System.out.println("¿Seguro que deseas resetear la BD? (y/n)");
+		Scanner sc = new Scanner(System.in);
+		String res = sc.nextLine();
+		if(res.toLowerCase().startsWith("y")) {
+			conectar();
+			crearTablas();
+			desconectar();
+			System.out.println("Se ha reseteado la BD");
+		} else {
+			System.out.println("No se ha resetado la BD");
+		}
+		sc.close();
 	}
 }

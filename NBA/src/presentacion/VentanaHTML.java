@@ -45,7 +45,6 @@ public class VentanaHTML extends JFrame {
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		pack();
-		//setVisible(true);
 	}
 	
 	@Override 
@@ -53,7 +52,7 @@ public class VentanaHTML extends JFrame {
 	    super.setVisible(visible);
 
 	    if (visible == true) {
-	      scroll.getVerticalScrollBar().setValue(0);    // scroll bar to top
+	      scroll.getVerticalScrollBar().setValue(0);
 	      scroll.repaint();
 	    }
 	  }
