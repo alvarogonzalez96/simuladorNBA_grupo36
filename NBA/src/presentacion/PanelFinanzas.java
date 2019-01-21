@@ -113,7 +113,7 @@ public class PanelFinanzas extends PanelTab {
 		try {
 			Thread.sleep(5);
 		} catch (InterruptedException e) {}
-		if(n == 0) n = 30;
+		if(n == 0) n = 29;
 		else n--;
 		indiceSeleccionado = n;
 		combo.setSelectedIndex(indiceSeleccionado);
